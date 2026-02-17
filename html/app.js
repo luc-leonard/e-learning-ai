@@ -95,16 +95,17 @@ function showModule(moduleId) {
 }
 
 function updateProgress(moduleId) {
-  const moduleMap = { module0: 1, module1: 2, module2: 3 };
+  const moduleMap = { module0: 1, module1: 2, module2: 3, projet1: 4 };
   const current = moduleMap[moduleId] || 1;
-  const total = 3;
+  const total = 4;
   const pct = Math.round((current / total) * 100);
 
   const fill = document.querySelector('.progress-fill');
   if (fill) fill.style.width = pct + '%';
 
   const label = document.querySelector('.progress-label');
-  if (label) label.textContent = `Module ${current - 1} sur ${total - 1}`;
+  const labels = { module0: 'Module 0', module1: 'Module 1', module2: 'Module 2', projet1: 'Projet libre 1' };
+  if (label) label.textContent = `${labels[moduleId] || moduleId} — ${pct}%`;
 }
 
 // ===== SPOILER / COLLAPSIBLE =====
@@ -183,7 +184,7 @@ function closeMobileMenu() {
 
 // ===== SCROLL SPY =====
 function initScrollSpy() {
-  const sections = document.querySelectorAll('[id^="m0-"], [id^="m1-"], [id^="m2-"]');
+  const sections = document.querySelectorAll('[id^="m0-"], [id^="m1-"], [id^="m2-"], [id^="p1-"]');
   if (!sections.length) return;
 
   const observer = new IntersectionObserver(entries => {
