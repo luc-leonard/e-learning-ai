@@ -6,12 +6,12 @@
 
 ## Ce que vous savez déjà
 
-Vous savez découper un projet en parties (Module 1). Vous savez décrire comment ces parties travaillent ensemble et ce qui se passe quand ça rate (Module 2). Votre plan ressemble maintenant à un vrai document de plusieurs pages.
+Vous savez découper un projet en parties (Module 1). Vous savez décrire comment ces parties travaillent ensemble et ce qui se passe quand ça rate (Module 2). Votre `plan.md` ressemble maintenant à un vrai document de plusieurs pages — parties, parcours, cas d'erreur.
 
 Et c'est là le problème.
 
-**Durée :** 2-3 heures
-**Ce qu'il vous faut :** Votre plan des Modules 1 et 2, un compte Claude, votre carnet
+**Durée :** 3-4 heures (en une ou deux sessions)
+**Ce qu'il vous faut :** Votre projet du Module 2 (avec `plan.md`), Claude Code, votre carnet
 
 ---
 
@@ -23,7 +23,7 @@ Vous êtes perdu dans une ville que vous ne connaissez pas. Vous avez besoin d'u
 
 **Option B :** Votre téléphone, avec Google Maps. Quand vous êtes dézoomé, vous voyez les quartiers. Quand vous zoomez, vous voyez les rues. Vous ne voyez jamais tout en même temps, mais vous voyez toujours **ce dont vous avez besoin au bon moment**.
 
-En ce moment, votre plan c'est l'Option A. Tout est dedans — parties, parcours, détails — et vous collez le tout au début de chaque message. Plus le projet grandit, plus le plan grandit, et plus Claude a du mal à s'y retrouver. Exactement comme vous avec la carte du monde imprimée en A4.
+En ce moment, votre `plan.md` c'est l'Option A. Tout est dedans — parties, parcours, détails — et Claude Code le lit en entier à chaque nouvelle conversation. Plus le projet grandit, plus le plan grandit, et plus Claude a du mal à s'y retrouver. Exactement comme vous avec la carte du monde imprimée en A4.
 
 Ce module va vous apprendre à transformer votre plan en Option B : un système à **niveaux de zoom** qui montre à Claude exactement ce dont il a besoin, ni plus, ni moins.
 
@@ -33,24 +33,23 @@ Ce module va vous apprendre à transformer votre plan en Option B : un système 
 
 ### Ce que vous allez faire
 
-Reprenez votre plan complet (parties + parcours). Ouvrez une **nouvelle conversation** avec Claude et collez TOUT — le plan entier — suivi d'une demande précise sur une seule partie :
+Ouvrez le terminal intégré de VSCode et lancez Claude Code :
 
-> Voici le plan complet de mon application :
->
-> [collez TOUT : les parties, les parcours, tout]
->
-> Je veux que tu améliores la partie "Prêts". Quand un membre demande à emprunter un livre, le propriétaire doit pouvoir accepter ou refuser. Si le propriétaire ne répond pas en 3 jours, la demande est automatiquement annulée. Implémente ça.
+```bash
+claude
+```
 
-Ensuite, demandez des améliorations à d'autres parties, toujours en collant le plan entier à chaque fois :
+Commencez par demander à Claude de lire tout le plan, puis de travailler sur une seule partie :
 
-> [plan entier]
-> Maintenant améliore la partie "Réunions" : ajoute la possibilité de mettre une réunion en liste d'attente quand elle est pleine.
+> Lis plan.md en entier. Je veux que tu améliores la partie "Prêts". Quand un membre demande à emprunter un livre, le propriétaire doit pouvoir accepter ou refuser. Si le propriétaire ne répond pas en 3 jours, la demande est automatiquement annulée. Implémente ça.
 
-> [plan entier]
-> Maintenant améliore la partie "Statistiques" : ajoute un classement des membres les plus actifs par chapitre.
+Lancez le site et vérifiez. Puis continuez avec d'autres demandes, en lui faisant relire le plan à chaque fois :
 
-> [plan entier]
-> Maintenant améliore la partie "Livres" : quand un livre est proposé, vérifie automatiquement s'il existe déjà dans un autre chapitre et propose de le récupérer au lieu de créer un doublon.
+> Relis plan.md. Maintenant améliore la partie "Réunions" : ajoute la possibilité de mettre une réunion en liste d'attente quand elle est pleine.
+
+> Relis plan.md. Maintenant améliore la partie "Statistiques" : ajoute un classement des membres les plus actifs par chapitre.
+
+> Relis plan.md. Maintenant améliore la partie "Livres" : quand un livre est proposé, vérifie automatiquement s'il existe déjà dans un autre chapitre et propose de le récupérer au lieu de créer un doublon.
 
 ### 🔴 Ce que vous devez surveiller
 
@@ -60,9 +59,6 @@ Le plan est trop long. Claude ne vous le dit pas, mais il commence à "survoler"
 **🚩 Claude modifie des parties que vous n'avez pas demandé de toucher.**
 Vous lui demandez de travailler sur "Prêts", mais il change quelque chose dans "Comptes" ou "Notifications" sans prévenir, parce qu'il a lu tout le plan et s'est dit que c'était lié.
 
-**🚩 Vous passez plus de temps à gérer le plan qu'à avancer.**
-Coller le plan entier prend de la place. Relire les réponses de Claude pour vérifier qu'il n'a rien cassé ailleurs prend du temps. Vous commencez à sentir que le plan, censé vous aider, devient un poids.
-
 **🚩 Claude vous donne des réponses de plus en plus longues et vagues.**
 Quand il reçoit beaucoup d'information, Claude essaie de tout prendre en compte. Résultat : des réponses diluées qui parlent de tout sans rien faire de précis.
 
@@ -70,17 +66,17 @@ Quand il reçoit beaucoup d'information, Claude essaie de tout prendre en compte
 
 > ✍️ Est-ce que Claude a respecté le plan ou est-ce qu'il a pris des libertés ?
 > ✍️ Avez-vous eu l'impression qu'il lisait vraiment tout le plan ou qu'il survolait ?
-> ✍️ Combien de temps passez-vous à coller le plan et vérifier les réponses par rapport au temps que Claude passe à coder ?
+> ✍️ Est-ce que Claude a modifié des fichiers qui n'avaient rien à voir avec votre demande ?
 
 ---
 
-## Étape 2 — Comprendre le problème (20 min)
+## Étape 2 — Comprendre le problème (15 min)
 
 ### Lisez ceci APRÈS avoir fait l'étape 1
 
 Le Module 1 a résolu le problème de l'amnésie de Claude (en lui donnant un plan). Le Module 2 a résolu le problème de l'ordre des opérations (en décrivant des parcours). Maintenant, le problème c'est **le bruit**.
 
-Quand vous collez votre plan entier pour travailler sur la partie "Prêts", vous donnez à Claude une tonne d'information sur les Comptes, les Réunions, les Statistiques, les Notifications... dont il n'a pas besoin. C'est comme si vous demandiez à un plombier de réparer un robinet et que vous lui donniez les plans de toute la maison, y compris le circuit électrique du grenier et la disposition des meubles du salon.
+Quand Claude lit `plan.md` en entier pour travailler sur la partie "Prêts", il avale une tonne d'information sur les Comptes, les Réunions, les Statistiques, les Notifications... dont il n'a pas besoin. C'est comme si vous demandiez à un plombier de réparer un robinet et que vous lui donniez les plans de toute la maison, y compris le circuit électrique du grenier et la disposition des meubles du salon.
 
 Le plombier va peut-être quand même trouver le robinet. Mais il va perdre du temps à comprendre ce qui est pertinent. Et il risque de se dire "tiens, tant que j'y suis, je vais déplacer ce tuyau dans la salle de bain" — alors que vous ne lui avez rien demandé.
 
@@ -93,40 +89,53 @@ Il n'a pas besoin de savoir combien de prises il y a dans le salon. Il a besoin 
 
 ---
 
-## Étape 3 — Créer les fiches (45 min)
+## Étape 3 — Créer les fiches (60 min)
 
 ### L'idée clé
 
-Vous allez transformer votre plan en **deux niveaux** :
+Vous allez transformer votre `plan.md` en **plusieurs fichiers** organisés sur deux niveaux :
 
-**Niveau 1 — La vue d'ensemble.** Une version courte du plan qui tient en une vingtaine de lignes. Pour chaque partie, juste le nom, une phrase sur ce qu'elle fait, et surtout : **ce qu'on peut lui demander et ce qu'elle répond**. Pas les détails internes.
+**Niveau 1 — La vue d'ensemble** (`plan.md`). Une version courte qui tient en une vingtaine de lignes. Pour chaque partie, juste le nom, une phrase sur ce qu'elle fait, et surtout : **ce qu'on peut lui demander et ce qu'elle répond**. Pas les détails internes.
 
-**Niveau 2 — Les fiches détaillées.** Une fiche par partie, avec tous les détails internes, les parcours qui la concernent, ses règles. Vous ne collez qu'une fiche à la fois — celle de la partie sur laquelle vous travaillez.
+**Niveau 2 — Les fiches détaillées** (un fichier par partie, dans un dossier `fiches/`). Chaque fiche contient tous les détails internes d'une partie, les parcours qui la concernent, ses règles. Claude ne lira qu'une fiche à la fois — celle de la partie sur laquelle vous travaillez.
 
-### Ce que vous allez faire
+### Préparer les dossiers
 
-Ouvrez une **nouvelle conversation** avec Claude :
+Créez le dossier pour les fiches :
 
-> Voici le plan complet de mon application :
-> [collez le plan entier une dernière fois]
+```bash
+mkdir fiches
+```
+
+Vous devriez le voir apparaître dans le panneau gauche de VSCode.
+
+### Demander à Claude de restructurer
+
+Quittez Claude Code (`/exit`) et relancez-le pour repartir frais :
+
+```bash
+claude
+```
+
+Demandez-lui :
+
+> Lis plan.md. Il contient le plan complet de mon application : les parties et les parcours. J'ai besoin de le transformer en deux niveaux.
 >
-> J'ai besoin de transformer ce plan en deux niveaux.
->
-> NIVEAU 1 — La vue d'ensemble : un résumé court de toute l'application. Pour chaque partie, écris seulement :
+> NIVEAU 1 — Réécris plan.md pour n'y garder que la vue d'ensemble. Pour chaque partie, écris seulement :
 > - Son nom
 > - Ce qu'elle fait (une phrase)
 > - Sa "porte d'entrée" : la liste des demandes qu'on peut lui faire, et ce qu'elle répond. Comme un guichet : "vous pouvez me demander X, je vous répondrai Y."
 >
-> NIVEAU 2 — Une fiche par partie. Chaque fiche contient :
+> NIVEAU 2 — Crée une fiche par partie dans le dossier fiches/. Chaque fiche est un fichier séparé (par exemple fiches/prets.md, fiches/comptes.md, etc.). Chaque fiche contient :
 > - Tout le détail interne de la partie
 > - Les parcours dans lesquels elle intervient
 > - Ses règles spécifiques
 >
 > Écris tout ça en français simple.
 
-### Ce que Claude va vous donner
+### Ce que Claude va créer
 
-**Le niveau 1** ressemblera à ça :
+**`plan.md`** (la vue d'ensemble) ressemblera à ça :
 
 ```
 VUE D'ENSEMBLE — Club de lecture
@@ -161,7 +170,7 @@ Porte d'entrée :
 ...etc.
 ```
 
-**Chaque fiche de niveau 2** ressemblera à ça :
+**`fiches/prets.md`** (une fiche détaillée) ressemblera à ça :
 
 ```
 FICHE DÉTAILLÉE : Prêts
@@ -197,6 +206,10 @@ Parcours liés :
   - "Bannissement d'un membre" (étape : retour forcé des prêts)
 ```
 
+### Vérifiez le résultat
+
+Regardez dans VSCode : vous devriez voir `plan.md` (devenu plus court) et un dossier `fiches/` avec un fichier par partie. Ouvrez-en quelques-uns, relisez-les, corrigez ce qui ne vous semble pas logique.
+
 ### Pourquoi les "portes d'entrée" changent tout
 
 Regardez bien la vue d'ensemble. Chaque partie a une liste de choses qu'on peut lui demander et ce qu'elle répond. C'est exactement comme un guichet administratif :
@@ -214,39 +227,86 @@ C'est ça, une "porte d'entrée" : la liste de ce qu'on peut demander à une par
 
 ### Ce que vous allez faire
 
-Maintenant, quand vous voulez travailler sur une partie, vous collez **deux choses** :
-1. La vue d'ensemble (niveau 1) — pour que Claude sache ce qui existe
-2. La fiche détaillée de la partie concernée (niveau 2) — pour qu'il ait les détails
+Quittez Claude Code (`/exit`) et relancez-le :
+
+```bash
+claude
+```
+
+Maintenant, quand vous voulez travailler sur une partie, vous demandez à Claude de lire **deux fichiers** :
+1. `plan.md` (la vue d'ensemble) — pour qu'il sache ce qui existe
+2. La fiche de la partie concernée — pour qu'il ait les détails
 
 Essayez :
 
-> Voici la vue d'ensemble de mon application :
-> [collez le niveau 1]
->
-> Et voici la fiche détaillée de la partie sur laquelle je travaille :
-> [collez la fiche "Prêts"]
->
-> Je veux améliorer les Prêts : quand un livre est en retard depuis plus de 2 semaines, le propriétaire doit pouvoir envoyer un rappel. Après 4 semaines, le prêt est signalé à l'admin.
+> Lis plan.md et fiches/prets.md. Je veux améliorer les Prêts : quand un livre est en retard depuis plus de 2 semaines, le propriétaire doit pouvoir envoyer un rappel. Après 4 semaines, le prêt est signalé à l'admin. Implémente ça.
+
+Lancez le site et vérifiez que ça fonctionne.
 
 ### 🟢 Ce que vous allez remarquer
 
 **Claude est plus précis.** Il ne se perd plus dans des détails sur les Réunions ou les Statistiques. Il se concentre sur les Prêts.
 
-**Claude respecte les frontières.** Quand il a besoin de Notifications pour envoyer le rappel, il ne réécrit pas le système de notifications. Il écrit quelque chose comme "demander à Notifications d'envoyer un rappel au propriétaire". Il utilise la porte d'entrée.
+**Claude respecte les frontières.** Quand il a besoin de Notifications pour envoyer le rappel, il ne réécrit pas le système de notifications. Il utilise la porte d'entrée — il sait ce qu'il peut demander à Notifications, mais pas comment ça marche en interne.
 
-**Claude ne touche pas aux autres parties.** Parce qu'il ne connaît que leur porte d'entrée, pas leur fonctionnement interne. Il ne peut pas les modifier même s'il le voulait.
+**Claude ne touche pas aux autres parties.** Parce qu'il ne connaît que leur porte d'entrée (dans `plan.md`), pas leur fonctionnement interne. Il ne peut pas les modifier même s'il le voulait.
 
-**Vos messages sont plus courts.** La vue d'ensemble + une fiche, c'est beaucoup moins long que le plan entier. Claude a moins à lire, vous avez moins à coller, et les réponses sont plus ciblées.
+**Comparez avec l'étape 1.** Même demande, mais Claude a moins d'information à digérer. Le résultat est plus ciblé.
+
+### Mettez à jour la fiche
+
+Après que Claude a implémenté la fonctionnalité, demandez-lui :
+
+> Mets à jour fiches/prets.md avec les nouvelles règles que tu viens d'implémenter (rappel à 2 semaines, signalement à 4 semaines).
+
+Les fiches doivent rester synchronisées avec le code. C'est comme mettre à jour un dossier après un changement de procédure.
 
 ### Ce que vous devez noter dans votre carnet
 
 > ✍️ Est-ce que les réponses de Claude sont plus courtes et plus précises qu'à l'étape 1 ?
-> ✍️ Est-ce que Claude a essayé de modifier une partie autre que celle sur laquelle vous travailliez ?
+> ✍️ Est-ce que Claude a essayé de modifier une partie autre que les Prêts ?
 > ✍️ Quand Claude a eu besoin d'une autre partie, est-ce qu'il a utilisé la porte d'entrée ou est-ce qu'il a inventé sa propre solution ?
 
 ---
 
-## Étape 5 — Le test des deux conversations (30 min)
+## Étape 5 — Écrire une fiche vous-même (30 min)
+
+### Ce que vous allez faire
+
+Jusqu'ici, c'est Claude qui a écrit toutes les fiches. Il est temps que vous en écriviez une vous-même.
+
+Imaginez que votre club de lecture veut ajouter une nouvelle partie : **Événements spéciaux** — des soirées thématiques, des rencontres avec des auteurs, des ateliers d'écriture. Ce n'est pas la même chose que les réunions régulières.
+
+Ouvrez VSCode et créez un nouveau fichier `fiches/evenements.md`. Écrivez la fiche vous-même, en suivant le même format que les autres fiches :
+
+- Ce que cette partie fait
+- Ce qu'elle ne fait PAS
+- Porte d'entrée (les demandes qu'on peut lui faire et ce qu'elle répond)
+- Règles internes
+- Parcours liés
+
+Pas besoin que ce soit parfait. Écrivez ce qui vous semble logique.
+
+### Faites critiquer par Claude
+
+Quand c'est fait, lancez Claude Code et demandez-lui :
+
+> Lis plan.md et fiches/evenements.md. J'ai écrit cette fiche moi-même pour une nouvelle partie "Événements spéciaux". Critique-la sans la réécrire. Dis-moi :
+> 1. Est-ce que la porte d'entrée est complète ?
+> 2. Est-ce qu'il y a des chevauchements avec les Réunions ?
+> 3. Est-ce qu'il manque des règles internes ?
+> 4. Est-ce qu'il faut mettre à jour plan.md pour ajouter cette nouvelle partie ?
+
+Corrigez votre fiche vous-même en fonction des retours, puis demandez à Claude de mettre à jour `plan.md` avec la nouvelle partie.
+
+### Ce que vous devez noter dans votre carnet
+
+> ✍️ Qu'est-ce que Claude a trouvé que vous aviez oublié ?
+> ✍️ Quelle a été la partie la plus difficile à écrire ? (Probablement le "Ne fait PAS" — savoir où finit votre partie et où commence une autre)
+
+---
+
+## Étape 6 — Le test des deux conversations (30 min)
 
 ### Ce que vous allez faire
 
@@ -259,17 +319,13 @@ git commit -m "Module 3 : avant travail parallèle"
 
 Si une des deux conversations fait n'importe quoi, `git checkout .` vous ramènera ici.
 
-Ouvrez **deux conversations** avec Claude en même temps. Dans chacune, collez la même vue d'ensemble, mais une fiche différente.
+Ouvrez **deux terminaux** dans VSCode. Pour en ouvrir un deuxième, cliquez sur le `+` dans le panneau du terminal. Lancez `claude` dans chacun. Vous avez maintenant deux Claude Code côte à côte.
 
-**Conversation A :**
-> [vue d'ensemble]
-> [fiche détaillée : Prêts]
-> Améliore les Prêts pour gérer les livres abîmés : quand un livre est rendu abîmé, le propriétaire peut signaler le dégât et demander un remplacement.
+**Terminal A :**
+> Lis plan.md et fiches/prets.md. Améliore les Prêts pour gérer les livres abîmés : quand un livre est rendu abîmé, le propriétaire peut signaler le dégât et demander un remplacement.
 
-**Conversation B :**
-> [vue d'ensemble]
-> [fiche détaillée : Réunions]
-> Améliore les Réunions pour ajouter un système de covoiturage : les membres peuvent proposer ou chercher un trajet pour se rendre à la réunion.
+**Terminal B :**
+> Lis plan.md et fiches/reunions.md. Améliore les Réunions pour ajouter un système de covoiturage : les membres peuvent proposer ou chercher un trajet pour se rendre à la réunion.
 
 ### Ce que vous allez observer
 
@@ -281,25 +337,29 @@ C'est comme si vous aviez deux artisans qui travaillent chacun dans une pièce d
 
 Vous venez de faire quelque chose de puissant : vous avez **parallélisé le travail**. Deux conversations, deux parties, en même temps, sans conflit. C'est possible uniquement parce que vous avez séparé ce que chaque partie montre aux autres (la porte d'entrée) de ce qu'elle fait en interne (la fiche détaillée).
 
-Si tout était dans un seul gros plan, ça serait impossible. Les deux conversations modifieraient le même document et créeraient des contradictions.
+Si tout était dans un seul gros `plan.md`, ça serait impossible. Les deux conversations modifieraient le même document et créeraient des contradictions.
 
 ---
 
-## Étape 6 — Mettre à jour la vue d'ensemble (15 min)
+## Étape 7 — Mettre à jour la vue d'ensemble (15 min)
 
 ### Ce que vous allez faire
 
-Après avoir amélioré les Prêts et les Réunions, vos fiches détaillées ont changé. Est-ce que la vue d'ensemble doit changer aussi ?
+Après avoir amélioré les Prêts et les Réunions, vos fiches détaillées ont changé. Est-ce que `plan.md` doit changer aussi ?
 
 Vérifiez :
 
-- Est-ce que les Prêts ont une nouvelle porte d'entrée ? (Oui : "Signaler un livre abîmé" → demande de remplacement créée). Il faut l'ajouter à la vue d'ensemble.
+- Est-ce que les Prêts ont une nouvelle porte d'entrée ? (Oui : "Signaler un livre abîmé" → demande de remplacement créée). Il faut l'ajouter à `plan.md`.
 - Est-ce que les Réunions ont une nouvelle porte d'entrée ? (Oui : "Proposer un covoiturage", "Chercher un covoiturage"). Il faut l'ajouter.
-- Est-ce que le fonctionnement interne des Prêts a changé ? (Oui : nouvelle règle sur les livres abîmés). Ça va dans la fiche, PAS dans la vue d'ensemble.
+- Est-ce que le fonctionnement interne des Prêts a changé ? (Oui : nouvelle règle sur les livres abîmés). Ça va dans la fiche, PAS dans `plan.md`.
+
+Demandez à Claude Code de faire les mises à jour :
+
+> Lis plan.md, fiches/prets.md et fiches/reunions.md. Les fiches ont été mises à jour avec de nouvelles fonctionnalités. Mets à jour plan.md pour refléter les nouvelles portes d'entrée, sans ajouter de détails internes.
 
 ### La règle d'or
 
-**La vue d'ensemble ne change que quand une porte d'entrée change.** Si vous modifiez comment une partie fonctionne en interne sans changer ce qu'on peut lui demander, la vue d'ensemble reste identique.
+**`plan.md` ne change que quand une porte d'entrée change.** Si vous modifiez comment une partie fonctionne en interne sans changer ce qu'on peut lui demander, `plan.md` reste identique.
 
 C'est exactement comme un distributeur automatique. Si le mécanicien change les rouages à l'intérieur, vous ne le voyez pas — vous appuyez sur les mêmes boutons et vous recevez les mêmes produits. Mais si le distributeur ajoute une nouvelle boisson, il y a un nouveau bouton. C'est CE changement qui apparaît dans la vue d'ensemble.
 
@@ -313,26 +373,27 @@ C'est exactement comme un distributeur automatique. Si le mécanicien change les
 
 ### Les trois nouveaux réflexes
 
-7. **Séparez la vue d'ensemble des fiches détaillées.** La vue d'ensemble montre toutes les parties et leurs portes d'entrée. Les fiches contiennent le détail interne d'une seule partie.
+7. **Séparez la vue d'ensemble des fiches détaillées.** `plan.md` montre toutes les parties et leurs portes d'entrée. Les fiches dans `fiches/` contiennent le détail interne d'une seule partie.
 
-8. **Travaillez une partie à la fois.** Collez la vue d'ensemble + la fiche de la partie concernée. Pas le plan entier.
+8. **Travaillez une partie à la fois.** Demandez à Claude de lire `plan.md` + la fiche de la partie concernée. Pas tout le dossier `fiches/`.
 
 9. **Distinguez l'extérieur de l'intérieur.** Ce qu'on peut demander à une partie (sa porte d'entrée) et comment elle fonctionne en interne sont deux choses différentes. L'un est public, l'autre est privé.
 
-### La structure de votre plan
+### Votre dossier de projet
 
 ```
-VUE D'ENSEMBLE (toujours collée)
-├── Comptes — porte d'entrée : ...
-├── Droits d'accès — porte d'entrée : ...
-├── Livres — porte d'entrée : ...
-├── Prêts — porte d'entrée : ...
-├── ...
-│
-FICHES DÉTAILLÉES (une seule collée à la fois)
-├── Fiche : Comptes (détails internes + parcours)
-├── Fiche : Prêts (détails internes + parcours)
-├── ...
+formation-ia/
+├── plan.md                  ← vue d'ensemble (toujours lu)
+├── fiches/
+│   ├── comptes.md           ← détails internes + parcours
+│   ├── droits-acces.md
+│   ├── livres.md
+│   ├── prets.md
+│   ├── reunions.md
+│   ├── notifications.md
+│   ├── statistiques.md
+│   └── evenements.md        ← votre fiche !
+└── (code de l'application)
 ```
 
 ### Ce qu'on n'a toujours pas fait
@@ -340,7 +401,6 @@ FICHES DÉTAILLÉES (une seule collée à la fois)
 On n'a toujours pas :
 - Appris un langage de programmation
 - Compris le code que Claude écrit
-- Installé d'outils complexes
 
 Mais remarquez ce qu'on SAIT faire maintenant. On sait :
 - Découper un projet en parties avec des responsabilités claires (Module 1)

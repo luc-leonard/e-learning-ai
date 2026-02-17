@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 0 — Avant de commencer</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
+</head>
+<body>
+  <div class="app">
+    <div id="sidebar-root"></div>
+    <main class="main-content">
+      <div class="module-content">
+
+        <h1>Module 0 : Avant de commencer</h1>
+        <p class="module-subtitle"><em>Installer vos outils — et comprendre ce que vous installez</em></p>
+
+        <hr>
+
+        <h2>À qui s'adresse ce module</h2>
+
+        <p>Vous n'avez jamais ouvert un terminal. Vous ne savez pas ce qu'est git. Vous avez peut-être entendu le mot "ligne de commande" sans vraiment savoir ce que c'est. Parfait — c'est exactement là qu'on commence.</p>
+
+        <p>Ce module va vous faire installer quatre choses : un <strong>terminal</strong>, <strong>Visual Studio Code</strong>, <strong>git</strong>, et <strong>Claude Code</strong>. On va prendre le temps d'expliquer chacun. À la fin, vous aurez un environnement prêt pour tout le reste de la formation.</p>
+
+        <div class="module-meta">
+          <div class="module-meta-item"><strong>Durée :</strong> 1h30-2h30</div>
+          <div class="module-meta-item"><strong>Ce qu'il vous faut :</strong> Un ordinateur (Mac, Linux, ou Windows), une connexion internet, un compte Anthropic, un carnet et un stylo</div>
+        </div>
+
+        <h3>Le carnet</h3>
+
+        <p>Tout au long de cette formation, on vous demandera d'écrire des choses dans un <strong>carnet</strong> — un vrai, en papier, avec un stylo. Pas un fichier texte, pas une app de notes.</p>
+
+        <p>Pourquoi ? Parce que quand vous écrivez à la main, vous réfléchissez. Quand vous tapez au clavier, vous transcrivez. Ce n'est pas la même chose. Le carnet n'est pas un document de référence — c'est un outil de pensée. Vous y noterez vos observations, vos frustrations, vos intuitions. Personne ne le lira à part vous.</p>
+
+        <p>Prenez n'importe quel carnet. Un cahier d'écolier fait très bien l'affaire.</p>
+
+        <hr>
+
+        <h2 id="m0-analogie">Avant de commencer : une analogie</h2>
+
+        <p>Imaginez un atelier de menuiserie.</p>
+
+        <p>Pour travailler le bois, vous avez besoin de quatre choses :</p>
+        <ul>
+          <li><strong>L'atelier lui-même</strong> — un espace où vous pouvez donner des instructions et voir ce qui se passe. C'est le <strong>terminal</strong>.</li>
+          <li><strong>Un établi bien éclairé</strong> — une surface de travail confortable, avec vos planches bien rangées et visibles d'un coup d'œil. C'est <strong>Visual Studio Code</strong>.</li>
+          <li><strong>Un système de rangement</strong> — à chaque étape de votre projet, vous prenez une photo de votre travail et vous la rangez dans un album. Si vous faites une erreur, vous pouvez revenir à n'importe quelle photo précédente. C'est <strong>git</strong>.</li>
+          <li><strong>Un assistant très compétent</strong> — il sait construire à peu près n'importe quoi, mais il a besoin que vous lui parliez clairement. C'est <strong>Claude Code</strong>.</li>
+        </ul>
+
+        <p>On va installer ces quatre choses dans l'ordre.</p>
+
+        <hr>
+
+        <!-- ÉTAPE 1 -->
+        <div class="step-header" id="m0-etape1">
+          <span class="step-number">1</span>
+          <h2>Le terminal <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(10 min)</small></h2>
+        </div>
+
+        <h3>Ce que c'est</h3>
+
+        <p>Le terminal, c'est une fenêtre où vous tapez des instructions à votre ordinateur. Pas de boutons, pas de menus — juste du texte. C'est intimidant au début, mais en réalité c'est plus simple qu'une interface graphique : vous dites exactement ce que vous voulez, et l'ordinateur le fait.</p>
+
+        <h3>Comment l'ouvrir</h3>
+
+        <p><strong>Sur Mac :</strong><br>
+        Ouvrez l'application <strong>Terminal</strong> (cherchez "Terminal" avec Spotlight en appuyant sur <code>Cmd + Espace</code>).</p>
+
+        <p><strong>Sur Linux :</strong><br>
+        Cherchez "Terminal" dans vos applications, ou utilisez le raccourci <code>Ctrl + Alt + T</code>.</p>
+
+        <p><strong>Sur Windows :</strong><br>
+        Vous allez avoir besoin de <strong>WSL</strong> (Windows Subsystem for Linux). Ouvrez PowerShell en tant qu'administrateur et tapez :</p>
+
+        <pre data-lang="powershell"><code>wsl --install</code></pre>
+
+        <p>Redémarrez votre ordinateur. Après le redémarrage, une fenêtre Ubuntu s'ouvrira et vous demandera de créer un nom d'utilisateur et un mot de passe. Faites-le. C'est ce terminal que vous utiliserez pour la suite.</p>
+
+        <h3>Vos premières commandes</h3>
+
+        <p>Une fois le terminal ouvert, vous voyez un curseur qui clignote. Tapez ceci et appuyez sur Entrée :</p>
+
+        <pre data-lang="bash"><code>pwd</code></pre>
+
+        <p>Ça affiche le <strong>dossier dans lequel vous êtes</strong> (<code>pwd</code> = "print working directory"). Probablement quelque chose comme <code>/Users/votrenom</code> sur Mac ou <code>/home/votrenom</code> sur Linux.</p>
+
+        <p>Maintenant :</p>
+
+        <pre data-lang="bash"><code>ls</code></pre>
+
+        <p>Ça <strong>liste le contenu</strong> du dossier actuel. Vous devriez reconnaître des noms familiers : Documents, Bureau, Images...</p>
+
+        <p>Créez un dossier pour la formation :</p>
+
+        <pre data-lang="bash"><code>mkdir formation-ia</code></pre>
+
+        <p>Et entrez dedans :</p>
+
+        <pre data-lang="bash"><code>cd formation-ia</code></pre>
+
+        <p>Tapez <code>pwd</code> pour confirmer — vous devriez voir <code>/Users/votrenom/formation-ia</code> ou similaire.</p>
+
+        <h3>Aide-mémoire</h3>
+
+        <table>
+          <thead><tr><th>Commande</th><th>Ce qu'elle fait</th></tr></thead>
+          <tbody>
+            <tr><td><code>pwd</code></td><td>Affiche où vous êtes</td></tr>
+            <tr><td><code>ls</code></td><td>Liste le contenu du dossier</td></tr>
+            <tr><td><code>mkdir nom</code></td><td>Crée un dossier</td></tr>
+            <tr><td><code>cd nom</code></td><td>Entre dans un dossier</td></tr>
+            <tr><td><code>cd ..</code></td><td>Remonte d'un dossier</td></tr>
+          </tbody>
+        </table>
+
+        <hr>
+
+        <!-- ÉTAPE 2 -->
+        <div class="step-header" id="m0-etape2">
+          <span class="step-number">2</span>
+          <h2>Visual Studio Code <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(20 min)</small></h2>
+        </div>
+
+        <h3>Ce que c'est</h3>
+
+        <p>Visual Studio Code (VSCode) est un <strong>éditeur de code</strong> gratuit. Pensez-y comme un traitement de texte, mais conçu pour le code au lieu de la prose.</p>
+
+        <p>Pourquoi en avoir besoin si Claude Code fait tout ? Parce que vous voulez <strong>voir</strong> ce qui se passe. Quand Claude Code crée ou modifie des fichiers, VSCode vous les montre en temps réel, avec de la coloration syntaxique (les différents éléments du code s'affichent en couleurs distinctes). C'est votre établi bien éclairé — vous ne construisez pas dans le noir.</p>
+
+        <h3>Installer VSCode</h3>
+
+        <p>Allez sur <a href="https://code.visualstudio.com" target="_blank">code.visualstudio.com</a> et téléchargez la version correspondant à votre système. Lancez l'installeur.</p>
+
+        <p><strong>Utilisateurs Windows :</strong> Téléchargez la version Windows normale (pas la version WSL). VSCode sait communiquer avec WSL automatiquement.</p>
+
+        <h3>Ouvrir votre dossier de projet</h3>
+
+        <p>Lancez VSCode, puis :</p>
+        <ol>
+          <li>Allez dans <strong>Fichier → Ouvrir un dossier</strong> (ou <code>Cmd + O</code> sur Mac, <code>Ctrl + O</code> sur Linux/Windows)</li>
+          <li>Naviguez jusqu'au dossier <code>formation-ia</code> que vous avez créé à l'étape précédente</li>
+          <li>Sélectionnez-le et cliquez <strong>Ouvrir</strong></li>
+        </ol>
+
+        <p>Vous voyez maintenant votre dossier de projet dans le panneau de gauche. Pour l'instant il est vide — c'est normal.</p>
+
+        <h3>Le terminal intégré</h3>
+
+        <p>VSCode a un <strong>terminal intégré</strong> — un terminal directement dans l'éditeur. C'est celui que vous utiliserez le plus souvent.</p>
+
+        <p>Pour l'ouvrir : <strong>Terminal → Nouveau terminal</strong> (ou <code>Ctrl + `</code>).</p>
+
+        <p>Un terminal s'ouvre en bas de la fenêtre. Tapez <code>pwd</code> — vous devriez être directement dans votre dossier <code>formation-ia</code>. Si ce n'est pas le cas, tapez <code>cd ~/formation-ia</code>.</p>
+
+        <p><strong>Utilisateurs Windows :</strong> VSCode va probablement ouvrir un terminal PowerShell par défaut. Vous devez le changer pour WSL. Cliquez sur la petite flèche à côté du <code>+</code> dans le panneau du terminal, et sélectionnez <strong>Ubuntu (WSL)</strong>.</p>
+
+        <p>À partir de maintenant, utilisez ce terminal intégré pour toutes les commandes. Vous aurez le code visible en haut et le terminal en bas — tout au même endroit.</p>
+
+        <hr>
+
+        <!-- ÉTAPE 3 -->
+        <div class="step-header" id="m0-etape3">
+          <span class="step-number">3</span>
+          <h2>Git <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(30 min)</small></h2>
+        </div>
+
+        <h3>Ce que c'est</h3>
+
+        <p>Git, c'est un système de <strong>points de sauvegarde</strong> pour vos fichiers.</p>
+
+        <p>Pensez à un jeu vidéo. Avant un passage difficile, vous sauvegardez. Si ça se passe mal, vous rechargez la sauvegarde et vous réessayez. Git fait exactement la même chose, mais pour votre code et vos fichiers de projet.</p>
+
+        <p>Chaque sauvegarde s'appelle un <strong>commit</strong>. Un commit, c'est un instantané de tous vos fichiers à un moment donné, avec un petit message qui dit ce que vous avez fait ("ajouté la page d'accueil", "corrigé le bug du formulaire").</p>
+
+        <h3>Installer git</h3>
+
+        <p>Dans le terminal intégré de VSCode, tapez :</p>
+
+        <pre data-lang="bash"><code>git --version</code></pre>
+
+        <p><strong>Si un numéro de version s'affiche :</strong> git est déjà installé, passez à "Configurer git".</p>
+
+        <p><strong>Sur Mac (si git n'est pas installé) :</strong><br>
+        Votre Mac vous proposera de l'installer — acceptez et suivez les instructions.</p>
+
+        <p><strong>Sur Linux / WSL :</strong></p>
+
+        <pre data-lang="bash"><code>sudo apt update && sudo apt install git</code></pre>
+
+        <p>On vous demandera votre mot de passe. Tapez-le (rien ne s'affiche pendant que vous tapez — c'est normal, c'est une mesure de sécurité).</p>
+
+        <h3>Configurer git</h3>
+
+        <p>Git a besoin de savoir qui vous êtes pour signer vos sauvegardes. Tapez ces deux commandes en remplaçant par vos informations :</p>
+
+        <pre data-lang="bash"><code>git config --global user.name "Votre Nom"
+git config --global user.email "votre@email.com"</code></pre>
+
+        <h3>Votre premier dépôt</h3>
+
+        <p>Vérifiez que vous êtes dans <code>formation-ia</code> (tapez <code>pwd</code>). Puis :</p>
+
+        <pre data-lang="bash"><code>git init</code></pre>
+
+        <p>Vous venez de dire à git : "surveille ce dossier". Git va maintenant suivre tous les changements que vous faites ici. Ce dossier est devenu un <strong>dépôt</strong> (repository en anglais).</p>
+
+        <h3>Votre premier commit</h3>
+
+        <p>Créons un fichier pour avoir quelque chose à sauvegarder. Dans VSCode, créez un nouveau fichier : <strong>Fichier → Nouveau fichier</strong> (ou <code>Cmd + N</code> sur Mac, <code>Ctrl + N</code> sur Linux/Windows). Tapez dedans :</p>
+
+        <pre><code># Ma formation IA</code></pre>
+
+        <p>Puis enregistrez-le avec <strong>Fichier → Enregistrer</strong> (ou <code>Cmd + S</code> / <code>Ctrl + S</code>) sous le nom <code>notes.md</code>, dans votre dossier <code>formation-ia</code>. Vous devriez le voir apparaître dans le panneau gauche de VSCode.</p>
+
+        <p>Demandons à git ce qu'il voit :</p>
+
+        <pre data-lang="bash"><code>git status</code></pre>
+
+        <p>Git vous dit qu'il y a un nouveau fichier (<code>notes.md</code>) mais qu'il ne le suit pas encore. Le nom du fichier est en rouge — c'est normal.</p>
+
+        <p>Pour dire à git "je veux inclure ce fichier dans ma prochaine sauvegarde" :</p>
+
+        <pre data-lang="bash"><code>git add notes.md</code></pre>
+
+        <p>Retapez <code>git status</code>. Le fichier est maintenant en vert — il est prêt à être sauvegardé.</p>
+
+        <p>Créez votre sauvegarde :</p>
+
+        <pre data-lang="bash"><code>git commit -m "Premier commit : ajout du fichier de notes"</code></pre>
+
+        <p>Le <code>-m</code> veut dire "message". Chaque sauvegarde a un message qui décrit ce que vous avez fait.</p>
+
+        <h3>Le cycle git</h3>
+
+        <p>Vous venez d'apprendre le seul cycle que vous utiliserez pendant toute la formation :</p>
+
+        <pre><code>1. Vous modifiez des fichiers
+2. git add (vous choisissez quoi sauvegarder)
+3. git commit -m "description" (vous sauvegardez)</code></pre>
+
+        <p>C'est tout. Il y a des dizaines de commandes git avancées, mais ces trois étapes couvrent 90% de ce que vous ferez.</p>
+
+        <h3>Aide-mémoire</h3>
+
+        <table>
+          <thead><tr><th>Commande</th><th>Ce qu'elle fait</th></tr></thead>
+          <tbody>
+            <tr><td><code>git init</code></td><td>Commence à surveiller un dossier</td></tr>
+            <tr><td><code>git status</code></td><td>Montre ce qui a changé</td></tr>
+            <tr><td><code>git add fichier</code></td><td>Prépare un fichier pour la sauvegarde</td></tr>
+            <tr><td><code>git commit -m "message"</code></td><td>Sauvegarde avec une description</td></tr>
+            <tr><td><code>git log --oneline</code></td><td>Affiche l'historique des sauvegardes</td></tr>
+          </tbody>
+        </table>
+
+        <p>Essayez <code>git log --oneline</code> maintenant — vous devriez voir votre premier commit.</p>
+
+        <hr>
+
+        <!-- ÉTAPE 4 -->
+        <div class="step-header" id="m0-etape4">
+          <span class="step-number">4</span>
+          <h2>Claude Code <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(30 min)</small></h2>
+        </div>
+
+        <h3>Ce que c'est</h3>
+
+        <p>Claude Code, c'est Claude <strong>directement dans votre terminal</strong>. Pas besoin d'aller sur un site web, pas besoin de copier-coller du code. Vous lui parlez, il voit vos fichiers, il peut les modifier, et il travaille avec vous dans votre dossier de projet.</p>
+
+        <p>C'est l'assistant de l'atelier. Il est dans la pièce avec vous, il voit les planches, et il peut prendre les outils lui-même.</p>
+
+        <h3>Installer Node.js</h3>
+
+        <p>Claude Code a besoin de <strong>Node.js</strong> pour fonctionner. C'est un moteur qui fait tourner certains programmes — vous n'avez pas besoin de comprendre les détails, juste de l'installer.</p>
+
+        <p><strong>Sur Mac :</strong><br>
+        Allez sur <a href="https://nodejs.org" target="_blank">nodejs.org</a> et téléchargez la version <strong>LTS</strong> (la version stable, sur le bouton vert de gauche). Lancez l'installeur.</p>
+
+        <p><strong>Sur Linux / WSL :</strong></p>
+
+        <pre data-lang="bash"><code>curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+sudo apt install -y nodejs</code></pre>
+
+        <p>Vérifiez :</p>
+
+        <pre data-lang="bash"><code>node --version</code></pre>
+
+        <p>Vous devriez voir un numéro de version (par exemple <code>v22.x.x</code>).</p>
+
+        <h3>Installer Claude Code</h3>
+
+        <pre data-lang="bash"><code>npm install -g @anthropic-ai/claude-code</code></pre>
+
+        <p><code>npm</code> c'est le gestionnaire de paquets de Node.js — un outil qui installe des programmes. <code>-g</code> veut dire "installe-le globalement" (accessible de partout).</p>
+
+        <h3>Se connecter</h3>
+
+        <p>Lancez Claude Code :</p>
+
+        <pre data-lang="bash"><code>claude</code></pre>
+
+        <p>Claude Code va vous demander de vous connecter à votre compte Anthropic. Suivez les instructions à l'écran — ça ouvrira une page dans votre navigateur pour vous authentifier.</p>
+
+        <p>Une fois connecté, vous verrez un prompt qui attend vos instructions. Vous êtes dans Claude Code.</p>
+
+        <h3>Votre première conversation</h3>
+
+        <p>Envoyez-lui ceci :</p>
+
+        <blockquote>
+          <p>Lis le fichier notes.md et dis-moi ce qu'il contient.</p>
+        </blockquote>
+
+        <p>Claude Code va lire votre fichier et vous répondre. Il est <strong>dans votre dossier</strong> — il voit ce que vous voyez.</p>
+
+        <p>Maintenant, demandez-lui :</p>
+
+        <blockquote>
+          <p>Ajoute une ligne dans notes.md avec la date d'aujourd'hui et le texte "Module 0 terminé".</p>
+        </blockquote>
+
+        <p>Claude Code va modifier le fichier directement. Regardez dans VSCode — le contenu de <code>notes.md</code> se met à jour en temps réel. C'est pour ça qu'on a installé VSCode : vous voyez ce que Claude Code fait.</p>
+
+        <p>Maintenant, demandez-lui de sauvegarder avec git :</p>
+
+        <blockquote>
+          <p>Fais un commit git avec tes changements</p>
+        </blockquote>
+
+        <p>Vérifiez le commit avec <code>git log --oneline</code></p>
+
+        <h3>Pour quitter Claude Code</h3>
+
+        <p>Tapez <code>/exit</code> ou appuyez sur <code>Ctrl + C</code>.</p>
+
+        <h3>Aide-mémoire</h3>
+
+        <table>
+          <thead><tr><th>Action</th><th>Commande</th></tr></thead>
+          <tbody>
+            <tr><td>Lancer Claude Code</td><td><code>claude</code></td></tr>
+            <tr><td>Quitter Claude Code</td><td><code>/exit</code> ou <code>Ctrl+C</code></td></tr>
+            <tr><td>Lui parler</td><td>Tapez votre message et appuyez sur Entrée</td></tr>
+          </tbody>
+        </table>
+
+        <p>Claude Code peut lire vos fichiers, les modifier, exécuter des commandes, et créer de nouveaux fichiers. Pendant toute la formation, c'est lui votre partenaire de travail.</p>
+
+        <hr>
+
+        <h2 id="m0-recap">Ce que vous avez installé — et pourquoi</h2>
+
+        <p>Récapitulons :</p>
+        <ul>
+          <li><strong>Le terminal</strong> vous donne un accès direct à votre ordinateur, sans interface graphique. C'est votre atelier.</li>
+          <li><strong>Visual Studio Code</strong> vous montre vos fichiers et votre code de manière claire et organisée. C'est votre établi.</li>
+          <li><strong>Git</strong> vous permet de sauvegarder votre travail à chaque étape et de revenir en arrière si quelque chose casse. C'est votre filet de sécurité.</li>
+          <li><strong>Claude Code</strong> est l'IA qui va construire avec vous. Il voit vos fichiers, comprend votre projet, et peut agir directement dessus. C'est votre assistant.</li>
+        </ul>
+
+        <p>Ces quatre outils vont travailler ensemble pendant toute la formation. Voici le cycle typique d'une session de travail :</p>
+
+        <pre><code>1. Ouvrir VSCode sur votre dossier de projet
+2. Ouvrir le terminal intégré (Ctrl + `)
+3. Lancer Claude Code (claude)
+4. Travailler avec Claude Code (et voir les changements dans VSCode)
+5. Sauvegarder régulièrement avec git (add + commit)</code></pre>
+
+        <hr>
+
+        <div class="checkpoint" id="m0-checkpoint">
+          <h2>Checkpoint</h2>
+          <p>Avant de passer au Module 1, vérifiez que tout fonctionne :</p>
+          <ul class="checklist">
+            <li><input type="checkbox" id="ck0-1"><span>Vous savez ouvrir un terminal (autonome ou dans VSCode)</span></li>
+            <li><input type="checkbox" id="ck0-2"><span><code>pwd</code>, <code>ls</code>, <code>cd</code> et <code>mkdir</code> ne vous font plus peur</span></li>
+            <li><input type="checkbox" id="ck0-3"><span>VSCode est installé et ouvert sur votre dossier <code>formation-ia</code></span></li>
+            <li><input type="checkbox" id="ck0-4"><span>Git est installé (<code>git --version</code> affiche un numéro)</span></li>
+            <li><input type="checkbox" id="ck0-5"><span>Vous avez un dépôt <code>formation-ia</code> avec au moins deux commits</span></li>
+            <li><input type="checkbox" id="ck0-6"><span>Claude Code est installé et vous avez eu une conversation avec lui</span></li>
+            <li><input type="checkbox" id="ck0-7"><span>Vous comprenez le cycle : modifier → <code>git add</code> → <code>git commit</code></span></li>
+          </ul>
+          <p style="margin-top:1rem;font-size:var(--fs-sm);color:var(--text-secondary)">Si un point bloque, ne restez pas coincé. Décrivez votre problème à Claude Code (s'il est installé) ou cherchez l'erreur exacte sur internet. Débloquer une installation récalcitrante, c'est déjà de l'apprentissage.</p>
+        </div>
+
+        <hr>
+
+        <h2 id="m0-suite">La suite</h2>
+
+        <p>Votre environnement est prêt. Dans le <a href="module1.html">Module 1</a>, vous allez demander à Claude Code de construire quelque chose pour vous — et vous allez découvrir pourquoi ça ne suffit pas de "juste demander".</p>
+
+      </div>
+    </main>
+    <button class="back-to-top" aria-label="Retour en haut">↑</button>
+  </div>
+  <script src="nav.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
