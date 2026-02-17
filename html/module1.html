@@ -218,6 +218,7 @@ npm start</code></pre>
             <li>De quelles autres parties elle a besoin</li>
           </ul>
           <p>Écris ça en français courant, pas en jargon technique. Comme si tu expliquais l'organisation d'une entreprise avec ses départements.</p>
+          <p>Note également en tête du fichier la stack technique utilisée : le framework et le type de base de données.</p>
         </blockquote>
 
         <h3>Pourquoi "ce qu'elle ne fait PAS" ?</h3>
@@ -237,7 +238,11 @@ npm start</code></pre>
 
         <p>Claude Code va écrire dans <code>plan.md</code> quelque chose qui ressemble à ça (mais adapté à votre projet) :</p>
 
-        <pre><code>PARTIE : Comptes
+        <pre><code>STACK TECHNIQUE
+→ Framework : [ce que Claude avait choisi à l'étape 1]
+→ Base de données : [ex. SQLite, PostgreSQL...]
+
+PARTIE : Comptes
 → Fait : gérer l'inscription, la connexion, savoir qui est qui
 → Ne fait PAS : décider ce que chaque personne a le droit de faire (c'est Droits d'accès)
 → A besoin de : rien, c'est la base
@@ -282,6 +287,27 @@ git commit -m "Module 1 : ajout du plan"</code></pre>
 
         <p>Vérifiez dans VSCode : le code chaotique a disparu, mais <code>plan.md</code> est toujours là parce qu'il a été commité juste avant.</p>
 
+        <h3>Donner une mémoire permanente à Claude Code</h3>
+
+        <p>C'est le bon moment pour introduire une commande importante : <code>/init</code>.</p>
+
+        <p>Relancez Claude Code :</p>
+
+        <pre data-lang="bash"><code>claude</code></pre>
+
+        <p>Puis tapez cette commande directement dans Claude Code (pas dans le terminal) :</p>
+
+        <pre><code>/init</code></pre>
+
+        <p>Claude Code analyse votre dossier et crée un fichier <code>CLAUDE.md</code>. Ce fichier est spécial : <strong>Claude le relit automatiquement au début de chaque nouvelle conversation.</strong> Là où <code>plan.md</code> décrit l'organisation de votre projet, <code>CLAUDE.md</code> donne le contexte permanent — ce qu'est ce projet, comment il est structuré.</p>
+
+        <p>Pour l'instant votre dossier ne contient que <code>plan.md</code>, donc le <code>CLAUDE.md</code> sera court. C'est normal. Il servira surtout à ancrer le contexte pour les prochaines sessions : Claude saura dès le départ qu'il travaille sur un club de lecture et que le plan de référence est dans <code>plan.md</code>.</p>
+
+        <p>Quittez Claude Code (<code>/exit</code>), puis sauvegardez :</p>
+
+        <pre data-lang="bash"><code>git add CLAUDE.md
+git commit -m "Module 1 : ajout CLAUDE.md"</code></pre>
+
         <hr>
 
         <div class="step-header" id="m1-etape5">
@@ -295,10 +321,10 @@ git commit -m "Module 1 : ajout du plan"</code></pre>
 
         <pre data-lang="bash"><code>claude</code></pre>
 
-        <p>Cette fois, vous allez demander à Claude de <strong>reconstruire de zéro</strong> en suivant le plan. On garde la même stack technique (les mêmes technologies que Claude avait choisies à l'étape 1), mais on repart d'une page blanche. Demandez-lui :</p>
+        <p>Cette fois, vous allez demander à Claude de <strong>reconstruire de zéro</strong> en suivant le plan. La stack technique est notée dans <code>plan.md</code>, donc Claude la connaît — plus besoin de la lui répéter. Demandez-lui :</p>
 
         <blockquote>
-          <p>Lis le fichier plan.md. C'est le plan de mon application. Supprime tout le code existant et reconstruis l'application de zéro en suivant ce plan. Utilise la même stack technique qu'avant. Commence par la partie "Comptes" : cette partie gère UNIQUEMENT l'inscription et la connexion.</p>
+          <p>Lis le fichier plan.md. C'est le plan de mon application. Supprime tout le code existant et reconstruis l'application de zéro en suivant ce plan. Utilise la stack technique indiquée dans plan.md. Commence par la partie "Comptes" : cette partie gère UNIQUEMENT l'inscription et la connexion.</p>
         </blockquote>
 
         <p>Puis, pour chaque partie suivante :</p>

@@ -175,6 +175,8 @@ Et demandez-lui :
 > - De quelles autres parties elle a besoin
 >
 > Écris ça en français courant, pas en jargon technique. Comme si tu expliquais l'organisation d'une entreprise avec ses départements.
+>
+> Note également en tête du fichier la stack technique utilisée : le framework et le type de base de données.
 
 ### Pourquoi "ce qu'elle ne fait PAS" ?
 
@@ -192,6 +194,10 @@ Si le serveur se met à cuisiner "pour aider", il y a des plats qui sortent deux
 Claude Code va écrire dans `plan.md` quelque chose qui ressemble à ça (mais adapté à votre projet) :
 
 ```
+STACK TECHNIQUE
+→ Framework : [ce que Claude avait choisi à l'étape 1]
+→ Base de données : [ex. SQLite, PostgreSQL...]
+
 PARTIE : Comptes
 → Fait : gérer l'inscription, la connexion, savoir qui est qui
 → Ne fait PAS : décider ce que chaque personne a le droit de faire (c'est Droits d'accès)
@@ -242,6 +248,33 @@ Cette commande veut dire : "jette tous les changements en cours et reviens au de
 
 Vérifiez dans VSCode : le code chaotique a disparu, mais `plan.md` est toujours là parce qu'il a été commité juste avant.
 
+### Donner une mémoire permanente à Claude Code
+
+C'est le bon moment pour introduire une commande importante : `/init`.
+
+Relancez Claude Code :
+
+```bash
+claude
+```
+
+Puis tapez cette commande directement dans Claude Code (pas dans le terminal) :
+
+```
+/init
+```
+
+Claude Code analyse votre dossier et crée un fichier `CLAUDE.md`. Ce fichier est spécial : **Claude le relit automatiquement au début de chaque nouvelle conversation.** Là où `plan.md` décrit l'organisation de votre projet, `CLAUDE.md` donne le contexte permanent — ce qu'est ce projet, comment il est structuré.
+
+Pour l'instant votre dossier ne contient que `plan.md`, donc le `CLAUDE.md` sera court. C'est normal. Il servira surtout à ancrer le contexte pour les prochaines sessions : Claude saura dès le départ qu'il travaille sur un club de lecture et que le plan de référence est dans `plan.md`.
+
+Quittez Claude Code (`/exit`), puis sauvegardez :
+
+```bash
+git add CLAUDE.md
+git commit -m "Module 1 : ajout CLAUDE.md"
+```
+
 ---
 
 ## Étape 5 — Reconstruire, cette fois avec le plan (60-90 min)
@@ -254,9 +287,9 @@ Relancez Claude Code :
 claude
 ```
 
-Cette fois, vous allez demander à Claude de **reconstruire de zéro** en suivant le plan. On garde la même stack technique (les mêmes technologies que Claude avait choisies à l'étape 1), mais on repart d'une page blanche. Demandez-lui :
+Cette fois, vous allez demander à Claude de **reconstruire de zéro** en suivant le plan. La stack technique est notée dans `plan.md`, donc Claude la connaît — plus besoin de la lui répéter. Demandez-lui :
 
-> Lis le fichier plan.md. C'est le plan de mon application. Supprime tout le code existant et reconstruis l'application de zéro en suivant ce plan. Utilise la même stack technique qu'avant. Commence par la partie "Comptes" : cette partie gère UNIQUEMENT l'inscription et la connexion.
+> Lis le fichier plan.md. C'est le plan de mon application. Supprime tout le code existant et reconstruis l'application de zéro en suivant ce plan. Utilise la stack technique indiquée dans plan.md. Commence par la partie "Comptes" : cette partie gère UNIQUEMENT l'inscription et la connexion.
 
 Puis, pour chaque partie suivante :
 
