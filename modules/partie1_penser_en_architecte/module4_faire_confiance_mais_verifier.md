@@ -10,8 +10,8 @@ Vous savez organiser un projet en parties (Module 1), décrire les parcours et g
 
 Mais depuis le début, vous faites quelque chose de risqué : **vous croyez Claude sur parole.** Il vous dit "c'est fait", et vous passez à la suite. Ce module va vous montrer pourquoi c'est un problème — et comment le résoudre.
 
-**Durée :** 2-3 heures
-**Ce qu'il vous faut :** Votre projet du club de lecture (avec le plan à deux niveaux), un compte Claude, votre carnet
+**Durée :** 4-5 heures
+**Ce qu'il vous faut :** Votre projet du club de lecture (avec le plan à deux niveaux), Claude Code, votre carnet
 
 ---
 
@@ -35,18 +35,18 @@ C'est exactement ce que vous allez apprendre à faire.
 
 Reprenez votre projet du club de lecture. Tout a l'air de fonctionner — vous avez vos parties, vos parcours, Claude a tout implémenté.
 
-Ouvrez une **nouvelle conversation** — pas celle où Claude a construit le projet. C'est important. Collez-y la vue d'ensemble et dites :
+Quittez Claude Code (`/exit`) puis relancez une nouvelle session :
 
-> Voici la vue d'ensemble de mon application de club de lecture :
-> [collez la vue d'ensemble]
->
-> Je vais te donner le code de cette application. Je veux que tu te comportes comme un utilisateur curieux et un peu malveillant. Essaie de faire des choses qu'un vrai utilisateur pourrait faire — y compris des choses bizarres ou inattendues. Pour chaque test, dis-moi :
+```bash
+claude
+```
+
+C'est important : le vérificateur doit avoir un regard frais, sans le contexte de construction. Dites-lui :
+
+> Lis plan.md pour comprendre l'organisation du projet. Explore ensuite les fichiers du projet. Je veux que tu te comportes comme un utilisateur curieux et un peu malveillant — essaie de faire des choses qu'un vrai utilisateur pourrait faire, y compris des choses bizarres ou inattendues. Pour chaque test, dis-moi :
 > 1. Ce que tu as essayé
-> 2. Ce qui aurait DÛ se passer (d'après la vue d'ensemble)
+> 2. Ce qui aurait DÛ se passer (d'après plan.md)
 > 3. Ce qui se passe RÉELLEMENT dans le code
->
-> Voici le code :
-> [collez le code de votre application]
 
 ### 🔴 Ce que vous allez découvrir
 
@@ -103,7 +103,7 @@ Ce n'est pas du code. Ce sont des phrases en français.
 
 ### Ce que vous allez faire
 
-Ouvrez votre plan. Pour chaque parcours, vous allez écrire des vérifications. Commencez par le faire vous-même avant de demander à Claude.
+Ouvrez `plan.md` dans VSCode. Vous allez y ajouter une section `VÉRIFICATIONS` pour chaque parcours. Commencez par le faire vous-même avant de demander à Claude.
 
 Prenez le parcours "Inscription à une réunion payante" :
 
@@ -174,6 +174,11 @@ Quand vous avez écrit vos vérifications, demandez à Claude d'en ajouter :
 
 Claude va vous proposer des cas auxquels vous n'avez pas pensé. Certains seront pertinents, d'autres excessifs. **C'est vous qui décidez lesquels garder.** Tous les cas ne méritent pas d'être vérifiés — il faut se concentrer sur ceux qui comptent vraiment.
 
+### Ce que vous devez noter dans votre carnet
+
+> ✍️ Quels cas limites avez-vous trouvés vous-même, avant Claude ?
+> ✍️ Lesquels n'avaient pas de bonne réponse évidente — où c'était VOUS qui deviez décider du comportement ?
+
 ---
 
 ## Étape 4 — Faire vérifier par Claude (45 min)
@@ -185,18 +190,9 @@ Vous avez maintenant trois types de documents :
 2. Les **fiches détaillées** (Module 3) — comment chaque partie fonctionne
 3. Les **vérifications** (ce module) — comment prouver que ça marche
 
-Ouvrez une **nouvelle conversation** (le vérificateur) et envoyez :
+Quittez Claude Code (`/exit`) puis relancez une nouvelle session (`claude`). Dites-lui :
 
-> Voici la vue d'ensemble de mon application :
-> [vue d'ensemble]
->
-> Voici les vérifications que je veux effectuer :
-> [collez les vérifications]
->
-> Et voici le code de l'application :
-> [collez le code]
->
-> Pour chaque vérification, dis-moi :
+> Lis plan.md — il contient l'organisation du projet et les vérifications que j'ai ajoutées. Explore ensuite les fichiers du projet. Pour chaque vérification listée dans plan.md, dis-moi :
 > - ✅ PASSE : le code fait bien ce qui est décrit
 > - ❌ ÉCHOUE : le code ne fait pas ce qui est décrit (explique pourquoi)
 > - ⚠️ IMPOSSIBLE À VÉRIFIER : le code ne couvre pas ce cas du tout
@@ -214,11 +210,9 @@ git add .
 git commit -m "Avant corrections : X échecs sur Y vérifications"
 ```
 
-Puis retournez dans la conversation de construction, collez la vue d'ensemble + la fiche de la partie concernée, et dites :
+Puis quittez cette session (`/exit`), relancez Claude Code (`claude`) et dites-lui :
 
-> La vérification suivante échoue : "Après une inscription quand le paiement échoue, le nombre de places ne doit PAS avoir diminué."
-> Actuellement, la place est réservée avant le paiement mais jamais libérée si le paiement rate.
-> Corrige ça en respectant le parcours décrit dans la fiche.
+> Lis plan.md. La vérification suivante échoue : "Après une inscription quand le paiement échoue, le nombre de places ne doit PAS avoir diminué." Actuellement, la place est réservée avant le paiement mais jamais libérée si le paiement rate. Corrige ça en respectant les parcours décrits dans plan.md.
 
 **Les ⚠️ (impossibles à vérifier)** sont des trous. Des choses que personne n'a implémentées. Décidez si elles sont importantes, et si oui, demandez à Claude de les ajouter.
 
@@ -241,7 +235,7 @@ git add .
 git commit -m "Correction : [décrivez ce que vous avez corrigé]"
 ```
 
-**Refaites la vérification.** Renvoyez le code corrigé au Claude vérificateur. Certains ❌ vont passer en ✅. Parfois, une correction crée un nouveau ❌ ailleurs. C'est normal — c'est exactement comme ça que fonctionne le développement professionnel.
+**Refaites la vérification.** Quittez (`/exit`), relancez (`claude`), et répétez la même demande qu'au début de cette étape. Certains ❌ vont passer en ✅. Parfois, une correction crée un nouveau ❌ ailleurs. C'est normal — c'est exactement comme ça que fonctionne le développement professionnel.
 
 Le cycle complet est : **construire → committer → vérifier → corriger → committer → vérifier à nouveau.** Git garde la trace de chaque étape. Si une correction empire les choses, `git checkout .` vous ramène au dernier commit propre.
 
@@ -261,16 +255,15 @@ Vous allez faire la même chose : transformer vos vérifications en français en
 
 Demandez à Claude Code :
 
-> Voici mes vérifications pour l'application :
-> [collez vos vérifications en français]
->
-> Transforme chaque vérification en un test automatique. Chaque ✓ doit devenir un test qui passe ou échoue. Je veux pouvoir lancer tous les tests avec une seule commande.
+> Lis plan.md. Transforme chaque vérification en un test automatique. Chaque ✓ doit devenir un test qui passe ou échoue. Je veux pouvoir lancer tous les tests avec une seule commande.
 
 ### Ce qui va se passer
 
 Claude Code va créer des fichiers de tests dans votre projet. Vous n'avez pas besoin de comprendre le code de ces tests. Ce qui compte, c'est ce qui se passe quand vous les lancez.
 
-Claude Code vous donnera une commande pour les exécuter (quelque chose comme `npm test` ou `mix test`). Lancez-la. Vous allez voir quelque chose comme :
+Claude Code vous donnera une commande pour les exécuter (très probablement `npm test`). Lancez-la. Vous allez voir quelque chose comme :
+
+> 🚩 Si les tests ne se lancent pas ou si vous voyez des erreurs incompréhensibles, dites à Claude Code exactement ce que vous voyez. Si après deux tentatives ça ne marche pas, passez à la suite : les tests automatiques sont un filet de sécurité précieux, mais leur mise en place peut déraper pour des raisons techniques indépendantes de votre compréhension. Vous en aurez à nouveau l'occasion dans la partie 2 de la formation.
 
 ```
 ✓ Inscription réussie : il reste 2 places
@@ -313,41 +306,6 @@ git commit -m "Tests automatiques ajoutés et passants"
 
 ---
 
-## Étape 6 — Le piège de la confiance (20 min)
-
-### Ce que vous allez faire
-
-Un dernier exercice, et celui-ci est un piège volontaire.
-
-Ouvrez une **nouvelle conversation** avec Claude et envoyez :
-
-> Voici le code de mon application :
-> [collez le code]
->
-> Est-ce que ce code est correct ? Est-ce qu'il y a des bugs ?
-
-### Ce qui va se passer
-
-Claude va vous répondre quelque chose de rassurant. Il va dire que le code est "globalement bien structuré", peut-être signaler quelques améliorations possibles, et vous donner l'impression que tout va bien.
-
-Maintenant comparez cette réponse avec le rapport de vérification de l'étape 4. Les ❌ que vous aviez trouvés — est-ce que Claude les mentionne ?
-
-**Souvent, non.** Ou en passant, noyés dans une réponse positive.
-
-### Pourquoi
-
-Quand vous demandez "est-ce que c'est correct ?", c'est une question vague. Claude va lire le code, constater qu'il est syntaxiquement valide et logiquement cohérent avec lui-même, et dire "oui". C'est techniquement vrai — le code est "correct" en soi.
-
-Mais "correct" et "fait ce qu'il devrait" sont deux choses différentes. Le code peut être parfaitement correct ET ne pas rembourser le paiement quand il le devrait. Il n'y a pas de bug au sens technique. Il y a un manque — quelque chose qui n'a pas été fait.
-
-**La question "est-ce que c'est correct ?" est la mauvaise question.** La bonne question, c'est vos vérifications : "est-ce que le nombre de places diminue après inscription ? est-ce que le remboursement se déclenche après annulation ?" Des questions précises, vérifiables, qui ne laissent pas de place à l'interprétation.
-
-### La leçon
-
-> **Ne demandez jamais à l'IA "est-ce que c'est bon ?". Demandez-lui de vérifier des choses précises.** Une question floue donne une réponse floue. Une vérification précise donne un oui ou un non.
-
----
-
 ## Ce que vous avez appris
 
 ### En une phrase
@@ -367,23 +325,19 @@ Mais "correct" et "fait ce qu'il devrait" sont deux choses différentes. Le code
 ### La structure complète de votre projet
 
 ```
-VUE D'ENSEMBLE
-├── Parties et portes d'entrée (Module 1 + 3)
+plan.md
+├── Vue d'ensemble : parties et portes d'entrée (Module 1 + 3)
+├── Fiches détaillées : une par partie (Module 3)
+├── Parcours : actions complètes avec gestion d'erreur (Module 2)
+└── Vérifications : ce qui doit être vrai après chaque action   ← nouveau
+    ├── Cas normaux
+    ├── Cas d'erreur
+    └── Cas limites
 
-FICHES DÉTAILLÉES
-├── Une par partie, avec détails internes (Module 3)
-
-PARCOURS
-├── Actions complètes avec gestion d'erreur (Module 2)
-
-VÉRIFICATIONS                  ← nouveau
-├── En français : ce qui doit être vrai après chaque action
-├── Cas normaux, cas d'erreur, cas limites
-
-TESTS AUTOMATIQUES             ← nouveau
-├── Générés par Claude à partir des vérifications
-├── Lançables en une commande
-├── Le filet de sécurité permanent du projet
+Tests automatiques (fichiers séparés)                           ← nouveau
+├── Générés par Claude à partir des vérifications dans plan.md
+├── Lançables en une commande (npm test)
+└── Le filet de sécurité permanent du projet
 ```
 
 ---
