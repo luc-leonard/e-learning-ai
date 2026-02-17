@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initCheckboxes();
   initBackToTop();
   initScrollSpy();
+  initCopyButtons();
 });
 
 // ===== SPOILER / COLLAPSIBLE =====
@@ -44,6 +45,51 @@ function initBackToTop() {
   }, { passive: true });
   btn.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
+
+// ===== COPY BUTTONS =====
+function initCopyButtons() {
+  // Add copy buttons to code blocks
+  document.querySelectorAll('.module-content pre').forEach(pre => {
+    // Skip if inside a spoiler that's closed or if it's a non-copyable block
+    const code = pre.querySelector('code');
+    if (!code) return;
+    const text = code.textContent.trim();
+    if (!text) return;
+
+    pre.style.position = 'relative';
+    const btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.setAttribute('aria-label', 'Copier');
+    btn.textContent = 'Copier';
+    btn.addEventListener('click', () => copyAndFeedback(btn, text));
+    pre.appendChild(btn);
+  });
+
+  // Add copy buttons to blockquotes (Claude prompts)
+  document.querySelectorAll('.module-content blockquote:not(.notebook-prompt)').forEach(bq => {
+    const text = bq.textContent.trim().replace(/^Prompt Claude\s*/, '');
+    if (!text) return;
+
+    bq.style.position = 'relative';
+    const btn = document.createElement('button');
+    btn.className = 'copy-btn copy-btn-quote';
+    btn.setAttribute('aria-label', 'Copier');
+    btn.textContent = 'Copier';
+    btn.addEventListener('click', () => copyAndFeedback(btn, text));
+    bq.appendChild(btn);
+  });
+}
+
+function copyAndFeedback(btn, text) {
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copié !';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copier';
+      btn.classList.remove('copied');
+    }, 1500);
   });
 }
 
