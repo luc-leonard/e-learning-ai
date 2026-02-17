@@ -46,7 +46,7 @@ Envoyez-lui ce message :
 > - Proposer un nouveau livre
 > - Voter pour le prochain livre à lire
 >
-> Fais quelque chose de simple et joli. Choisis les technologies que tu veux.
+> Utilise Node.js avec Express pour le serveur, SQLite pour la base de données, et Pico.css chargé depuis un CDN pour le style. Fais quelque chose de simple et joli.
 
 ### Ce qui va se passer
 
@@ -63,7 +63,7 @@ npm install
 npm start
 ```
 
-Ou peut-être d'autres commandes, selon ce que Claude a choisi comme technologie. L'essentiel est de comprendre le principe : **installer** (une seule fois) puis **lancer** (à chaque fois que vous voulez voir le site).
+L'essentiel est de comprendre le principe : **installer** (une seule fois) puis **lancer** (à chaque fois que vous voulez voir le site).
 
 Une fois lancé, Claude vous dira d'ouvrir votre navigateur à une adresse comme `http://localhost:3000`. Faites-le. Vous devriez voir votre site de club de lecture.
 
@@ -195,8 +195,9 @@ Claude Code va écrire dans `plan.md` quelque chose qui ressemble à ça (mais a
 
 ```
 STACK TECHNIQUE
-→ Framework : [ce que Claude avait choisi à l'étape 1]
-→ Base de données : [ex. SQLite, PostgreSQL...]
+→ Serveur : Node.js + Express
+→ Base de données : SQLite
+→ Style : Pico.css (CDN)
 
 PARTIE : Comptes
 → Fait : gérer l'inscription, la connexion, savoir qui est qui
