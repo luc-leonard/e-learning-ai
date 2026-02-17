@@ -299,15 +299,10 @@ body {
 }
 
 .module-content {
-  display: none;
   max-width: var(--content-max);
   margin: 0 auto;
   padding: 3rem 2.5rem 6rem;
   animation: fadeInUp 0.4s ease;
-}
-
-.module-content.active {
-  display: block;
 }
 
 @keyframes fadeInUp {
