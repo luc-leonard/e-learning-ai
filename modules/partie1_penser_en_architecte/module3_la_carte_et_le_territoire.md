@@ -223,7 +223,28 @@ C'est ça, une "porte d'entrée" : la liste de ce qu'on peut demander à une par
 
 ---
 
-## Étape 4 — Travailler avec les niveaux de zoom (45 min)
+## Repartir de zéro — avec le nouveau plan
+
+Le code actuel est celui de l'étape 1 — modifié dans tous les sens pendant que Claude lisait le plan en entier. On ne va pas essayer de le réparer. Comme au Module 2, on va committer ce qui est précieux (le plan restructuré) et jeter le code cassé.
+
+Sauvegardez d'abord le plan et les fiches :
+
+```bash
+git add plan.md fiches/
+git commit -m "Module 3 : plan restructuré en vue d'ensemble + fiches"
+```
+
+Puis jetez le code cassé :
+
+```bash
+git checkout .
+```
+
+Vérifiez dans VSCode : le code est redevenu celui de la fin du Module 2 (propre et fonctionnel), mais `plan.md` est maintenant la vue d'ensemble, et le dossier `fiches/` contient les fiches détaillées.
+
+---
+
+## Étape 4 — Reconstruire avec les niveaux de zoom (60 min)
 
 ### Ce que vous allez faire
 
@@ -233,38 +254,38 @@ Quittez Claude Code (`/exit`) et relancez-le :
 claude
 ```
 
-Maintenant, quand vous voulez travailler sur une partie, vous demandez à Claude de lire **deux fichiers** :
-1. `plan.md` (la vue d'ensemble) — pour qu'il sache ce qui existe
-2. La fiche de la partie concernée — pour qu'il ait les détails
+Cette fois, vous allez reconstruire l'application de zéro, partie par partie. Mais au lieu de faire lire tout le plan à Claude, vous ne lui donnez que la vue d'ensemble + la fiche de la partie sur laquelle il travaille :
 
-Essayez :
+> Lis plan.md et fiches/comptes.md. Reconstruis l'application de zéro en commençant par la partie "Comptes". Utilise la même stack technique qu'avant. Suis le plan : cette partie gère UNIQUEMENT ce qui est décrit dans la fiche.
 
-> Lis plan.md et fiches/prets.md. Je veux améliorer les Prêts : quand un livre est en retard depuis plus de 2 semaines, le propriétaire doit pouvoir envoyer un rappel. Après 4 semaines, le prêt est signalé à l'admin. Implémente ça.
+Lancez le site et vérifiez. Puis passez à la partie suivante :
 
-Lancez le site et vérifiez que ça fonctionne.
+> Lis plan.md et fiches/livres.md. Maintenant, crée la partie "Livres". Suis la fiche : les votes sont dans cette partie, mais les critiques sont séparées.
+
+Et ainsi de suite pour chaque partie. À chaque fois, demandez à Claude de lire `plan.md` + la fiche de la partie concernée. **Pas les autres fiches.**
 
 ### 🟢 Ce que vous allez remarquer
 
-**Claude est plus précis.** Il ne se perd plus dans des détails sur les Réunions ou les Statistiques. Il se concentre sur les Prêts.
+**Claude est plus précis.** Il ne se perd plus dans des détails sur les Réunions ou les Statistiques. Il se concentre sur la partie en cours.
 
-**Claude respecte les frontières.** Quand il a besoin de Notifications pour envoyer le rappel, il ne réécrit pas le système de notifications. Il utilise la porte d'entrée — il sait ce qu'il peut demander à Notifications, mais pas comment ça marche en interne.
+**Claude respecte les frontières.** Quand il a besoin de Notifications pour envoyer un rappel, il ne réécrit pas le système de notifications. Il utilise la porte d'entrée — il sait ce qu'il peut demander à Notifications, mais pas comment ça marche en interne.
 
 **Claude ne touche pas aux autres parties.** Parce qu'il ne connaît que leur porte d'entrée (dans `plan.md`), pas leur fonctionnement interne. Il ne peut pas les modifier même s'il le voulait.
 
-**Comparez avec l'étape 1.** Même demande, mais Claude a moins d'information à digérer. Le résultat est plus ciblé.
+**Comparez avec l'étape 1.** Même projet, mais Claude a moins d'information à digérer à chaque étape. Le résultat est plus ciblé, plus cohérent.
 
-### Mettez à jour la fiche
+### Mettez à jour les fiches
 
-Après que Claude a implémenté la fonctionnalité, demandez-lui :
+Après chaque partie implémentée, si Claude a ajouté des détails ou des règles qui n'étaient pas dans la fiche, demandez-lui de la mettre à jour :
 
-> Mets à jour fiches/prets.md avec les nouvelles règles que tu viens d'implémenter (rappel à 2 semaines, signalement à 4 semaines).
+> Mets à jour fiches/prets.md avec les nouvelles règles que tu viens d'implémenter.
 
 Les fiches doivent rester synchronisées avec le code. C'est comme mettre à jour un dossier après un changement de procédure.
 
 ### Ce que vous devez noter dans votre carnet
 
 > ✍️ Est-ce que les réponses de Claude sont plus courtes et plus précises qu'à l'étape 1 ?
-> ✍️ Est-ce que Claude a essayé de modifier une partie autre que les Prêts ?
+> ✍️ Est-ce que Claude a essayé de modifier une partie autre que celle sur laquelle vous travailliez ?
 > ✍️ Quand Claude a eu besoin d'une autre partie, est-ce qu'il a utilisé la porte d'entrée ou est-ce qu'il a inventé sa propre solution ?
 
 ---
