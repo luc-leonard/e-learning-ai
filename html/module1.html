@@ -263,20 +263,24 @@ PARTIE : Critiques
 
         <hr>
 
-        <h2 id="m1-sauvegarder">Avant de reconstruire — Sauvegarder le bazar</h2>
+        <h2 id="m1-repartir">Repartir de zéro</h2>
 
-        <p>Avant de repartir de zéro, sauvegardez l'état actuel de votre projet avec git. Même si c'est du chaos, c'est un chaos instructif — vous voudrez peut-être le revoir plus tard.</p>
+        <p>Le code actuel est un chaos. On ne va pas essayer de le réparer — on va le jeter et reconstruire proprement avec le plan.</p>
+
+        <p>Mais d'abord, sauvegardez l'état actuel. Même si c'est du bazar, c'est un bazar instructif — vous voudrez peut-être le revoir plus tard.</p>
 
         <pre data-lang="bash"><code>git add .
 git commit -m "Tentative 1 : construction sans plan"</code></pre>
 
         <p><code>git add .</code> ajoute <strong>tous</strong> les fichiers d'un coup (le <code>.</code> veut dire "tout ce qu'il y a ici"). Pratique quand Claude Code a créé beaucoup de fichiers.</p>
 
-        <p>Maintenant, vous avez un point de sauvegarde. Si la reconstruction se passe mal, vous pourrez toujours revenir ici avec :</p>
+        <p>Maintenant, jetez tout le code cassé pour repartir d'un dossier propre :</p>
 
         <pre data-lang="bash"><code>git checkout .</code></pre>
 
-        <p>Cette commande veut dire : "jette tous les changements en cours et reviens au dernier commit". C'est le <code>Ctrl+Z</code> de git. Elle ne supprime que les modifications — vos commits sont en sécurité.</p>
+        <p>Cette commande veut dire : "jette tous les changements en cours et reviens au dernier commit". C'est le <code>Ctrl+Z</code> de git. Elle ne supprime que les modifications — vos commits (et donc <code>plan.md</code>) sont en sécurité.</p>
+
+        <p>Vérifiez dans VSCode : le code chaotique a disparu, mais <code>plan.md</code> est toujours là parce qu'il fait partie du commit.</p>
 
         <hr>
 
@@ -291,7 +295,7 @@ git commit -m "Tentative 1 : construction sans plan"</code></pre>
 
         <pre data-lang="bash"><code>claude</code></pre>
 
-        <p>Cette fois, vous allez demander à Claude de <strong>tout reconstruire de zéro</strong>, en suivant le plan. Le code chaotique est toujours là, mais on ne va pas essayer de le réparer — on va repartir from scratch. Par contre, on garde la même stack technique (les mêmes technologies que Claude avait choisies à l'étape 1). Demandez-lui :</p>
+        <p>Cette fois, vous allez demander à Claude de <strong>reconstruire de zéro</strong> en suivant le plan. On garde la même stack technique (les mêmes technologies que Claude avait choisies à l'étape 1), mais on repart d'une page blanche. Demandez-lui :</p>
 
         <blockquote>
           <p>Lis le fichier plan.md. C'est le plan de mon application. Supprime tout le code existant et reconstruis l'application de zéro en suivant ce plan. Utilise la même stack technique qu'avant. Commence par la partie "Comptes" : cette partie gère UNIQUEMENT l'inscription et la connexion.</p>

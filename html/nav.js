@@ -28,6 +28,7 @@ const MODULES = [
       { id: 'm1-etape2', label: 'Étape 2 — Ajoutez des choses' },
       { id: 'm1-etape3', label: 'Étape 3 — Comprendre' },
       { id: 'm1-etape4', label: 'Étape 4 — Construire un plan' },
+      { id: 'm1-repartir', label: 'Repartir de zéro' },
       { id: 'm1-etape5', label: 'Étape 5 — Reconstruire avec le plan' },
       { id: 'm1-etape6', label: 'Étape 6 — Le test final' },
       { id: 'm1-bilan', label: 'Ce que vous avez appris' },

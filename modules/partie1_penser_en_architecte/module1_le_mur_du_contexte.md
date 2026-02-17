@@ -219,9 +219,11 @@ Relisez le plan dans VSCode. Modifiez-le si quelque chose ne vous semble pas log
 
 ---
 
-## Avant de reconstruire — Sauvegarder le bazar
+## Repartir de zéro
 
-Avant de repartir de zéro, sauvegardez l'état actuel de votre projet avec git. Même si c'est du chaos, c'est un chaos instructif — vous voudrez peut-être le revoir plus tard.
+Le code actuel est un chaos. On ne va pas essayer de le réparer — on va le jeter et reconstruire proprement avec le plan.
+
+Mais d'abord, sauvegardez l'état actuel. Même si c'est du bazar, c'est un bazar instructif — vous voudrez peut-être le revoir plus tard.
 
 ```bash
 git add .
@@ -230,13 +232,15 @@ git commit -m "Tentative 1 : construction sans plan"
 
 `git add .` ajoute **tous** les fichiers d'un coup (le `.` veut dire "tout ce qu'il y a ici"). Pratique quand Claude Code a créé beaucoup de fichiers.
 
-Maintenant, vous avez un point de sauvegarde. Si la reconstruction se passe mal, vous pourrez toujours revenir ici avec :
+Maintenant, jetez tout le code cassé pour repartir d'un dossier propre :
 
 ```bash
 git checkout .
 ```
 
-Cette commande veut dire : "jette tous les changements en cours et reviens au dernier commit". C'est le `Ctrl+Z` de git. Elle ne supprime que les modifications — vos commits sont en sécurité.
+Cette commande veut dire : "jette tous les changements en cours et reviens au dernier commit". C'est le `Ctrl+Z` de git. Elle ne supprime que les modifications — vos commits (et donc `plan.md`) sont en sécurité.
+
+Vérifiez dans VSCode : le code chaotique a disparu, mais `plan.md` est toujours là parce qu'il fait partie du commit.
 
 ---
 
@@ -250,7 +254,7 @@ Relancez Claude Code :
 claude
 ```
 
-Cette fois, vous allez demander à Claude de **tout reconstruire de zéro**, en suivant le plan. Le code chaotique est toujours là, mais on ne va pas essayer de le réparer — on va repartir from scratch. Par contre, on garde la même stack technique (les mêmes technologies que Claude avait choisies à l'étape 1). Demandez-lui :
+Cette fois, vous allez demander à Claude de **reconstruire de zéro** en suivant le plan. On garde la même stack technique (les mêmes technologies que Claude avait choisies à l'étape 1), mais on repart d'une page blanche. Demandez-lui :
 
 > Lis le fichier plan.md. C'est le plan de mon application. Supprime tout le code existant et reconstruis l'application de zéro en suivant ce plan. Utilise la même stack technique qu'avant. Commence par la partie "Comptes" : cette partie gère UNIQUEMENT l'inscription et la connexion.
 
