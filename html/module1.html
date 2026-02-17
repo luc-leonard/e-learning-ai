@@ -267,20 +267,20 @@ PARTIE : Critiques
 
         <p>Le code actuel est un chaos. On ne va pas essayer de le réparer — on va le jeter et reconstruire proprement avec le plan.</p>
 
-        <p>Mais d'abord, sauvegardez l'état actuel. Même si c'est du bazar, c'est un bazar instructif — vous voudrez peut-être le revoir plus tard.</p>
+        <p>Mais attention : vous venez d'écrire <code>plan.md</code>, et vous ne voulez pas le perdre. La solution : <strong>committer uniquement le plan</strong>, puis jeter le reste.</p>
 
-        <pre data-lang="bash"><code>git add .
-git commit -m "Tentative 1 : construction sans plan"</code></pre>
+        <pre data-lang="bash"><code>git add plan.md
+git commit -m "Module 1 : ajout du plan"</code></pre>
 
-        <p><code>git add .</code> ajoute <strong>tous</strong> les fichiers d'un coup (le <code>.</code> veut dire "tout ce qu'il y a ici"). Pratique quand Claude Code a créé beaucoup de fichiers.</p>
+        <p>Remarquez qu'on n'utilise pas <code>git add .</code> cette fois. On ajoute <strong>un seul fichier</strong>. Le code chaotique n'est pas inclus dans le commit.</p>
 
-        <p>Maintenant, jetez tout le code cassé pour repartir d'un dossier propre :</p>
+        <p>Maintenant, jetez tout le code cassé :</p>
 
         <pre data-lang="bash"><code>git checkout .</code></pre>
 
-        <p>Cette commande veut dire : "jette tous les changements en cours et reviens au dernier commit". C'est le <code>Ctrl+Z</code> de git. Elle ne supprime que les modifications — vos commits (et donc <code>plan.md</code>) sont en sécurité.</p>
+        <p>Cette commande veut dire : "jette tous les changements en cours et reviens au dernier commit". C'est le <code>Ctrl+Z</code> de git. Elle ne supprime que les modifications — vos commits sont en sécurité.</p>
 
-        <p>Vérifiez dans VSCode : le code chaotique a disparu, mais <code>plan.md</code> est toujours là parce qu'il fait partie du commit.</p>
+        <p>Vérifiez dans VSCode : le code chaotique a disparu, mais <code>plan.md</code> est toujours là parce qu'il a été commité juste avant.</p>
 
         <hr>
 

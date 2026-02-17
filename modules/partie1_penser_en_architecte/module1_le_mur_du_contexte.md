@@ -223,24 +223,24 @@ Relisez le plan dans VSCode. Modifiez-le si quelque chose ne vous semble pas log
 
 Le code actuel est un chaos. On ne va pas essayer de le réparer — on va le jeter et reconstruire proprement avec le plan.
 
-Mais d'abord, sauvegardez l'état actuel. Même si c'est du bazar, c'est un bazar instructif — vous voudrez peut-être le revoir plus tard.
+Mais attention : vous venez d'écrire `plan.md`, et vous ne voulez pas le perdre. La solution : **committer uniquement le plan**, puis jeter le reste.
 
 ```bash
-git add .
-git commit -m "Tentative 1 : construction sans plan"
+git add plan.md
+git commit -m "Module 1 : ajout du plan"
 ```
 
-`git add .` ajoute **tous** les fichiers d'un coup (le `.` veut dire "tout ce qu'il y a ici"). Pratique quand Claude Code a créé beaucoup de fichiers.
+Remarquez qu'on n'utilise pas `git add .` cette fois. On ajoute **un seul fichier**. Le code chaotique n'est pas inclus dans le commit.
 
-Maintenant, jetez tout le code cassé pour repartir d'un dossier propre :
+Maintenant, jetez tout le code cassé :
 
 ```bash
 git checkout .
 ```
 
-Cette commande veut dire : "jette tous les changements en cours et reviens au dernier commit". C'est le `Ctrl+Z` de git. Elle ne supprime que les modifications — vos commits (et donc `plan.md`) sont en sécurité.
+Cette commande veut dire : "jette tous les changements en cours et reviens au dernier commit". C'est le `Ctrl+Z` de git. Elle ne supprime que les modifications — vos commits sont en sécurité.
 
-Vérifiez dans VSCode : le code chaotique a disparu, mais `plan.md` est toujours là parce qu'il fait partie du commit.
+Vérifiez dans VSCode : le code chaotique a disparu, mais `plan.md` est toujours là parce qu'il a été commité juste avant.
 
 ---
 
