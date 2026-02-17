@@ -242,8 +242,26 @@ Parcours liés :
 
         <hr>
 
+        <!-- REPARTIR DE ZÉRO -->
+        <h2 id="m3-repartir">Repartir de zéro — avec le nouveau plan</h2>
+
+        <p>Le code actuel est celui de l'étape 1 — modifié dans tous les sens pendant que Claude lisait le plan en entier. On ne va pas essayer de le réparer. Comme au Module 2, on va committer ce qui est précieux (le plan restructuré) et jeter le code cassé.</p>
+
+        <p>Sauvegardez d'abord le plan et les fiches :</p>
+
+        <pre data-lang="bash"><code>git add plan.md fiches/
+git commit -m "Module 3 : plan restructuré en vue d'ensemble + fiches"</code></pre>
+
+        <p>Puis jetez le code cassé :</p>
+
+        <pre data-lang="bash"><code>git checkout .</code></pre>
+
+        <p>Vérifiez dans VSCode : le code est redevenu celui de la fin du Module 2 (propre et fonctionnel), mais <code>plan.md</code> est maintenant la vue d'ensemble, et le dossier <code>fiches/</code> contient les fiches détaillées.</p>
+
+        <hr>
+
         <!-- ÉTAPE 4 -->
-        <div class="step-header" id="m3-etape4"><span class="step-number">4</span><h2>&Eacute;tape 4 &mdash; Travailler avec les niveaux de zoom <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(45 min)</small></h2></div>
+        <div class="step-header" id="m3-etape4"><span class="step-number">4</span><h2>Reconstruire avec les niveaux de zoom <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(60 min)</small></h2></div>
 
         <h3>Ce que vous allez faire</h3>
 
@@ -251,43 +269,41 @@ Parcours liés :
 
         <pre data-lang="bash"><code>claude</code></pre>
 
-        <p>Maintenant, quand vous voulez travailler sur une partie, vous demandez &agrave; Claude de lire <strong>deux fichiers</strong> :</p>
-        <ol>
-          <li><code>plan.md</code> (la vue d'ensemble) &mdash; pour qu'il sache ce qui existe</li>
-          <li>La fiche de la partie concern&eacute;e &mdash; pour qu'il ait les d&eacute;tails</li>
-        </ol>
+        <p>Cette fois, vous allez reconstruire l'application de zéro, partie par partie. Mais au lieu de faire lire tout le plan à Claude, vous ne lui donnez que la vue d'ensemble + la fiche de la partie sur laquelle il travaille :</p>
 
-        <p>Essayez :</p>
+        <blockquote><p>Lis plan.md et fiches/comptes.md. Reconstruis l'application de zéro en commençant par la partie "Comptes". Utilise la même stack technique qu'avant. Suis le plan : cette partie gère UNIQUEMENT ce qui est décrit dans la fiche.</p></blockquote>
 
-        <blockquote><p>Lis plan.md et fiches/prets.md. Je veux am&eacute;liorer les Pr&ecirc;ts : quand un livre est en retard depuis plus de 2 semaines, le propri&eacute;taire doit pouvoir envoyer un rappel. Apr&egrave;s 4 semaines, le pr&ecirc;t est signal&eacute; &agrave; l'admin. Impl&eacute;mente &ccedil;a.</p></blockquote>
+        <p>Lancez le site et vérifiez. Puis passez à la partie suivante :</p>
 
-        <p>Lancez le site et v&eacute;rifiez que &ccedil;a fonctionne.</p>
+        <blockquote><p>Lis plan.md et fiches/livres.md. Maintenant, crée la partie "Livres". Suis la fiche : les votes sont dans cette partie, mais les critiques sont séparées.</p></blockquote>
+
+        <p>Et ainsi de suite pour chaque partie. À chaque fois, demandez à Claude de lire <code>plan.md</code> + la fiche de la partie concernée. <strong>Pas les autres fiches.</strong></p>
 
         <div class="callout callout-green">
         <h3>🟢 Ce que vous allez remarquer</h3>
 
-        <p><strong>Claude est plus pr&eacute;cis.</strong> Il ne se perd plus dans des d&eacute;tails sur les R&eacute;unions ou les Statistiques. Il se concentre sur les Pr&ecirc;ts.</p>
+        <p><strong>Claude est plus précis.</strong> Il ne se perd plus dans des détails sur les Réunions ou les Statistiques. Il se concentre sur la partie en cours.</p>
 
-        <p><strong>Claude respecte les fronti&egrave;res.</strong> Quand il a besoin de Notifications pour envoyer le rappel, il ne r&eacute;&eacute;crit pas le syst&egrave;me de notifications. Il utilise la porte d'entr&eacute;e &mdash; il sait ce qu'il peut demander &agrave; Notifications, mais pas comment &ccedil;a marche en interne.</p>
+        <p><strong>Claude respecte les frontières.</strong> Quand il a besoin de Notifications pour envoyer un rappel, il ne réécrit pas le système de notifications. Il utilise la porte d'entrée — il sait ce qu'il peut demander à Notifications, mais pas comment ça marche en interne.</p>
 
-        <p><strong>Claude ne touche pas aux autres parties.</strong> Parce qu'il ne conna&icirc;t que leur porte d'entr&eacute;e (dans <code>plan.md</code>), pas leur fonctionnement interne. Il ne peut pas les modifier m&ecirc;me s'il le voulait.</p>
+        <p><strong>Claude ne touche pas aux autres parties.</strong> Parce qu'il ne connaît que leur porte d'entrée (dans <code>plan.md</code>), pas leur fonctionnement interne. Il ne peut pas les modifier même s'il le voulait.</p>
 
-        <p><strong>Comparez avec l'&eacute;tape 1.</strong> M&ecirc;me demande, mais Claude a moins d'information &agrave; dig&eacute;rer. Le r&eacute;sultat est plus cibl&eacute;.</p>
+        <p><strong>Comparez avec l'étape 1.</strong> Même projet, mais Claude a moins d'information à digérer à chaque étape. Le résultat est plus ciblé, plus cohérent.</p>
         </div>
 
-        <h3>Mettez &agrave; jour la fiche</h3>
+        <h3>Mettez à jour les fiches</h3>
 
-        <p>Apr&egrave;s que Claude a impl&eacute;ment&eacute; la fonctionnalit&eacute;, demandez-lui :</p>
+        <p>Après chaque partie implémentée, si Claude a ajouté des détails ou des règles qui n'étaient pas dans la fiche, demandez-lui de la mettre à jour :</p>
 
-        <blockquote><p>Mets &agrave; jour fiches/prets.md avec les nouvelles r&egrave;gles que tu viens d'impl&eacute;menter (rappel &agrave; 2 semaines, signalement &agrave; 4 semaines).</p></blockquote>
+        <blockquote><p>Mets à jour fiches/prets.md avec les nouvelles règles que tu viens d'implémenter.</p></blockquote>
 
-        <p>Les fiches doivent rester synchronis&eacute;es avec le code. C'est comme mettre &agrave; jour un dossier apr&egrave;s un changement de proc&eacute;dure.</p>
+        <p>Les fiches doivent rester synchronisées avec le code. C'est comme mettre à jour un dossier après un changement de procédure.</p>
 
         <h3>Ce que vous devez noter dans votre carnet</h3>
 
-        <blockquote class="notebook-prompt"><p>✍️ Est-ce que les r&eacute;ponses de Claude sont plus courtes et plus pr&eacute;cises qu'&agrave; l'&eacute;tape 1 ?</p></blockquote>
-        <blockquote class="notebook-prompt"><p>✍️ Est-ce que Claude a essay&eacute; de modifier une partie autre que les Pr&ecirc;ts ?</p></blockquote>
-        <blockquote class="notebook-prompt"><p>✍️ Quand Claude a eu besoin d'une autre partie, est-ce qu'il a utilis&eacute; la porte d'entr&eacute;e ou est-ce qu'il a invent&eacute; sa propre solution ?</p></blockquote>
+        <blockquote class="notebook-prompt"><p>✍️ Est-ce que les réponses de Claude sont plus courtes et plus précises qu'à l'étape 1 ?</p></blockquote>
+        <blockquote class="notebook-prompt"><p>✍️ Est-ce que Claude a essayé de modifier une partie autre que celle sur laquelle vous travailliez ?</p></blockquote>
+        <blockquote class="notebook-prompt"><p>✍️ Quand Claude a eu besoin d'une autre partie, est-ce qu'il a utilisé la porte d'entrée ou est-ce qu'il a inventé sa propre solution ?</p></blockquote>
 
         <hr>
 
