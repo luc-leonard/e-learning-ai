@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Module 5 — V&eacute;rifier pour de vrai</title>
+  <title>Module 5 — Vérifier pour de vrai</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
 </head>
@@ -13,302 +13,226 @@
     <main class="main-content">
       <div class="module-content">
 
-        <h1>Module 5 : V&eacute;rifier pour de vrai</h1>
-        <p class="module-subtitle"><em>Appliquer le cycle de v&eacute;rification &agrave; votre club de lecture &mdash; avec ses imperfections</em></p>
+<h1>Module 5 : Vérifier pour de vrai</h1>
+<p class="module-subtitle"><em>Appliquer le cycle de vérification à votre club de lecture — avec ses imperfections</em></p>
+<hr>
+<h2>Ce que vous savez déjà</h2>
+<p>Dans le Module 4, vous avez appris à vérifier sur un petit projet contrôlé. Vous connaissez le cycle : écrire des vérifications en français, obtenir un rapport ✅/❌/⚠️, corriger, re-vérifier. Vous avez peut-être même des tests automatiques qui tournent.</p>
+<p>Maintenant, on retourne au club de lecture. C'est plus gros. C'est plus flou. Et il y a probablement des problèmes que vous ne soupçonnez pas. C'est exactement le but.</p>
+<div class="module-meta">
+<div class="module-meta-item"><strong>Durée :</strong> 2-3 heures</div>
+<div class="module-meta-item"><strong>Ce qu'il vous faut :</strong> Votre projet du club de lecture (dans `formation-ia/`), Claude Code, votre carnet</div>
+</div>
+<hr>
+<h2 id="m5-analogie">Avant de commencer : une analogie</h2>
+<p>Vous venez de passer le permis sur un circuit d'entraînement. Tout était contrôlé : des cônes bien alignés, pas de trafic, pas de surprises. Maintenant, c'est la première fois que vous conduisez en ville. Les mêmes compétences — regarder les rétroviseurs, freiner, tourner — mais avec du bruit, des imprévus, et des piétons qui traversent n'importe où.</p>
+<p>Ce n'est pas plus difficile au sens technique. Mais ça demande une compétence supplémentaire : <strong>savoir quoi ignorer</strong>. Sur le circuit, vous pouviez être méthodique. En ville, vous devez prioriser : cette voiture qui freine devant vous est plus urgente que le panneau publicitaire sur la droite.</p>
+<p>C'est pareil pour la vérification. Le mini-projet était le circuit. Le club de lecture, c'est la ville.</p>
+<hr>
+<h2>Avant de commencer — testez le site (10 min)</h2>
+<p>Avant d'écrire la moindre vérification, passez dix minutes à tester votre club de lecture comme un utilisateur ordinaire. C'est le même réflexe qu'à l'Étape 2 du Module 4 : votre regard d'utilisateur attrape ce que les vérifications écrites ne voient pas.</p>
+<p>Dans le terminal de VSCode, assurez-vous d'être dans <code>formation-ia/</code>, puis lancez le site avec la même commande qu'au Module 1 (<code>npm start</code> ou celle que Claude vous a donnée). Ouvrez l'adresse dans votre navigateur et essayez quelques actions : inscrivez-vous à une réunion, annulez, naviguez.</p>
+<blockquote class="notebook-prompt">
+<p>✍️ Notez 2-3 choses qui vous semblent bizarres ou qui ne fonctionnent pas comme prévu.</p>
+</blockquote>
+<hr>
+<div class="step-header" id="m5-etape1"><span class="step-number">1</span><h2>Écrire les vérifications dans les fiches <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(45 min)</small></h2></div>
+<h3>Ce que vous allez faire</h3>
+<p>Ouvrez votre dossier <code>formation-ia/</code> dans VSCode. Vous retrouvez votre structure du Module 3 : <code>plan.md</code> et le dossier <code>fiches/</code> avec une fiche par partie.</p>
+<p>Les vérifications vont <strong>dans les fiches</strong>. C'est logique : les vérifications sont du détail interne, pas de la vue d'ensemble. Chaque fiche va recevoir une section <code>VÉRIFICATIONS</code>, comme vous l'avez fait dans <code>plan.md</code> du mini-projet.</p>
+<h3>Commencez par une seule fiche</h3>
+<p>Ne faites pas tout d'un coup. Choisissez <strong>une seule fiche</strong> — celle de la partie que vous connaissez le mieux. Si vous hésitez, prenez <code>fiches/reunions.md</code> : c'est la partie qui a le parcours le plus complet (inscription payante, annulation).</p>
+<p>Ouvrez la fiche dans VSCode et ajoutez une section <code>VÉRIFICATIONS</code> à la fin :</p>
+<pre><code>VÉRIFICATIONS : Inscription à une réunion payante
 
-        <hr>
+Situation de départ :
+  - La réunion "Soirée polar" a 10 places, il en reste 3
+  - Le membre Marie est connectée, elle n'est pas inscrite
 
-        <h2>Ce que vous savez d&eacute;j&agrave;</h2>
-
-        <p>Dans le Module 4, vous avez appris &agrave; v&eacute;rifier sur un petit projet contr&ocirc;l&eacute;. Vous connaissez le cycle : &eacute;crire des v&eacute;rifications en fran&ccedil;ais, obtenir un rapport &#9989;/&#10060;/&#9888;&#65039;, corriger, re-v&eacute;rifier. Vous avez peut-&ecirc;tre m&ecirc;me des tests automatiques qui tournent.</p>
-
-        <p>Maintenant, on retourne au club de lecture. C'est plus gros. C'est plus flou. Et il y a probablement des probl&egrave;mes que vous ne soup&ccedil;onnez pas. C'est exactement le but.</p>
-
-        <div class="module-meta">
-          <p><strong>Dur&eacute;e :</strong> 2-3 heures</p>
-          <p><strong>Ce qu'il vous faut :</strong> Votre projet du club de lecture (dans <code>formation-ia/</code>), Claude Code, votre carnet</p>
-        </div>
-
-        <hr>
-
-        <h2 id="m5-analogie">Avant de commencer : une analogie</h2>
-
-        <p>Vous venez de passer le permis sur un circuit d'entra&icirc;nement. Tout &eacute;tait contr&ocirc;l&eacute; : des c&ocirc;nes bien align&eacute;s, pas de trafic, pas de surprises. Maintenant, c'est la premi&egrave;re fois que vous conduisez en ville. Les m&ecirc;mes comp&eacute;tences &mdash; regarder les r&eacute;troviseurs, freiner, tourner &mdash; mais avec du bruit, des impr&eacute;vus, et des pi&eacute;tons qui traversent n'importe o&ugrave;.</p>
-
-        <p>Ce n'est pas plus difficile au sens technique. Mais &ccedil;a demande une comp&eacute;tence suppl&eacute;mentaire : <strong>savoir quoi ignorer</strong>. Sur le circuit, vous pouviez &ecirc;tre m&eacute;thodique. En ville, vous devez prioriser : cette voiture qui freine devant vous est plus urgente que le panneau publicitaire sur la droite.</p>
-
-        <p>C'est pareil pour la v&eacute;rification. Le mini-projet &eacute;tait le circuit. Le club de lecture, c'est la ville.</p>
-
-        <hr>
-
-        <!-- ÉTAPE 1 -->
-        <div class="step-header" id="m5-etape1"><span class="step-number">1</span><h2>&Eacute;tape 1 &mdash; &Eacute;crire les v&eacute;rifications dans les fiches <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(45 min)</small></h2></div>
-
-        <h3>Ce que vous allez faire</h3>
-
-        <p>Ouvrez votre dossier <code>formation-ia/</code> dans VSCode. Vous retrouvez votre structure du Module 3 : <code>plan.md</code> et le dossier <code>fiches/</code> avec une fiche par partie.</p>
-
-        <p>Les v&eacute;rifications vont <strong>dans les fiches</strong>. C'est logique : les v&eacute;rifications sont du d&eacute;tail interne, pas de la vue d'ensemble. Chaque fiche va recevoir une section <code>V&Eacute;RIFICATIONS</code>, comme vous l'avez fait dans <code>plan.md</code> du mini-projet.</p>
-
-        <h3>Commencez par une seule fiche</h3>
-
-        <p>Ne faites pas tout d'un coup. Choisissez <strong>une seule fiche</strong> &mdash; celle de la partie que vous connaissez le mieux. Si vous h&eacute;sitez, prenez <code>fiches/reunions.md</code> : c'est la partie qui a le parcours le plus complet (inscription payante, annulation).</p>
-
-        <p>Ouvrez la fiche dans VSCode et ajoutez une section <code>V&Eacute;RIFICATIONS</code> &agrave; la fin :</p>
-
-        <pre><code>V&Eacute;RIFICATIONS : Inscription &agrave; une r&eacute;union payante
-
-Situation de d&eacute;part :
-  - La r&eacute;union "Soir&eacute;e polar" a 10 places, il en reste 3
-  - Le membre Marie est connect&eacute;e, elle n'est pas inscrite
-
-Apr&egrave;s une inscription r&eacute;ussie :
+Après une inscription réussie :
   ✓ Il reste 2 places (pas 3)
-  ✓ Marie appara&icirc;t dans la liste des inscrits
-  ✓ Un paiement de 5&euro; est enregistr&eacute; au nom de Marie
-  ✓ Marie a re&ccedil;u un email de confirmation
+  ✓ Marie apparaît dans la liste des inscrits
+  ✓ Un paiement de 5€ est enregistré au nom de Marie
+  ✓ Marie a reçu un email de confirmation
 
 Quand il n'y a plus de place :
   ✓ Marie n'est PAS inscrite
-  ✓ Aucun paiement n'a &eacute;t&eacute; pris
+  ✓ Aucun paiement n'a été pris
   ✓ Marie voit un message "complet"
-  ✓ Le nombre de places n'a pas chang&eacute; (toujours 0)
+  ✓ Le nombre de places n'a pas changé (toujours 0)
 
-Quand le paiement &eacute;choue :
+Quand le paiement échoue :
   ✓ Marie n'est PAS inscrite
-  ✓ Le nombre de places n'a PAS diminu&eacute;
-  ✓ Aucun email n'est envoy&eacute;
-  ✓ Marie voit un message "paiement refus&eacute;"</code></pre>
+  ✓ Le nombre de places n'a PAS diminué
+  ✓ Aucun email n'est envoyé
+  ✓ Marie voit un message "paiement refusé"</code></pre>
+<h3>Ajoutez les cas limites</h3>
+<pre><code>VÉRIFICATIONS : Cas limites
 
-        <h3>Ajoutez les cas limites</h3>
+Marie s'inscrit deux fois à la même réunion :
+  ✓ La deuxième inscription est refusée
+  ✓ Un seul paiement est enregistré
+  ✓ Le nombre de places n'a diminué qu'une fois
 
-        <pre><code>V&Eacute;RIFICATIONS : Cas limites
+Marie s'inscrit puis l'admin annule la réunion :
+  ✓ Marie est remboursée
+  ✓ Marie n'apparaît plus dans les inscrits
+  ✓ Marie a reçu un email d'annulation
 
-Marie s'inscrit deux fois &agrave; la m&ecirc;me r&eacute;union :
-  ✓ La deuxi&egrave;me inscription est refus&eacute;e
-  ✓ Un seul paiement est enregistr&eacute;
-  ✓ Le nombre de places n'a diminu&eacute; qu'une fois
-
-Marie s'inscrit puis l'admin annule la r&eacute;union :
-  ✓ Marie est rembours&eacute;e
-  ✓ Marie n'appara&icirc;t plus dans les inscrits
-  ✓ Marie a re&ccedil;u un email d'annulation
-
-L'admin essaie de s'inscrire &agrave; sa propre r&eacute;union gratuite :
-  ✓ &Ccedil;a marche (ou &ccedil;a ne marche pas &mdash; c'est VOUS qui d&eacute;cidez,
+L'admin essaie de s'inscrire à sa propre réunion gratuite :
+  ✓ Ça marche (ou ça ne marche pas — c'est VOUS qui décidez,
     mais il faut que ce soit un choix, pas un accident)</code></pre>
-
-        <h3>Demandez &agrave; Claude de compl&eacute;ter</h3>
-
-        <p>Lancez Claude Code et demandez-lui :</p>
-
-        <blockquote><p>Lis la fiche fiches/reunions.md. J'ai ajout&eacute; des v&eacute;rifications &agrave; la fin. Quels cas ai-je oubli&eacute;s ? Pense aux cas bizarres, aux cas limites, et aux cas o&ugrave; plusieurs choses arrivent en m&ecirc;me temps. Ajoute-les dans la fiche.</p></blockquote>
-
-        <p><strong>C'est vous qui d&eacute;cidez lesquels garder.</strong> Sur un gros projet, il y a potentiellement des dizaines de cas limites. Gardez ceux qui comptent &mdash; ceux qui touchent &agrave; l'argent, aux donn&eacute;es, ou &agrave; la s&eacute;curit&eacute;. Supprimez ceux qui sont anecdotiques.</p>
-
-        <p>Quittez Claude Code (<code>/exit</code>) et sauvegardez :</p>
-
-        <pre data-lang="bash"><code>git add fiches/reunions.md
-git commit -m "Module 5 : v&eacute;rifications ajout&eacute;es &agrave; la fiche R&eacute;unions"</code></pre>
-
-        <h3>Ce que vous devez noter dans votre carnet</h3>
-
-        <blockquote class="notebook-prompt"><p>&#9997;&#65039; Combien de v&eacute;rifications avez-vous &eacute;crites vous-m&ecirc;me avant Claude ?</p></blockquote>
-        <blockquote class="notebook-prompt"><p>&#9997;&#65039; Combien Claude a-t-il ajout&eacute;es ? Combien avez-vous gard&eacute;es ?</p></blockquote>
-
-        <hr>
-
-        <!-- ÉTAPE 2 -->
-        <div class="step-header" id="m5-etape2"><span class="step-number">2</span><h2>&Eacute;tape 2 &mdash; Le rapport de v&eacute;rification <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(30 min)</small></h2></div>
-
-        <h3>Ce que vous allez faire</h3>
-
-        <p>Quittez Claude Code (<code>/exit</code>) puis relancez une nouvelle session (<code>claude</code>). Comme au Module 4, le v&eacute;rificateur doit avoir un regard frais. Dites-lui :</p>
-
-        <blockquote><p>Lis plan.md et la fiche fiches/reunions.md. Pour chaque v&eacute;rification list&eacute;e dans la fiche, explore le code correspondant et dis-moi :</p>
-        <ul>
-          <li>&#9989; PASSE : le code fait bien ce qui est d&eacute;crit</li>
-          <li>&#10060; &Eacute;CHOUE : le code ne fait pas ce qui est d&eacute;crit (explique pourquoi)</li>
-          <li>&#9888;&#65039; IMPOSSIBLE &Agrave; V&Eacute;RIFIER : le code ne couvre pas ce cas du tout</li>
-        </ul></blockquote>
-
-        <h3>Ce qui va &ecirc;tre diff&eacute;rent du mini-projet</h3>
-
-        <p>Le mini-projet avait 8-10 v&eacute;rifications, dont la plupart passaient. Le club de lecture va probablement montrer un ratio moins glorieux. C'est <strong>normal</strong> &mdash; le projet est plus vieux, plus gros, et a &eacute;t&eacute; reconstruit plusieurs fois.</p>
-
-        <p>Ne vous d&eacute;couragez pas si vous voyez beaucoup de &#10060; et de &#9888;&#65039;. Rappelez-vous : avant ce rapport, vous ne saviez m&ecirc;me pas que ces probl&egrave;mes existaient. Maintenant, vous les connaissez. C'est un progr&egrave;s, pas un &eacute;chec.</p>
-
-        <h3>Ce que vous devez noter dans votre carnet</h3>
-
-        <blockquote class="notebook-prompt"><p>&#9997;&#65039; Combien de &#9989;, &#10060; et &#9888;&#65039; ?</p></blockquote>
-        <blockquote class="notebook-prompt"><p>&#9997;&#65039; Le ratio est-il meilleur ou pire que ce que vous attendiez ?</p></blockquote>
-
-        <hr>
-
-        <!-- ÉTAPE 3 -->
-        <div class="step-header" id="m5-etape3"><span class="step-number">3</span><h2>&Eacute;tape 3 &mdash; Prioriser <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(15 min)</small></h2></div>
-
-        <h3>La comp&eacute;tence nouvelle</h3>
-
-        <p>Sur le mini-projet, vous pouviez tout corriger &mdash; il n'y avait que quelques erreurs. Sur le club de lecture, vous devez <strong>choisir vos batailles</strong>. Tout ne m&eacute;rite pas d'&ecirc;tre corrig&eacute; tout de suite.</p>
-
-        <p>Relisez vos &#10060; et &#9888;&#65039;, et classez-les en trois cat&eacute;gories :</p>
-
-        <p><strong>&#128308; Grave &mdash; &agrave; corriger maintenant</strong><br>
-        L'argent est mal g&eacute;r&eacute; (paiement pris sans inscription, remboursement manquant). Les donn&eacute;es sont incoh&eacute;rentes (un membre est inscrit mais n'appara&icirc;t pas dans la liste). Un parcours d&eacute;crit dans le plan n'est pas impl&eacute;ment&eacute; du tout.</p>
-
-        <p><strong>&#128993; Important &mdash; &agrave; corriger bient&ocirc;t</strong><br>
-        Un cas limite n'est pas g&eacute;r&eacute; (double inscription, annulation bizarre). Le comportement est acceptable mais pas conforme au plan. Ce n'est pas critique, mais &ccedil;a pourrait le devenir.</p>
-
-        <p><strong>&#9898; Mineur &mdash; on peut vivre avec</strong><br>
-        Un message d'erreur n'est pas clair. Un affichage est bizarre mais fonctionnel. Un cas extr&ecirc;mement improbable n'est pas g&eacute;r&eacute;.</p>
-
-        <h3>Ce que vous devez noter dans votre carnet</h3>
-
-        <blockquote class="notebook-prompt"><p>&#9997;&#65039; Combien de &#128308;, &#128993; et &#9898; ?</p></blockquote>
-        <blockquote class="notebook-prompt"><p>&#9997;&#65039; Quel crit&egrave;re avez-vous utilis&eacute; pour d&eacute;cider ? (L'argent ? Les donn&eacute;es ? L'exp&eacute;rience utilisateur ?)</p></blockquote>
-
-        <hr>
-
-        <!-- ÉTAPE 4 -->
-        <div class="step-header" id="m5-etape4"><span class="step-number">4</span><h2>&Eacute;tape 4 &mdash; Le cycle de correction <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(45 min)</small></h2></div>
-
-        <h3>Ce que vous allez faire</h3>
-
-        <p>Commencez par les &#128308; &mdash; les probl&egrave;mes graves. Le cycle est le m&ecirc;me que pour le mini-projet :</p>
-
-        <p><strong>Sauvegarder avant de corriger :</strong></p>
-
-        <pre data-lang="bash"><code>git add .
-git commit -m "Avant corrections : &eacute;tat actuel du club de lecture"</code></pre>
-
-        <p><strong>Corriger :</strong></p>
-
-        <p>Quittez (<code>/exit</code>), relancez Claude Code (<code>claude</code>), et demandez-lui de corriger un probl&egrave;me pr&eacute;cis :</p>
-
-        <blockquote><p>Lis plan.md et la fiche fiches/reunions.md. La v&eacute;rification suivante &eacute;choue : "[copiez la v&eacute;rification exacte]". Corrige &ccedil;a en respectant les parcours d&eacute;crits dans la fiche.</p></blockquote>
-
-        <p><strong>V&eacute;rifier l'ampleur avec <code>git diff</code> :</strong></p>
-
-        <pre data-lang="bash"><code>git diff</code></pre>
-
-        <p>M&ecirc;me r&eacute;flexe qu'au Module 4 : 3-10 lignes modifi&eacute;es, c'est rassurant. 200 lignes r&eacute;&eacute;crites pour un bug simple, c'est suspect.</p>
-
-        <p><strong>Sauvegarder :</strong></p>
-
-        <pre data-lang="bash"><code>git add .
-git commit -m "Correction : [d&eacute;crivez ce que vous avez corrig&eacute;]"</code></pre>
-
-        <p><strong>Re-v&eacute;rifier :</strong> Quittez, relancez, redemandez le rapport. Certains &#10060; vont passer en &#9989;.</p>
-
-        <h3>Un conseil pour les vrais projets</h3>
-
-        <p>Ne corrigez pas tout d'un coup. Faites <strong>une correction par commit</strong>. Si une correction casse quelque chose, vous savez exactement laquelle, et <code>git checkout .</code> vous ram&egrave;ne au commit pr&eacute;c&eacute;dent.</p>
-
-        <p>Sur le mini-projet, vous pouviez vous permettre d'&ecirc;tre moins disciplin&eacute;. Sur un vrai projet, cette rigueur vous sauvera.</p>
-
-        <hr>
-
-        <!-- ÉTAPE 5 -->
-        <div class="step-header" id="m5-etape5"><span class="step-number">5</span><h2>&Eacute;tape 5 &mdash; Les tests automatiques <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(30 min, optionnel)</small></h2></div>
-
-        <h3>Pourquoi c'est optionnel</h3>
-
-        <p>Sur le mini-projet, les tests avaient de bonnes chances de fonctionner du premier coup &mdash; le code &eacute;tait petit et fra&icirc;chement construit. Le club de lecture est diff&eacute;rent : le code a &eacute;t&eacute; reconstruit plusieurs fois, la structure est plus complexe, et les tests automatiques ont besoin d'un code assez bien organis&eacute; pour s'y brancher.</p>
-
-        <p>Si les tests ont bien march&eacute; au Module 4, tentez l'exp&eacute;rience. Sinon, le cycle manuel (v&eacute;rifier &rarr; corriger &rarr; committer &rarr; re-v&eacute;rifier) reste votre outil principal, et il fonctionne tr&egrave;s bien.</p>
-
-        <h3>Si vous voulez essayer</h3>
-
-        <p>Commencez petit. Ne demandez pas &agrave; Claude de tester <strong>toutes</strong> les fiches d'un coup. Choisissez <strong>une seule fiche</strong> &mdash; celle qui a le plus de v&eacute;rifications &#128308;. Lancez Claude Code :</p>
-
-        <blockquote><p>Lis plan.md et la fiche fiches/reunions.md. Transforme uniquement les v&eacute;rifications de cette fiche en tests automatiques. Je veux pouvoir les lancer avec une seule commande.</p></blockquote>
-
-        <p>Si <code>npm test</code> fonctionne et que vous voyez des ✓ et des ✗ &mdash; victoire. Vous avez des capteurs permanents sur la partie la plus importante de votre projet.</p>
-
-        <p>Si &ccedil;a ne marche pas apr&egrave;s deux tentatives : passez &agrave; la suite. La mise en place de tests sur un projet existant est une comp&eacute;tence &agrave; part enti&egrave;re, et vous la travaillerez dans la partie 2 de la formation.</p>
-
-        <pre data-lang="bash"><code>git add .
-git commit -m "Tests automatiques pour la partie R&eacute;unions"</code></pre>
-
-        <hr>
-
-        <!-- ÉTAPE 6 -->
-        <div class="step-header" id="m5-etape6"><span class="step-number">6</span><h2>&Eacute;tape 6 &mdash; &Eacute;largir &agrave; d'autres fiches <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(facultatif, 30-60 min)</small></h2></div>
-
-        <h3>Ce que vous allez faire</h3>
-
-        <p>Si vous avez le temps et l'&eacute;nergie, r&eacute;p&eacute;tez le cycle pour une ou deux autres fiches :</p>
-
-        <ol>
-          <li>Ouvrez la fiche dans VSCode et ajoutez les v&eacute;rifications</li>
-          <li>Demandez &agrave; Claude de compl&eacute;ter</li>
-          <li>Lancez le rapport de v&eacute;rification (session fra&icirc;che)</li>
-          <li>Priorisez (&#128308;/&#128993;/&#9898;)</li>
-          <li>Corrigez les &#128308;</li>
-          <li>Commettez apr&egrave;s chaque correction</li>
-        </ol>
-
-        <p>Vous n'&ecirc;tes pas oblig&eacute; de couvrir toutes les fiches. Ce qui compte, c'est que les parties <strong>critiques</strong> (celles qui touchent &agrave; l'argent, aux donn&eacute;es, aux inscriptions) aient des v&eacute;rifications solides.</p>
-
-        <hr>
-
-        <!-- BILAN -->
-        <h2 id="m5-bilan">Ce que vous avez appris</h2>
-
-        <h3>En une phrase</h3>
-
-        <p><strong>Sur un vrai projet, la v&eacute;rification ne consiste pas &agrave; tout v&eacute;rifier &mdash; mais &agrave; savoir quoi v&eacute;rifier en priorit&eacute;.</strong></p>
-
-        <h3>Les deux nouveaux r&eacute;flexes</h3>
-
-        <ol start="13">
-          <li><strong>Posez des questions pr&eacute;cises, pas des questions vagues.</strong> "Est-ce que &ccedil;a marche ?" &rarr; mauvais. "Est-ce que le nombre de places diminue de 1 apr&egrave;s une inscription r&eacute;ussie ?" &rarr; bon. Plus la question est pr&eacute;cise, plus la r&eacute;ponse est utile.</li>
-          <li><strong>Priorisez vos corrections.</strong> Tout n'est pas grave. L'argent mal g&eacute;r&eacute; est plus urgent qu'un affichage bizarre. Corrigez les &#128308; d'abord, les &#128993; ensuite, et vivez avec les &#9898;.</li>
-        </ol>
-
-        <h3>La structure compl&egrave;te de votre projet</h3>
-
-        <pre><code>plan.md
-├── Vue d'ensemble : parties et portes d'entr&eacute;e (Module 1 + 3)
-└── Parcours : actions compl&egrave;tes avec gestion d'erreur (Module 2)
+<h3>Demandez à Claude de compléter</h3>
+<p>Lancez Claude Code et demandez-lui :</p>
+<blockquote>
+<p>Lis la fiche fiches/reunions.md. J'ai ajouté des vérifications à la fin. Quels cas ai-je oubliés ? Pense aux cas bizarres, aux cas limites, et aux cas où plusieurs choses arrivent en même temps. Ajoute-les dans la fiche.</p>
+</blockquote>
+<p><strong>C'est vous qui décidez lesquels garder.</strong> Sur un gros projet, il y a potentiellement des dizaines de cas limites. Gardez ceux qui comptent — ceux qui touchent à l'argent, aux données, ou à la sécurité. Supprimez ceux qui sont anecdotiques.</p>
+<p>Quittez Claude Code (<code>/exit</code>) et sauvegardez :</p>
+<pre data-lang="bash"><code>git add fiches/reunions.md
+git commit -m "Module 5 : vérifications ajoutées à la fiche Réunions"</code></pre>
+<h3>Ce que vous devez noter dans votre carnet</h3>
+<blockquote class="notebook-prompt">
+<p>✍️ Combien de vérifications avez-vous écrites vous-même avant Claude ?</p>
+</blockquote>
+<blockquote class="notebook-prompt">
+<p>✍️ Combien Claude a-t-il ajoutées ? Combien avez-vous gardées ?</p>
+</blockquote>
+<hr>
+<div class="step-header" id="m5-etape2"><span class="step-number">2</span><h2>Le rapport de vérification <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(30 min)</small></h2></div>
+<h3>Ce que vous allez faire</h3>
+<p>Quittez Claude Code (<code>/exit</code>) puis relancez une nouvelle session (<code>claude</code>). Comme au Module 4, le vérificateur doit avoir un regard frais. Dites-lui :</p>
+<blockquote>
+<p>Lis plan.md et la fiche fiches/reunions.md. Pour chaque vérification listée dans la fiche, explore le code correspondant et dis-moi :</p>
+<ul>
+<li>✅ PASSE : le code fait bien ce qui est décrit</li>
+<li>❌ ÉCHOUE : le code ne fait pas ce qui est décrit (explique pourquoi)</li>
+<li>⚠️ IMPOSSIBLE À VÉRIFIER : le code ne couvre pas ce cas du tout</li>
+</ul>
+</blockquote>
+<h3>Ce qui va être différent du mini-projet</h3>
+<p>Le mini-projet avait 8-10 vérifications, dont la plupart passaient. Le club de lecture va probablement montrer un ratio moins glorieux. C'est <strong>normal</strong> — le projet est plus vieux, plus gros, et a été reconstruit plusieurs fois.</p>
+<p>Ne vous découragez pas si vous voyez beaucoup de ❌ et de ⚠️. Rappelez-vous : avant ce rapport, vous ne saviez même pas que ces problèmes existaient. Maintenant, vous les connaissez. C'est un progrès, pas un échec.</p>
+<h3>Ce que vous devez noter dans votre carnet</h3>
+<blockquote class="notebook-prompt">
+<p>✍️ Combien de ✅, ❌ et ⚠️ ?</p>
+</blockquote>
+<blockquote class="notebook-prompt">
+<p>✍️ Le ratio est-il meilleur ou pire que ce que vous attendiez ?</p>
+</blockquote>
+<hr>
+<div class="step-header" id="m5-etape3"><span class="step-number">3</span><h2>Prioriser <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(15 min)</small></h2></div>
+<h3>La compétence nouvelle</h3>
+<p>Sur le mini-projet, vous pouviez tout corriger — il n'y avait que quelques erreurs. Sur le club de lecture, vous devez <strong>choisir vos batailles</strong>. Tout ne mérite pas d'être corrigé tout de suite.</p>
+<p>Relisez vos ❌ et ⚠️, et classez-les en trois catégories :</p>
+<p><strong>🔴 Grave — à corriger maintenant</strong>
+L'argent est mal géré (paiement pris sans inscription, remboursement manquant). Les données sont incohérentes (un membre est inscrit mais n'apparaît pas dans la liste). Un parcours décrit dans le plan n'est pas implémenté du tout.</p>
+<p><strong>🟡 Important — à corriger bientôt</strong>
+Un cas limite n'est pas géré (double inscription, annulation bizarre). Le comportement est acceptable mais pas conforme au plan. Ce n'est pas critique, mais ça pourrait le devenir.</p>
+<p><strong>⚪ Mineur — on peut vivre avec</strong>
+Un message d'erreur n'est pas clair. Un affichage est bizarre mais fonctionnel. Un cas extrêmement improbable n'est pas géré.</p>
+<h3>Ce que vous devez noter dans votre carnet</h3>
+<blockquote class="notebook-prompt">
+<p>✍️ Combien de 🔴, 🟡 et ⚪ ?</p>
+</blockquote>
+<blockquote class="notebook-prompt">
+<p>✍️ Quel critère avez-vous utilisé pour décider ? (L'argent ? Les données ? L'expérience utilisateur ?)</p>
+</blockquote>
+<hr>
+<div class="step-header" id="m5-etape4"><span class="step-number">4</span><h2>Le cycle de correction <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(45 min)</small></h2></div>
+<h3>Ce que vous allez faire</h3>
+<p>Commencez par les 🔴 — les problèmes graves. Le cycle est le même que pour le mini-projet :</p>
+<p><strong>Sauvegarder avant de corriger :</strong></p>
+<pre data-lang="bash"><code>git add .
+git commit -m "Avant corrections : état actuel du club de lecture"</code></pre>
+<p><strong>Corriger :</strong></p>
+<p>Quittez (<code>/exit</code>), relancez Claude Code (<code>claude</code>), et demandez-lui de corriger un problème précis :</p>
+<p>Voici un exemple de demande — remplacez la partie entre guillemets par la phrase exacte de votre ❌, copiée telle quelle depuis le rapport :</p>
+<blockquote>
+<p>Lis plan.md et la fiche fiches/reunions.md. La vérification suivante échoue : "Marie n'est PAS inscrite quand le paiement échoue". Corrige ça en respectant les parcours décrits dans la fiche.</p>
+</blockquote>
+<p><strong>Vérifier l'ampleur avec <code>git diff</code> :</strong></p>
+<pre data-lang="bash"><code>git diff</code></pre>
+<p>Même réflexe qu'au Module 4 : 3-10 lignes modifiées, c'est rassurant. 200 lignes réécrites pour un bug simple, c'est suspect.</p>
+<p><strong>Sauvegarder :</strong></p>
+<pre data-lang="bash"><code>git add .
+git commit -m "Correction : [décrivez ce que vous avez corrigé]"</code></pre>
+<p><strong>Re-vérifier :</strong> Quittez, relancez, redemandez le rapport. Certains ❌ vont passer en ✅.</p>
+<h3>Un conseil pour les vrais projets</h3>
+<p>Ne corrigez pas tout d'un coup. Faites <strong>une correction par commit</strong>. Si une correction casse quelque chose, vous savez exactement laquelle, et <code>git checkout .</code> vous ramène au commit précédent.</p>
+<p>Sur le mini-projet, vous pouviez vous permettre d'être moins discipliné. Sur un vrai projet, cette rigueur vous sauvera.</p>
+<hr>
+<div class="step-header" id="m5-etape5"><span class="step-number">5</span><h2>Les tests automatiques <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(30 min, optionnel)</small></h2></div>
+<h3>Pourquoi c'est optionnel</h3>
+<p>Sur le mini-projet, les tests avaient de bonnes chances de fonctionner du premier coup — le code était petit et fraîchement construit. Le club de lecture est différent : le code a été reconstruit plusieurs fois, la structure est plus complexe, et les tests automatiques ont besoin d'un code assez bien organisé pour s'y brancher.</p>
+<p>Si les tests ont bien marché au Module 4, tentez l'expérience. Sinon, le cycle manuel (vérifier → corriger → committer → re-vérifier) reste votre outil principal, et il fonctionne très bien.</p>
+<h3>Si vous voulez essayer</h3>
+<p>Commencez petit. Ne demandez pas à Claude de tester <strong>toutes</strong> les fiches d'un coup. Choisissez <strong>une seule fiche</strong> — celle qui a le plus de vérifications 🔴. Lancez Claude Code :</p>
+<blockquote>
+<p>Lis plan.md et la fiche fiches/reunions.md. Transforme uniquement les vérifications de cette fiche en tests automatiques. Je veux pouvoir les lancer avec une seule commande.</p>
+</blockquote>
+<p>Si <code>npm test</code> fonctionne et que vous voyez des ✓ et des ✗ — victoire. Vous avez des capteurs permanents sur la partie la plus importante de votre projet.</p>
+<p>Si ça ne marche pas après deux tentatives : passez à la suite. La mise en place de tests sur un projet existant est une compétence à part entière, et vous la travaillerez dans la partie 2 de la formation.</p>
+<pre data-lang="bash"><code>git add .
+git commit -m "Tests automatiques pour la partie Réunions"</code></pre>
+<hr>
+<div class="step-header" id="m5-etape6"><span class="step-number">6</span><h2>Élargir à d'autres fiches <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(facultatif, 30-60 min)</small></h2></div>
+<h3>Ce que vous allez faire</h3>
+<p>Si vous avez le temps et l'énergie, répétez le cycle pour une ou deux autres fiches :</p>
+<ol>
+<li>Ouvrez la fiche dans VSCode et ajoutez les vérifications</li>
+<li>Demandez à Claude de compléter</li>
+<li>Lancez le rapport de vérification (session fraîche)</li>
+<li>Priorisez (🔴/🟡/⚪)</li>
+<li>Corrigez les 🔴</li>
+<li>Commettez après chaque correction</li>
+</ol>
+<p>Vous n'êtes pas obligé de couvrir toutes les fiches. Ce qui compte, c'est que les parties <strong>critiques</strong> (celles qui touchent à l'argent, aux données, aux inscriptions) aient des vérifications solides.</p>
+<p><strong>Quand s'arrêter ?</strong> Quand les parties critiques n'ont plus de ❌ graves — argent mal géré, données incohérentes, parcours non implémenté. Vous n'avez pas besoin d'un rapport tout vert. Vous avez besoin d'un projet dont vous <em>connaissez</em> l'état.</p>
+<hr>
+<h2 id="m5-bilan">Ce que vous avez appris</h2>
+<h3>En une phrase</h3>
+<p><strong>Sur un vrai projet, la vérification ne consiste pas à tout vérifier — mais à savoir quoi vérifier en priorité.</strong></p>
+<h3>Les deux nouveaux réflexes</h3>
+<ol start="13">
+<li>
+<p><strong>Posez des questions précises, pas des questions vagues.</strong> "Est-ce que ça marche ?" → mauvais. "Est-ce que le nombre de places diminue de 1 après une inscription réussie ?" → bon. Plus la question est précise, plus la réponse est utile.</p>
+</li>
+<li>
+<p><strong>Priorisez vos corrections.</strong> Tout n'est pas grave. L'argent mal géré est plus urgent qu'un affichage bizarre. Corrigez les 🔴 d'abord, les 🟡 ensuite, et vivez avec les ⚪.</p>
+</li>
+</ol>
+<h3>La structure complète de votre projet</h3>
+<pre><code>plan.md
+├── Vue d'ensemble : parties et portes d'entrée (Module 1 + 3)
+└── Parcours : actions complètes avec gestion d'erreur (Module 2)
 
 fiches/
 ├── Une fiche par partie (Module 3)
-└── V&eacute;rifications dans chaque fiche (Modules 4-5)     &larr; nouveau
+└── Vérifications dans chaque fiche (Modules 4-5)     ← nouveau
     ├── Cas normaux
     ├── Cas d'erreur
     └── Cas limites
 
-Tests automatiques (fichiers s&eacute;par&eacute;s)                   &larr; nouveau
-├── G&eacute;n&eacute;r&eacute;s par Claude &agrave; partir des v&eacute;rifications
-├── Lan&ccedil;ables en une commande (npm test)
-└── Le filet de s&eacute;curit&eacute; permanent du projet</code></pre>
-
-        <h3>Pas de "Repartir de z&eacute;ro" cette fois</h3>
-
-        <p>Vous l'avez remarqu&eacute; : dans ce module, on n'a pas jet&eacute; le code pour tout reconstruire. C'est un signe de progr&egrave;s. Votre code est assez bien structur&eacute; pour &ecirc;tre <strong>corrig&eacute;</strong> plut&ocirc;t que <strong>jet&eacute;</strong>. C'est la diff&eacute;rence entre un projet chaotique et un projet maintenu.</p>
-
-        <hr>
-
-        <h2>Avant de partir &mdash; sauvegardez</h2>
-
-        <pre data-lang="bash"><code>git add .
-git commit -m "Module 5 termin&eacute; : v&eacute;rifications et corrections du club de lecture"</code></pre>
-
-        <p>Tapez <code>git log --oneline</code> pour voir tout votre historique. Vous devriez avoir une s&eacute;rie de commits qui racontent l'histoire de votre apprentissage &mdash; du premier chaos jusqu'&agrave; un projet v&eacute;rifi&eacute;.</p>
-
-        <hr>
-
-        <h2>La suite</h2>
-
-        <p>Vous avez maintenant un vrai syst&egrave;me : des parties organis&eacute;es, des parcours d&eacute;finis, une structure d'information en niveaux, et des v&eacute;rifications pour vous assurer que tout tient. C'est un vrai projet logiciel, pilot&eacute; par vous, construit par l'IA.</p>
-
-        <p>Dans le Module 6, on va aborder une question diff&eacute;rente : <strong>vous pratiquez des techniques professionnelles depuis cinq modules, mais vous ne connaissez pas encore leurs vrais noms.</strong> On va mettre des mots sur ce que vous savez &mdash; et d&eacute;couvrir que ce vocabulaire vous ouvre les portes d'un monde entier de connaissances. Puis on va affronter le moment o&ugrave; votre plan, celui que vous avez soigneusement construit, ne suffit plus.</p>
+Tests automatiques (fichiers séparés)                   ← nouveau
+├── Générés par Claude à partir des vérifications
+├── Lançables en une commande (npm test)
+└── Le filet de sécurité permanent du projet</code></pre>
+<h3>Pas de "Repartir de zéro" cette fois</h3>
+<p>Vous l'avez remarqué : dans ce module, on n'a pas jeté le code pour tout reconstruire. C'est un signe de progrès. Votre code est assez bien structuré pour être <strong>corrigé</strong> plutôt que <strong>jeté</strong>. C'est la différence entre un projet chaotique et un projet maintenu.</p>
+<hr>
+<h2 id="m5-sauvegarde">Avant de partir — sauvegardez</h2>
+<pre data-lang="bash"><code>git add .
+git commit -m "Module 5 terminé : vérifications et corrections du club de lecture"</code></pre>
+<p>Tapez <code>git log --oneline</code> pour voir tout votre historique. Vous devriez avoir une série de commits qui racontent l'histoire de votre apprentissage — du premier chaos jusqu'à un projet vérifié.</p>
+<hr>
+<h2 id="m5-suite">La suite</h2>
+<p>Vous avez maintenant un vrai système : des parties organisées, des parcours définis, une structure d'information en niveaux, et des vérifications pour vous assurer que tout tient. C'est un vrai projet logiciel, piloté par vous, construit par l'IA.</p>
+<p>Dans le Module 6, on va aborder une question différente : <strong>vous pratiquez des techniques professionnelles depuis cinq modules, mais vous ne connaissez pas encore leurs vrais noms.</strong> On va mettre des mots sur ce que vous savez — et découvrir que ce vocabulaire vous ouvre les portes d'un monde entier de connaissances. Puis on va affronter le moment où votre plan, celui que vous avez soigneusement construit, ne suffit plus.</p>
 
       </div>
     </main>
-    <button class="back-to-top" aria-label="Retour en haut">&uarr;</button>
+    <button class="back-to-top" aria-label="Retour en haut">↑</button>
   </div>
   <script src="nav.js"></script>
   <script src="app.js"></script>

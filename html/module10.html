@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 10 — Les mots du métier</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
+</head>
+<body>
+  <div class="app">
+    <div id="sidebar-root"></div>
+    <main class="main-content">
+      <div class="module-content">
+
+<h1>Module 10 : Les mots du métier</h1>
+<p class="module-subtitle"><em>Quand le code parle comme un développeur alors qu'il devrait parler comme vos utilisateurs</em></p>
+<hr>
+<h2>Ce que vous savez déjà</h2>
+<p>Vos modules sont découpés. Ils communiquent par événements. L'extérieur est propre. Mais ouvrez le capot d'un contexte — disons Réunions — et regardez à l'intérieur. C'est un sac de fonctions, de tables de base de données, et de champs aux noms techniques. Le bazar a juste déménagé.</p>
+<p>Ce module va changer votre façon de penser. Pas votre code — votre façon de penser.</p>
+<div class="module-meta">
+<div class="module-meta-item"><strong>Durée :</strong> Une semaine (1-2 heures par jour)</div>
+<div class="module-meta-item"><strong>Ce qu'il vous faut :</strong> Votre projet du Module 9, un compte Claude, votre carnet</div>
+</div>
+<hr>
+<h2 id="m10-analogie">Avant de commencer : une analogie</h2>
+<p>Vous êtes le nouveau gérant d'un club de lecture. Le gérant précédent vous a laissé un classeur pour tout gérer. Vous l'ouvrez et vous trouvez :</p>
+<pre><code>Table 1 : entités
+  id | type   | nom              | parent_id | status | data
+  1  | event  | Soirée Polar     | null      | active | {"max":20}
+  2  | user   | Marie Dupont     | null      | active | {"role":"member"}
+  3  | reg    | null             | null      | done   | {"event":1,"user":2}
+  4  | review | null             | null      | pub    | {"event":1,"user":2,"text":"..."}</code></pre>
+<p>Vous comprenez quelque chose ? Tout est une "entité" avec un "type", un "status", et un blob de "data". C'est techniquement exact — mais c'est incompréhensible pour quelqu'un qui gère un club de lecture.</p>
+<p>Maintenant imaginez que l'ancien gérant vous avait plutôt laissé ça :</p>
+<pre><code>Réunions à venir :
+  "Soirée Polar" — 15 mars, 20h, Café du Commerce
+    Places : 17/20
+    Inscrits : Marie Dupont, Jean Martin, ...
+
+Membres :
+  Marie Dupont — membre depuis janvier 2025
+    A lu : 12 livres
+    Prochain emprunt possible : oui (2/3 emprunts utilisés)
+
+Livres en cours :
+  "Le Nom de la Rose" — proposé par Jean, 8 votes
+    Catégorie : polar historique
+    Exemplaires disponibles au prêt : 2</code></pre>
+<p>C'est le même club. Les mêmes informations. Mais la deuxième version <strong>parle comme le gérant du club</strong>, pas comme un technicien. Vous savez immédiatement ce qu'est une "réunion à venir", un "membre", un "exemplaire disponible au prêt".</p>
+<p>Votre code, en ce moment, ressemble au premier classeur. Ce module va le transformer en deuxième classeur.</p>
+<hr>
+<div class="step-header" id="m10-jour1"><span class="step-number">1</span><h2>Écouter les utilisateurs <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(90 min)</small></h2></div>
+<h3>Ce que vous allez faire</h3>
+<p>Pas de code aujourd'hui. Aujourd'hui, vous allez <strong>écouter</strong>.</p>
+<p>Imaginez que vous êtes dans le vrai club de lecture. Le gérant, les membres, l'admin — comment parlent-ils de ce qui se passe ? Pas en termes de code. En termes de leur quotidien.</p>
+<p>Demandez à Claude :</p>
+<blockquote>
+<p>Je construis une application pour un club de lecture. Je veux lister tous les mots et expressions qu'utiliserait un vrai gérant de club de lecture pour parler de son activité. Pas des mots techniques — les mots de tous les jours.</p>
+<p>Organise-les par thème. Par exemple :</p>
+<ul>
+<li>Comment parle-t-il des réunions ? (pas des "events" ou des "entities")</li>
+<li>Comment parle-t-il des membres ? (pas des "users" ou des "accounts")</li>
+<li>Comment parle-t-il des livres qu'on se prête ?</li>
+</ul>
+<p>Pour chaque mot, donne une phrase d'exemple comme un gérant la dirait dans la vraie vie.</p>
+</blockquote>
+<h3>Ce que Claude va vous donner</h3>
+<p>Quelque chose comme :</p>
+<pre><code>COMMENT LE GÉRANT PARLE DES RÉUNIONS :
+
+"La prochaine séance est mardi."
+→ séance (pas "event", pas "meeting entity")
+
+"Il reste 3 places pour la séance polar."
+→ places restantes (pas "available_slots", pas "capacity minus count")
+
+"Marie s'est inscrite mais elle est sur liste d'attente."
+→ liste d'attente (pas "waitlist_queue", pas "status: pending")
+
+"On a dû annuler la séance, j'ai prévenu tout le monde."
+→ annuler, prévenir (pas "soft delete", pas "trigger notification pipeline")
+
+COMMENT IL PARLE DES LIVRES :
+
+"Jean a proposé 'Le Nom de la Rose' pour le mois prochain."
+→ proposer un livre (pas "create book entry")
+
+"On a voté, c'est le polar qui l'a emporté."
+→ voter, l'emporter (pas "increment vote count", pas "select max")
+
+"Marie a un exemplaire, elle le prête à Jean."
+→ exemplaire, prêter (pas "book instance", pas "create loan record")
+
+"Jean devait rendre le livre il y a deux semaines, je vais le relancer."
+→ rendre, relancer (pas "update loan status", pas "send overdue notification")
+
+COMMENT IL PARLE DES MEMBRES :
+
+"Marie est une habituée, elle vient depuis le début."
+→ habituée (pas "user with created_at &lt; threshold")
+
+"Jean est nouveau, c'est sa deuxième séance."
+→ nouveau membre (pas "user where session_count &lt;= 2")
+
+"Paul a été un peu pénible, on l'a exclu du club."
+→ exclure (pas "ban", pas "set status: banned")</code></pre>
+<h3>Pourquoi c'est important</h3>
+<p>Regardez la différence entre les deux colonnes. À gauche, des mots que tout le monde comprend. À droite, des mots de développeur que seul le code comprend.</p>
+<p>Votre code est rempli de mots de droite. Et c'est un problème, parce que :</p>
+<ol>
+<li>
+<p><strong>Vous ne comprenez pas votre propre code.</strong> Quand vous lisez <code>update_entity_status</code>, vous devez réfléchir pour savoir si c'est "annuler une séance" ou "exclure un membre" ou autre chose.</p>
+</li>
+<li>
+<p><strong>Claude ne comprend pas votre intention.</strong> Quand vous dites "gère l'annulation", Claude ne sait pas si vous parlez de l'annulation d'une séance, d'une inscription, d'un prêt, ou d'un paiement — parce que dans le code, tout s'appelle <code>cancel</code>.</p>
+</li>
+<li>
+<p><strong>Les bugs se cachent dans le flou.</strong> Si une fonction s'appelle <code>process_event</code>, elle peut faire n'importe quoi. Si elle s'appelle <code>annuler_seance_et_rembourser_inscrits</code>, il est beaucoup plus facile de vérifier qu'elle fait bien ce qu'elle dit.</p>
+</li>
+</ol>
+<h3>L'exercice</h3>
+<p>Prenez la liste de mots du gérant et collez-la dans votre carnet. C'est votre <strong>dictionnaire du domaine</strong>. À partir de maintenant, votre code doit utiliser CES mots, pas des mots techniques.</p>
+<hr>
+<div class="step-header" id="m10-jour2"><span class="step-number">2</span><h2>Regarder le code avec les yeux du gérant <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(90 min)</small></h2></div>
+<h3>Ce que vous allez faire</h3>
+<p>Ouvrez votre contexte Réunions et demandez à Claude :</p>
+<blockquote>
+<p>Voici le code de mon contexte Réunions :
+[collez le code]</p>
+<p>Et voici le dictionnaire des mots qu'utilise un vrai gérant de club de lecture :
+[collez le dictionnaire du Jour 1]</p>
+<p>Compare les deux. Pour chaque fonction et chaque champ de données, dis-moi :</p>
+<ul>
+<li>Le nom actuel dans le code</li>
+<li>Ce que le gérant appellerait ça</li>
+<li>Si c'est différent (et ça le sera souvent)</li>
+</ul>
+</blockquote>
+<div class="callout callout-red">
+<div class="callout-title">🔴 Ce que vous allez découvrir</div>
+<p>Le décalage est brutal. Exemples typiques :</p>
+<table>
+<thead>
+<tr>
+<th>Dans le code</th>
+<th>Le gérant dit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Event</code></td>
+<td><strong>Séance</strong></td>
+</tr>
+<tr>
+<td><code>create_event</code></td>
+<td><strong>Programmer une séance</strong></td>
+</tr>
+<tr>
+<td><code>Registration</code></td>
+<td><strong>Inscription</strong></td>
+</tr>
+<tr>
+<td><code>cancel_registration</code></td>
+<td><strong>Se désinscrire</strong></td>
+</tr>
+<tr>
+<td><code>status: "cancelled"</code></td>
+<td><strong>Séance annulée</strong></td>
+</tr>
+<tr>
+<td><code>max_attendees</code></td>
+<td><strong>Nombre de places</strong></td>
+</tr>
+<tr>
+<td><code>user</code></td>
+<td><strong>Membre</strong></td>
+</tr>
+<tr>
+<td><code>book_instance</code></td>
+<td><strong>Exemplaire</strong></td>
+</tr>
+<tr>
+<td><code>loan</code></td>
+<td><strong>Prêt</strong> (ou <strong>emprunt</strong> selon le point de vue)</td>
+</tr>
+<tr>
+<td><code>notification</code></td>
+<td><strong>Message</strong> (ou <strong>rappel</strong>, ou <strong>confirmation</strong> — ce n'est pas la même chose !)</td>
+</tr>
+</tbody>
+</table>
+<p>Ce dernier point est crucial. Votre code a probablement un concept unique de "notification". Mais le gérant fait la différence entre une <strong>confirmation</strong> ("vous êtes inscrit"), un <strong>rappel</strong> ("la séance est demain"), et une <strong>alerte</strong> ("la séance est annulée"). Ce sont trois choses différentes dans la vraie vie, mais une seule dans le code. C'est une source de bugs et de confusion.</p>
+<h3>Ce que vous devez noter dans votre carnet</h3>
+<blockquote class="notebook-prompt">
+<p>✍️ Combien de noms dans le code ne correspondent pas aux mots du gérant ?
+✍️ Y a-t-il des concepts dans le vocabulaire du gérant qui n'existent pas du tout dans le code ?
+✍️ Y a-t-il des concepts dans le code qui n'ont aucun équivalent dans le vocabulaire du gérant ? (Si oui, demandez-vous s'ils devraient exister.)</p>
+</blockquote>
+</div>
+<hr>
+<div class="step-header" id="m10-jour3"><span class="step-number">3</span><h2>Les choses qui vont ensemble <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(2h)</small></h2></div>
+<h3>L'idée clé</h3>
+<p>Dans votre base de données, tout est à plat. Vous avez une table de séances, une table de membres, une table d'inscriptions, une table de paiements. Chaque table est indépendante, reliée aux autres par des numéros.</p>
+<p>Mais dans la vraie vie, les choses ne sont pas à plat. Elles forment des <strong>grappes</strong>.</p>
+<p>Quand le gérant pense à une séance, il ne pense pas à une ligne dans une table. Il pense à un <strong>ensemble</strong> :</p>
+<pre><code>La Soirée Polar
+├── 15 mars, 20h, Café du Commerce
+├── 20 places, dont 17 prises
+├── Inscrits :
+│   ├── Marie Dupont (inscrite le 2 mars, payé 5€)
+│   ├── Jean Martin (inscrit le 5 mars, payé 5€)
+│   └── Paul Durand (liste d'attente depuis le 8 mars)
+├── Livre discuté : "Le Nom de la Rose"
+└── Statut : confirmée</code></pre>
+<p>C'est un <strong>tout</strong>. Vous n'inscrivez pas quelqu'un "dans la table inscriptions" — vous inscrivez quelqu'un <strong>à la Soirée Polar</strong>. L'inscription n'a aucun sens sans la séance. Le paiement n'a aucun sens sans l'inscription. C'est une grappe.</p>
+<p>Et cette grappe a des <strong>règles qui s'appliquent à l'ensemble</strong> :</p>
+<ul>
+<li>Le nombre d'inscrits ne dépasse jamais le nombre de places → c'est un invariant de LA GRAPPE, pas d'une table</li>
+<li>On ne peut pas s'inscrire deux fois → c'est une règle de LA GRAPPE</li>
+<li>Quand la séance est annulée, TOUS les inscrits sont remboursés → c'est une action sur LA GRAPPE</li>
+</ul>
+<h3>Ce que vous allez faire</h3>
+<p>Demandez à Claude :</p>
+<blockquote>
+<p>Voici le dictionnaire de mon domaine et le code de mon contexte Réunions :
+[collez les deux]</p>
+<p>Identifie les "grappes" — les choses qui vont ensemble et qui n'ont pas de sens séparément. Pour chaque grappe :</p>
+<ol>
+<li>Quelle est la chose principale ? (la "racine")</li>
+<li>Quelles sont les choses qui lui sont rattachées ?</li>
+<li>Quels invariants s'appliquent à la grappe entière ?</li>
+<li>Quelles actions modifient la grappe ?</li>
+</ol>
+</blockquote>
+<h3>Ce que Claude va vous montrer</h3>
+<pre><code>GRAPPE : Séance
+  Racine : la séance elle-même (date, lieu, nombre de places)
+  Rattachés :
+    - Les inscriptions (qui est inscrit, quand, statut du paiement)
+    - La liste d'attente (qui attend, dans quel ordre)
+  Invariants :
+    - nombre d'inscrits ≤ nombre de places
+    - un membre ne peut pas être inscrit ET en liste d'attente
+    - une séance annulée n'accepte plus d'inscriptions
+  Actions :
+    - Programmer une séance
+    - Inscrire un membre (crée une inscription DANS la séance)
+    - Annuler la séance (affecte TOUTES les inscriptions)
+    - Passer de la liste d'attente à inscrit (quand une place se libère)
+
+GRAPPE : Prêt
+  Racine : le prêt (qui prête, qui emprunte, quel exemplaire)
+  Rattachés :
+    - L'état du prêt (en cours, rendu, en retard)
+    - Les relances (dates, messages envoyés)
+  Invariants :
+    - un exemplaire ne peut être dans qu'un seul prêt actif
+    - un prêt a toujours un prêteur ET un emprunteur
+  Actions :
+    - Demander un emprunt
+    - Accepter / refuser
+    - Signaler le retour
+    - Relancer l'emprunteur</code></pre>
+<h3>Le mot pour ça</h3>
+<p>Ces grappes, dans le vocabulaire professionnel, s'appellent des <strong>agrégats</strong> (Aggregates). La chose principale s'appelle la <strong>racine de l'agrégat</strong> (Aggregate Root).</p>
+<p>La règle d'or : <strong>toute modification passe par la racine</strong>. On n'inscrit pas quelqu'un en modifiant directement la table des inscriptions — on demande à la séance d'inscrire quelqu'un. C'est la séance qui vérifie les invariants (reste-t-il des places ?), pas l'inscription.</p>
+<p>C'est exactement comme dans une entreprise : vous ne modifiez pas directement la fiche de paie d'un employé — vous passez par les RH qui vérifient que tout est conforme.</p>
+<hr>
+<div class="step-header" id="m10-jour4"><span class="step-number">4</span><h2>Les choses qui ont une valeur, pas une identité <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(90 min)</small></h2></div>
+<h3>Un concept subtil mais important</h3>
+<p>Dans votre club de lecture, il y a deux types de choses :</p>
+<p><strong>Des choses qu'on identifie par QUI elles sont :</strong></p>
+<ul>
+<li>Marie Dupont est Marie Dupont. Si deux personnes s'appellent Marie Dupont, ce sont quand même deux personnes différentes. C'est l'<strong>identité</strong> qui compte.</li>
+<li>La Soirée Polar du 15 mars est unique. Même si vous créez une autre soirée polar, ce n'est pas la même.</li>
+</ul>
+<p><strong>Des choses qu'on identifie par CE QU'ELLES CONTIENNENT :</strong></p>
+<ul>
+<li>Une adresse "12 rue des Lilas, Paris". Si deux séances ont lieu à la même adresse, c'est la même adresse. Pas deux adresses différentes qui se ressemblent — la même.</li>
+<li>Un créneau horaire "mardi 20h-22h". Un créneau est défini par son contenu, pas par un numéro d'identité.</li>
+<li>Un montant "5€". Cinq euros, c'est cinq euros. Il n'y a pas "ce 5€-ci" et "ce 5€-là".</li>
+</ul>
+<p>Les premières sont des <strong>entités</strong> — elles ont une identité propre.
+Les secondes sont des <strong>objets-valeur</strong> (Value Objects) — elles sont définies par leur contenu.</p>
+<h3>Pourquoi ça compte</h3>
+<p>Dans votre code, probablement tout est une entité. L'adresse d'une séance est stockée comme des champs séparés (<code>rue</code>, <code>ville</code>, <code>code_postal</code>) directement dans la table des séances. Le créneau horaire est juste un <code>datetime</code>. Le montant est un nombre.</p>
+<p>Le problème :</p>
+<pre data-lang="elixir"><code># Dans le code actuel :
+seance.adresse_rue    # "12 rue des Lilas"
+seance.adresse_ville  # "Paris"
+seance.adresse_cp     # "75010"
+
+# Que se passe-t-il si on veut vérifier que deux séances
+# sont au même endroit ?
+seance1.adresse_rue == seance2.adresse_rue and
+seance1.adresse_ville == seance2.adresse_ville and
+seance1.adresse_cp == seance2.adresse_cp
+# C'est fragile et moche.</code></pre>
+<p>Avec un objet-valeur :</p>
+<pre data-lang="elixir"><code># Avec un objet-valeur Adresse :
+defmodule MonClub.Adresse do
+  defstruct [:rue, :ville, :code_postal]
+end
+
+seance.lieu  # %Adresse{rue: "12 rue des Lilas", ville: "Paris", code_postal: "75010"}
+
+# Deux séances au même endroit ?
+seance1.lieu == seance2.lieu
+# Simple et clair.</code></pre>
+<h3>Ce que vous allez faire</h3>
+<p>Demandez à Claude :</p>
+<blockquote>
+<p>Voici le code de mes contextes :
+[collez le code]</p>
+<p>Identifie les choses qui sont des objets-valeur déguisés — des données qui sont définies par leur contenu, pas par une identité unique. Pour chacune :</p>
+<ol>
+<li>Où est-elle éparpillée en champs séparés dans le code ?</li>
+<li>Quel objet-valeur pourrait la regrouper ?</li>
+<li>Quel nom en langage du gérant ?</li>
+</ol>
+</blockquote>
+<h3>Exemples courants</h3>
+<p>Claude va probablement trouver :</p>
+<table>
+<thead>
+<tr>
+<th>Champs éparpillés</th>
+<th>Objet-valeur</th>
+<th>Nom du gérant</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rue</code>, <code>ville</code>, <code>cp</code></td>
+<td><code>Adresse</code></td>
+<td>"L'adresse de la séance"</td>
+</tr>
+<tr>
+<td><code>date</code>, <code>heure_debut</code>, <code>heure_fin</code></td>
+<td><code>Creneau</code></td>
+<td>"Le créneau de la séance"</td>
+</tr>
+<tr>
+<td><code>montant</code>, <code>devise</code></td>
+<td><code>Montant</code></td>
+<td>"Le prix de la séance"</td>
+</tr>
+<tr>
+<td><code>prenom</code>, <code>nom</code>, <code>email</code></td>
+<td><code>Coordonnees</code></td>
+<td>"Les coordonnées du membre"</td>
+</tr>
+<tr>
+<td><code>debut_pret</code>, <code>duree_max</code></td>
+<td><code>PeriodeDePret</code></td>
+<td>"La durée du prêt"</td>
+</tr>
+</tbody>
+</table>
+<p>Transformez-en au moins deux ou trois. Demandez à Claude de créer les structs Elixir et de mettre à jour les contextes concernés.</p>
+<hr>
+<div class="step-header" id="m10-jour5"><span class="step-number">5</span><h2>Réécrire le code en langage du domaine <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(2h)</small></h2></div>
+<h3>Ce que vous allez faire</h3>
+<p>Vous avez maintenant trois outils :</p>
+<ol>
+<li>Le <strong>dictionnaire du domaine</strong> (Jour 1) — les mots du gérant</li>
+<li>Les <strong>agrégats</strong> (Jour 3) — les grappes de choses qui vont ensemble</li>
+<li>Les <strong>objets-valeur</strong> (Jour 4) — les choses définies par leur contenu</li>
+</ol>
+<p>Vous allez réécrire votre contexte Réunions en utilisant tout ça.</p>
+<p>Demandez à Claude :</p>
+<blockquote>
+<p>Voici le code actuel de mon contexte Réunions :
+[collez le code]</p>
+<p>Voici mon dictionnaire du domaine :
+[collez le dictionnaire]</p>
+<p>Voici les agrégats identifiés :
+[collez les agrégats du Jour 3]</p>
+<p>Voici les objets-valeur identifiés :
+[collez les objets-valeur du Jour 4]</p>
+<p>Réécris le contexte Réunions pour que :</p>
+<ol>
+<li>Les noms de fonctions utilisent le vocabulaire du gérant</li>
+<li>L'agrégat Séance soit la racine — toute modification passe par la séance</li>
+<li>Les objets-valeur soient utilisés au lieu de champs éparpillés</li>
+<li>Les invariants de l'agrégat soient vérifiés dans la racine, pas ailleurs</li>
+</ol>
+</blockquote>
+<h3>Ce que le code va devenir</h3>
+<p>Avant :</p>
+<pre data-lang="elixir"><code>defmodule MonClub.Reunions do
+  def create_event(params) do ... end
+  def register_user(event_id, user_id) do ... end
+  def cancel_registration(reg_id) do ... end
+  def update_event_status(event_id, status) do ... end
+end</code></pre>
+<p>Après :</p>
+<pre data-lang="elixir"><code>defmodule MonClub.Reunions do
+  def programmer_seance(titre, %Creneau{} = creneau, %Adresse{} = lieu, nombre_de_places) do
+    # Crée une séance avec ses paramètres
+  end
+
+  def inscrire_membre(seance_id, membre_id) do
+    # Charge la séance (l'agrégat entier)
+    # Vérifie l'invariant : reste-t-il des places ?
+    # Vérifie l'invariant : le membre n'est-il pas déjà inscrit ?
+    # Ajoute l'inscription DANS la séance
+    # Publie {:membre_inscrit, ...}
+  end
+
+  def desinscrire_membre(seance_id, membre_id) do
+    # Charge la séance
+    # Retire l'inscription
+    # S'il y a une liste d'attente, passe le suivant en inscrit
+    # Publie {:membre_desinscrit, ...}
+  end
+
+  def annuler_seance(seance_id, raison) do
+    # Charge la séance avec TOUS ses inscrits
+    # Marque tout comme annulé
+    # Publie {:seance_annulee, %{inscrits: [...], raison: raison}}
+  end
+end</code></pre>
+<h3>Ce que vous devez remarquer</h3>
+<ol>
+<li>
+<p><strong>Les noms des fonctions sont du français du gérant.</strong> <code>programmer_seance</code>, <code>inscrire_membre</code>, <code>annuler_seance</code> — le gérant comprend ce code sans explication.</p>
+</li>
+<li>
+<p><strong>Tout passe par la séance.</strong> On ne modifie pas une inscription directement. On demande à la séance d'inscrire quelqu'un. La séance vérifie ses invariants.</p>
+</li>
+<li>
+<p><strong>Les objets-valeur sont explicites.</strong> <code>%Creneau{}</code>, <code>%Adresse{}</code> — ce ne sont pas des champs flottants, ce sont des concepts nommés.</p>
+</li>
+<li>
+<p><strong>Les événements aussi parlent le langage du domaine.</strong> <code>{:membre_inscrit}</code>, <code>{:seance_annulee}</code> — pas <code>{:registration_created}</code>, <code>{:event_status_updated}</code>.</p>
+</li>
+</ol>
+<hr>
+<div class="step-header" id="m10-jour6"><span class="step-number">6</span><h2>Vérifier que tout tient <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(90 min)</small></h2></div>
+<h3>Ce que vous allez faire</h3>
+<p>Vos tests doivent suivre. Réécrivez-les dans le langage du domaine :</p>
+<p>Avant :</p>
+<pre data-lang="elixir"><code>test "create registration decrements available slots" do
+  event = create_event(%{max_attendees: 3})
+  register_user(event.id, user.id)
+  assert get_event(event.id).available_slots == 2
+end</code></pre>
+<p>Après :</p>
+<pre data-lang="elixir"><code>test "inscrire un membre diminue le nombre de places" do
+  seance = programmer_seance("Soirée Polar", creneau, lieu, 3)
+  inscrire_membre(seance.id, marie.id)
+  assert places_restantes(seance.id) == 2
+end
+
+test "impossible d'inscrire quand la séance est complète" do
+  seance = programmer_seance("Soirée Polar", creneau, lieu, 1)
+  inscrire_membre(seance.id, marie.id)
+  assert {:error, :seance_complete} = inscrire_membre(seance.id, jean.id)
+end
+
+test "annuler une séance publie un événement avec tous les inscrits" do
+  seance = programmer_seance("Soirée Polar", creneau, lieu, 20)
+  inscrire_membre(seance.id, marie.id)
+  inscrire_membre(seance.id, jean.id)
+
+  annuler_seance(seance.id, "Mauvais temps")
+
+  assert_event_published({:seance_annulee, %{
+    inscrits: [marie.id, jean.id],
+    raison: "Mauvais temps"
+  }})
+end</code></pre>
+<h3>Ce que vous devez remarquer</h3>
+<p>Les tests <strong>se lisent comme des scénarios de la vraie vie</strong>. Quelqu'un qui ne connaît pas le code pourrait lire le test et comprendre ce qui est vérifié. C'est le signe que votre code parle la langue du domaine.</p>
+<p>Le gérant du club pourrait relire ces tests et dire "oui, c'est bien comme ça que ça devrait marcher". Essayez avec les vôtres — si vous devez expliquer ce que le test fait, c'est que les noms ne sont pas assez clairs.</p>
+<hr>
+<div class="step-header" id="m10-jour7"><span class="step-number">7</span><h2>Le bilan et le nouveau vocabulaire</h2></div>
+<h3>Les mots de la semaine</h3>
+<table>
+<thead>
+<tr>
+<th>Ce que vous dites</th>
+<th>Le vrai nom</th>
+<th>Ce que ça signifie</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"Dictionnaire du gérant"</td>
+<td><strong>Langage omniprésent</strong> (Ubiquitous Language)</td>
+<td>Le vocabulaire partagé entre les utilisateurs et le code</td>
+</tr>
+<tr>
+<td>"Grappe de choses qui vont ensemble"</td>
+<td><strong>Agrégat</strong> (Aggregate)</td>
+<td>Un ensemble d'objets traités comme un tout</td>
+</tr>
+<tr>
+<td>"La chose principale de la grappe"</td>
+<td><strong>Racine de l'agrégat</strong> (Aggregate Root)</td>
+<td>Le point d'entrée — toute modification passe par elle</td>
+</tr>
+<tr>
+<td>"Chose définie par son contenu"</td>
+<td><strong>Objet-valeur</strong> (Value Object)</td>
+<td>Une donnée sans identité propre (adresse, montant, créneau)</td>
+</tr>
+<tr>
+<td>"Chose définie par qui elle est"</td>
+<td><strong>Entité</strong> (Entity)</td>
+<td>Un objet avec une identité unique (membre, séance)</td>
+</tr>
+<tr>
+<td>"Le code parle comme le gérant"</td>
+<td><strong>Domain-Driven Design</strong> (DDD)</td>
+<td>Concevoir le logiciel à partir du langage et des règles du métier</td>
+</tr>
+</tbody>
+</table>
+<h3>Ce que vous faites depuis le début, c'est du DDD</h3>
+<p>Le Domain-Driven Design a été formalisé par Eric Evans en 2003. C'est une approche qui dit : le code doit être organisé autour du <strong>métier</strong> (le domaine), pas autour de la technique. Les modules découpent par responsabilité métier. Les interfaces parlent le langage des utilisateurs. Les invariants expriment les règles métier.</p>
+<p>Vous le faites depuis le Module 1. Vous ne le saviez simplement pas.</p>
+<h3>La structure interne d'un module, maintenant</h3>
+<pre><code>MODULE : Réunions
+│
+├── Interface (fonctions publiques)
+│   ├── programmer_seance(titre, créneau, lieu, places)
+│   ├── inscrire_membre(seance_id, membre_id)
+│   ├── desinscrire_membre(seance_id, membre_id)
+│   └── annuler_seance(seance_id, raison)
+│
+├── Agrégat : Séance
+│   ├── Racine : Séance (titre, créneau, lieu, places, statut)
+│   ├── Rattachés : Inscription (membre, date, statut paiement)
+│   ├── Rattachés : Liste d'attente (membre, position)
+│   └── Invariants :
+│       ├── inscrits ≤ places
+│       ├── pas de double inscription
+│       └── séance annulée = plus d'inscriptions
+│
+├── Objets-valeur
+│   ├── Créneau (date, heure début, heure fin)
+│   ├── Adresse (rue, ville, code postal)
+│   └── Montant (valeur, devise)
+│
+└── Événements publiés
+    ├── {:seance_programmee, ...}
+    ├── {:membre_inscrit, ...}
+    ├── {:membre_desinscrit, ...}
+    └── {:seance_annulee, ...}</code></pre>
+<p>C'est propre. C'est lisible. Et surtout — c'est compréhensible par quelqu'un qui n'a jamais vu une ligne de code.</p>
+<hr>
+<h2 id="m10-suite">La suite</h2>
+<p>Votre code parle le langage du métier. Vos modules sont découpés par domaine. Vos agrégats protègent vos invariants. Mais il y a un dernier problème : quand le projet grandit, certains agrégats deviennent énormes. La séance gère les inscriptions, la liste d'attente, l'annulation, les statistiques...</p>
+<p>Le Module 11 va vous apprendre à faire en sorte que les invariants soient <strong>protégés dans le code lui-même</strong>, pas juste dans vos tests. Et les outils d'Elixir — les processus et les arbres de supervision — vont rendre ça étonnamment naturel.</p>
+
+      </div>
+    </main>
+    <button class="back-to-top" aria-label="Retour en haut">↑</button>
+  </div>
+  <script src="nav.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

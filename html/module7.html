@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 7 — La bascule</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
+</head>
+<body>
+  <div class="app">
+    <div id="sidebar-root"></div>
+    <main class="main-content">
+      <div class="module-content">
+
+<h1>Module 7 : La bascule</h1>
+<p class="module-subtitle"><em>Ce que vous pouvez faire sans code — et ce que vous ne pouvez pas</em></p>
+<hr>
+<h2>Faisons le point</h2>
+<p>Vous avez parcouru six modules. Voici ce que vous savez faire :</p>
+<ul>
+<li><strong>Découper</strong> un projet en modules avec des responsabilités claires (Module 1)</li>
+<li><strong>Décrire</strong> comment ces modules travaillent ensemble et gèrent les erreurs (Module 2)</li>
+<li><strong>Structurer</strong> l'information en niveaux pour communiquer efficacement avec l'IA (Module 3)</li>
+<li><strong>Vérifier</strong> que ce qui a été construit fonctionne réellement (Modules 4-5)</li>
+<li><strong>Nommer</strong> les concepts avec le vocabulaire professionnel (Module 6)</li>
+</ul>
+<p>Ce sont des compétences d'architecte logiciel. De vraies compétences, utiles, que beaucoup de développeurs professionnels n'ont pas.</p>
+<div class="module-meta">
+<div class="module-meta-item"><strong>Durée :</strong> 1 heure (lecture et réflexion)</div>
+<div class="module-meta-item"><strong>Ce qu'il vous faut :</strong> Votre carnet, votre plan du club de lecture</div>
+</div>
+<hr>
+<h2>Ce qu'on vous a dit, et ce qu'on aurait dû dire</h2>
+<p>Dans les six premiers modules, on vous a dit : "Vous n'avez pas besoin de comprendre le code." C'était vrai. Et ça le reste pour beaucoup de situations.</p>
+<p>Mais on aurait dû ajouter : "... pour l'instant."</p>
+<p>Voici la réalité. Sans toucher au code, vous pouvez :</p>
+<p>✅ Concevoir l'architecture d'un projet
+✅ Communiquer clairement avec l'IA (ou avec un développeur)
+✅ Détecter les problèmes d'organisation
+✅ Écrire des scénarios de vérification
+✅ Décider quand un plan doit évoluer</p>
+<p>Mais sans toucher au code, vous ne pouvez pas :</p>
+<p>❌ Vérifier <em>vous-même</em> que le code fait ce qu'il prétend faire
+❌ Identifier précisément où est un bug
+❌ Guider Claude avec la précision nécessaire pour les cas complexes
+❌ Comprendre pourquoi Claude a fait un choix plutôt qu'un autre
+❌ Savoir si une réponse de Claude est excellente ou catastrophique quand elle <em>a l'air</em> bonne dans les deux cas</p>
+<p>Aux Modules 4-5, vous avez utilisé "un autre Claude" pour vérifier le travail du premier. C'est mieux que rien. Mais c'est comme demander à un jumeau de corriger les devoirs de son frère — ils ont les mêmes angles morts. La seule façon de vraiment vérifier, c'est de pouvoir <em>lire</em> ce qui a été écrit.</p>
+<hr>
+<h2 id="m7-analogie">L'analogie</h2>
+<p>Vous avez appris à être chef de chantier. Vous savez lire un plan, organiser les équipes, vérifier que les délais sont tenus.</p>
+<p>Mais un bon chef de chantier sait aussi reconnaître la qualité d'un mur. Pas le construire — il a des maçons pour ça. Mais quand le maçon dit "c'est terminé", le chef de chantier sait regarder le mur et voir si les joints sont droits, si le mortier est bon, si l'aplomb est correct.</p>
+<p>C'est ça qu'on va apprendre dans la deuxième partie : <strong>lire un mur</strong>. Pas le construire. Juste assez pour voir si le travail est bien fait.</p>
+<hr>
+<h2>Ce qui vous attend</h2>
+<p>La deuxième partie est différente de la première à plusieurs égards. Soyons transparents.</p>
+<p><strong>Le rythme change.</strong> Les six premiers modules prenaient 2-3 heures chacun. Les modules suivants prennent une semaine chacun, à raison de 1-2 heures par jour. C'est normal — on passe de la réflexion pure à la manipulation d'outils concrets, ce qui prend plus de temps.</p>
+<p><strong>Vous allez installer des choses.</strong> Un langage de programmation (Elixir), un framework web (Phoenix), un éditeur de code. L'installation va mal se passer. Il y aura des messages d'erreur. C'est normal et attendu — chaque développeur professionnel a vécu exactement la même frustration.</p>
+<p><strong>Vous allez être frustré.</strong> Le code ne fait pas toujours ce qu'on veut. Les messages d'erreur sont cryptiques. Les outils ont leurs manies. Cette frustration est le signe que vous apprenez, pas le signe que vous êtes mauvais.</p>
+<p><strong>Vous n'allez pas devenir développeur.</strong> L'objectif n'est pas d'écrire du code de zéro. C'est de <em>lire</em> le code que Claude écrit, de <em>comprendre</em> sa structure, et de <em>guider</em> Claude avec la précision d'un mot juste plutôt qu'un geste vague.</p>
+<hr>
+<h2>Pourquoi Elixir ?</h2>
+<p>Dans les modules suivants, on utilisera le langage Elixir et le framework Phoenix. C'est un choix assumé, pas un choix neutre. Voici pourquoi, en toute honnêteté.</p>
+<p><strong>Les avantages pour ce cours :</strong></p>
+<ul>
+<li>Le code Elixir est relativement lisible, même pour un débutant</li>
+<li>Le langage force des habitudes saines (les données ne changent pas une fois créées, ce qui élimine une catégorie entière de bugs)</li>
+<li>Les concepts d'architecture qu'on a vus dans la Partie 1 — modules, interfaces, événements, supervision — sont des constructions natives du langage, pas des ajouts</li>
+<li>Phoenix LiveView permet de voir le résultat immédiatement dans le navigateur</li>
+</ul>
+<p><strong>Ce qu'on aurait aussi pu choisir :</strong></p>
+<ul>
+<li><strong>Python</strong> : plus simple à installer, plus de ressources en ligne, meilleur support par les IA. Si votre objectif est d'aller vite et de construire un prototype, Python est probablement plus adapté.</li>
+<li><strong>JavaScript/TypeScript</strong> : omniprésent sur le web, énorme communauté, plus de perspectives professionnelles.</li>
+</ul>
+<p><strong>Pourquoi on a quand même choisi Elixir :</strong></p>
+<p>Parce que ce cours enseigne l'architecture, pas la programmation. Et Elixir est le langage où les concepts d'architecture (modules, processus isolés, supervision, événements) sont les plus <em>visibles</em>. En Python, ces concepts existent mais sont cachés derrière des bibliothèques. En Elixir, ils font partie de la syntaxe. Vous les voyez. Et comme l'objectif est de <em>lire</em> le code, pas de l'<em>écrire</em>, la visibilité compte plus que la simplicité.</p>
+<p>Si vous préférez un autre langage, les concepts de la Partie 1 sont universels. Vous pouvez demander à Claude de vous montrer les mêmes architectures en Python ou JavaScript.</p>
+<hr>
+<h2>Si vous voulez vous arrêter ici</h2>
+<p>C'est une option tout à fait valide.</p>
+<p>Avec les compétences de la Partie 1, vous pouvez :</p>
+<ul>
+<li>Piloter un développeur humain ou une IA pour construire un projet</li>
+<li>Rédiger des spécifications claires et structurées</li>
+<li>Participer à des décisions d'architecture</li>
+<li>Détecter les signaux d'alarme (couplage, dette technique, invariants violés)</li>
+</ul>
+<p>Beaucoup de chefs de produit, de product managers, et de fondateurs non-techniques fonctionnent exactement comme ça. Si votre objectif est de communiquer efficacement avec une équipe technique sans coder vous-même, la Partie 1 suffit.</p>
+<p>La Partie 2 est pour ceux qui veulent aller plus loin — qui veulent non seulement piloter, mais aussi <em>comprendre</em> ce qui se passe sous le capot.</p>
+<hr>
+<h2>Ce que vous devez noter dans votre carnet</h2>
+<blockquote class="notebook-prompt">
+<p>✍️ Pourquoi voulez-vous continuer ? (Curiosité ? Besoin professionnel ? Envie de comprendre ?)</p>
+</blockquote>
+<blockquote class="notebook-prompt">
+<p>✍️ Avez-vous accès à un ordinateur où vous pouvez installer des logiciels ?</p>
+</blockquote>
+<blockquote class="notebook-prompt">
+<p>✍️ Êtes-vous prêt à être frustré pendant une semaine avant que ça devienne plus fluide ?</p>
+</blockquote>
+<p>Si la réponse à ces trois questions vous convient, tournez la page.</p>
+<hr>
+<h2 id="m7-suite">La suite</h2>
+<p>Le Module 8 va vous mettre les mains dans le moteur. Vous allez installer Elixir, lire vos premières lignes de code, et découvrir que la structure du code ressemble étrangement à la structure de votre plan. Ce n'est pas un hasard.</p>
+
+      </div>
+    </main>
+    <button class="back-to-top" aria-label="Retour en haut">↑</button>
+  </div>
+  <script src="nav.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

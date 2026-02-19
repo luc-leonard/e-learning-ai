@@ -13,231 +13,164 @@
     <main class="main-content">
       <div class="module-content">
 
-        <h1>Projet libre 1 : Votre premier plan solo</h1>
-        <p class="module-subtitle"><em>Prouver que vous savez penser avant de construire</em></p>
-
-        <hr>
-
-        <h2>Ce que vous allez faire</h2>
-
-        <p>Vous allez écrire un <code>plan.md</code> complet — parties et parcours — pour une application <strong>qui n'est pas le club de lecture</strong>. Vous allez le faire vous-même, avec votre carnet et votre tête, avant de demander quoi que ce soit à Claude.</p>
-
-        <p>C'est le test honnête : est-ce que les réflexes des Modules 1 et 2 sont vraiment ancrés, ou est-ce que vous avez juste suivi les instructions ?</p>
-
-        <div class="module-meta">
-          <p><strong>Durée :</strong> 2-3 heures</p>
-          <p><strong>Ce qu'il vous faut :</strong> VSCode, Claude Code, votre carnet, du calme</p>
-        </div>
-
-        <hr>
-
-        <h2 id="p1-contexte">Le contexte</h2>
-
-        <p>Choisissez <strong>un</strong> de ces trois projets. Prenez celui qui vous parle le plus — vous allez passer du temps dessus, autant que ce soit un sujet qui vous intéresse.</p>
-
-        <h3>Option A : La cantine solidaire</h3>
-
-        <p>Une association gère une cantine de quartier. Les bénévoles cuisinent, les habitants viennent manger pour un prix libre. L'association a besoin d'un site pour :</p>
-        <ul>
-          <li>Publier le menu de la semaine</li>
-          <li>Gérer les inscriptions des bénévoles (qui cuisine quel jour)</li>
-          <li>Permettre aux habitants de réserver un repas</li>
-          <li>Suivre les dons (prix libre = chacun donne ce qu'il veut)</li>
-          <li>Gérer les stocks d'ingrédients (ce qui reste, ce qu'il faut acheter)</li>
-        </ul>
-
-        <h3>Option B : Le vide-grenier permanent</h3>
-
-        <p>Un groupe de voisins veut organiser un vide-grenier en ligne, mais permanent. Chacun peut mettre en vente des objets, les autres peuvent les acheter ou proposer un troc. Il faut :</p>
-        <ul>
-          <li>Publier des annonces avec photos</li>
-          <li>Gérer les messages entre vendeur et acheteur</li>
-          <li>Organiser les échanges (lieu, horaire)</li>
-          <li>Gérer les paiements (simulés) ou les trocs</li>
-          <li>Laisser des avis après une transaction</li>
-          <li>Signaler des annonces suspectes</li>
-        </ul>
-
-        <h3>Option C : L'école de musique</h3>
-
-        <p>Une petite école de musique gère ses cours, ses profs et ses élèves. Elle a besoin de :</p>
-        <ul>
-          <li>Planifier les cours (quel prof, quel instrument, quelle salle, quel horaire)</li>
-          <li>Gérer les inscriptions des élèves aux cours</li>
-          <li>Permettre aux élèves d'annuler ou reporter un cours</li>
-          <li>Gérer les paiements mensuels (simulés)</li>
-          <li>Organiser des concerts de fin de trimestre (inscription des élèves, réservation des places pour le public)</li>
-        </ul>
-
-        <hr>
-
-        <div class="step-header" id="p1-phase1"><span class="step-number">1</span><h2>Réfléchir seul <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(45 min)</small></h2></div>
-
-        <h3>Sortez votre carnet</h3>
-
-        <p>Pas l'ordinateur. Le carnet. Vous allez réfléchir avant d'écrire.</p>
-
-        <blockquote class="notebook-prompt">
-          <p>✍️ Prenez le projet que vous avez choisi et répondez à ces questions, à la main :</p>
-          <ol>
-            <li><strong>Qui sont les utilisateurs ?</strong> Listez les types de personnes qui vont utiliser cette application. (Exemple pour le club de lecture : un membre, un admin.)</li>
-            <li><strong>Qu'est-ce que chaque type d'utilisateur veut faire ?</strong> Listez les actions principales. Pas toutes — les 5 ou 6 plus importantes.</li>
-            <li><strong>Quelles sont les "parties" que vous voyez ?</strong> Essayez de regrouper les fonctionnalités en parties distinctes. Pour chaque partie, notez ce qu'elle fait et — surtout — ce qu'elle ne fait PAS.</li>
-            <li><strong>Quelles actions traversent plusieurs parties ?</strong> Ce sont vos futurs parcours. Notez-en au moins 3.</li>
-            <li><strong>Qu'est-ce qui peut mal tourner ?</strong> Pour chaque parcours, notez au moins un cas d'échec.</li>
-          </ol>
-        </blockquote>
-
-        <p>Ne cherchez pas la perfection. Cherchez la clarté.</p>
-
-        <hr>
-
-        <div class="step-header" id="p1-phase2"><span class="step-number">2</span><h2>Écrire le plan <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(60 min)</small></h2></div>
-
-        <h3>Ouvrez VSCode</h3>
-
-        <p>Créez un nouveau dossier pour ce projet (par exemple <code>projet-cantine</code>, <code>projet-vide-grenier</code>, ou <code>projet-ecole-musique</code>). Initialisez git :</p>
-
-        <pre data-lang="bash"><code>mkdir ~/projet-cantine
+<h1>Projet libre 1 : Votre premier plan solo</h1>
+<p class="module-subtitle"><em>Prouver que vous savez penser avant de construire</em></p>
+<hr>
+<h2>Ce que vous allez faire</h2>
+<p>Vous allez écrire un <code>plan.md</code> complet — parties et parcours — pour une application <strong>qui n'est pas le club de lecture</strong>. Vous allez le faire vous-même, avec votre carnet et votre tête, avant de demander quoi que ce soit à Claude.</p>
+<p>C'est le test honnête : est-ce que les réflexes des Modules 1 et 2 sont vraiment ancrés, ou est-ce que vous avez juste suivi les instructions ?</p>
+<div class="module-meta">
+<div class="module-meta-item"><strong>Durée :</strong> 2-3 heures</div>
+<div class="module-meta-item"><strong>Ce qu'il vous faut :</strong> VSCode, Claude Code, votre carnet, du calme</div>
+</div>
+<hr>
+<h2 id="p1-contexte">Le contexte</h2>
+<p>Choisissez <strong>un</strong> de ces trois projets. Prenez celui qui vous parle le plus — vous allez passer du temps dessus, autant que ce soit un sujet qui vous intéresse.</p>
+<h3>Option A : La cantine solidaire</h3>
+<p>Une association gère une cantine de quartier. Les bénévoles cuisinent, les habitants viennent manger pour un prix libre. L'association a besoin d'un site pour :</p>
+<ul>
+<li>Publier le menu de la semaine</li>
+<li>Gérer les inscriptions des bénévoles (qui cuisine quel jour)</li>
+<li>Permettre aux habitants de réserver un repas</li>
+<li>Suivre les dons (prix libre = chacun donne ce qu'il veut)</li>
+<li>Gérer les stocks d'ingrédients (ce qui reste, ce qu'il faut acheter)</li>
+</ul>
+<h3>Option B : Le vide-grenier permanent</h3>
+<p>Un groupe de voisins veut organiser un vide-grenier en ligne, mais permanent. Chacun peut mettre en vente des objets, les autres peuvent les acheter ou proposer un troc. Il faut :</p>
+<ul>
+<li>Publier des annonces avec photos</li>
+<li>Gérer les messages entre vendeur et acheteur</li>
+<li>Organiser les échanges (lieu, horaire)</li>
+<li>Gérer les paiements (simulés) ou les trocs</li>
+<li>Laisser des avis après une transaction</li>
+<li>Signaler des annonces suspectes</li>
+</ul>
+<h3>Option C : L'école de musique</h3>
+<p>Une petite école de musique gère ses cours, ses profs et ses élèves. Elle a besoin de :</p>
+<ul>
+<li>Planifier les cours (quel prof, quel instrument, quelle salle, quel horaire)</li>
+<li>Gérer les inscriptions des élèves aux cours</li>
+<li>Permettre aux élèves d'annuler ou reporter un cours</li>
+<li>Gérer les paiements mensuels (simulés)</li>
+<li>Organiser des concerts de fin de trimestre (inscription des élèves, réservation des places pour le public)</li>
+</ul>
+<hr>
+<div class="step-header" id="p1-phase1"><span class="step-number">1</span><h2>Réfléchir seul <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(45 min)</small></h2></div>
+<h3>Sortez votre carnet</h3>
+<p>Pas l'ordinateur. Le carnet. Vous allez réfléchir avant d'écrire.</p>
+<blockquote class="notebook-prompt">
+<p>✍️ Prenez le projet que vous avez choisi et répondez à ces questions, à la main :</p>
+<ol>
+<li>
+<p><strong>Qui sont les utilisateurs ?</strong> Listez les types de personnes qui vont utiliser cette application. (Exemple pour le club de lecture : un membre, un admin.)</p>
+</li>
+<li>
+<p><strong>Qu'est-ce que chaque type d'utilisateur veut faire ?</strong> Listez les actions principales. Pas toutes — les 5 ou 6 plus importantes.</p>
+</li>
+<li>
+<p><strong>Quelles sont les "parties" que vous voyez ?</strong> Essayez de regrouper les fonctionnalités en parties distinctes. Pour chaque partie, notez ce qu'elle fait et — surtout — ce qu'elle ne fait PAS.</p>
+</li>
+<li>
+<p><strong>Quelles actions traversent plusieurs parties ?</strong> Ce sont vos futurs parcours. Notez-en au moins 3.</p>
+</li>
+<li>
+<p><strong>Qu'est-ce qui peut mal tourner ?</strong> Pour chaque parcours, notez au moins un cas d'échec.</p>
+</li>
+</ol>
+</blockquote>
+<p>Ne cherchez pas la perfection. Cherchez la clarté.</p>
+<hr>
+<div class="step-header" id="p1-phase2"><span class="step-number">2</span><h2>Écrire le plan <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(60 min)</small></h2></div>
+<h3>Ouvrez VSCode</h3>
+<p>Créez un nouveau dossier pour ce projet (par exemple <code>projet-cantine</code>, <code>projet-vide-grenier</code>, ou <code>projet-ecole-musique</code>). Initialisez git :</p>
+<pre data-lang="bash"><code>mkdir ~/projet-cantine
 cd ~/projet-cantine
 git init</code></pre>
-
-        <p>Ouvrez ce dossier dans VSCode. Créez un fichier <code>plan.md</code>.</p>
-
-        <h3>Écrivez les parties</h3>
-
-        <p>En vous basant sur vos notes du carnet, écrivez les parties dans <code>plan.md</code>. Suivez le format que vous connaissez :</p>
-
-        <pre><code>PARTIE : [Nom]
+<p>Ouvrez ce dossier dans VSCode. Créez un fichier <code>plan.md</code>.</p>
+<h3>Écrivez les parties</h3>
+<p>En vous basant sur vos notes du carnet, écrivez les parties dans <code>plan.md</code>. Suivez le format que vous connaissez :</p>
+<pre><code>PARTIE : [Nom]
 → Fait : [ce qu'elle fait, en une phrase]
 → Ne fait PAS : [ce qu'elle ne fait PAS, et qui le fait à la place]
 → A besoin de : [les autres parties dont elle dépend]</code></pre>
-
-        <p><strong>Écrivez au moins 4 parties.</strong> Chaque partie doit avoir une ligne "Ne fait PAS" — c'est non négociable. Si vous n'arrivez pas à écrire ce qu'une partie ne fait pas, c'est qu'elle fait trop de choses.</p>
-
-        <h3>Écrivez les parcours</h3>
-
-        <p>Ajoutez au moins <strong>3 parcours</strong> à la suite des parties. Suivez le format :</p>
-
-        <pre><code>PARCOURS : [Action complète]
+<p><strong>Écrivez au moins 4 parties.</strong> Chaque partie doit avoir une ligne "Ne fait PAS" — c'est non négociable. Si vous n'arrivez pas à écrire ce qu'une partie ne fait pas, c'est qu'elle fait trop de choses.</p>
+<h3>Écrivez les parcours</h3>
+<p>Ajoutez au moins <strong>3 parcours</strong> à la suite des parties. Suivez le format :</p>
+<pre><code>PARCOURS : [Action complète]
 
 Étape 1 → [Partie] : [ce qu'elle fait]
   Si ça rate : [ce qui se passe]
   Défaire : [comment on annule ce qui a été fait]
 
 Étape 2 → [Partie] : ...</code></pre>
-
-        <p><strong>Un de vos trois parcours doit inclure un cas d'annulation ou de retour en arrière.</strong> C'est là que la vraie difficulté se cache.</p>
-
-        <h3>Le test du "et si ?"</h3>
-
-        <p>Pour chaque parcours, posez-vous la question : <strong>"Et si l'étape 3 échoue, qu'est-ce qui se passe pour les étapes 1 et 2 ?"</strong> Si vous n'avez pas de réponse, votre parcours n'est pas fini.</p>
-
-        <hr>
-
-        <div class="step-header" id="p1-phase3"><span class="step-number">3</span><h2>Confronter à Claude <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(45 min)</small></h2></div>
-
-        <h3>Sauvegardez d'abord</h3>
-
-        <p>Avant de demander quoi que ce soit à Claude, committez votre plan :</p>
-
-        <pre data-lang="bash"><code>git add plan.md
+<p><strong>Un de vos trois parcours doit inclure un cas d'annulation ou de retour en arrière.</strong> C'est là que la vraie difficulté se cache.</p>
+<h3>Le test du "et si ?"</h3>
+<p>Pour chaque parcours, posez-vous la question : <strong>"Et si l'étape 3 échoue, qu'est-ce qui se passe pour les étapes 1 et 2 ?"</strong> Si vous n'avez pas de réponse, votre parcours n'est pas fini.</p>
+<hr>
+<div class="step-header" id="p1-phase3"><span class="step-number">3</span><h2>Confronter à Claude <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(45 min)</small></h2></div>
+<h3>Sauvegardez d'abord</h3>
+<p>Avant de demander quoi que ce soit à Claude, committez votre plan :</p>
+<pre data-lang="bash"><code>git add plan.md
 git commit -m "Mon plan initial, avant relecture par Claude"</code></pre>
-
-        <p>C'est important : vous voulez garder une trace de votre travail <em>avant</em> que Claude y touche. Comme ça, vous pourrez comparer après.</p>
-
-        <h3>Demandez une critique, pas une réécriture</h3>
-
-        <p>Lancez Claude Code :</p>
-
-        <pre data-lang="bash"><code>claude</code></pre>
-
-        <p>Et demandez-lui :</p>
-
-        <blockquote>
-          <p>Lis plan.md. C'est un plan d'application que j'ai écrit moi-même. Je veux que tu le critiques sans le réécrire. Dis-moi :</p>
-          <ol>
-            <li>Est-ce qu'il y a des responsabilités qui se chevauchent entre les parties ?</li>
-            <li>Est-ce qu'il manque des parties évidentes ?</li>
-            <li>Pour chaque parcours, est-ce que les cas d'échec sont complets ?</li>
-            <li>Est-ce qu'il y a des parcours importants que j'ai oubliés ?</li>
-          </ol>
-          <p>Sois honnête et précis. Ne réécris rien — donne-moi juste tes observations.</p>
-        </blockquote>
-
-        <h3>Améliorez votre plan</h3>
-
-        <p>En fonction des retours de Claude, modifiez <code>plan.md</code> vous-même dans VSCode. Pas de "Claude, corrige ça pour moi" — c'est vous qui décidez quoi changer et comment.</p>
-
-        <p>Quand c'est fait, committez :</p>
-
-        <pre data-lang="bash"><code>git add plan.md
+<p>C'est important : vous voulez garder une trace de votre travail <em>avant</em> que Claude y touche. Comme ça, vous pourrez comparer après.</p>
+<h3>Demandez une critique, pas une réécriture</h3>
+<p>Lancez Claude Code :</p>
+<pre data-lang="bash"><code>claude</code></pre>
+<p>Et demandez-lui :</p>
+<blockquote>
+<p>Lis plan.md. C'est un plan d'application que j'ai écrit moi-même. Je veux que tu le critiques sans le réécrire. Dis-moi :</p>
+<ol>
+<li>Est-ce qu'il y a des responsabilités qui se chevauchent entre les parties ?</li>
+<li>Est-ce qu'il manque des parties évidentes ?</li>
+<li>Pour chaque parcours, est-ce que les cas d'échec sont complets ?</li>
+<li>Est-ce qu'il y a des parcours importants que j'ai oubliés ?</li>
+</ol>
+<p>Sois honnête et précis. Ne réécris rien — donne-moi juste tes observations.</p>
+</blockquote>
+<h3>Améliorez votre plan</h3>
+<p>En fonction des retours de Claude, modifiez <code>plan.md</code> vous-même dans VSCode. Pas de "Claude, corrige ça pour moi" — c'est vous qui décidez quoi changer et comment.</p>
+<p>Quand c'est fait, committez :</p>
+<pre data-lang="bash"><code>git add plan.md
 git commit -m "Plan amélioré après critique de Claude"</code></pre>
-
-        <hr>
-
-        <div class="step-header" id="p1-phase4"><span class="step-number">4</span><h2>Le vrai test <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(30 min)</small></h2></div>
-
-        <h3>Demandez à Claude de construire</h3>
-
-        <p>Restez dans Claude Code et demandez :</p>
-
-        <blockquote>
-          <p>Relis plan.md. Construis cette application de zéro en suivant le plan. Commence par la première partie. Les paiements et emails sont simulés.</p>
-        </blockquote>
-
-        <p>Lancez le site et vérifiez que ça fonctionne.</p>
-
-        <p>Puis demandez-lui d'implémenter un de vos parcours et vérifiez que les cas d'erreur sont gérés.</p>
-
-        <h3>Ce que vous devez noter dans votre carnet</h3>
-
-        <blockquote class="notebook-prompt">
-          <p>✍️ Est-ce que Claude a eu du mal à suivre votre plan ? Si oui, c'est probablement que le plan n'était pas assez clair — pas que Claude est mauvais.</p>
-        </blockquote>
-
-        <blockquote class="notebook-prompt">
-          <p>✍️ Est-ce que les parcours se sont traduits naturellement en code qui gère les erreurs ?</p>
-        </blockquote>
-
-        <blockquote class="notebook-prompt">
-          <p>✍️ Qu'est-ce que vous changeriez dans votre plan si vous deviez recommencer ?</p>
-        </blockquote>
-
-        <blockquote class="notebook-prompt">
-          <p>✍️ Comparez les deux commits dans git (<code>git log --oneline</code>). Qu'est-ce que la critique de Claude a changé ?</p>
-        </blockquote>
-
-        <hr>
-
-        <h2>Avant de partir — sauvegardez</h2>
-
-        <pre data-lang="bash"><code>git add .
+<hr>
+<div class="step-header" id="p1-phase4"><span class="step-number">4</span><h2>Le vrai test <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(30 min)</small></h2></div>
+<h3>Demandez à Claude de construire</h3>
+<p>Restez dans Claude Code et demandez :</p>
+<blockquote>
+<p>Relis plan.md. Construis cette application de zéro en suivant le plan. Commence par la première partie. Les paiements et emails sont simulés.</p>
+</blockquote>
+<p>Lancez le site et vérifiez que ça fonctionne.</p>
+<p>Puis demandez-lui d'implémenter un de vos parcours et vérifiez que les cas d'erreur sont gérés.</p>
+<h3>Ce que vous devez noter dans votre carnet</h3>
+<blockquote class="notebook-prompt">
+<p>✍️ Est-ce que Claude a eu du mal à suivre votre plan ? Si oui, c'est probablement que le plan n'était pas assez clair — pas que Claude est mauvais.</p>
+<p>✍️ Est-ce que les parcours se sont traduits naturellement en code qui gère les erreurs ?</p>
+<p>✍️ Qu'est-ce que vous changeriez dans votre plan si vous deviez recommencer ?</p>
+<p>✍️ Comparez les deux commits dans git (<code>git log --oneline</code>). Qu'est-ce que la critique de Claude a changé ?</p>
+</blockquote>
+<hr>
+<h2 id="p1-sauvegarde">Avant de partir — sauvegardez</h2>
+<pre data-lang="bash"><code>git add .
 git commit -m "Projet libre 1 terminé"</code></pre>
-
-        <hr>
-
-        <div class="checkpoint" id="p1-eval">
-          <h2>Auto-évaluation</h2>
-          <p>Cochez honnêtement :</p>
-          <ul class="checklist">
-            <li><input type="checkbox" id="p1-1"><span>J'ai écrit le plan moi-même avant de demander quoi que ce soit à Claude</span></li>
-            <li><input type="checkbox" id="p1-2"><span>Chaque partie a une ligne "Ne fait PAS"</span></li>
-            <li><input type="checkbox" id="p1-3"><span>J'ai au moins 3 parcours avec des cas d'échec</span></li>
-            <li><input type="checkbox" id="p1-4"><span>Au moins un parcours gère un retour en arrière</span></li>
-            <li><input type="checkbox" id="p1-5"><span>J'ai demandé à Claude de critiquer, pas de réécrire</span></li>
-            <li><input type="checkbox" id="p1-6"><span>Le plan a été amélioré grâce à la critique</span></li>
-            <li><input type="checkbox" id="p1-7"><span>L'application se lance et le parcours principal fonctionne</span></li>
-          </ul>
-          <p>Si vous avez coché 5 ou plus : vous êtes prêt pour le Module 3.</p>
-          <p>Si vous avez coché moins de 5 : relisez vos notes des Modules 1 et 2, et réessayez. Pas de honte — c'est comme ça qu'on apprend.</p>
-        </div>
-
-        <hr>
-
-        <h2>La suite</h2>
-
-        <p>Le <a href="module3.html">Module 3</a> va vous apprendre quoi faire quand <code>plan.md</code> devient trop gros. Pour l'instant, votre plan tient en une ou deux pages. Mais quand l'application grandit, Claude ne peut plus tout lire d'un coup. Il va falloir apprendre à <strong>structurer l'information en niveaux</strong> — comme une carte qui a plusieurs zooms.</p>
+<hr>
+<div class="checkpoint" id="p1-eval">
+<h2>Auto-évaluation</h2>
+<p>Cochez honnêtement :</p>
+<ul class="checklist">
+<li><input type="checkbox" id="ckP1-1"><span>J'ai écrit le plan moi-même avant de demander quoi que ce soit à Claude</span></li>
+<li><input type="checkbox" id="ckP1-2"><span>Chaque partie a une ligne "Ne fait PAS"</span></li>
+<li><input type="checkbox" id="ckP1-3"><span>J'ai au moins 3 parcours avec des cas d'échec</span></li>
+<li><input type="checkbox" id="ckP1-4"><span>Au moins un parcours gère un retour en arrière</span></li>
+<li><input type="checkbox" id="ckP1-5"><span>J'ai demandé à Claude de critiquer, pas de réécrire</span></li>
+<li><input type="checkbox" id="ckP1-6"><span>Le plan a été amélioré grâce à la critique</span></li>
+<li><input type="checkbox" id="ckP1-7"><span>L'application se lance et le parcours principal fonctionne</span></li>
+</ul>
+<p>Si vous avez coché 5 ou plus : vous êtes prêt pour le Module 3.
+Si vous avez coché moins de 5 : relisez vos notes des Modules 1 et 2, et réessayez. Pas de honte — c'est comme ça qu'on apprend.</p>
+</div>
+<hr>
+<h2 id="p1-suite">La suite</h2>
+<p>Le Module 3 va vous apprendre quoi faire quand <code>plan.md</code> devient trop gros. Pour l'instant, votre plan tient en une ou deux pages. Mais quand l'application grandit, Claude ne peut plus tout lire d'un coup. Il va falloir apprendre à <strong>structurer l'information en niveaux</strong> — comme une carte qui a plusieurs zooms.</p>
 
       </div>
     </main>

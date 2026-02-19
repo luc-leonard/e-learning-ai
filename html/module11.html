@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 11 — Les frontières qui tiennent</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
+</head>
+<body>
+  <div class="app">
+    <div id="sidebar-root"></div>
+    <main class="main-content">
+      <div class="module-content">
+
+<h1>Module 11 : Les frontières qui tiennent</h1>
+<p class="module-subtitle"><em>Quand vos agrégats deviennent des êtres vivants qui protègent leurs propres règles</em></p>
+<hr>
+<h2>Ce que vous savez déjà</h2>
+<p>Vos agrégats ont des invariants. Vos tests vérifient que ces invariants sont respectés. Mais les tests ne vérifient qu'<strong>après coup</strong> — ils vous disent "ça a cassé", pas "ça ne peut pas casser".</p>
+<p>C'est la différence entre un garde-fou sur une falaise et un panneau "attention falaise" posé 100 mètres plus loin. Les deux sont utiles. Mais un seul empêche vraiment de tomber.</p>
+<p>Ce module va transformer vos agrégats en garde-fous.</p>
+<div class="module-meta">
+<div class="module-meta-item"><strong>Durée :</strong> Une semaine (1-2 heures par jour)</div>
+<div class="module-meta-item"><strong>Ce qu'il vous faut :</strong> Votre projet du Module 10, un compte Claude, votre carnet</div>
+</div>
+<hr>
+<h2 id="m11-analogie">Avant de commencer : une analogie</h2>
+<p>Vous allez dans un bureau de poste. Vous prenez un ticket numéroté. Un écran affiche "Numéro 47, guichet 3". Le 47 va au guichet 3. Le 48 attend. Le 49 attend. Personne ne double.</p>
+<p>Pourquoi est-ce que ça marche ? Pas parce qu'il y a un règlement affiché au mur qui dit "ne doublez pas". Ça marche parce que <strong>le système rend le doublage impossible</strong>. Vous ne pouvez pas aller au guichet sans votre numéro. Le guichet n'accepte qu'un client à la fois. L'invariant "chaque client est servi dans l'ordre" n'est pas une règle à respecter — c'est un fait structurel.</p>
+<p>Maintenant, repensez à votre application. Votre invariant "le nombre d'inscrits ne dépasse pas le nombre de places" — est-il un panneau ou un garde-fou ? En ce moment, c'est un panneau. Le code vérifie, mais rien n'empêche <strong>structurellement</strong> de le violer. Si deux requêtes arrivent au même moment, si un bug saute la vérification, si quelqu'un modifie directement la base de données — l'invariant tombe.</p>
+<p>Et si votre agrégat était comme le bureau de poste ? Un système qui <strong>ne peut pas</strong> violer ses propres règles, par construction ?</p>
+<p>En Elixir, c'est possible. Et c'est même naturel.</p>
+<hr>
+<div class="step-header" id="m11-jour1"><span class="step-number">1</span><h2>Le problème de la base de données <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(90 min)</small></h2></div>
+<h3>Ce que vous allez faire</h3>
+<p>Vous allez provoquer une violation d'invariant pour de vrai.</p>
+<p>Demandez à Claude :</p>
+<blockquote>
+<p>Voici le code de mon agrégat Séance :
+[collez le code]</p>
+<p>L'invariant dit : "le nombre d'inscrits ne dépasse jamais le nombre de places."</p>
+<p>Écris-moi un test qui simule deux inscriptions simultanées à une séance avec une seule place restante. Les deux requêtes arrivent en même temps, vérifient qu'il reste une place (oui pour les deux), et inscrivent toutes les deux.</p>
+<p>Est-ce que mon code actuel empêche ça ?</p>
+</blockquote>
+<div class="callout callout-red">
+<div class="callout-title">🔴 Ce que vous allez découvrir</div>
+<p>Probablement que non. Voici pourquoi :</p>
+<pre><code>Moment 1 : Requête A vérifie → il reste 1 place ✓
+Moment 2 : Requête B vérifie → il reste 1 place ✓ (A n'a pas encore inscrit)
+Moment 3 : Requête A inscrit → 0 places restantes
+Moment 4 : Requête B inscrit → -1 places restantes ← INVARIANT VIOLÉ</code></pre>
+<p>C'est le problème du croissant du Module 2, mais en vrai dans le code. Vous l'aviez résolu conceptuellement avec la notion de réservation. Mais est-ce que le code l'implémente vraiment ?</p>
+<h3>Pourquoi ça arrive</h3>
+<p>Votre agrégat est stocké dans une base de données. Quand deux requêtes arrivent :</p>
+<ol>
+<li>Chacune <strong>lit</strong> l'état de la séance (nombre de places)</li>
+<li>Chacune <strong>vérifie</strong> l'invariant dans son coin</li>
+<li>Chacune <strong>écrit</strong> son inscription</li>
+</ol>
+<p>Entre la lecture et l'écriture, l'autre requête a le temps de passer. La base de données ne sait pas que ces deux opérations font partie du même tout. Elle voit deux écritures indépendantes.</p>
+<p>C'est comme si deux boulangères servaient le même croissant à deux clients parce qu'elles regardent la vitrine chacune de leur côté sans se parler.</p>
+<h3>La solution classique (et ses limites)</h3>
+<p>La solution habituelle, c'est le <strong>verrouillage en base de données</strong> : on bloque la ligne "séance" pendant qu'on inscrit, pour que personne d'autre ne puisse la lire en même temps. Ça marche. Mais c'est fragile — il faut penser à verrouiller à chaque endroit, et si on oublie une seule fois, l'invariant peut être violé.</p>
+<p>C'est un panneau. Pas un garde-fou.</p>
+</div>
+<hr>
+<div class="step-header" id="m11-jour2"><span class="step-number">2</span><h2>Un agrégat qui vit en mémoire <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(2h)</small></h2></div>
+<h3>L'idée clé</h3>
+<p>Et si votre agrégat n'était pas juste des données dans une base ? Et s'il était un <strong>programme en cours d'exécution</strong> — un processus vivant qui tourne en permanence, qui contient l'état de la séance, et qui est le <strong>seul</strong> à pouvoir la modifier ?</p>
+<p>Plus de lecture-vérification-écriture en trois temps. Un seul interlocuteur qui reçoit les demandes une par une, dans l'ordre, et qui dit oui ou non.</p>
+<p>C'est exactement le bureau de poste. Le guichet (le processus) traite un client à la fois. Personne ne double. L'invariant est garanti par construction.</p>
+<p>En Elixir, ce concept existe nativement. Ça s'appelle un <strong>GenServer</strong> — un processus qui :</p>
+<ul>
+<li>Vit en mémoire tant qu'on en a besoin</li>
+<li>Contient un état (les données de la séance)</li>
+<li>Reçoit des messages un par un (les demandes d'inscription)</li>
+<li>Traite chaque message avant de passer au suivant</li>
+</ul>
+<h3>Ce que vous allez faire</h3>
+<p>Demandez à Claude :</p>
+<blockquote>
+<p>Explique-moi GenServer avec l'analogie du guichet de bureau de poste. Puis montre-moi comment transformer mon agrégat Séance en GenServer. Je veux :</p>
+<ol>
+<li>Quand une séance est créée, un processus GenServer démarre</li>
+<li>Le processus contient l'état complet de la séance (inscriptions incluses)</li>
+<li>Pour inscrire quelqu'un, on envoie un message au processus</li>
+<li>Le processus vérifie l'invariant et accepte ou refuse</li>
+<li>Comme le processus traite les messages un par un, deux inscriptions simultanées sont traitées l'une après l'autre — jamais en même temps</li>
+</ol>
+<p>Montre-moi le code et explique chaque partie.</p>
+</blockquote>
+<h3>Ce que Claude va vous montrer</h3>
+<pre data-lang="elixir"><code>defmodule MonClub.Reunions.SeanceProcess do
+  use GenServer
+
+  # --- Démarrage ---
+
+  def start_link(seance) do
+    GenServer.start_link(__MODULE__, seance, name: via(seance.id))
+  end
+
+  def init(seance) do
+    # L'état initial : la séance avec ses données
+    {:ok, seance}
+  end
+
+  # --- Interface publique (ce qu'on peut demander au guichet) ---
+
+  def inscrire(seance_id, membre_id) do
+    GenServer.call(via(seance_id), {:inscrire, membre_id})
+  end
+
+  def places_restantes(seance_id) do
+    GenServer.call(via(seance_id), :places_restantes)
+  end
+
+  # --- Traitement des messages (ce que fait le guichet) ---
+
+  def handle_call({:inscrire, membre_id}, _from, seance) do
+    cond do
+      seance.places_restantes &lt;= 0 -&gt;
+        {:reply, {:error, :seance_complete}, seance}
+
+      membre_deja_inscrit?(seance, membre_id) -&gt;
+        {:reply, {:error, :deja_inscrit}, seance}
+
+      true -&gt;
+        seance_mise_a_jour = ajouter_inscription(seance, membre_id)
+        {:reply, {:ok, :inscrit}, seance_mise_a_jour}
+    end
+  end
+
+  def handle_call(:places_restantes, _from, seance) do
+    {:reply, seance.places_restantes, seance}
+  end
+end</code></pre>
+<h3>Ce que vous devez comprendre</h3>
+<p>Lisez le <code>handle_call({:inscrire, ...})</code>. C'est le cœur du système.</p>
+<p>Ce code ne vérifie pas la base de données. Il vérifie <strong>son propre état en mémoire</strong>. Et parce que GenServer traite les messages <strong>un par un</strong>, il est impossible que deux inscriptions soient traitées en même temps.</p>
+<p>Rejouez le scénario du Jour 1 :</p>
+<pre><code>Moment 1 : Requête A envoie {:inscrire, marie} au processus
+Moment 2 : Requête B envoie {:inscrire, jean} au processus
+Moment 3 : Le processus traite A → il reste 1 place → OK, Marie inscrite
+Moment 4 : Le processus traite B → il reste 0 places → REFUSÉ</code></pre>
+<p>B ne peut pas passer avant que A soit terminée. Le processus est le guichet. Un client à la fois. L'invariant est garanti <strong>par construction</strong>, pas par vérification.</p>
+<hr>
+<div class="step-header" id="m11-jour3"><span class="step-number">3</span><h2>Que se passe-t-il quand le guichet plante ? <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(90 min)</small></h2></div>
+<h3>La question qui tue</h3>
+<p>Votre séance est un processus vivant. Et les processus vivants peuvent mourir — un bug, une erreur inattendue, un manque de mémoire.</p>
+<p>Que se passe-t-il si le processus de la Soirée Polar plante ? Toutes les données en mémoire disparaissent. Les inscriptions, les places restantes — tout est perdu.</p>
+<p>Ça a l'air catastrophique. Mais Elixir a une réponse élégante.</p>
+<h3>L'analogie</h3>
+<p>Vous êtes dans un restaurant. Un serveur trébuche et laisse tomber un plateau. Que se passe-t-il ?</p>
+<p><strong>Option A (le monde fragile) :</strong> Le restaurant entier ferme. Tous les clients partent. Catastrophe.</p>
+<p><strong>Option B (le monde Elixir) :</strong> Le gérant donne un nouveau plateau au serveur. Le serveur retourne en cuisine, recharge les plats, et reprend le service. Les autres serveurs n'ont même pas remarqué.</p>
+<p>C'est exactement ce que fait Elixir. Un processus plante ? Pas de problème — un <strong>superviseur</strong> le redémarre automatiquement. Le nouveau processus recharge son état depuis la base de données et reprend là où l'autre s'est arrêté.</p>
+<h3>Ce que vous allez faire</h3>
+<p>Demandez à Claude :</p>
+<blockquote>
+<p>Mon agrégat Séance est un GenServer. Que se passe-t-il s'il plante ?</p>
+<p>Montre-moi :</p>
+<ol>
+<li>Comment créer un Supervisor qui surveille les processus de séances</li>
+<li>Quand un processus plante, comment il est redémarré automatiquement</li>
+<li>Comment le processus redémarré récupère son état depuis la base de données</li>
+<li>Ce qui se passe pour le client qui avait envoyé un message au moment du crash</li>
+</ol>
+</blockquote>
+<h3>Ce que Claude va vous montrer</h3>
+<pre data-lang="elixir"><code>defmodule MonClub.Reunions.Supervisor do
+  use DynamicSupervisor
+
+  def start_link(_) do
+    DynamicSupervisor.start_link(__MODULE__, :ok, name: __MODULE__)
+  end
+
+  def init(:ok) do
+    DynamicSupervisor.init(strategy: :one_for_one)
+  end
+
+  def demarrer_seance(seance_id) do
+    # Charge la séance depuis la base de données
+    seance = Repo.get!(Seance, seance_id) |&gt; charger_inscriptions()
+
+    # Démarre un processus pour cette séance
+    DynamicSupervisor.start_child(__MODULE__, {SeanceProcess, seance})
+  end
+end</code></pre>
+<h3>Ce que <code>:one_for_one</code> signifie</h3>
+<p>La stratégie <code>:one_for_one</code> veut dire : "si un enfant plante, redémarre <strong>seulement celui-là</strong>". La Soirée Polar plante ? On redémarre la Soirée Polar. Le Club Manga continue de tourner comme si de rien n'était.</p>
+<p>C'est comme dans le restaurant : un serveur trébuche, les autres continuent. On ne ferme pas le restaurant.</p>
+<h3>Le double filet</h3>
+<p>Votre agrégat a maintenant deux niveaux de protection :</p>
+<ol>
+<li><strong>En fonctionnement normal</strong> : le processus protège les invariants en traitant les messages un par un</li>
+<li><strong>En cas de crash</strong> : le superviseur redémarre le processus, qui recharge son état depuis la base de données</li>
+</ol>
+<p>La base de données est le <strong>backup</strong>. Le processus est le <strong>gardien</strong>. Les deux travaillent ensemble.</p>
+<h3>Ce que vous devez noter dans votre carnet</h3>
+<blockquote class="notebook-prompt">
+<p>✍️ Comprenez-vous la différence entre "les données sont dans la base de données" et "les données sont dans un processus vivant" ?</p>
+</blockquote>
+<blockquote class="notebook-prompt">
+<p>✍️ Pourquoi est-ce que traiter les messages un par un résout le problème des inscriptions simultanées ?</p>
+</blockquote>
+<blockquote class="notebook-prompt">
+<p>✍️ Que se passe-t-il si le serveur entier plante (pas juste un processus) ? (Réponse : la base de données est toujours là. Au redémarrage, les processus rechargent depuis la base.)</p>
+</blockquote>
+<hr>
+<div class="step-header" id="m11-jour4"><span class="step-number">4</span><h2>Synchroniser le processus et la base <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(2h)</small></h2></div>
+<h3>Le problème</h3>
+<p>Le processus vit en mémoire. La base de données est sur le disque. Les deux contiennent les données de la séance. Et ils peuvent se désynchroniser.</p>
+<p>Exemple :</p>
+<ol>
+<li>Le processus inscrit Marie (en mémoire : 2 places restantes)</li>
+<li>Le processus écrit dans la base de données... mais la base est lente</li>
+<li>Le processus plante avant que l'écriture soit terminée</li>
+<li>Le superviseur redémarre le processus</li>
+<li>Le processus recharge depuis la base → Marie n'est pas inscrite, 3 places restantes</li>
+<li>Marie est perdue.</li>
+</ol>
+<h3>Ce que vous allez faire</h3>
+<p>Demandez à Claude :</p>
+<blockquote>
+<p>Mon agrégat Séance est un GenServer qui écrit dans la base de données. Comment garantir que l'état en mémoire et l'état en base sont toujours synchronisés ? Quelles sont les stratégies possibles et laquelle est la plus simple pour commencer ?</p>
+</blockquote>
+<h3>Les stratégies</h3>
+<p>Claude va vous en proposer plusieurs. Voici les principales :</p>
+<p><strong>Stratégie 1 : Écrire d'abord, mettre à jour en mémoire ensuite.</strong>
+Le processus écrit dans la base, et seulement si l'écriture réussit, il met à jour son état en mémoire. Si la base refuse (contrainte violée), l'état en mémoire ne change pas.</p>
+<pre data-lang="elixir"><code>def handle_call({:inscrire, membre_id}, _from, seance) do
+  # Vérifier les invariants en mémoire (rapide)
+  if seance.places_restantes &lt;= 0 do
+    {:reply, {:error, :seance_complete}, seance}
+  else
+    # Écrire dans la base (source de vérité)
+    case Repo.insert(inscription) do
+      {:ok, _} -&gt;
+        # L'écriture a réussi → mettre à jour la mémoire
+        seance = %{seance | places_restantes: seance.places_restantes - 1}
+        {:reply, {:ok, :inscrit}, seance}
+      {:error, _} -&gt;
+        # L'écriture a échoué → ne rien changer en mémoire
+        {:reply, {:error, :erreur_base}, seance}
+    end
+  end
+end</code></pre>
+<p><strong>Stratégie 2 : L'état en mémoire fait foi, on synchronise en arrière-plan.</strong>
+Plus performant mais plus complexe. On y reviendra.</p>
+<p>Pour l'instant, la stratégie 1 est la bonne. Elle est simple et fiable.</p>
+<h3>La règle</h3>
+<p><strong>La base de données est la source de vérité. Le processus est le gardien rapide.</strong></p>
+<p>Le processus vérifie les invariants en mémoire (rapide, pas de réseau). Puis il écrit dans la base (lent, mais durable). Si l'écriture échoue, il ne modifie pas sa mémoire.</p>
+<p>Au redémarrage, le processus recharge depuis la base. Comme la base est toujours à jour, rien n'est perdu.</p>
+<hr>
+<div class="step-header" id="m11-jour5"><span class="step-number">5</span><h2>L'arbre de supervision complet <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(90 min)</small></h2></div>
+<h3>Ce que vous allez faire</h3>
+<p>Vous avez un superviseur pour les séances. Mais votre application a d'autres agrégats — les prêts, par exemple. Chaque agrégat mérite son propre processus et son propre superviseur.</p>
+<p>Demandez à Claude :</p>
+<blockquote>
+<p>Voici la liste de mes agrégats :</p>
+<ul>
+<li>Séance (gère les inscriptions, la liste d'attente)</li>
+<li>Prêt (gère l'emprunt, le retour, les relances)</li>
+</ul>
+<p>Montre-moi l'arbre de supervision complet de mon application. Quel superviseur gère quoi ? Comment les processus sont-ils organisés ?</p>
+</blockquote>
+<h3>Ce que Claude va vous montrer</h3>
+<pre><code>MonClub.Application (superviseur racine)
+├── MonClub.Repo (la base de données)
+├── MonClub.PubSub (le tableau d'affichage)
+├── MonClub.Reunions.Supervisor (supervise les séances)
+│   ├── SeanceProcess "Soirée Polar"
+│   ├── SeanceProcess "Club Manga"
+│   └── SeanceProcess "Atelier Écriture"
+├── MonClub.Prets.Supervisor (supervise les prêts)
+│   ├── PretProcess "Le Nom de la Rose → Marie"
+│   └── PretProcess "Dune → Jean"
+├── MonClub.Paiements.Listener (écoute les événements)
+├── MonClub.Notifications.Listener
+└── MonClub.Web.Endpoint (le serveur web)</code></pre>
+<h3>Ce que vous devez remarquer</h3>
+<p>C'est un <strong>arbre</strong>. Pas un plat de nouilles, pas un schéma avec des flèches partout. Un arbre hiérarchique où chaque branche est indépendante.</p>
+<p>Si toute la branche Réunions plante ? Les Prêts continuent. Les Notifications continuent. Le site web continue. Le superviseur racine redémarre la branche Réunions, qui redémarre ses séances depuis la base.</p>
+<p>Si une seule séance plante ? Les autres séances continuent. Même les réunions ne sont pas affectées — juste cette séance-là.</p>
+<p>C'est le principe du restaurant poussé à l'extrême. Un serveur trébuche → on le relève. Toute la cuisine prend feu → on ferme la cuisine mais la terrasse reste ouverte. Le bâtiment s'effondre → OK, là on a un problème. Mais chaque niveau de l'arbre isole les problèmes du reste.</p>
+<h3>Le vocabulaire</h3>
+<table>
+<thead>
+<tr>
+<th>Ce que vous voyez</th>
+<th>Le vrai nom</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L'arbre entier</td>
+<td><strong>Arbre de supervision</strong> (Supervision Tree)</td>
+</tr>
+<tr>
+<td>Un nœud qui surveille</td>
+<td><strong>Superviseur</strong> (Supervisor)</td>
+</tr>
+<tr>
+<td>Un nœud qui travaille</td>
+<td><strong>Worker</strong> (le GenServer)</td>
+</tr>
+<tr>
+<td>"Si un enfant plante, on le redémarre"</td>
+<td>Stratégie <strong>one_for_one</strong></td>
+</tr>
+<tr>
+<td>"Si un enfant plante, on redémarre tous les enfants"</td>
+<td>Stratégie <strong>one_for_all</strong></td>
+</tr>
+<tr>
+<td>"L'application continue malgré le crash"</td>
+<td><strong>Tolérance aux pannes</strong> (Fault Tolerance)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<div class="step-header" id="m11-jour6"><span class="step-number">6</span><h2>Relier les processus et les événements <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(90 min)</small></h2></div>
+<h3>Ce que vous allez faire</h3>
+<p>Au Module 9, vous avez mis en place PubSub pour que les modules communiquent par événements. Maintenant, les agrégats sont des processus vivants. Les deux doivent travailler ensemble.</p>
+<p>Quand le processus de la Soirée Polar inscrit Marie, il doit publier un événement. Quand le Listener de Paiements reçoit l'événement, il doit créer le paiement.</p>
+<p>Demandez à Claude :</p>
+<blockquote>
+<p>Mon agrégat Séance est un GenServer. Quand une inscription réussit, il doit publier un événement via PubSub. Montre-moi comment intégrer les deux :</p>
+<ol>
+<li>Le GenServer inscrit le membre et met à jour la base</li>
+<li>SEULEMENT si l'écriture en base réussit, il publie l'événement</li>
+<li>Le Listener de Paiements reçoit l'événement et crée le paiement</li>
+</ol>
+<p>Montre-moi aussi : que se passe-t-il si le processus plante ENTRE l'écriture en base et la publication de l'événement ?</p>
+</blockquote>
+<h3>Le code intégré</h3>
+<pre data-lang="elixir"><code>def handle_call({:inscrire, membre_id}, _from, seance) do
+  if seance.places_restantes &lt;= 0 do
+    {:reply, {:error, :seance_complete}, seance}
+  else
+    case Repo.insert(inscription) do
+      {:ok, inscription} -&gt;
+        # Base OK → mettre à jour la mémoire
+        seance = mettre_a_jour_places(seance)
+
+        # Mémoire OK → publier l'événement
+        Phoenix.PubSub.broadcast(MonClub.PubSub, "reunions",
+          {:membre_inscrit, %{
+            membre_id: membre_id,
+            seance_id: seance.id,
+            places_restantes: seance.places_restantes
+          }}
+        )
+
+        {:reply, {:ok, :inscrit}, seance}
+
+      {:error, changeset} -&gt;
+        {:reply, {:error, :erreur_inscription}, seance}
+    end
+  end
+end</code></pre>
+<h3>La question difficile</h3>
+<p>Que se passe-t-il si le processus plante <strong>après</strong> l'écriture en base mais <strong>avant</strong> la publication de l'événement ? L'inscription est enregistrée, mais Paiements n'est jamais prévenu. Marie est inscrite mais n'a pas payé.</p>
+<p>C'est un vrai problème, et il n'a pas de solution magique. Les stratégies courantes :</p>
+<ol>
+<li><strong>Accepter le risque et rattraper.</strong> Un job périodique vérifie les inscriptions sans paiement et publie les événements manquants.</li>
+<li><strong>Outbox pattern.</strong> On écrit l'événement dans la base de données en même temps que l'inscription (dans la même transaction), et un processus séparé lit les événements en base et les publie.</li>
+</ol>
+<p>Pour l'instant, la stratégie 1 suffit. Mais notez l'existence du problème — c'est un des problèmes les plus fondamentaux de l'informatique distribuée, et il n'existe nulle part de solution parfaite. Juste des stratégies avec des compromis différents.</p>
+<hr>
+<div class="step-header" id="m11-jour7"><span class="step-number">7</span><h2>Le bilan</h2></div>
+<h3>Ce que vous avez fait cette semaine</h3>
+<p>Vous avez transformé vos agrégats de <strong>données passives</strong> (stockées dans une base, vérifiées par des tests) en <strong>processus vivants</strong> (qui tournent en mémoire, qui protègent leurs invariants par construction, qui redémarrent automatiquement en cas de crash).</p>
+<h3>Le changement de paradigme</h3>
+<table>
+<thead>
+<tr>
+<th>Avant (Modules 8-10)</th>
+<th>Maintenant (Module 11)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L'agrégat est un schéma de base de données</td>
+<td>L'agrégat est un <strong>processus vivant</strong></td>
+</tr>
+<tr>
+<td>Les invariants sont vérifiés dans le code</td>
+<td>Les invariants sont <strong>garantis par construction</strong></td>
+</tr>
+<tr>
+<td>Deux requêtes simultanées = risque</td>
+<td>Deux requêtes simultanées = file d'attente</td>
+</tr>
+<tr>
+<td>Un bug = état incohérent</td>
+<td>Un crash = redémarrage automatique</td>
+</tr>
+<tr>
+<td>La base de données est tout</td>
+<td>La base de données est le <strong>backup</strong></td>
+</tr>
+</tbody>
+</table>
+<h3>Les mots de la semaine</h3>
+<table>
+<thead>
+<tr>
+<th>Ce que vous dites</th>
+<th>Le vrai nom</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"Le guichet qui traite un client à la fois"</td>
+<td><strong>GenServer</strong></td>
+</tr>
+<tr>
+<td>"Le gérant qui redémarre les serveurs"</td>
+<td><strong>Superviseur</strong> (Supervisor)</td>
+</tr>
+<tr>
+<td>"L'arbre du restaurant"</td>
+<td><strong>Arbre de supervision</strong> (Supervision Tree)</td>
+</tr>
+<tr>
+<td>"La base est le backup, le processus est le gardien"</td>
+<td><strong>Sourcing hybride</strong></td>
+</tr>
+<tr>
+<td>"L'invariant ne peut pas être violé"</td>
+<td><strong>Invariant structurel</strong> (vs invariant vérifié)</td>
+</tr>
+<tr>
+<td>"Crash et redémarrage, c'est normal"</td>
+<td><strong>Let it crash</strong> (philosophie Erlang/Elixir)</td>
+</tr>
+</tbody>
+</table>
+<h3>La structure de votre application</h3>
+<pre><code>MonClub.Application
+├── Repo (base de données = source de vérité durable)
+├── PubSub (événements de domaine)
+│
+├── Reunions.Supervisor
+│   └── SeanceProcess (GenServer)
+│       ├── État en mémoire : séance + inscriptions
+│       ├── Invariants : protégés par traitement séquentiel
+│       ├── Écrit dans la base à chaque modification
+│       └── Publie les événements après écriture réussie
+│
+├── Prets.Supervisor
+│   └── PretProcess (GenServer)
+│       ├── État en mémoire : prêt + relances
+│       └── ...
+│
+├── Paiements.Listener (réagit aux événements)
+├── Notifications.Listener
+└── Web.Endpoint</code></pre>
+<hr>
+<h2 id="m11-suite">La suite</h2>
+<p>Votre application a des agrégats vivants, des événements de domaine, des superviseurs. Elle est solide. Mais elle a une limitation : tout est dans un seul serveur. Un seul ordinateur qui fait tout.</p>
+<p>Le Module 12 va vous amener au dernier niveau : que se passe-t-il quand vous avez besoin de plusieurs serveurs ? Comment les processus communiquent entre machines ? Comment les événements traversent le réseau ? Elixir a été conçu pour ça depuis le début — c'est le moment de le découvrir.</p>
+
+      </div>
+    </main>
+    <button class="back-to-top" aria-label="Retour en haut">↑</button>
+  </div>
+  <script src="nav.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

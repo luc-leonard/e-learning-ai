@@ -13,232 +13,172 @@
     <main class="main-content">
       <div class="module-content">
 
-        <h1>Module 1 : Pourquoi ça part en vrille</h1>
-        <p class="module-subtitle"><em>Votre premier projet avec l'IA — et votre première catastrophe</em></p>
-
-        <hr>
-
-        <h2 id="m1-ce-que-vous-savez-deja">Ce que vous savez déjà</h2>
-
-        <p>Vous avez un terminal, VSCode, git, et Claude Code. Vous savez créer un dossier, lancer Claude Code, et sauvegarder votre travail avec git. C'est tout ce qu'il vous faut.</p>
-
-        <p>Ce qu'on va faire : vous allez demander à Claude Code de construire quelque chose pour vous. Ça va très bien se passer au début. Puis ça va partir en vrille. Et c'est exactement le but.</p>
-
-        <div class="module-meta">
-          <div class="module-meta-item"><strong>Durée :</strong> 4-5 heures (en une ou deux sessions)</div>
-          <div class="module-meta-item"><strong>Ce qu'il vous faut :</strong> Votre dossier <code>formation-ia</code> ouvert dans VSCode, Claude Code, votre carnet</div>
-        </div>
-
-        <hr>
-
-        <h2 id="m1-analogie">Avant de commencer : une analogie</h2>
-
-        <p>Imaginez que vous rénovez un appartement. Vous engagez un artisan incroyablement rapide et compétent. Il sait tout faire : plomberie, électricité, peinture, carrelage.</p>
-
-        <p>Mais il a un problème : <strong>il a une mémoire de poisson rouge.</strong></p>
-
-        <p>Chaque matin, il oublie ce qu'il a fait la veille. Si vous lui dites "installe un évier dans la cuisine", il le fait parfaitement. Mais si le lendemain vous dites "ajoute un lave-vaisselle à côté de l'évier", il y a un risque qu'il ne se souvienne plus exactement où il a mis les tuyaux de l'évier. Alors il va en poser de nouveaux. Maintenant vous avez deux réseaux de tuyaux qui ne communiquent pas.</p>
-
-        <p>Au bout de deux semaines de travaux, votre appartement <em>fonctionne</em>, techniquement. Mais derrière les murs, c'est un cauchemar.</p>
-
-        <p>Claude Code, c'est cet artisan. Brillant, rapide, et amnésique. Ce module va vous apprendre à devenir le <strong>chef de chantier</strong> qui lui donne un plan à suivre.</p>
-
-        <hr>
-
-        <div class="step-header" id="m1-etape1">
-          <span class="step-number">1</span>
-          <h2>Demandez quelque chose de simple <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(30 min)</small></h2>
-        </div>
-
-        <h3>Ce que vous allez faire</h3>
-
-        <p>Ouvrez le terminal intégré de VSCode (<code>Ctrl + `</code>). Vérifiez que vous êtes dans votre dossier <code>formation-ia</code> (<code>pwd</code>), puis lancez Claude Code :</p>
-
-        <pre data-lang="bash"><code>claude</code></pre>
-
-        <p>Envoyez-lui ce message :</p>
-
-        <blockquote>
-          <p>Crée-moi un site web simple pour un club de lecture. Les membres doivent pouvoir :</p>
-          <ul>
-            <li>Voir la liste des livres qu'on a lus</li>
-            <li>Proposer un nouveau livre</li>
-            <li>Voter pour le prochain livre à lire</li>
-          </ul>
-          <p>Utilise Node.js avec Express pour le serveur, SQLite pour la base de données, et Pico.css chargé depuis un CDN pour le style. Fais quelque chose de simple et joli.</p>
-        </blockquote>
-
-        <h3>Ce qui va se passer</h3>
-
-        <p>Claude Code va créer des fichiers dans votre dossier. Vous les verrez apparaître dans le panneau gauche de VSCode en temps réel. Vous n'avez pas besoin de comprendre le code — ce qui compte, c'est que ça marche.</p>
-
-        <h3>Lancer le site</h3>
-
-        <p>Claude Code va probablement vous dire qu'il faut <strong>installer les <dfn title="Les outils suppl&eacute;mentaires dont le projet a besoin pour fonctionner &mdash; comme des ingr&eacute;dients qu'il faut acheter avant de cuisiner">d&eacute;pendances</dfn></strong> puis <strong>lancer le site</strong>. Il va peut-être exécuter ces commandes lui-même, ou vous donner les commandes à taper.</p>
-
-        <p>Si Claude Code vous donne des commandes à exécuter, <strong>tapez-les vous-même</strong> dans le terminal. C'est important : même si vous ne comprenez pas tout, vous devez savoir que lancer un site, c'est une commande dans le terminal. Quelque chose comme :</p>
-
-        <pre data-lang="bash"><code>npm install
+<h1>Module 1 : Pourquoi ça part en vrille</h1>
+<p class="module-subtitle"><em>Votre premier projet avec l'IA — et votre première catastrophe</em></p>
+<hr>
+<h2>Ce que vous savez déjà</h2>
+<p>Vous avez un terminal, VSCode, git, et Claude Code. Vous savez créer un dossier, lancer Claude Code, et sauvegarder votre travail avec git. C'est tout ce qu'il vous faut.</p>
+<p>Ce qu'on va faire : vous allez demander à Claude Code de construire quelque chose pour vous. Ça va très bien se passer au début. Puis ça va partir en vrille. Et c'est exactement le but.</p>
+<div class="module-meta">
+<div class="module-meta-item"><strong>Durée :</strong> 4-5 heures (en une ou deux sessions)</div>
+<div class="module-meta-item"><strong>Ce qu'il vous faut :</strong> Votre dossier `formation-ia` ouvert dans VSCode, Claude Code, votre carnet</div>
+</div>
+<hr>
+<h2 id="m1-analogie">Avant de commencer : une analogie</h2>
+<p>Imaginez que vous rénovez un appartement. Vous engagez un artisan incroyablement rapide et compétent. Il sait tout faire : plomberie, électricité, peinture, carrelage.</p>
+<p>Mais il a un problème : <strong>il a une mémoire de poisson rouge.</strong></p>
+<p>Chaque matin, il oublie ce qu'il a fait la veille. Si vous lui dites "installe un évier dans la cuisine", il le fait parfaitement. Mais si le lendemain vous dites "ajoute un lave-vaisselle à côté de l'évier", il y a un risque qu'il ne se souvienne plus exactement où il a mis les tuyaux de l'évier. Alors il va en poser de nouveaux. Maintenant vous avez deux réseaux de tuyaux qui ne communiquent pas.</p>
+<p>Au bout de deux semaines de travaux, votre appartement <em>fonctionne</em>, techniquement. Mais derrière les murs, c'est un cauchemar.</p>
+<p>Claude Code, c'est cet artisan. Brillant, rapide, et amnésique. Ce module va vous apprendre à devenir le <strong>chef de chantier</strong> qui lui donne un plan à suivre.</p>
+<hr>
+<div class="step-header" id="m1-etape1"><span class="step-number">1</span><h2>Demandez quelque chose de simple <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(30 min)</small></h2></div>
+<h3>Ce que vous allez faire</h3>
+<p>Ouvrez le terminal intégré de VSCode (<code>Ctrl + `</code>). Vérifiez que vous êtes dans votre dossier <code>formation-ia</code> (<code>pwd</code>), puis lancez Claude Code :</p>
+<pre data-lang="bash"><code>claude</code></pre>
+<p>Envoyez-lui ce message :</p>
+<blockquote>
+<p>Crée-moi un site web simple pour un club de lecture. Les membres doivent pouvoir :</p>
+<ul>
+<li>Voir la liste des livres qu'on a lus</li>
+<li>Proposer un nouveau livre</li>
+<li>Voter pour le prochain livre à lire</li>
+</ul>
+<p>Utilise Node.js avec Express pour le serveur, SQLite pour la base de données, et Pico.css chargé depuis un CDN pour le style. Fais quelque chose de simple et joli.</p>
+</blockquote>
+<h3>Ce qui va se passer</h3>
+<p>Claude Code va créer des fichiers dans votre dossier. Vous les verrez apparaître dans le panneau gauche de VSCode en temps réel. Vous n'avez pas besoin de comprendre le code — ce qui compte, c'est que ça marche.</p>
+<h3>Lancer le site</h3>
+<p>Claude Code va probablement vous dire qu'il faut <strong>installer les <dfn title="Les outils supplémentaires dont le projet a besoin pour fonctionner — comme des ingrédients qu'il faut acheter avant de cuisiner">dépendances</dfn></strong> puis <strong>lancer le site</strong>. Il va peut-être exécuter ces commandes lui-même, ou vous donner les commandes à taper.</p>
+<p>Si Claude Code vous donne des commandes à exécuter, <strong>tapez-les vous-même</strong> dans le terminal. C'est important : même si vous ne comprenez pas tout, vous devez savoir que lancer un site, c'est une commande dans le terminal. Quelque chose comme :</p>
+<pre data-lang="bash"><code>npm install
 npm start</code></pre>
-
-        <p>L'essentiel est de comprendre le principe : <strong>installer</strong> (une seule fois) puis <strong>lancer</strong> (à chaque fois que vous voulez voir le site).</p>
-
-        <p>Une fois lancé, Claude vous dira d'ouvrir votre navigateur à une adresse comme <code>http://localhost:3000</code>. Faites-le. Vous devriez voir votre site de club de lecture.</p>
-
-        <p>Si ça ne marche pas du premier coup, dites simplement à Claude Code ce que vous voyez (le message d'erreur, ou "rien ne se passe") et laissez-le corriger. C'est normal que ça prenne quelques allers-retours.</p>
-
-        <h3>Ce que vous devez noter dans votre carnet</h3>
-
-        <blockquote class="notebook-prompt"><p>✍️ Est-ce que ça a marché du premier coup ?</p></blockquote>
-        <blockquote class="notebook-prompt"><p>✍️ Quelle commande lance le site ? Notez-la — vous en aurez besoin.</p></blockquote>
-        <blockquote class="notebook-prompt"><p>✍️ Comment vous sentez-vous ? (Normalement : impressionné, enthousiaste)</p></blockquote>
-
-        <hr>
-
-        <div class="step-header" id="m1-etape2">
-          <span class="step-number">2</span>
-          <h2>Demandez-lui d'ajouter des choses <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(2h)</small></h2>
-        </div>
-
-        <h3>Ce que vous allez faire</h3>
-
-        <p><strong>Ne quittez pas Claude Code.</strong> Restez dans la même session — c'est important pour la suite de l'expérience.</p>
-
-        <p>Envoyez ces demandes une par une, dans l'ordre. Attendez que Claude Code ait fini chacune avant de passer à la suivante. Après chaque demande, relancez le site et vérifiez dans votre navigateur que ça fonctionne.</p>
-
-        <blockquote><p><strong>Demande 1 :</strong> "Ajoute un système de compte. Les gens doivent pouvoir s'inscrire avec un email et un mot de passe, et on doit voir qui a proposé quel livre."</p></blockquote>
-
-        <blockquote><p><strong>Demande 2 :</strong> "Les membres veulent pouvoir écrire une critique après avoir lu le livre. Ajoute ça."</p></blockquote>
-
-        <blockquote><p><strong>Demande 3 :</strong> "Ajoute des catégories de livres (roman, SF, polar, etc.) et la possibilité de filtrer par catégorie."</p></blockquote>
-
-        <blockquote><p><strong>Demande 4 :</strong> "L'admin du club veut pouvoir supprimer des propositions inappropriées et bannir des membres. Ajoute un rôle administrateur."</p></blockquote>
-
-        <blockquote><p><strong>Demande 5 :</strong> "Les membres veulent recevoir un email quand un nouveau livre est choisi. Ajoute des notifications."</p></blockquote>
-
-        <blockquote><p><strong>Demande 6 :</strong> "Ajoute un calendrier des réunions du club. Les membres peuvent indiquer s'ils viennent ou pas."</p></blockquote>
-
-        <blockquote><p><strong>Demande 7 :</strong> "On veut un système de prêt : les membres qui possèdent un livre peuvent le signaler, et d'autres membres peuvent demander à l'emprunter."</p></blockquote>
-
-        <blockquote><p><strong>Demande 8 :</strong> "Ajoute une page de statistiques : livres les plus populaires, membre le plus actif, catégorie préférée du club, etc."</p></blockquote>
-
-        <blockquote><p><strong>Demande 9 :</strong> "Le club veut s'ouvrir à d'autres villes. Il faut pouvoir créer des 'chapitres' locaux avec chacun leur propre liste de livres et réunions, mais un catalogue commun."</p></blockquote>
-
-        <blockquote><p><strong>Demande 10 :</strong> "Tout doit marcher aussi sur téléphone, et les gens veulent pouvoir consulter les livres même sans connexion internet."</p></blockquote>
-
-        <div class="callout callout-red">
-          <div class="callout-title">🔴 Ce que vous devez surveiller</div>
-          <p>À un moment pendant ces demandes — probablement entre la 4ème et la 7ème — vous allez commencer à remarquer des choses étranges. Voici ce qu'il faut guetter :</p>
-        </div>
-
-        <div class="callout callout-flag">
-          <div class="callout-title">🚩 Claude vous redemande des choses que vous avez déjà décidées.</div>
-          <p>Par exemple, vous aviez déjà un système de comptes, mais pour les notifications, il recrée quelque chose de différent pour identifier les utilisateurs.</p>
-        </div>
-
-        <div class="callout callout-flag">
-          <div class="callout-title">🚩 Le site ne se lance plus.</div>
-          <p>Claude Code modifie des fichiers qui dépendent les uns des autres. À un moment, une modification casse quelque chose qui marchait avant. Vous tapez la commande pour lancer le site, et il y a des erreurs.</p>
-        </div>
-
-        <div class="callout callout-flag">
-          <div class="callout-title">🚩 Les nouvelles fonctionnalités cassent les anciennes.</div>
-          <p>Le système de prêt ne sait pas que les livres ont des catégories. Les statistiques ne comptent pas les réunions. Les chapitres locaux ne fonctionnent pas avec le système de vote.</p>
-        </div>
-
-        <div class="callout callout-flag">
-          <div class="callout-title">🚩 Claude se contredit.</div>
-          <p>Dans un message il organise les choses d'une certaine façon, dans le suivant il le fait autrement, sans expliquer pourquoi.</p>
-        </div>
-
-        <h3>Ce que vous devez noter dans votre carnet</h3>
-
-        <blockquote class="notebook-prompt"><p>✍️ À quelle demande avez-vous senti que quelque chose n'allait plus ?</p></blockquote>
-        <blockquote class="notebook-prompt"><p>✍️ Combien de fois avez-vous dû dire à Claude "non, ça existait déjà" ou "tu oublies que..." ?</p></blockquote>
-        <blockquote class="notebook-prompt"><p>✍️ Est-ce que le site se lance encore ? Si non, à partir de quelle demande ?</p></blockquote>
-        <blockquote class="notebook-prompt"><p>✍️ Comment vous sentez-vous ? (Normalement : frustré, perdu, ou les deux)</p></blockquote>
-
-        <hr>
-
-        <div class="step-header" id="m1-etape3">
-          <span class="step-number">3</span>
-          <h2>Comprendre ce qui s'est passé <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(15 min)</small></h2>
-        </div>
-
-        <div class="spoiler">
-          <button class="spoiler-toggle"><span class="spoiler-icon">▶</span>Lisez ceci APRÈS avoir fait l'étape 2</button>
-          <div class="spoiler-content">
-            <div class="spoiler-inner">
-
-              <p>Vous venez de vivre exactement ce que vivent les développeurs professionnels depuis des décennies. Ce que vous avez ressenti a un nom : la <strong>dette technique</strong>. C'est quand un projet devient de plus en plus difficile à modifier parce que personne n'a planifié comment les morceaux s'emboîtent.</p>
-
-              <p>Mais pourquoi est-ce que ça s'est passé ? Vous aviez pourtant une IA ultra-compétente.</p>
-
-              <p>Voici l'explication, et elle est simple :</p>
-
-              <p><strong>Claude est comme un chef cuisinier avec une toute petite table de travail.</strong></p>
-
-              <p>Imaginez un chef brillant qui peut préparer n'importe quel plat. Mais sa table de travail est petite. Au début du repas, il a de la place : il voit tous ses ingrédients, toutes les assiettes en cours. Mais au fur et à mesure qu'il cuisine, la table se remplit. Les anciens plats sont poussés au bord, puis tombent par terre. Le chef continue de cuisiner, mais il ne voit plus ce qu'il a préparé avant. Alors quand vous lui demandez un dessert qui doit aller avec l'entrée, il ne se souvient plus de l'entrée.</p>
-
-              <p>C'est exactement ce qui arrive avec Claude Code. Sa "table de travail" a une taille limitée. Au début de la conversation, il voit tout. Après 10 demandes, les premières décisions sont floues ou oubliées.</p>
-
-              <p><strong>Le problème, ce n'est pas l'IA. C'est l'absence de plan.</strong></p>
-
-              <p>Personne n'a donné au chef un menu écrit. Personne n'a dit "l'entrée est une salade de tomates, le plat principal est du poisson, le dessert doit être léger pour aller avec". Si le chef avait ce menu sous les yeux en permanence, il n'oublierait rien — parce qu'il n'aurait pas besoin de s'en souvenir.</p>
-
-            </div>
-          </div>
-        </div>
-
-        <hr>
-
-        <div class="step-header" id="m1-etape4">
-          <span class="step-number">4</span>
-          <h2>Construire un plan <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(45 min)</small></h2>
-        </div>
-
-        <h3>Ce que vous allez faire</h3>
-
-        <p>Quittez Claude Code (<code>/exit</code>). Vous allez d'abord écrire un <strong>plan de votre application</strong>. Pas du code. Pas un schéma technique. Juste une description en français normal de comment votre club de lecture est organisé.</p>
-
-        <p>Dans VSCode, créez un nouveau fichier et enregistrez-le sous le nom <code>plan.md</code> dans votre dossier <code>formation-ia</code>. Ce fichier va devenir le document le plus important de votre projet.</p>
-
-        <p>Maintenant, relancez Claude Code :</p>
-
-        <pre data-lang="bash"><code>claude</code></pre>
-
-        <p>Et demandez-lui :</p>
-
-        <blockquote>
-          <p>J'ai construit un site pour un club de lecture qui a les fonctionnalités suivantes : comptes utilisateurs, propositions et votes de livres, critiques, catégories, administration, notifications, calendrier de réunions, prêts de livres, statistiques, chapitres locaux multi-villes, mode mobile et hors-ligne. Le projet est devenu chaotique. Aide-moi à écrire un plan simple dans le fichier plan.md qui découpe le projet en "parties" distinctes. Chaque partie doit avoir :</p>
-          <ul>
-            <li>Un nom simple</li>
-            <li>Ce qu'elle fait (en une phrase)</li>
-            <li>Ce qu'elle ne fait PAS (c'est très important)</li>
-            <li>De quelles autres parties elle a besoin</li>
-          </ul>
-          <p>Écris ça en français courant, pas en jargon technique. Comme si tu expliquais l'organisation d'une entreprise avec ses départements.</p>
-          <p>Note également en tête du fichier la stack technique utilisée : le framework et le type de base de données.</p>
-        </blockquote>
-
-        <h3>Pourquoi "ce qu'elle ne fait PAS" ?</h3>
-
-        <p>C'est la clé de tout ce module. C'est contre-intuitif, mais dans n'importe quelle organisation, <strong>ce qui crée le bazar, c'est quand tout le monde fait un peu de tout.</strong></p>
-
-        <p>Pensez à un restaurant :</p>
-        <ul>
-          <li>Le serveur prend les commandes. <strong>Il ne cuisine PAS.</strong></li>
-          <li>Le cuisinier prépare les plats. <strong>Il ne fait PAS le service.</strong></li>
-          <li>Le caissier encaisse. <strong>Il ne prend PAS les commandes.</strong></li>
-        </ul>
-
-        <p>Si le serveur se met à cuisiner "pour aider", il y a des plats qui sortent deux fois, d'autres jamais. C'est exactement ce qui est arrivé à votre application : Claude a laissé chaque nouvelle fonctionnalité faire un peu le travail des autres, et tout est devenu un plat de nouilles.</p>
-
-        <h3>Ce que Claude va vous donner</h3>
-
-        <p>Claude Code va écrire dans <code>plan.md</code> quelque chose qui ressemble à ça (mais adapté à votre projet) :</p>
-
-        <pre><code>STACK TECHNIQUE
+<p>L'essentiel est de comprendre le principe : <strong>installer</strong> (une seule fois) puis <strong>lancer</strong> (à chaque fois que vous voulez voir le site).</p>
+<p>Une fois lancé, Claude vous dira d'ouvrir votre navigateur à une adresse comme <code>http://localhost:3000</code>. Faites-le. Vous devriez voir votre site de club de lecture.</p>
+<p>Si ça ne marche pas du premier coup, dites simplement à Claude Code ce que vous voyez (le message d'erreur, ou "rien ne se passe") et laissez-le corriger. C'est normal que ça prenne quelques allers-retours.</p>
+<h3>Ce que vous devez noter dans votre carnet</h3>
+<blockquote class="notebook-prompt">
+<p>✍️ Est-ce que ça a marché du premier coup ?</p>
+</blockquote>
+<blockquote class="notebook-prompt">
+<p>✍️ Quelle commande lance le site ? Notez-la — vous en aurez besoin.</p>
+</blockquote>
+<blockquote class="notebook-prompt">
+<p>✍️ Comment vous sentez-vous ? (Normalement : impressionné, enthousiaste)</p>
+</blockquote>
+<hr>
+<div class="step-header" id="m1-etape2"><span class="step-number">2</span><h2>Demandez-lui d'ajouter des choses <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(2h)</small></h2></div>
+<h3>Ce que vous allez faire</h3>
+<p><strong>Ne quittez pas Claude Code.</strong> Restez dans la même session — c'est important pour la suite de l'expérience.</p>
+<p>Envoyez ces demandes une par une, dans l'ordre. Attendez que Claude Code ait fini chacune avant de passer à la suivante. Après chaque demande, relancez le site et vérifiez dans votre navigateur que ça fonctionne.</p>
+<blockquote>
+<p><strong>Demande 1 :</strong> "Ajoute un système de compte. Les gens doivent pouvoir s'inscrire avec un email et un mot de passe, et on doit voir qui a proposé quel livre."</p>
+</blockquote>
+<blockquote>
+<p><strong>Demande 2 :</strong> "Les membres veulent pouvoir écrire une critique après avoir lu le livre. Ajoute ça."</p>
+</blockquote>
+<blockquote>
+<p><strong>Demande 3 :</strong> "Ajoute des catégories de livres (roman, SF, polar, etc.) et la possibilité de filtrer par catégorie."</p>
+</blockquote>
+<blockquote>
+<p><strong>Demande 4 :</strong> "L'admin du club veut pouvoir supprimer des propositions inappropriées et bannir des membres. Ajoute un rôle administrateur."</p>
+</blockquote>
+<blockquote>
+<p><strong>Demande 5 :</strong> "Les membres veulent recevoir un email quand un nouveau livre est choisi. Ajoute des notifications."</p>
+</blockquote>
+<blockquote>
+<p><strong>Demande 6 :</strong> "Ajoute un calendrier des réunions du club. Les membres peuvent indiquer s'ils viennent ou pas."</p>
+</blockquote>
+<blockquote>
+<p><strong>Demande 7 :</strong> "On veut un système de prêt : les membres qui possèdent un livre peuvent le signaler, et d'autres membres peuvent demander à l'emprunter."</p>
+</blockquote>
+<blockquote>
+<p><strong>Demande 8 :</strong> "Ajoute une page de statistiques : livres les plus populaires, membre le plus actif, catégorie préférée du club, etc."</p>
+</blockquote>
+<blockquote>
+<p><strong>Demande 9 :</strong> "Le club veut s'ouvrir à d'autres villes. Il faut pouvoir créer des 'chapitres' locaux avec chacun leur propre liste de livres et réunions, mais un catalogue commun."</p>
+</blockquote>
+<blockquote>
+<p><strong>Demande 10 :</strong> "Tout doit marcher aussi sur téléphone, et les gens veulent pouvoir consulter les livres même sans connexion internet."</p>
+</blockquote>
+<div class="callout callout-red">
+<div class="callout-title">🔴 Ce que vous devez surveiller</div>
+<p>À un moment pendant ces demandes — probablement entre la 4ème et la 7ème — vous allez commencer à remarquer des choses étranges. Voici ce qu'il faut guetter :</p>
+</div>
+<div class="callout callout-flag">
+<div class="callout-title">🚩 Claude vous redemande des choses que vous avez déjà décidées.</div>
+<p>Par exemple, vous aviez déjà un système de comptes, mais pour les notifications, il recrée quelque chose de différent pour identifier les utilisateurs.</p>
+</div>
+<div class="callout callout-flag">
+<div class="callout-title">🚩 Le site ne se lance plus.</div>
+<p>Claude Code modifie des fichiers qui dépendent les uns des autres. À un moment, une modification casse quelque chose qui marchait avant. Vous tapez la commande pour lancer le site, et il y a des erreurs.</p>
+</div>
+<div class="callout callout-flag">
+<div class="callout-title">🚩 Les nouvelles fonctionnalités cassent les anciennes.</div>
+<p>Le système de prêt ne sait pas que les livres ont des catégories. Les statistiques ne comptent pas les réunions. Les chapitres locaux ne fonctionnent pas avec le système de vote.</p>
+</div>
+<div class="callout callout-flag">
+<div class="callout-title">🚩 Claude se contredit.</div>
+<p>Dans un message il organise les choses d'une certaine façon, dans le suivant il le fait autrement, sans expliquer pourquoi.</p>
+</div>
+<h3>Ce que vous devez noter dans votre carnet</h3>
+<blockquote class="notebook-prompt">
+<p>✍️ À quelle demande avez-vous senti que quelque chose n'allait plus ?</p>
+</blockquote>
+<blockquote class="notebook-prompt">
+<p>✍️ Combien de fois avez-vous dû dire à Claude "non, ça existait déjà" ou "tu oublies que..." ?</p>
+</blockquote>
+<blockquote class="notebook-prompt">
+<p>✍️ Est-ce que le site se lance encore ? Si non, à partir de quelle demande ?</p>
+</blockquote>
+<blockquote class="notebook-prompt">
+<p>✍️ Comment vous sentez-vous ? (Normalement : frustré, perdu, ou les deux)</p>
+</blockquote>
+<hr>
+<div class="step-header" id="m1-etape3"><span class="step-number">3</span><h2>Comprendre ce qui s'est passé <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(15 min)</small></h2></div>
+<div class="spoiler">
+<button class="spoiler-toggle"><span class="spoiler-icon">▶</span>Lisez ceci APRÈS avoir fait l'étape 2</button>
+<div class="spoiler-content"><div class="spoiler-inner">
+<p>Vous venez de vivre exactement ce que vivent les développeurs professionnels depuis des décennies. Ce que vous avez ressenti a un nom : la <strong>dette technique</strong>. C'est quand un projet devient de plus en plus difficile à modifier parce que personne n'a planifié comment les morceaux s'emboîtent.</p>
+<p>Mais pourquoi est-ce que ça s'est passé ? Vous aviez pourtant une IA ultra-compétente.</p>
+<p>Voici l'explication, et elle est simple :</p>
+<p><strong>Claude est comme un chef cuisinier avec une toute petite table de travail.</strong></p>
+<p>Imaginez un chef brillant qui peut préparer n'importe quel plat. Mais sa table de travail est petite. Au début du repas, il a de la place : il voit tous ses ingrédients, toutes les assiettes en cours. Mais au fur et à mesure qu'il cuisine, la table se remplit. Les anciens plats sont poussés au bord, puis tombent par terre. Le chef continue de cuisiner, mais il ne voit plus ce qu'il a préparé avant. Alors quand vous lui demandez un dessert qui doit aller avec l'entrée, il ne se souvient plus de l'entrée.</p>
+<p>C'est exactement ce qui arrive avec Claude Code. Sa "table de travail" a une taille limitée. Au début de la conversation, il voit tout. Après 10 demandes, les premières décisions sont floues ou oubliées.</p>
+<p><strong>Le problème, ce n'est pas l'IA. C'est l'absence de plan.</strong></p>
+<p>Personne n'a donné au chef un menu écrit. Personne n'a dit "l'entrée est une salade de tomates, le plat principal est du poisson, le dessert doit être léger pour aller avec". Si le chef avait ce menu sous les yeux en permanence, il n'oublierait rien — parce qu'il n'aurait pas besoin de s'en souvenir.</p>
+</div></div>
+</div>
+<hr>
+<div class="step-header" id="m1-etape4"><span class="step-number">4</span><h2>Construire un plan <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(45 min)</small></h2></div>
+<h3>Ce que vous allez faire</h3>
+<p>Quittez Claude Code (<code>/exit</code>). Vous allez d'abord écrire un <strong>plan de votre application</strong>. Pas du code. Pas un schéma technique. Juste une description en français normal de comment votre club de lecture est organisé.</p>
+<p>Dans VSCode, créez un nouveau fichier et enregistrez-le sous le nom <code>plan.md</code> dans votre dossier <code>formation-ia</code>. Ce fichier va devenir le document le plus important de votre projet.</p>
+<p>Maintenant, relancez Claude Code :</p>
+<pre data-lang="bash"><code>claude</code></pre>
+<p>Et demandez-lui :</p>
+<blockquote>
+<p>J'ai construit un site pour un club de lecture qui a les fonctionnalités suivantes : comptes utilisateurs, propositions et votes de livres, critiques, catégories, administration, notifications, calendrier de réunions, prêts de livres, statistiques, chapitres locaux multi-villes, mode mobile et hors-ligne. Le projet est devenu chaotique. Aide-moi à écrire un plan simple dans le fichier plan.md qui découpe le projet en "parties" distinctes. Chaque partie doit avoir :</p>
+<ul>
+<li>Un nom simple</li>
+<li>Ce qu'elle fait (en une phrase)</li>
+<li>Ce qu'elle ne fait PAS (c'est très important)</li>
+<li>De quelles autres parties elle a besoin</li>
+</ul>
+<p>Écris ça en français courant, pas en jargon technique. Comme si tu expliquais l'organisation d'une entreprise avec ses départements.</p>
+<p>Note également en tête du fichier la stack technique utilisée : le framework et le type de base de données.</p>
+</blockquote>
+<h3>Pourquoi "ce qu'elle ne fait PAS" ?</h3>
+<p>C'est la clé de tout ce module. C'est contre-intuitif, mais dans n'importe quelle organisation, <strong>ce qui crée le bazar, c'est quand tout le monde fait un peu de tout.</strong></p>
+<p>Pensez à un restaurant :</p>
+<ul>
+<li>Le serveur prend les commandes. <strong>Il ne cuisine PAS.</strong></li>
+<li>Le cuisinier prépare les plats. <strong>Il ne fait PAS le service.</strong></li>
+<li>Le caissier encaisse. <strong>Il ne prend PAS les commandes.</strong></li>
+</ul>
+<p>Si le serveur se met à cuisiner "pour aider", il y a des plats qui sortent deux fois, d'autres jamais. C'est exactement ce qui est arrivé à votre application : Claude a laissé chaque nouvelle fonctionnalité faire un peu le travail des autres, et tout est devenu un plat de nouilles.</p>
+<h3>Ce que Claude va vous donner</h3>
+<p>Claude Code va écrire dans <code>plan.md</code> quelque chose qui ressemble à ça (mais adapté à votre projet) :</p>
+<pre><code>STACK TECHNIQUE
 → Serveur : Node.js + Express
 → Base de données : SQLite
 → Style : Pico.css (CDN)
@@ -264,157 +204,101 @@ PARTIE : Critiques
 → A besoin de : Comptes, Livres
 
 ...et ainsi de suite.</code></pre>
-
-        <p>Relisez le plan dans VSCode. Modifiez-le si quelque chose ne vous semble pas logique — c'est <strong>votre</strong> plan, pas celui de Claude. Puis quittez Claude Code.</p>
-
-        <hr>
-
-        <h2 id="m1-repartir">Repartir de zéro</h2>
-
-        <p>Le code actuel est un chaos. On ne va pas essayer de le réparer — on va le jeter et reconstruire proprement avec le plan.</p>
-
-        <p>Mais attention : vous venez d'écrire <code>plan.md</code>, et vous ne voulez pas le perdre. La solution : <strong>committer uniquement le plan</strong>, puis jeter le reste.</p>
-
-        <pre data-lang="bash"><code>git add plan.md
+<p>Relisez le plan dans VSCode. Modifiez-le si quelque chose ne vous semble pas logique — c'est <strong>votre</strong> plan, pas celui de Claude. Puis quittez Claude Code.</p>
+<hr>
+<h2 id="m1-repartir">Repartir de zéro</h2>
+<p>Le code actuel est un chaos. On ne va pas essayer de le réparer — on va le jeter et reconstruire proprement avec le plan.</p>
+<p>Mais attention : vous venez d'écrire <code>plan.md</code>, et vous ne voulez pas le perdre. La solution : <strong>committer uniquement le plan</strong>, puis jeter le reste.</p>
+<pre data-lang="bash"><code>git add plan.md
 git commit -m "Module 1 : ajout du plan"</code></pre>
-
-        <p>Remarquez qu'on n'utilise pas <code>git add .</code> cette fois. On ajoute <strong>un seul fichier</strong>. Le code chaotique n'est pas inclus dans le commit.</p>
-
-        <p>Maintenant, jetez tout le code cassé :</p>
-
-        <pre data-lang="bash"><code>git checkout .</code></pre>
-
-        <p>Cette commande veut dire : "jette tous les changements en cours et reviens au dernier commit". C'est le <code>Ctrl+Z</code> de git. Elle ne supprime que les modifications — vos commits sont en sécurité.</p>
-
-        <p>Vérifiez dans VSCode : le code chaotique a disparu, mais <code>plan.md</code> est toujours là parce qu'il a été commité juste avant.</p>
-
-        <h3>Donner une mémoire permanente à Claude Code</h3>
-
-        <p>C'est le bon moment pour introduire une commande importante : <code>/init</code>.</p>
-
-        <p>Relancez Claude Code :</p>
-
-        <pre data-lang="bash"><code>claude</code></pre>
-
-        <p>Puis tapez cette commande directement dans Claude Code (pas dans le terminal) :</p>
-
-        <pre><code>/init</code></pre>
-
-        <p>Claude Code analyse votre dossier et crée un fichier <code>CLAUDE.md</code>. Ce fichier est spécial : <strong>Claude le relit automatiquement au début de chaque nouvelle conversation.</strong> Là où <code>plan.md</code> décrit l'organisation de votre projet, <code>CLAUDE.md</code> donne le contexte permanent — ce qu'est ce projet, comment il est structuré.</p>
-
-        <p>Pour l'instant votre dossier ne contient que <code>plan.md</code>, donc le <code>CLAUDE.md</code> sera court. C'est normal. Il servira surtout à ancrer le contexte pour les prochaines sessions : Claude saura dès le départ qu'il travaille sur un club de lecture et que le plan de référence est dans <code>plan.md</code>.</p>
-
-        <p>Quittez Claude Code (<code>/exit</code>), puis sauvegardez :</p>
-
-        <pre data-lang="bash"><code>git add CLAUDE.md
+<p>Remarquez qu'on n'utilise pas <code>git add .</code> cette fois. On ajoute <strong>un seul fichier</strong>. Le code chaotique n'est pas inclus dans le commit.</p>
+<p>Maintenant, jetez tout le code cassé :</p>
+<pre data-lang="bash"><code>git checkout .</code></pre>
+<p>Cette commande veut dire : "jette tous les changements en cours et reviens au dernier commit". C'est le <code>Ctrl+Z</code> de git. Elle ne supprime que les modifications — vos commits sont en sécurité.</p>
+<p>Vérifiez dans VSCode : le code chaotique a disparu, mais <code>plan.md</code> est toujours là parce qu'il a été commité juste avant.</p>
+<h3>Donner une mémoire permanente à Claude Code</h3>
+<p>C'est le bon moment pour introduire une commande importante : <code>/init</code>.</p>
+<p>Relancez Claude Code :</p>
+<pre data-lang="bash"><code>claude</code></pre>
+<p>Puis tapez cette commande directement dans Claude Code (pas dans le terminal) :</p>
+<pre><code>/init</code></pre>
+<p>Claude Code analyse votre dossier et crée un fichier <code>CLAUDE.md</code>. Ce fichier est spécial : <strong>Claude le relit automatiquement au début de chaque nouvelle conversation.</strong> Là où <code>plan.md</code> décrit l'organisation de votre projet, <code>CLAUDE.md</code> donne le contexte permanent — ce qu'est ce projet, comment il est structuré.</p>
+<p>Pour l'instant votre dossier ne contient que <code>plan.md</code>, donc le <code>CLAUDE.md</code> sera court. C'est normal. Il servira surtout à ancrer le contexte pour les prochaines sessions : Claude saura dès le départ qu'il travaille sur un club de lecture et que le plan de référence est dans <code>plan.md</code>.</p>
+<p>Quittez Claude Code (<code>/exit</code>), puis sauvegardez :</p>
+<pre data-lang="bash"><code>git add CLAUDE.md
 git commit -m "Module 1 : ajout CLAUDE.md"</code></pre>
-
-        <hr>
-
-        <div class="step-header" id="m1-etape5">
-          <span class="step-number">5</span>
-          <h2>Reconstruire, cette fois avec le plan <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(60-90 min)</small></h2>
-        </div>
-
-        <h3>Ce que vous allez faire</h3>
-
-        <p>Relancez Claude Code :</p>
-
-        <pre data-lang="bash"><code>claude</code></pre>
-
-        <p>Cette fois, vous allez demander à Claude de <strong>reconstruire de zéro</strong> en suivant le plan. La stack technique est notée dans <code>plan.md</code>, donc Claude la connaît — plus besoin de la lui répéter. Demandez-lui :</p>
-
-        <blockquote>
-          <p>Lis le fichier plan.md. C'est le plan de mon application. Supprime tout le code existant et reconstruis l'application de zéro en suivant ce plan. Utilise la stack technique indiquée dans plan.md. Commence par la partie "Comptes" : cette partie gère UNIQUEMENT l'inscription et la connexion.</p>
-        </blockquote>
-
-        <p>Puis, pour chaque partie suivante :</p>
-
-        <blockquote>
-          <p>Relis plan.md. Maintenant, crée la partie "Livres". Rappel : les votes sont dans cette partie, mais les critiques sont séparées.</p>
-        </blockquote>
-
-        <p>Et ainsi de suite pour chaque partie. À chaque étape, lancez le site pour vérifier que ça marche avant de passer à la suivante.</p>
-
-        <div class="callout callout-green">
-          <div class="callout-title">🟢 Ce que vous allez remarquer</div>
-          <p><strong>C'est un monde de différence.</strong> Parce que Claude a le plan sous les yeux :</p>
-          <ul>
-            <li>Il ne recrée pas des choses qui existent déjà</li>
-            <li>Il respecte les limites ("ah oui, les critiques c'est une autre partie, je ne les mets pas ici")</li>
-            <li>Quand une partie a besoin d'une autre, il fait la connexion proprement</li>
-            <li>Vous pouvez travailler partie par partie sans que tout s'écroule</li>
-          </ul>
-        </div>
-
-        <h3>Ce que vous devez noter dans votre carnet</h3>
-
-        <blockquote class="notebook-prompt"><p>✍️ Est-ce que c'était plus facile cette fois ?</p></blockquote>
-        <blockquote class="notebook-prompt"><p>✍️ Est-ce que Claude s'est contredit ? (Normalement : beaucoup moins, voire pas du tout)</p></blockquote>
-        <blockquote class="notebook-prompt"><p>✍️ Est-ce que le site se lance toujours après chaque partie ajoutée ?</p></blockquote>
-        <blockquote class="notebook-prompt"><p>✍️ Est-ce que vous comprenez mieux votre propre projet maintenant ?</p></blockquote>
-
-        <hr>
-
-        <div class="step-header" id="m1-etape6">
-          <span class="step-number">6</span>
-          <h2>Le test final <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(15 min)</small></h2>
-        </div>
-
-        <h3>Ce que vous allez faire</h3>
-
-        <p>Demandez à Claude Code :</p>
-
-        <blockquote>
-          <p>Relis plan.md. Les membres veulent pouvoir créer des quiz sur les livres qu'ils ont lus. Où est-ce que ça devrait aller dans le plan ? Est-ce que c'est une nouvelle partie ou ça rentre dans une partie existante ? Mets à jour plan.md avec ta recommandation.</p>
-        </blockquote>
-
-        <h3>Le déclic</h3>
-
-        <p>Si vous arrivez à répondre à cette question — même partiellement, même avant Claude — alors vous avez compris le principe. Vous n'avez pas besoin de savoir coder pour savoir que les quiz sont probablement <strong>une nouvelle partie</strong> qui a besoin de "Livres" et de "Comptes", et qui ne fait PAS partie de "Critiques" même si les deux concernent les livres.</p>
-
-        <p>Vous pensez en termes de <strong>responsabilités</strong> et de <strong>limites</strong>. Et c'est la compétence la plus importante quand on travaille avec l'IA.</p>
-
-        <hr>
-
-        <h2 id="m1-bilan">Ce que vous avez appris</h2>
-
-        <h3>En une phrase</h3>
-
-        <p><strong>L'IA sait construire. Mais c'est vous qui devez décider comment organiser ce qu'elle construit.</strong> Sans plan, même l'IA la plus intelligente du monde produit du chaos.</p>
-
-        <h3>Les trois réflexes à retenir</h3>
-
-        <ol>
-          <li><strong>Écrivez le plan avant de construire.</strong> Pas après. Pas pendant. Avant.</li>
-          <li><strong>Donnez le plan à l'IA à chaque fois.</strong> L'IA oublie. Votre plan est sa mémoire.</li>
-          <li><strong>Définissez ce que chaque partie NE fait PAS.</strong> C'est ça qui empêche le bazar.</li>
-        </ol>
-
-        <h3>Ce qu'on n'a PAS fait dans ce module</h3>
-
-        <p>Remarquez qu'on n'a jamais eu besoin de :</p>
-        <ul>
-          <li>Comprendre le code que Claude a écrit</li>
-          <li>Apprendre un langage de programmation</li>
-        </ul>
-
-        <p>On a juste eu besoin de <strong>réfléchir à l'organisation</strong>. Le reste, c'est le travail de l'IA.</p>
-
-        <hr>
-
-        <h2 id="m1-sauvegarde-finale">Avant de partir — sauvegardez</h2>
-
-        <p>Vous avez un projet reconstruit avec un plan. Sauvegardez-le :</p>
-
-        <pre data-lang="bash"><code>git add .
+<hr>
+<div class="step-header" id="m1-etape5"><span class="step-number">5</span><h2>Reconstruire, cette fois avec le plan <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(60-90 min)</small></h2></div>
+<h3>Ce que vous allez faire</h3>
+<p>Relancez Claude Code :</p>
+<pre data-lang="bash"><code>claude</code></pre>
+<p>Cette fois, vous allez demander à Claude de <strong>reconstruire de zéro</strong> en suivant le plan. La stack technique est notée dans <code>plan.md</code>, donc Claude la connaît — plus besoin de la lui répéter. Demandez-lui :</p>
+<blockquote>
+<p>Lis le fichier plan.md. C'est le plan de mon application. Supprime tout le code existant et reconstruis l'application de zéro en suivant ce plan. Utilise la stack technique indiquée dans plan.md. Commence par la partie "Comptes" : cette partie gère UNIQUEMENT l'inscription et la connexion.</p>
+</blockquote>
+<p>Puis, pour chaque partie suivante :</p>
+<blockquote>
+<p>Relis plan.md. Maintenant, crée la partie "Livres". Rappel : les votes sont dans cette partie, mais les critiques sont séparées.</p>
+</blockquote>
+<p>Et ainsi de suite pour chaque partie. À chaque étape, lancez le site pour vérifier que ça marche avant de passer à la suivante.</p>
+<div class="callout callout-green">
+<div class="callout-title">🟢 Ce que vous allez remarquer</div>
+<p><strong>C'est un monde de différence.</strong> Parce que Claude a le plan sous les yeux :</p>
+<ul>
+<li>Il ne recrée pas des choses qui existent déjà</li>
+<li>Il respecte les limites ("ah oui, les critiques c'est une autre partie, je ne les mets pas ici")</li>
+<li>Quand une partie a besoin d'une autre, il fait la connexion proprement</li>
+<li>Vous pouvez travailler partie par partie sans que tout s'écroule</li>
+</ul>
+<h3>Ce que vous devez noter dans votre carnet</h3>
+<blockquote class="notebook-prompt">
+<p>✍️ Est-ce que c'était plus facile cette fois ?
+✍️ Est-ce que Claude s'est contredit ? (Normalement : beaucoup moins, voire pas du tout)
+✍️ Est-ce que le site se lance toujours après chaque partie ajoutée ?
+✍️ Est-ce que vous comprenez mieux votre propre projet maintenant ?</p>
+</blockquote>
+</div>
+<hr>
+<div class="step-header" id="m1-etape6"><span class="step-number">6</span><h2>Le test final <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(15 min)</small></h2></div>
+<h3>Ce que vous allez faire</h3>
+<p>Demandez à Claude Code :</p>
+<blockquote>
+<p>Relis plan.md. Les membres veulent pouvoir créer des quiz sur les livres qu'ils ont lus. Où est-ce que ça devrait aller dans le plan ? Est-ce que c'est une nouvelle partie ou ça rentre dans une partie existante ? Mets à jour plan.md avec ta recommandation.</p>
+</blockquote>
+<h3>Le déclic</h3>
+<p>Si vous arrivez à répondre à cette question — même partiellement, même avant Claude — alors vous avez compris le principe. Vous n'avez pas besoin de savoir coder pour savoir que les quiz sont probablement <strong>une nouvelle partie</strong> qui a besoin de "Livres" et de "Comptes", et qui ne fait PAS partie de "Critiques" même si les deux concernent les livres.</p>
+<p>Vous pensez en termes de <strong>responsabilités</strong> et de <strong>limites</strong>. Et c'est la compétence la plus importante quand on travaille avec l'IA.</p>
+<hr>
+<h2 id="m1-bilan">Ce que vous avez appris</h2>
+<h3>En une phrase</h3>
+<p><strong>L'IA sait construire. Mais c'est vous qui devez décider comment organiser ce qu'elle construit.</strong> Sans plan, même l'IA la plus intelligente du monde produit du chaos.</p>
+<h3>Les trois réflexes à retenir</h3>
+<ol>
+<li>
+<p><strong>Écrivez le plan avant de construire.</strong> Pas après. Pas pendant. Avant.</p>
+</li>
+<li>
+<p><strong>Donnez le plan à l'IA à chaque fois.</strong> L'IA oublie. Votre plan est sa mémoire.</p>
+</li>
+<li>
+<p><strong>Définissez ce que chaque partie NE fait PAS.</strong> C'est ça qui empêche le bazar.</p>
+</li>
+</ol>
+<h3>Ce qu'on n'a PAS fait dans ce module</h3>
+<p>Remarquez qu'on n'a jamais eu besoin de :</p>
+<ul>
+<li>Comprendre le code que Claude a écrit</li>
+<li>Apprendre un langage de programmation</li>
+</ul>
+<p>On a juste eu besoin de <strong>réfléchir à l'organisation</strong>. Le reste, c'est le travail de l'IA.</p>
+<hr>
+<h2 id="m1-sauvegarde">Avant de partir — sauvegardez</h2>
+<p>Vous avez un projet reconstruit avec un plan. Sauvegardez-le :</p>
+<pre data-lang="bash"><code>git add .
 git commit -m "Module 1 terminé : reconstruction avec plan"</code></pre>
-
-        <hr>
-
-        <h2 id="m1-suite">La suite</h2>
-
-        <p>Dans le <a href="module2.html">Module 2</a>, on va découvrir un nouveau problème : même avec un bon plan, les choses se compliquent quand les parties doivent <strong>se parler entre elles</strong>. Que se passe-t-il quand quelqu'un s'inscrit à une réunion qui est annulée pendant qu'il paie ? On va apprendre à penser à ce qui se passe <em>dans le temps</em>, pas seulement <em>dans l'espace</em>.</p>
+<hr>
+<h2 id="m1-suite">La suite</h2>
+<p>Dans le Module 2, on va découvrir un nouveau problème : même avec un bon plan, les choses se compliquent quand les parties doivent <strong>se parler entre elles</strong>. Que se passe-t-il quand quelqu'un s'inscrit à une réunion qui est annulée pendant qu'il paie ? On va apprendre à penser à ce qui se passe <em>dans le temps</em>, pas seulement <em>dans l'espace</em>.</p>
 
       </div>
     </main>

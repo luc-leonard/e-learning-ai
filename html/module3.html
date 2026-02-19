@@ -13,152 +13,117 @@
     <main class="main-content">
       <div class="module-content">
 
-        <h1>Module 3 : La carte et le territoire</h1>
-        <p class="module-subtitle"><em>Quand votre plan devient trop gros pour tenir dans la conversation</em></p>
-
-        <hr>
-
-        <h2>Ce que vous savez d&eacute;j&agrave;</h2>
-
-        <p>Vous savez d&eacute;couper un projet en parties (Module 1). Vous savez d&eacute;crire comment ces parties travaillent ensemble et ce qui se passe quand &ccedil;a rate (Module 2). Votre <code>plan.md</code> ressemble maintenant &agrave; un vrai document de plusieurs pages &mdash; parties, parcours, cas d'erreur.</p>
-
-        <p>Et c'est l&agrave; le probl&egrave;me.</p>
-
-        <div class="module-meta">
-          <p><strong>Dur&eacute;e :</strong> 3-4 heures (en une ou deux sessions)</p>
-          <p><strong>Ce qu'il vous faut :</strong> Votre projet du Module 2 (avec <code>plan.md</code>), Claude Code, votre carnet</p>
-        </div>
-
-        <hr>
-
-        <h2 id="m3-analogie">Avant de commencer : une analogie</h2>
-
-        <p>Vous &ecirc;tes perdu dans une ville que vous ne connaissez pas. Vous avez besoin d'un plan. Lequel pr&eacute;f&eacute;rez-vous ?</p>
-
-        <p><strong>Option A :</strong> Une carte du monde entier, avec chaque rue de chaque ville, imprim&eacute;e sur une feuille A4. Techniquement, l'information y est. Mais vous ne voyez rien &mdash; tout est minuscule et illisible.</p>
-
-        <p><strong>Option B :</strong> Votre t&eacute;l&eacute;phone, avec Google Maps. Quand vous &ecirc;tes d&eacute;zoom&eacute;, vous voyez les quartiers. Quand vous zoomez, vous voyez les rues. Vous ne voyez jamais tout en m&ecirc;me temps, mais vous voyez toujours <strong>ce dont vous avez besoin au bon moment</strong>.</p>
-
-        <p>En ce moment, votre <code>plan.md</code> c'est l'Option A. Tout est dedans &mdash; parties, parcours, d&eacute;tails &mdash; et Claude Code le lit en entier &agrave; chaque nouvelle conversation. Plus le projet grandit, plus le plan grandit, et plus Claude a du mal &agrave; s'y retrouver. Exactement comme vous avec la carte du monde imprim&eacute;e en A4.</p>
-
-        <p>Ce module va vous apprendre &agrave; transformer votre plan en Option B : un syst&egrave;me &agrave; <strong>niveaux de zoom</strong> qui montre &agrave; Claude exactement ce dont il a besoin, ni plus, ni moins.</p>
-
-        <hr>
-
-        <!-- ÉTAPE 1 -->
-        <div class="step-header" id="m3-etape1"><span class="step-number">1</span><h2>&Eacute;tape 1 &mdash; Provoquer le probl&egrave;me <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(45 min)</small></h2></div>
-
-        <h3>Ce que vous allez faire</h3>
-
-        <p>Ouvrez le terminal int&eacute;gr&eacute; de VSCode et lancez Claude Code :</p>
-
-        <pre data-lang="bash"><code>claude</code></pre>
-
-        <p>Commencez par demander &agrave; Claude de lire tout le plan, puis de travailler sur une seule partie :</p>
-
-        <blockquote><p>Lis plan.md en entier. Je veux que tu am&eacute;liores la partie "Pr&ecirc;ts". Quand un membre demande &agrave; emprunter un livre, le propri&eacute;taire doit pouvoir accepter ou refuser. Si le propri&eacute;taire ne r&eacute;pond pas en 3 jours, la demande est automatiquement annul&eacute;e. Impl&eacute;mente &ccedil;a.</p></blockquote>
-
-        <p>Lancez le site et v&eacute;rifiez. Puis continuez avec d'autres demandes, en lui faisant relire le plan &agrave; chaque fois :</p>
-
-        <blockquote><p>Relis plan.md. Maintenant am&eacute;liore la partie "R&eacute;unions" : ajoute la possibilit&eacute; de mettre une r&eacute;union en liste d'attente quand elle est pleine.</p></blockquote>
-
-        <blockquote><p>Relis plan.md. Maintenant am&eacute;liore la partie "Statistiques" : ajoute un classement des membres les plus actifs par chapitre.</p></blockquote>
-
-        <blockquote><p>Relis plan.md. Maintenant am&eacute;liore la partie "Livres" : quand un livre est propos&eacute;, v&eacute;rifie automatiquement s'il existe d&eacute;j&agrave; dans un autre chapitre et propose de le r&eacute;cup&eacute;rer au lieu de cr&eacute;er un doublon.</p></blockquote>
-
-        <h3>Ce que vous devez surveiller</h3>
-
-        <div class="callout callout-flag"><p>🚩 <strong>Claude r&eacute;sume ou ignore des morceaux du plan.</strong></p>
-        <p>Le plan est trop long. Claude ne vous le dit pas, mais il commence &agrave; "survoler" certaines parties. Vous le voyez quand il fait quelque chose qui contredit un parcours que vous aviez d&eacute;fini, ou quand il oublie une r&egrave;gle d'une partie qui n'est pas celle sur laquelle vous travaillez.</p></div>
-
-        <div class="callout callout-flag"><p>🚩 <strong>Claude modifie des parties que vous n'avez pas demand&eacute; de toucher.</strong></p>
-        <p>Vous lui demandez de travailler sur "Pr&ecirc;ts", mais il change quelque chose dans "Comptes" ou "Notifications" sans pr&eacute;venir, parce qu'il a lu tout le plan et s'est dit que c'&eacute;tait li&eacute;.</p></div>
-
-        <div class="callout callout-flag"><p>🚩 <strong>Claude vous donne des r&eacute;ponses de plus en plus longues et vagues.</strong></p>
-        <p>Quand il re&ccedil;oit beaucoup d'information, Claude essaie de tout prendre en compte. R&eacute;sultat : des r&eacute;ponses dilu&eacute;es qui parlent de tout sans rien faire de pr&eacute;cis.</p></div>
-
-        <h3>Ce que vous devez noter dans votre carnet</h3>
-
-        <blockquote class="notebook-prompt"><p>✍️ Est-ce que Claude a respect&eacute; le plan ou est-ce qu'il a pris des libert&eacute;s ?</p></blockquote>
-        <blockquote class="notebook-prompt"><p>✍️ Avez-vous eu l'impression qu'il lisait vraiment tout le plan ou qu'il survolait ?</p></blockquote>
-        <blockquote class="notebook-prompt"><p>✍️ Est-ce que Claude a modifi&eacute; des fichiers qui n'avaient rien &agrave; voir avec votre demande ?</p></blockquote>
-
-        <hr>
-
-        <!-- ÉTAPE 2 -->
-        <div class="step-header" id="m3-etape2"><span class="step-number">2</span><h2>&Eacute;tape 2 &mdash; Comprendre le probl&egrave;me <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(15 min)</small></h2></div>
-
-        <div class="spoiler">
-          <button class="spoiler-toggle"><span class="spoiler-icon">&#9654;</span>Lisez ceci APR&Egrave;S avoir fait l'&eacute;tape 1</button>
-          <div class="spoiler-content"><div class="spoiler-inner">
-
-        <p>Le Module 1 a r&eacute;solu le probl&egrave;me de l'amn&eacute;sie de Claude (en lui donnant un plan). Le Module 2 a r&eacute;solu le probl&egrave;me de l'ordre des op&eacute;rations (en d&eacute;crivant des parcours). Maintenant, le probl&egrave;me c'est <strong>le bruit</strong>.</p>
-
-        <p>Quand Claude lit <code>plan.md</code> en entier pour travailler sur la partie "Pr&ecirc;ts", il avale une tonne d'information sur les Comptes, les R&eacute;unions, les Statistiques, les Notifications... dont il n'a pas besoin. C'est comme si vous demandiez &agrave; un plombier de r&eacute;parer un robinet et que vous lui donniez les plans de toute la maison, y compris le circuit &eacute;lectrique du grenier et la disposition des meubles du salon.</p>
-
-        <p>Le plombier va peut-&ecirc;tre quand m&ecirc;me trouver le robinet. Mais il va perdre du temps &agrave; comprendre ce qui est pertinent. Et il risque de se dire "tiens, tant que j'y suis, je vais d&eacute;placer ce tuyau dans la salle de bain" &mdash; alors que vous ne lui avez rien demand&eacute;.</p>
-
-        <p><strong>Ce dont le plombier a besoin, c'est :</strong></p>
-        <ol>
-          <li>Le plan de la cuisine (la pi&egrave;ce o&ugrave; il travaille)</li>
-          <li>Un sch&eacute;ma montrant o&ugrave; arrive l'eau et o&ugrave; elle repart (ses connexions avec le reste de la maison)</li>
-          <li>C'est tout.</li>
-        </ol>
-
-        <p>Il n'a pas besoin de savoir combien de prises il y a dans le salon. Il a besoin de savoir d'o&ugrave; vient l'eau et o&ugrave; elle va. Le reste ne le concerne pas.</p>
-
-          </div></div>
-        </div>
-
-        <hr>
-
-        <!-- ÉTAPE 3 -->
-        <div class="step-header" id="m3-etape3"><span class="step-number">3</span><h2>&Eacute;tape 3 &mdash; Cr&eacute;er les fiches <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(60 min)</small></h2></div>
-
-        <h3>L'id&eacute;e cl&eacute;</h3>
-
-        <p>Vous allez transformer votre <code>plan.md</code> en <strong>plusieurs fichiers</strong> organis&eacute;s sur deux niveaux :</p>
-
-        <p><strong>Niveau 1 &mdash; La vue d'ensemble</strong> (<code>plan.md</code>). Une version courte qui tient en une vingtaine de lignes. Pour chaque partie, juste le nom, une phrase sur ce qu'elle fait, et surtout : <strong>ce qu'on peut lui demander et ce qu'elle r&eacute;pond</strong>. Pas les d&eacute;tails internes.</p>
-
-        <p><strong>Niveau 2 &mdash; Les fiches d&eacute;taill&eacute;es</strong> (un fichier par partie, dans un dossier <code>fiches/</code>). Chaque fiche contient tous les d&eacute;tails internes d'une partie, les parcours qui la concernent, ses r&egrave;gles. Claude ne lira qu'une fiche &agrave; la fois &mdash; celle de la partie sur laquelle vous travaillez.</p>
-
-        <h3>Pr&eacute;parer les dossiers</h3>
-
-        <p>Cr&eacute;ez le dossier pour les fiches :</p>
-
-        <pre data-lang="bash"><code>mkdir fiches</code></pre>
-
-        <p>Vous devriez le voir appara&icirc;tre dans le panneau gauche de VSCode.</p>
-
-        <h3>Demander &agrave; Claude de restructurer</h3>
-
-        <p>Quittez Claude Code (<code>/exit</code>) et relancez-le pour repartir frais :</p>
-
-        <pre data-lang="bash"><code>claude</code></pre>
-
-        <p>Demandez-lui :</p>
-
-        <blockquote><p>Lis plan.md. Il contient le plan complet de mon application : les parties et les parcours. J'ai besoin de le transformer en deux niveaux.</p>
-        <p>NIVEAU 1 &mdash; R&eacute;&eacute;cris plan.md pour n'y garder que la vue d'ensemble. Pour chaque partie, &eacute;cris seulement :</p>
-        <ul>
-          <li>Son nom</li>
-          <li>Ce qu'elle fait (une phrase)</li>
-          <li>Sa "porte d'entr&eacute;e" : la liste des demandes qu'on peut lui faire, et ce qu'elle r&eacute;pond. Comme un guichet : "vous pouvez me demander X, je vous r&eacute;pondrai Y."</li>
-        </ul>
-        <p>NIVEAU 2 &mdash; Cr&eacute;e une fiche par partie dans le dossier fiches/. Chaque fiche est un fichier s&eacute;par&eacute; (par exemple fiches/prets.md, fiches/comptes.md, etc.). Chaque fiche contient :</p>
-        <ul>
-          <li>Tout le d&eacute;tail interne de la partie</li>
-          <li>Les parcours dans lesquels elle intervient</li>
-          <li>Ses r&egrave;gles sp&eacute;cifiques</li>
-        </ul>
-        <p>&Eacute;cris tout &ccedil;a en fran&ccedil;ais simple.</p></blockquote>
-
-        <h3>Ce que Claude va cr&eacute;er</h3>
-
-        <p><strong><code>plan.md</code></strong> (la vue d'ensemble) ressemblera &agrave; &ccedil;a :</p>
-
-        <pre><code>VUE D'ENSEMBLE — Club de lecture
+<h1>Module 3 : La carte et le territoire</h1>
+<p class="module-subtitle"><em>Quand votre plan devient trop gros pour tenir dans la conversation</em></p>
+<hr>
+<h2>Ce que vous savez déjà</h2>
+<p>Vous savez découper un projet en parties (Module 1). Vous savez décrire comment ces parties travaillent ensemble et ce qui se passe quand ça rate (Module 2). Votre <code>plan.md</code> ressemble maintenant à un vrai document de plusieurs pages — parties, parcours, cas d'erreur.</p>
+<p>Et c'est là le problème.</p>
+<div class="module-meta">
+<div class="module-meta-item"><strong>Durée :</strong> 3-4 heures (en une ou deux sessions)</div>
+<div class="module-meta-item"><strong>Ce qu'il vous faut :</strong> Votre projet du Module 2 (avec `plan.md`), Claude Code, votre carnet</div>
+</div>
+<hr>
+<h2 id="m3-analogie">Avant de commencer : une analogie</h2>
+<p>Vous êtes perdu dans une ville que vous ne connaissez pas. Vous avez besoin d'un plan. Lequel préférez-vous ?</p>
+<p><strong>Option A :</strong> Une carte du monde entier, avec chaque rue de chaque ville, imprimée sur une feuille A4. Techniquement, l'information y est. Mais vous ne voyez rien — tout est minuscule et illisible.</p>
+<p><strong>Option B :</strong> Votre téléphone, avec Google Maps. Quand vous êtes dézoomé, vous voyez les quartiers. Quand vous zoomez, vous voyez les rues. Vous ne voyez jamais tout en même temps, mais vous voyez toujours <strong>ce dont vous avez besoin au bon moment</strong>.</p>
+<p>En ce moment, votre <code>plan.md</code> c'est l'Option A. Tout est dedans — parties, parcours, détails — et Claude Code le lit en entier à chaque nouvelle conversation. Plus le projet grandit, plus le plan grandit, et plus Claude a du mal à s'y retrouver. Exactement comme vous avec la carte du monde imprimée en A4.</p>
+<p>Ce module va vous apprendre à transformer votre plan en Option B : un système à <strong>niveaux de zoom</strong> qui montre à Claude exactement ce dont il a besoin, ni plus, ni moins.</p>
+<hr>
+<div class="step-header" id="m3-etape1"><span class="step-number">1</span><h2>Provoquer le problème <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(45 min)</small></h2></div>
+<h3>Ce que vous allez faire</h3>
+<p>Ouvrez le terminal intégré de VSCode et lancez Claude Code :</p>
+<pre data-lang="bash"><code>claude</code></pre>
+<p>Commencez par demander à Claude de lire tout le plan, puis de travailler sur une seule partie :</p>
+<blockquote>
+<p>Lis plan.md en entier. Je veux que tu améliores la partie "Prêts". Quand un membre demande à emprunter un livre, le propriétaire doit pouvoir accepter ou refuser. Si le propriétaire ne répond pas en 3 jours, la demande est automatiquement annulée. Implémente ça.</p>
+</blockquote>
+<p>Lancez le site et vérifiez. Puis continuez avec d'autres demandes, en lui faisant relire le plan à chaque fois :</p>
+<blockquote>
+<p>Relis plan.md. Maintenant améliore la partie "Réunions" : ajoute la possibilité de mettre une réunion en liste d'attente quand elle est pleine.</p>
+</blockquote>
+<blockquote>
+<p>Relis plan.md. Maintenant améliore la partie "Statistiques" : ajoute un classement des membres les plus actifs par chapitre.</p>
+</blockquote>
+<blockquote>
+<p>Relis plan.md. Maintenant améliore la partie "Livres" : quand un livre est proposé, vérifie automatiquement s'il existe déjà dans un autre chapitre et propose de le récupérer au lieu de créer un doublon.</p>
+</blockquote>
+<div class="callout callout-red">
+<div class="callout-title">🔴 Ce que vous devez surveiller</div>
+</div>
+<div class="callout callout-flag">
+<div class="callout-title">🚩 Claude résume ou ignore des morceaux du plan.</div>
+<p>Le plan est trop long. Claude ne vous le dit pas, mais il commence à "survoler" certaines parties. Vous le voyez quand il fait quelque chose qui contredit un parcours que vous aviez défini, ou quand il oublie une règle d'une partie qui n'est pas celle sur laquelle vous travaillez.</p>
+</div>
+<div class="callout callout-flag">
+<div class="callout-title">🚩 Claude modifie des parties que vous n'avez pas demandé de toucher.</div>
+<p>Vous lui demandez de travailler sur "Prêts", mais il change quelque chose dans "Comptes" ou "Notifications" sans prévenir, parce qu'il a lu tout le plan et s'est dit que c'était lié.</p>
+</div>
+<div class="callout callout-flag">
+<div class="callout-title">🚩 Claude vous donne des réponses de plus en plus longues et vagues.</div>
+<p>Quand il reçoit beaucoup d'information, Claude essaie de tout prendre en compte. Résultat : des réponses diluées qui parlent de tout sans rien faire de précis.</p>
+</div>
+<h3>Ce que vous devez noter dans votre carnet</h3>
+<blockquote class="notebook-prompt">
+<p>✍️ Est-ce que Claude a respecté le plan ou est-ce qu'il a pris des libertés ?</p>
+</blockquote>
+<blockquote class="notebook-prompt">
+<p>✍️ Avez-vous eu l'impression qu'il lisait vraiment tout le plan ou qu'il survolait ?</p>
+</blockquote>
+<blockquote class="notebook-prompt">
+<p>✍️ Est-ce que Claude a modifié des fichiers qui n'avaient rien à voir avec votre demande ?</p>
+</blockquote>
+<hr>
+<div class="step-header" id="m3-etape2"><span class="step-number">2</span><h2>Comprendre le problème <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(15 min)</small></h2></div>
+<div class="spoiler">
+<button class="spoiler-toggle"><span class="spoiler-icon">▶</span>Lisez ceci APRÈS avoir fait l'étape 1</button>
+<div class="spoiler-content"><div class="spoiler-inner">
+<p>Le Module 1 a résolu le problème de l'amnésie de Claude (en lui donnant un plan). Le Module 2 a résolu le problème de l'ordre des opérations (en décrivant des parcours). Maintenant, le problème c'est <strong>le bruit</strong>.</p>
+<p>Quand Claude lit <code>plan.md</code> en entier pour travailler sur la partie "Prêts", il avale une tonne d'information sur les Comptes, les Réunions, les Statistiques, les Notifications... dont il n'a pas besoin. C'est comme si vous demandiez à un plombier de réparer un robinet et que vous lui donniez les plans de toute la maison, y compris le circuit électrique du grenier et la disposition des meubles du salon.</p>
+<p>Le plombier va peut-être quand même trouver le robinet. Mais il va perdre du temps à comprendre ce qui est pertinent. Et il risque de se dire "tiens, tant que j'y suis, je vais déplacer ce tuyau dans la salle de bain" — alors que vous ne lui avez rien demandé.</p>
+<p><strong>Ce dont le plombier a besoin, c'est :</strong></p>
+<ol>
+<li>Le plan de la cuisine (la pièce où il travaille)</li>
+<li>Un schéma montrant où arrive l'eau et où elle repart (ses connexions avec le reste de la maison)</li>
+<li>C'est tout.</li>
+</ol>
+<p>Il n'a pas besoin de savoir combien de prises il y a dans le salon. Il a besoin de savoir d'où vient l'eau et où elle va. Le reste ne le concerne pas.</p>
+</div></div>
+</div>
+<hr>
+<div class="step-header" id="m3-etape3"><span class="step-number">3</span><h2>Créer les fiches <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(60 min)</small></h2></div>
+<h3>L'idée clé</h3>
+<p>Vous allez transformer votre <code>plan.md</code> en <strong>plusieurs fichiers</strong> organisés sur deux niveaux :</p>
+<p><strong>Niveau 1 — La vue d'ensemble</strong> (<code>plan.md</code>). Une version courte qui tient en une vingtaine de lignes. Pour chaque partie, juste le nom, une phrase sur ce qu'elle fait, et surtout : <strong>ce qu'on peut lui demander et ce qu'elle répond</strong>. Pas les détails internes.</p>
+<p><strong>Niveau 2 — Les fiches détaillées</strong> (un fichier par partie, dans un dossier <code>fiches/</code>). Chaque fiche contient tous les détails internes d'une partie, les parcours qui la concernent, ses règles. Claude ne lira qu'une fiche à la fois — celle de la partie sur laquelle vous travaillez.</p>
+<h3>Préparer les dossiers</h3>
+<p>Créez le dossier pour les fiches :</p>
+<pre data-lang="bash"><code>mkdir fiches</code></pre>
+<p>Vous devriez le voir apparaître dans le panneau gauche de VSCode.</p>
+<h3>Demander à Claude de restructurer</h3>
+<p>Quittez Claude Code (<code>/exit</code>) et relancez-le pour repartir frais :</p>
+<pre data-lang="bash"><code>claude</code></pre>
+<p>Demandez-lui :</p>
+<blockquote>
+<p>Lis plan.md. Il contient le plan complet de mon application : les parties et les parcours. J'ai besoin de le transformer en deux niveaux.</p>
+<p>NIVEAU 1 — Réécris plan.md pour n'y garder que la vue d'ensemble. Pour chaque partie, écris seulement :</p>
+<ul>
+<li>Son nom</li>
+<li>Ce qu'elle fait (une phrase)</li>
+<li>Sa "porte d'entrée" : la liste des demandes qu'on peut lui faire, et ce qu'elle répond. Comme un guichet : "vous pouvez me demander X, je vous répondrai Y."</li>
+</ul>
+<p>NIVEAU 2 — Crée une fiche par partie dans le dossier fiches/. Chaque fiche est un fichier séparé (par exemple fiches/prets.md, fiches/comptes.md, etc.). Chaque fiche contient :</p>
+<ul>
+<li>Tout le détail interne de la partie</li>
+<li>Les parcours dans lesquels elle intervient</li>
+<li>Ses règles spécifiques</li>
+</ul>
+<p>Écris tout ça en français simple.</p>
+</blockquote>
+<h3>Ce que Claude va créer</h3>
+<p><strong><code>plan.md</code></strong> (la vue d'ensemble) ressemblera à ça :</p>
+<pre><code>VUE D'ENSEMBLE — Club de lecture
 
 PARTIE : Comptes
 Fait : gère qui est qui (inscription, connexion)
@@ -188,10 +153,8 @@ Porte d'entrée :
   - "Signaler un retour" → prêt terminé
 
 ...etc.</code></pre>
-
-        <p><strong><code>fiches/prets.md</code></strong> (une fiche d&eacute;taill&eacute;e) ressemblera &agrave; &ccedil;a :</p>
-
-        <pre><code>FICHE DÉTAILLÉE : Prêts
+<p><strong><code>fiches/prets.md</code></strong> (une fiche détaillée) ressemblera à ça :</p>
+<pre><code>FICHE DÉTAILLÉE : Prêts
 
 Ce que cette partie fait :
   Gère les emprunts de livres entre membres du club.
@@ -222,212 +185,148 @@ Règles internes :
 Parcours liés :
   - "Emprunt de livre" (voir parcours complet)
   - "Bannissement d'un membre" (étape : retour forcé des prêts)</code></pre>
-
-        <h3>V&eacute;rifiez le r&eacute;sultat</h3>
-
-        <p>Regardez dans VSCode : vous devriez voir <code>plan.md</code> (devenu plus court) et un dossier <code>fiches/</code> avec un fichier par partie. Ouvrez-en quelques-uns, relisez-les, corrigez ce qui ne vous semble pas logique.</p>
-
-        <h3>Pourquoi les "portes d'entr&eacute;e" changent tout</h3>
-
-        <p>Regardez bien la vue d'ensemble. Chaque partie a une liste de choses qu'on peut lui demander et ce qu'elle r&eacute;pond. C'est exactement comme un guichet administratif :</p>
-
-        <ul>
-          <li>Vous allez au guichet "&Eacute;tat civil" pour un acte de naissance. Vous ne lui demandez pas un permis de conduire.</li>
-          <li>Vous n'avez pas besoin de savoir comment le guichet fonctionne en interne. Vous avez juste besoin de savoir <strong>ce que vous pouvez lui demander et ce qu'il vous rend</strong>.</li>
-        </ul>
-
-        <p>C'est &ccedil;a, une "porte d'entr&eacute;e" : la liste de ce qu'on peut demander &agrave; une partie, vue de l'ext&eacute;rieur. L'int&eacute;rieur de la partie (comment elle stocke les donn&eacute;es, comment elle calcule les choses, dans quel ordre elle fait ses op&eacute;rations) n'int&eacute;resse que celui qui travaille dessus.</p>
-
-        <p><strong>C'est la s&eacute;paration la plus importante de ce cours : l'ext&eacute;rieur (ce qu'on peut demander) vs l'int&eacute;rieur (comment &ccedil;a marche).</strong></p>
-
-        <hr>
-
-        <!-- REPARTIR DE ZÉRO -->
-        <h2 id="m3-repartir">Repartir de zéro — avec le nouveau plan</h2>
-
-        <p>Le code actuel est celui de l'étape 1 — modifié dans tous les sens pendant que Claude lisait le plan en entier. On ne va pas essayer de le réparer. Comme au Module 2, on va committer ce qui est précieux (le plan restructuré) et jeter le code cassé.</p>
-
-        <p>Sauvegardez d'abord le plan et les fiches :</p>
-
-        <pre data-lang="bash"><code>git add plan.md fiches/
+<h3>Vérifiez le résultat</h3>
+<p>Regardez dans VSCode : vous devriez voir <code>plan.md</code> (devenu plus court) et un dossier <code>fiches/</code> avec un fichier par partie. Ouvrez-en quelques-uns, relisez-les, corrigez ce qui ne vous semble pas logique.</p>
+<h3>Pourquoi les "portes d'entrée" changent tout</h3>
+<p>Regardez bien la vue d'ensemble. Chaque partie a une liste de choses qu'on peut lui demander et ce qu'elle répond. C'est exactement comme un guichet administratif :</p>
+<ul>
+<li>Vous allez au guichet "État civil" pour un acte de naissance. Vous ne lui demandez pas un permis de conduire.</li>
+<li>Vous n'avez pas besoin de savoir comment le guichet fonctionne en interne. Vous avez juste besoin de savoir <strong>ce que vous pouvez lui demander et ce qu'il vous rend</strong>.</li>
+</ul>
+<p>C'est ça, une "porte d'entrée" : la liste de ce qu'on peut demander à une partie, vue de l'extérieur. L'intérieur de la partie (comment elle stocke les données, comment elle calcule les choses, dans quel ordre elle fait ses opérations) n'intéresse que celui qui travaille dessus.</p>
+<p><strong>C'est la séparation la plus importante de ce cours : l'extérieur (ce qu'on peut demander) vs l'intérieur (comment ça marche).</strong></p>
+<hr>
+<h2 id="m3-repartir">Repartir de zéro — avec le nouveau plan</h2>
+<p>Le code actuel est celui de l'étape 1 — modifié dans tous les sens pendant que Claude lisait le plan en entier. On ne va pas essayer de le réparer. Comme au Module 2, on va committer ce qui est précieux (le plan restructuré) et jeter le code cassé.</p>
+<p>Sauvegardez d'abord le plan et les fiches :</p>
+<pre data-lang="bash"><code>git add plan.md fiches/
 git commit -m "Module 3 : plan restructuré en vue d'ensemble + fiches"</code></pre>
-
-        <p>Puis jetez le code cassé :</p>
-
-        <pre data-lang="bash"><code>git checkout .</code></pre>
-
-        <p>Vérifiez dans VSCode : le code est redevenu celui de la fin du Module 2 (propre et fonctionnel), mais <code>plan.md</code> est maintenant la vue d'ensemble, et le dossier <code>fiches/</code> contient les fiches détaillées.</p>
-
-        <hr>
-
-        <!-- ÉTAPE 4 -->
-        <div class="step-header" id="m3-etape4"><span class="step-number">4</span><h2>Reconstruire avec les niveaux de zoom <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(60 min)</small></h2></div>
-
-        <h3>Ce que vous allez faire</h3>
-
-        <p>Quittez Claude Code (<code>/exit</code>) et relancez-le :</p>
-
-        <pre data-lang="bash"><code>claude</code></pre>
-
-        <p>Cette fois, vous allez reconstruire l'application de zéro, partie par partie. Mais au lieu de faire lire tout le plan à Claude, vous ne lui donnez que la vue d'ensemble + la fiche de la partie sur laquelle il travaille :</p>
-
-        <blockquote><p>Lis plan.md et fiches/comptes.md. Reconstruis l'application de zéro en commençant par la partie "Comptes". Utilise la même stack technique qu'avant. Suis le plan : cette partie gère UNIQUEMENT ce qui est décrit dans la fiche.</p></blockquote>
-
-        <p>Lancez le site et vérifiez. Puis passez à la partie suivante :</p>
-
-        <blockquote><p>Lis plan.md et fiches/livres.md. Maintenant, crée la partie "Livres". Suis la fiche : les votes sont dans cette partie, mais les critiques sont séparées.</p></blockquote>
-
-        <p>Et ainsi de suite pour chaque partie. À chaque fois, demandez à Claude de lire <code>plan.md</code> + la fiche de la partie concernée. <strong>Pas les autres fiches.</strong></p>
-
-        <div class="callout callout-green">
-        <h3>🟢 Ce que vous allez remarquer</h3>
-
-        <p><strong>Claude est plus précis.</strong> Il ne se perd plus dans des détails sur les Réunions ou les Statistiques. Il se concentre sur la partie en cours.</p>
-
-        <p><strong>Claude respecte les frontières.</strong> Quand il a besoin de Notifications pour envoyer un rappel, il ne réécrit pas le système de notifications. Il utilise la porte d'entrée — il sait ce qu'il peut demander à Notifications, mais pas comment ça marche en interne.</p>
-
-        <p><strong>Claude ne touche pas aux autres parties.</strong> Parce qu'il ne connaît que leur porte d'entrée (dans <code>plan.md</code>), pas leur fonctionnement interne. Il ne peut pas les modifier même s'il le voulait.</p>
-
-        <p><strong>Comparez avec l'étape 1.</strong> Même projet, mais Claude a moins d'information à digérer à chaque étape. Le résultat est plus ciblé, plus cohérent.</p>
-        </div>
-
-        <h3>Mettez à jour les fiches</h3>
-
-        <p>Après chaque partie implémentée, si Claude a ajouté des détails ou des règles qui n'étaient pas dans la fiche, demandez-lui de la mettre à jour :</p>
-
-        <blockquote><p>Mets à jour fiches/prets.md avec les nouvelles règles que tu viens d'implémenter.</p></blockquote>
-
-        <p>Les fiches doivent rester synchronisées avec le code. C'est comme mettre à jour un dossier après un changement de procédure.</p>
-
-        <h3>Ce que vous devez noter dans votre carnet</h3>
-
-        <blockquote class="notebook-prompt"><p>✍️ Est-ce que les réponses de Claude sont plus courtes et plus précises qu'à l'étape 1 ?</p></blockquote>
-        <blockquote class="notebook-prompt"><p>✍️ Est-ce que Claude a essayé de modifier une partie autre que celle sur laquelle vous travailliez ?</p></blockquote>
-        <blockquote class="notebook-prompt"><p>✍️ Quand Claude a eu besoin d'une autre partie, est-ce qu'il a utilisé la porte d'entrée ou est-ce qu'il a inventé sa propre solution ?</p></blockquote>
-
-        <hr>
-
-        <!-- ÉTAPE 5 -->
-        <div class="step-header" id="m3-etape5"><span class="step-number">5</span><h2>&Eacute;tape 5 &mdash; &Eacute;crire une fiche vous-m&ecirc;me <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(30 min)</small></h2></div>
-
-        <h3>Ce que vous allez faire</h3>
-
-        <p>Jusqu'ici, c'est Claude qui a &eacute;crit toutes les fiches. Il est temps que vous en &eacute;criviez une vous-m&ecirc;me.</p>
-
-        <p>Imaginez que votre club de lecture veut ajouter une nouvelle partie : <strong>&Eacute;v&eacute;nements sp&eacute;ciaux</strong> &mdash; des soir&eacute;es th&eacute;matiques, des rencontres avec des auteurs, des ateliers d'&eacute;criture. Ce n'est pas la m&ecirc;me chose que les r&eacute;unions r&eacute;guli&egrave;res.</p>
-
-        <p>Ouvrez VSCode et cr&eacute;ez un nouveau fichier <code>fiches/evenements.md</code>. &Eacute;crivez la fiche vous-m&ecirc;me, en suivant le m&ecirc;me format que les autres fiches :</p>
-
-        <ul>
-          <li>Ce que cette partie fait</li>
-          <li>Ce qu'elle ne fait PAS</li>
-          <li>Porte d'entr&eacute;e (les demandes qu'on peut lui faire et ce qu'elle r&eacute;pond)</li>
-          <li>R&egrave;gles internes</li>
-          <li>Parcours li&eacute;s</li>
-        </ul>
-
-        <p>Pas besoin que ce soit parfait. &Eacute;crivez ce qui vous semble logique.</p>
-
-        <h3>Faites critiquer par Claude</h3>
-
-        <p>Quand c'est fait, lancez Claude Code et demandez-lui :</p>
-
-        <blockquote><p>Lis plan.md et fiches/evenements.md. J'ai &eacute;crit cette fiche moi-m&ecirc;me pour une nouvelle partie "&Eacute;v&eacute;nements sp&eacute;ciaux". Critique-la sans la r&eacute;&eacute;crire. Dis-moi :</p>
-        <ol>
-          <li>Est-ce que la porte d'entr&eacute;e est compl&egrave;te ?</li>
-          <li>Est-ce qu'il y a des chevauchements avec les R&eacute;unions ?</li>
-          <li>Est-ce qu'il manque des r&egrave;gles internes ?</li>
-          <li>Est-ce qu'il faut mettre &agrave; jour plan.md pour ajouter cette nouvelle partie ?</li>
-        </ol></blockquote>
-
-        <p>Corrigez votre fiche vous-m&ecirc;me en fonction des retours, puis demandez &agrave; Claude de mettre &agrave; jour <code>plan.md</code> avec la nouvelle partie.</p>
-
-        <h3>Ce que vous devez noter dans votre carnet</h3>
-
-        <blockquote class="notebook-prompt"><p>✍️ Qu'est-ce que Claude a trouv&eacute; que vous aviez oubli&eacute; ?</p></blockquote>
-        <blockquote class="notebook-prompt"><p>✍️ Quelle a &eacute;t&eacute; la partie la plus difficile &agrave; &eacute;crire ? (Probablement le "Ne fait PAS" &mdash; savoir o&ugrave; finit votre partie et o&ugrave; commence une autre)</p></blockquote>
-
-        <hr>
-
-        <!-- ÉTAPE 6 -->
-        <div class="step-header" id="m3-etape6"><span class="step-number">6</span><h2>&Eacute;tape 6 &mdash; Le test des deux conversations <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(30 min)</small></h2></div>
-
-        <h3>Ce que vous allez faire</h3>
-
-        <p>Avant de commencer, sauvegardez votre &eacute;tat actuel &mdash; vous allez faire travailler deux conversations en parall&egrave;le sur les m&ecirc;mes fichiers, et il vaut mieux avoir un point de retour :</p>
-
-        <pre data-lang="bash"><code>git add .
+<p>Puis jetez le code cassé :</p>
+<pre data-lang="bash"><code>git checkout .</code></pre>
+<p>Vérifiez dans VSCode : le code est redevenu celui de la fin du Module 2 (propre et fonctionnel), mais <code>plan.md</code> est maintenant la vue d'ensemble, et le dossier <code>fiches/</code> contient les fiches détaillées.</p>
+<hr>
+<div class="step-header" id="m3-etape4"><span class="step-number">4</span><h2>Reconstruire avec les niveaux de zoom <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(60 min)</small></h2></div>
+<h3>Ce que vous allez faire</h3>
+<p>Quittez Claude Code (<code>/exit</code>) et relancez-le :</p>
+<pre data-lang="bash"><code>claude</code></pre>
+<p>Cette fois, vous allez reconstruire l'application de zéro, partie par partie. Mais au lieu de faire lire tout le plan à Claude, vous ne lui donnez que la vue d'ensemble + la fiche de la partie sur laquelle il travaille :</p>
+<blockquote>
+<p>Lis plan.md et fiches/comptes.md. Reconstruis l'application de zéro en commençant par la partie "Comptes". Utilise la même stack technique qu'avant. Suis le plan : cette partie gère UNIQUEMENT ce qui est décrit dans la fiche.</p>
+</blockquote>
+<p>Lancez le site et vérifiez. Puis passez à la partie suivante :</p>
+<blockquote>
+<p>Lis plan.md et fiches/livres.md. Maintenant, crée la partie "Livres". Suis la fiche : les votes sont dans cette partie, mais les critiques sont séparées.</p>
+</blockquote>
+<p>Et ainsi de suite pour chaque partie. À chaque fois, demandez à Claude de lire <code>plan.md</code> + la fiche de la partie concernée. <strong>Pas les autres fiches.</strong></p>
+<div class="callout callout-green">
+<div class="callout-title">🟢 Ce que vous allez remarquer</div>
+<p><strong>Claude est plus précis.</strong> Il ne se perd plus dans des détails sur les Réunions ou les Statistiques. Il se concentre sur la partie en cours.</p>
+<p><strong>Claude respecte les frontières.</strong> Quand il a besoin de Notifications pour envoyer un rappel, il ne réécrit pas le système de notifications. Il utilise la porte d'entrée — il sait ce qu'il peut demander à Notifications, mais pas comment ça marche en interne.</p>
+<p><strong>Claude ne touche pas aux autres parties.</strong> Parce qu'il ne connaît que leur porte d'entrée (dans <code>plan.md</code>), pas leur fonctionnement interne. Il ne peut pas les modifier même s'il le voulait.</p>
+<p><strong>Comparez avec l'étape 1.</strong> Même projet, mais Claude a moins d'information à digérer à chaque étape. Le résultat est plus ciblé, plus cohérent.</p>
+<h3>Mettez à jour les fiches</h3>
+<p>Après chaque partie implémentée, si Claude a ajouté des détails ou des règles qui n'étaient pas dans la fiche, demandez-lui de la mettre à jour :</p>
+<blockquote>
+<p>Mets à jour fiches/prets.md avec les nouvelles règles que tu viens d'implémenter.</p>
+</blockquote>
+<p>Les fiches doivent rester synchronisées avec le code. C'est comme mettre à jour un dossier après un changement de procédure.</p>
+<h3>Ce que vous devez noter dans votre carnet</h3>
+<blockquote class="notebook-prompt">
+<p>✍️ Est-ce que les réponses de Claude sont plus courtes et plus précises qu'à l'étape 1 ?
+✍️ Est-ce que Claude a essayé de modifier une partie autre que celle sur laquelle vous travailliez ?
+✍️ Quand Claude a eu besoin d'une autre partie, est-ce qu'il a utilisé la porte d'entrée ou est-ce qu'il a inventé sa propre solution ?</p>
+</blockquote>
+</div>
+<hr>
+<div class="step-header" id="m3-etape5"><span class="step-number">5</span><h2>Écrire une fiche vous-même <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(30 min)</small></h2></div>
+<h3>Ce que vous allez faire</h3>
+<p>Jusqu'ici, c'est Claude qui a écrit toutes les fiches. Il est temps que vous en écriviez une vous-même.</p>
+<p>Imaginez que votre club de lecture veut ajouter une nouvelle partie : <strong>Événements spéciaux</strong> — des soirées thématiques, des rencontres avec des auteurs, des ateliers d'écriture. Ce n'est pas la même chose que les réunions régulières.</p>
+<p>Ouvrez VSCode et créez un nouveau fichier <code>fiches/evenements.md</code>. Écrivez la fiche vous-même, en suivant le même format que les autres fiches :</p>
+<ul>
+<li>Ce que cette partie fait</li>
+<li>Ce qu'elle ne fait PAS</li>
+<li>Porte d'entrée (les demandes qu'on peut lui faire et ce qu'elle répond)</li>
+<li>Règles internes</li>
+<li>Parcours liés</li>
+</ul>
+<p>Pas besoin que ce soit parfait. Écrivez ce qui vous semble logique.</p>
+<h3>Faites critiquer par Claude</h3>
+<p>Quand c'est fait, lancez Claude Code et demandez-lui :</p>
+<blockquote>
+<p>Lis plan.md et fiches/evenements.md. J'ai écrit cette fiche moi-même pour une nouvelle partie "Événements spéciaux". Critique-la sans la réécrire. Dis-moi :</p>
+<ol>
+<li>Est-ce que la porte d'entrée est complète ?</li>
+<li>Est-ce qu'il y a des chevauchements avec les Réunions ?</li>
+<li>Est-ce qu'il manque des règles internes ?</li>
+<li>Est-ce qu'il faut mettre à jour plan.md pour ajouter cette nouvelle partie ?</li>
+</ol>
+</blockquote>
+<p>Corrigez votre fiche vous-même en fonction des retours, puis demandez à Claude de mettre à jour <code>plan.md</code> avec la nouvelle partie.</p>
+<h3>Ce que vous devez noter dans votre carnet</h3>
+<blockquote class="notebook-prompt">
+<p>✍️ Qu'est-ce que Claude a trouvé que vous aviez oublié ?</p>
+</blockquote>
+<blockquote class="notebook-prompt">
+<p>✍️ Quelle a été la partie la plus difficile à écrire ? (Probablement le "Ne fait PAS" — savoir où finit votre partie et où commence une autre)</p>
+</blockquote>
+<hr>
+<div class="step-header" id="m3-etape6"><span class="step-number">6</span><h2>Le test des deux conversations <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(30 min)</small></h2></div>
+<h3>Ce que vous allez faire</h3>
+<p>Avant de commencer, sauvegardez votre état actuel — vous allez faire travailler deux conversations en parallèle sur les mêmes fichiers, et il vaut mieux avoir un point de retour :</p>
+<pre data-lang="bash"><code>git add .
 git commit -m "Module 3 : avant travail parallèle"</code></pre>
-
-        <p>Si une des deux conversations fait n'importe quoi, <code>git checkout .</code> vous ram&egrave;nera ici.</p>
-
-        <p>Ouvrez <strong>deux terminaux</strong> dans VSCode. Pour en ouvrir un deuxi&egrave;me, cliquez sur le <code>+</code> dans le panneau du terminal. Lancez <code>claude</code> dans chacun. Vous avez maintenant deux Claude Code c&ocirc;te &agrave; c&ocirc;te.</p>
-
-        <p><strong>Terminal A :</strong></p>
-        <blockquote><p>Lis plan.md et fiches/prets.md. Am&eacute;liore les Pr&ecirc;ts pour g&eacute;rer les livres ab&icirc;m&eacute;s : quand un livre est rendu ab&icirc;m&eacute;, le propri&eacute;taire peut signaler le d&eacute;g&acirc;t et demander un remplacement.</p></blockquote>
-
-        <p><strong>Terminal B :</strong></p>
-        <blockquote><p>Lis plan.md et fiches/reunions.md. Am&eacute;liore les R&eacute;unions pour ajouter un syst&egrave;me de covoiturage : les membres peuvent proposer ou chercher un trajet pour se rendre &agrave; la r&eacute;union.</p></blockquote>
-
-        <h3>Ce que vous allez observer</h3>
-
-        <p>Les deux conversations avancent <strong>sans se g&ecirc;ner</strong>. La conversation A ne touche qu'aux Pr&ecirc;ts. La conversation B ne touche qu'aux R&eacute;unions. Et quand l'une a besoin de l'autre (par exemple, R&eacute;unions a besoin de Notifications pour pr&eacute;venir les covoitureurs), elle utilise la porte d'entr&eacute;e &mdash; pas le d&eacute;tail interne.</p>
-
-        <p>C'est comme si vous aviez deux artisans qui travaillent chacun dans une pi&egrave;ce diff&eacute;rente de l'appartement. Ils ne se marchent pas dessus parce que chacun ne voit que sa pi&egrave;ce et les portes qui m&egrave;nent aux autres.</p>
-
-        <h3>Le d&eacute;clic</h3>
-
-        <p>Vous venez de faire quelque chose de puissant : vous avez <strong>parall&eacute;lis&eacute; le travail</strong>. Deux conversations, deux parties, en m&ecirc;me temps, sans conflit. C'est possible uniquement parce que vous avez s&eacute;par&eacute; ce que chaque partie montre aux autres (la porte d'entr&eacute;e) de ce qu'elle fait en interne (la fiche d&eacute;taill&eacute;e).</p>
-
-        <p>Si tout &eacute;tait dans un seul gros <code>plan.md</code>, &ccedil;a serait impossible. Les deux conversations modifieraient le m&ecirc;me document et cr&eacute;eraient des contradictions.</p>
-
-        <hr>
-
-        <!-- ÉTAPE 7 -->
-        <div class="step-header" id="m3-etape7"><span class="step-number">7</span><h2>&Eacute;tape 7 &mdash; Mettre &agrave; jour la vue d'ensemble <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(15 min)</small></h2></div>
-
-        <h3>Ce que vous allez faire</h3>
-
-        <p>Apr&egrave;s avoir am&eacute;lior&eacute; les Pr&ecirc;ts et les R&eacute;unions, vos fiches d&eacute;taill&eacute;es ont chang&eacute;. Est-ce que <code>plan.md</code> doit changer aussi ?</p>
-
-        <p>V&eacute;rifiez :</p>
-
-        <ul>
-          <li>Est-ce que les Pr&ecirc;ts ont une nouvelle porte d'entr&eacute;e ? (Oui : "Signaler un livre ab&icirc;m&eacute;" &rarr; demande de remplacement cr&eacute;&eacute;e). Il faut l'ajouter &agrave; <code>plan.md</code>.</li>
-          <li>Est-ce que les R&eacute;unions ont une nouvelle porte d'entr&eacute;e ? (Oui : "Proposer un covoiturage", "Chercher un covoiturage"). Il faut l'ajouter.</li>
-          <li>Est-ce que le fonctionnement interne des Pr&ecirc;ts a chang&eacute; ? (Oui : nouvelle r&egrave;gle sur les livres ab&icirc;m&eacute;s). &Ccedil;a va dans la fiche, PAS dans <code>plan.md</code>.</li>
-        </ul>
-
-        <p>Demandez &agrave; Claude Code de faire les mises &agrave; jour :</p>
-
-        <blockquote><p>Lis plan.md, fiches/prets.md et fiches/reunions.md. Les fiches ont &eacute;t&eacute; mises &agrave; jour avec de nouvelles fonctionnalit&eacute;s. Mets &agrave; jour plan.md pour refl&eacute;ter les nouvelles portes d'entr&eacute;e, sans ajouter de d&eacute;tails internes.</p></blockquote>
-
-        <h3>La r&egrave;gle d'or</h3>
-
-        <p><strong><code>plan.md</code> ne change que quand une porte d'entr&eacute;e change.</strong> Si vous modifiez comment une partie fonctionne en interne sans changer ce qu'on peut lui demander, <code>plan.md</code> reste identique.</p>
-
-        <p>C'est exactement comme un distributeur automatique. Si le m&eacute;canicien change les rouages &agrave; l'int&eacute;rieur, vous ne le voyez pas &mdash; vous appuyez sur les m&ecirc;mes boutons et vous recevez les m&ecirc;mes produits. Mais si le distributeur ajoute une nouvelle boisson, il y a un nouveau bouton. C'est CE changement qui appara&icirc;t dans la vue d'ensemble.</p>
-
-        <hr>
-
-        <!-- BILAN -->
-        <h2 id="m3-bilan">Ce que vous avez appris</h2>
-
-        <h3>En une phrase</h3>
-
-        <p><strong>Quand un projet grandit, il faut montrer &agrave; l'IA la bonne quantit&eacute; d'information : assez pour qu'elle comprenne le contexte, pas trop pour qu'elle se noie.</strong></p>
-
-        <h3>Les trois nouveaux r&eacute;flexes</h3>
-
-        <ol start="7">
-          <li><strong>S&eacute;parez la vue d'ensemble des fiches d&eacute;taill&eacute;es.</strong> <code>plan.md</code> montre toutes les parties et leurs portes d'entr&eacute;e. Les fiches dans <code>fiches/</code> contiennent le d&eacute;tail interne d'une seule partie.</li>
-          <li><strong>Travaillez une partie &agrave; la fois.</strong> Demandez &agrave; Claude de lire <code>plan.md</code> + la fiche de la partie concern&eacute;e. Pas tout le dossier <code>fiches/</code>.</li>
-          <li><strong>Distinguez l'ext&eacute;rieur de l'int&eacute;rieur.</strong> Ce qu'on peut demander &agrave; une partie (sa porte d'entr&eacute;e) et comment elle fonctionne en interne sont deux choses diff&eacute;rentes. L'un est public, l'autre est priv&eacute;.</li>
-        </ol>
-
-        <h3>Votre dossier de projet</h3>
-
-        <pre><code>formation-ia/
+<p>Si une des deux conversations fait n'importe quoi, <code>git checkout .</code> vous ramènera ici.</p>
+<p>Ouvrez <strong>deux terminaux</strong> dans VSCode. Pour en ouvrir un deuxième, cliquez sur le <code>+</code> dans le panneau du terminal. Lancez <code>claude</code> dans chacun. Vous avez maintenant deux Claude Code côte à côte.</p>
+<p><strong>Terminal A :</strong></p>
+<blockquote>
+<p>Lis plan.md et fiches/prets.md. Améliore les Prêts pour gérer les livres abîmés : quand un livre est rendu abîmé, le propriétaire peut signaler le dégât et demander un remplacement.</p>
+</blockquote>
+<p><strong>Terminal B :</strong></p>
+<blockquote>
+<p>Lis plan.md et fiches/reunions.md. Améliore les Réunions pour ajouter un système de covoiturage : les membres peuvent proposer ou chercher un trajet pour se rendre à la réunion.</p>
+</blockquote>
+<h3>Ce que vous allez observer</h3>
+<p>Les deux conversations avancent <strong>sans se gêner</strong>. La conversation A ne touche qu'aux Prêts. La conversation B ne touche qu'aux Réunions. Et quand l'une a besoin de l'autre (par exemple, Réunions a besoin de Notifications pour prévenir les covoitureurs), elle utilise la porte d'entrée — pas le détail interne.</p>
+<p>C'est comme si vous aviez deux artisans qui travaillent chacun dans une pièce différente de l'appartement. Ils ne se marchent pas dessus parce que chacun ne voit que sa pièce et les portes qui mènent aux autres.</p>
+<h3>Le déclic</h3>
+<p>Vous venez de faire quelque chose de puissant : vous avez <strong>parallélisé le travail</strong>. Deux conversations, deux parties, en même temps, sans conflit. C'est possible uniquement parce que vous avez séparé ce que chaque partie montre aux autres (la porte d'entrée) de ce qu'elle fait en interne (la fiche détaillée).</p>
+<p>Si tout était dans un seul gros <code>plan.md</code>, ça serait impossible. Les deux conversations modifieraient le même document et créeraient des contradictions.</p>
+<hr>
+<div class="step-header" id="m3-etape7"><span class="step-number">7</span><h2>Mettre à jour la vue d'ensemble <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(15 min)</small></h2></div>
+<h3>Ce que vous allez faire</h3>
+<p>Après avoir amélioré les Prêts et les Réunions, vos fiches détaillées ont changé. Est-ce que <code>plan.md</code> doit changer aussi ?</p>
+<p>Vérifiez :</p>
+<ul>
+<li>Est-ce que les Prêts ont une nouvelle porte d'entrée ? (Oui : "Signaler un livre abîmé" → demande de remplacement créée). Il faut l'ajouter à <code>plan.md</code>.</li>
+<li>Est-ce que les Réunions ont une nouvelle porte d'entrée ? (Oui : "Proposer un covoiturage", "Chercher un covoiturage"). Il faut l'ajouter.</li>
+<li>Est-ce que le fonctionnement interne des Prêts a changé ? (Oui : nouvelle règle sur les livres abîmés). Ça va dans la fiche, PAS dans <code>plan.md</code>.</li>
+</ul>
+<p>Demandez à Claude Code de faire les mises à jour :</p>
+<blockquote>
+<p>Lis plan.md, fiches/prets.md et fiches/reunions.md. Les fiches ont été mises à jour avec de nouvelles fonctionnalités. Mets à jour plan.md pour refléter les nouvelles portes d'entrée, sans ajouter de détails internes.</p>
+</blockquote>
+<h3>La règle d'or</h3>
+<p><strong><code>plan.md</code> ne change que quand une porte d'entrée change.</strong> Si vous modifiez comment une partie fonctionne en interne sans changer ce qu'on peut lui demander, <code>plan.md</code> reste identique.</p>
+<p>C'est exactement comme un distributeur automatique. Si le mécanicien change les rouages à l'intérieur, vous ne le voyez pas — vous appuyez sur les mêmes boutons et vous recevez les mêmes produits. Mais si le distributeur ajoute une nouvelle boisson, il y a un nouveau bouton. C'est CE changement qui apparaît dans la vue d'ensemble.</p>
+<hr>
+<h2 id="m3-bilan">Ce que vous avez appris</h2>
+<h3>En une phrase</h3>
+<p><strong>Quand un projet grandit, il faut montrer à l'IA la bonne quantité d'information : assez pour qu'elle comprenne le contexte, pas trop pour qu'elle se noie.</strong></p>
+<h3>Les trois nouveaux réflexes</h3>
+<ol start="7">
+<li>
+<p><strong>Séparez la vue d'ensemble des fiches détaillées.</strong> <code>plan.md</code> montre toutes les parties et leurs portes d'entrée. Les fiches dans <code>fiches/</code> contiennent le détail interne d'une seule partie.</p>
+</li>
+<li>
+<p><strong>Travaillez une partie à la fois.</strong> Demandez à Claude de lire <code>plan.md</code> + la fiche de la partie concernée. Pas tout le dossier <code>fiches/</code>.</p>
+</li>
+<li>
+<p><strong>Distinguez l'extérieur de l'intérieur.</strong> Ce qu'on peut demander à une partie (sa porte d'entrée) et comment elle fonctionne en interne sont deux choses différentes. L'un est public, l'autre est privé.</p>
+</li>
+</ol>
+<h3>Votre dossier de projet</h3>
+<pre><code>formation-ia/
 ├── plan.md                  ← vue d'ensemble (toujours lu)
 ├── fiches/
 │   ├── comptes.md           ← détails internes + parcours
@@ -439,36 +338,26 @@ git commit -m "Module 3 : avant travail parallèle"</code></pre>
 │   ├── statistiques.md
 │   └── evenements.md        ← votre fiche !
 └── (code de l'application)</code></pre>
-
-        <h3>Ce qu'on n'a toujours pas fait</h3>
-
-        <p>On n'a toujours pas :</p>
-        <ul>
-          <li>Appris un langage de programmation</li>
-          <li>Compris le code que Claude &eacute;crit</li>
-        </ul>
-
-        <p>Mais remarquez ce qu'on SAIT faire maintenant. On sait :</p>
-        <ul>
-          <li>D&eacute;couper un projet en parties avec des responsabilit&eacute;s claires (Module 1)</li>
-          <li>D&eacute;crire comment elles travaillent ensemble et g&egrave;rent les erreurs (Module 2)</li>
-          <li>Contr&ocirc;ler l'information qu'on donne &agrave; l'IA pour rester efficace (Module 3)</li>
-        </ul>
-
-        <p>Ce sont les m&ecirc;mes comp&eacute;tences qu'un architecte logiciel professionnel. Juste sans le jargon.</p>
-
-        <hr>
-
-        <h2>Avant de partir &mdash; sauvegardez</h2>
-
-        <pre data-lang="bash"><code>git add .
+<h3>Ce qu'on n'a toujours pas fait</h3>
+<p>On n'a toujours pas :</p>
+<ul>
+<li>Appris un langage de programmation</li>
+<li>Compris le code que Claude écrit</li>
+</ul>
+<p>Mais remarquez ce qu'on SAIT faire maintenant. On sait :</p>
+<ul>
+<li>Découper un projet en parties avec des responsabilités claires (Module 1)</li>
+<li>Décrire comment elles travaillent ensemble et gèrent les erreurs (Module 2)</li>
+<li>Contrôler l'information qu'on donne à l'IA pour rester efficace (Module 3)</li>
+</ul>
+<p>Ce sont les mêmes compétences qu'un architecte logiciel professionnel. Juste sans le jargon.</p>
+<hr>
+<h2 id="m3-sauvegarde">Avant de partir — sauvegardez</h2>
+<pre data-lang="bash"><code>git add .
 git commit -m "Module 3 terminé : vue d'ensemble et fiches détaillées"</code></pre>
-
-        <hr>
-
-        <h2>La suite</h2>
-
-        <p>Dans le Module 4, on va affronter la question la plus difficile : <strong>comment savoir si ce que Claude a construit marche vraiment ?</strong> Vous lui faites confiance depuis le d&eacute;but &mdash; mais comment v&eacute;rifier qu'un paiement qui "marche" marche vraiment ? Qu'une annulation annule vraiment tout ? On va apprendre &agrave; &eacute;crire des <strong>sc&eacute;narios de v&eacute;rification</strong> &mdash; sans savoir lire le code.</p>
+<hr>
+<h2 id="m3-suite">La suite</h2>
+<p>Dans le Module 4, on va affronter la question la plus difficile : <strong>comment savoir si ce que Claude a construit marche vraiment ?</strong> Vous lui faites confiance depuis le début — mais comment vérifier qu'un paiement qui "marche" marche vraiment ? Qu'une annulation annule vraiment tout ? On va apprendre à écrire des <strong>scénarios de vérification</strong> — sans savoir lire le code.</p>
 
       </div>
     </main>

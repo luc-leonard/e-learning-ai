@@ -13,172 +13,124 @@
     <main class="main-content">
       <div class="module-content">
 
-        <h1>Module 2 : Le passage du témoin</h1>
-        <p class="module-subtitle"><em>Quand les parties de votre projet doivent travailler ensemble — et que ça dérape</em></p>
-
-        <hr>
-
-        <h2 id="m2-ce-que-vous-savez">Ce que vous savez déjà</h2>
-
-        <p>Dans le Module 1, vous avez appris à découper votre projet en parties distinctes, chacune avec un rôle clair et des limites. Votre club de lecture a maintenant un plan dans <code>plan.md</code> : Comptes, Livres, Critiques, Prêts, etc.</p>
-
-        <p>Ça a réglé un gros problème. Mais ça en a créé un nouveau.</p>
-
-        <div class="module-meta">
-          <div class="module-meta-item"><strong>Durée :</strong> 4-5 heures (en une ou deux sessions)</div>
-          <div class="module-meta-item"><strong>Ce qu'il vous faut :</strong> Votre projet du Module 1 (avec <code>plan.md</code>), Claude Code, votre carnet</div>
-        </div>
-
-        <hr>
-
-        <h2 id="m2-analogie">Avant de commencer : une analogie</h2>
-
-        <p>Imaginez une course de relais. Quatre coureurs, chacun excellent dans sa spécialité. Le premier sprinte, passe le témoin au deuxième, qui le passe au troisième, et ainsi de suite.</p>
-
-        <p>Chaque coureur pris individuellement est parfait. Mais la course se gagne ou se perd <strong>au moment où le témoin passe d'une main à l'autre.</strong></p>
-
-        <p>Si le deuxième coureur laisse tomber le témoin, que fait-on ? Le premier coureur a déjà couru — on ne peut pas "annuler" sa course. Le troisième attend un témoin qui n'arrive pas. Et le chrono tourne.</p>
-
-        <p>Dans votre application, c'est pareil. Vos parties sont bien découpées. Mais quand un utilisateur fait quelque chose — s'inscrire à une réunion, emprunter un livre, payer pour un événement — ça déclenche <strong>une chaîne d'actions à travers plusieurs parties</strong>. Et si une étape de la chaîne échoue, tout le reste doit réagir. C'est là que les choses deviennent intéressantes.</p>
-
-        <hr>
-
-        <div class="step-header" id="m2-etape1">
-          <span class="step-number">1</span>
-          <h2>Provoquer la catastrophe <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(90 min)</small></h2>
-        </div>
-
-        <h3>Ce que vous allez faire</h3>
-
-        <p>Ouvrez le terminal intégré de VSCode et lancez Claude Code :</p>
-
-        <pre data-lang="bash"><code>claude</code></pre>
-
-        <p>Votre projet du Module 1 est toujours là, avec le code et <code>plan.md</code>. Commencez par vérifier que le site fonctionne encore — lancez-le et ouvrez-le dans votre navigateur.</p>
-
-        <p><strong>Une précision importante :</strong> dans ce module, on va parler de "paiements" et de "notifications par email". Ce sont des <strong>simulations</strong>. Un paiement, c'est juste le site qui vérifie que le membre a assez d'argent (fictif) et qui le soustrait. Un email, c'est juste un message qui s'affiche ou s'enregistre quelque part. On ne branche pas de vraie banque ni de vrai service d'email. Si Claude vous propose d'installer Stripe ou un service de mail, dites-lui de simuler.</p>
-
-        <p>Une fois le site lancé, envoyez ces scénarios <strong>un par un</strong> à Claude Code. Pour chacun, demandez-lui de l'implémenter, puis <strong>relancez le site et vérifiez dans votre navigateur</strong> que ça marche.</p>
-
-        <blockquote><p><strong>Scénario 1 : L'inscription à une réunion payante</strong><br>
-        "Un membre veut s'inscrire à une réunion qui coûte 5€. Il faut : vérifier qu'il est bien membre, vérifier qu'il reste des places, prendre le paiement, l'inscrire, et lui envoyer une confirmation. Implémente ça. Les paiements et les emails sont simulés."</p></blockquote>
-
-        <blockquote><p><strong>Scénario 2 : L'annulation</strong><br>
-        "Le membre de tout à l'heure veut annuler. Il faut : le désinscrire, le rembourser, libérer sa place, et lui envoyer une confirmation d'annulation. Implémente ça."</p></blockquote>
-
-        <blockquote><p><strong>Scénario 3 : La réunion annulée par l'admin</strong><br>
-        "L'admin annule une réunion. Il faut : rembourser TOUS les inscrits, les désinscrire, les prévenir, et mettre à jour les statistiques. Implémente ça."</p></blockquote>
-
-        <blockquote><p><strong>Scénario 4 : Le prêt de livre problématique</strong><br>
-        "Un membre emprunte un livre. Puis il est banni par l'admin. Que devient le prêt ? Le livre doit être rendu. Le propriétaire doit être prévenu. Implémente ça."</p></blockquote>
-
-        <blockquote><p><strong>Scénario 5 : L'inscription simultanée</strong><br>
-        "Il reste une seule place à une réunion. Deux membres cliquent sur 'S'inscrire' en même temps. Que se passe-t-il ? Implémente une solution."</p></blockquote>
-
-        <div class="callout callout-red">
-          <div class="callout-title">🔴 Ce que vous devez surveiller</div>
-          <p>Cette fois, les problèmes ne viennent pas de l'oubli de Claude. Le plan est là, les parties sont bien découpées. Les problèmes viennent de quelque chose de nouveau :</p>
-        </div>
-
-        <div class="callout callout-flag">
-          <div class="callout-title">🚩 Claude traite chaque étape comme si elle allait toujours marcher.</div>
-          <p>Pour le scénario 1, il va probablement écrire : "vérifier le membre, vérifier les places, prendre le paiement, inscrire, envoyer l'email" — en ligne droite, comme si rien ne pouvait mal tourner. Mais que se passe-t-il si le paiement échoue APRÈS avoir réservé la place ? La place est bloquée, le membre n'est pas inscrit, et personne ne sait pourquoi.</p>
-        </div>
-
-        <div class="callout callout-flag">
-          <div class="callout-title">🚩 Les annulations sont un cauchemar.</div>
-          <p>Pour les scénarios 2 et 3, observez comment Claude gère le cas où le remboursement échoue. Est-ce qu'il désinscrit quand même le membre ? Est-ce qu'il envoie l'email d'annulation alors que l'argent n'est pas rendu ? Souvent, il fait tout en parallèle sans se soucier de l'ordre.</p>
-        </div>
-
-        <div class="callout callout-flag">
-          <div class="callout-title">🚩 Les effets en cascade ne sont pas gérés.</div>
-          <p>Pour le scénario 4, Claude va probablement bannir le membre et gérer le prêt séparément, sans lien entre les deux. Le propriétaire du livre ne sera pas prévenu, ou sera prévenu deux fois, ou sera prévenu que le livre est rendu alors qu'il ne l'est pas encore.</p>
-        </div>
-
-        <div class="callout callout-flag">
-          <div class="callout-title">🚩 Le scénario 5 n'a souvent aucune solution.</div>
-          <p>Deux personnes, une place. Claude va probablement ignorer le problème ou proposer une solution naïve qui ne marche pas vraiment.</p>
-        </div>
-
-        <h3>Ce que vous devez noter dans votre carnet</h3>
-
-        <blockquote class="notebook-prompt"><p>✍️ Pour chaque scénario, est-ce que Claude a mentionné ce qui pouvait mal tourner ? Ou est-ce qu'il a supposé que tout marcherait ?</p></blockquote>
-        <blockquote class="notebook-prompt"><p>✍️ Quand vous lui avez demandé "et si le paiement échoue ?", est-ce qu'il avait prévu le cas ?</p></blockquote>
-        <blockquote class="notebook-prompt"><p>✍️ Est-ce que les parties se "préviennent" entre elles quand quelque chose change ?</p></blockquote>
-
-        <hr>
-
-        <div class="step-header" id="m2-etape2">
-          <span class="step-number">2</span>
-          <h2>Comprendre le problème <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(15 min)</small></h2>
-        </div>
-
-        <div class="spoiler">
-          <button class="spoiler-toggle"><span class="spoiler-icon">▶</span>Lisez ceci APRÈS avoir fait l'étape 1</button>
-          <div class="spoiler-content">
-            <div class="spoiler-inner">
-
-        <p>Dans le Module 1, le problème c'était l'organisation dans l'<strong>espace</strong> : quoi va où, qui fait quoi. On a résolu ça avec le plan.</p>
-
-        <p>Maintenant, le problème c'est l'organisation dans le <strong>temps</strong> : dans quel ordre les choses se passent, et que faire quand une étape échoue.</p>
-
-        <p>Voici une analogie du quotidien.</p>
-
-        <p><strong>Commander un meuble en ligne, c'est une chaîne d'actions :</strong></p>
-
-        <ol>
-          <li>Vous payez → la boutique reçoit l'argent</li>
-          <li>La boutique confirme → le stock est mis à jour</li>
-          <li>L'entrepôt prépare → le colis est créé</li>
-          <li>Le livreur livre → vous recevez le meuble</li>
-        </ol>
-
-        <p>Ça a l'air simple. Mais que se passe-t-il si le livreur ne vous trouve pas à l'étape 4 ?</p>
-
-        <ul>
-          <li>Le colis revient à l'entrepôt → le stock est remis à jour</li>
-          <li>La boutique vous contacte → vous replanifiez</li>
-          <li>Si vous annulez → le paiement est remboursé</li>
-        </ul>
-
-        <p>Chaque étape a une <strong>étape inverse</strong> au cas où ça rate. Et l'ordre compte : on ne rembourse pas avant d'avoir récupéré le colis.</p>
-
-        <p>Les bonnes boutiques en ligne gèrent tout ça automatiquement. Les mauvaises vous font appeler le service client pendant 45 minutes parce que votre colis est "livré" dans leur système alors que vous ne l'avez jamais reçu.</p>
-
-        <p><strong>Votre application du Module 1, c'est la mauvaise boutique en ligne.</strong> Les parties fonctionnent individuellement, mais personne n'a écrit ce qui se passe entre elles, dans quel ordre, et comment revenir en arrière si ça rate.</p>
-
-            </div>
-          </div>
-        </div>
-
-        <hr>
-
-        <div class="step-header" id="m2-etape3">
-          <span class="step-number">3</span>
-          <h2>Écrire les parcours <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(45 min)</small></h2>
-        </div>
-
-        <h3>Ce que vous allez faire</h3>
-
-        <p>Quittez Claude Code (<code>/exit</code>), puis relancez-le pour repartir avec un regard frais :</p>
-
-        <pre data-lang="bash"><code>claude</code></pre>
-
-        <p>Vous allez ajouter des <strong>parcours</strong> à votre plan. Un parcours, c'est une action complète vue du point de vue de l'utilisateur, qui traverse plusieurs parties. Demandez à Claude Code :</p>
-
-        <blockquote><p>Lis plan.md. Je veux ajouter des "parcours" à la suite du plan existant. Un parcours décrit une action complète qui traverse plusieurs parties. Pour chaque parcours, je veux :</p>
-        <ol>
-          <li>Les étapes dans l'ordre (quelle partie fait quoi, à quel moment)</li>
-          <li>Pour chaque étape : que se passe-t-il si elle échoue ?</li>
-          <li>La règle de retour en arrière : comment on "défait" ce qui a été fait avant</li>
-        </ol>
-        <p>Écris ça en français simple directement dans plan.md, à la suite du plan existant. Commence par ce parcours : "Un membre s'inscrit à une réunion payante."</p></blockquote>
-
-        <h3>Ce que Claude va écrire dans plan.md</h3>
-
-        <p>Quelque chose qui ressemble à ça :</p>
-
-        <pre><code>PARCOURS : Inscription à une réunion payante
+<h1>Module 2 : Le passage du témoin</h1>
+<p class="module-subtitle"><em>Quand les parties de votre projet doivent travailler ensemble — et que ça dérape</em></p>
+<hr>
+<h2>Ce que vous savez déjà</h2>
+<p>Dans le Module 1, vous avez appris à découper votre projet en parties distinctes, chacune avec un rôle clair et des limites. Votre club de lecture a maintenant un plan dans <code>plan.md</code> : Comptes, Livres, Critiques, Prêts, etc.</p>
+<p>Ça a réglé un gros problème. Mais ça en a créé un nouveau.</p>
+<div class="module-meta">
+<div class="module-meta-item"><strong>Durée :</strong> 4-5 heures (en une ou deux sessions)</div>
+<div class="module-meta-item"><strong>Ce qu'il vous faut :</strong> Votre projet du Module 1 (avec `plan.md`), Claude Code, votre carnet</div>
+</div>
+<hr>
+<h2 id="m2-analogie">Avant de commencer : une analogie</h2>
+<p>Imaginez une course de relais. Quatre coureurs, chacun excellent dans sa spécialité. Le premier sprinte, passe le témoin au deuxième, qui le passe au troisième, et ainsi de suite.</p>
+<p>Chaque coureur pris individuellement est parfait. Mais la course se gagne ou se perd <strong>au moment où le témoin passe d'une main à l'autre.</strong></p>
+<p>Si le deuxième coureur laisse tomber le témoin, que fait-on ? Le premier coureur a déjà couru — on ne peut pas "annuler" sa course. Le troisième attend un témoin qui n'arrive pas. Et le chrono tourne.</p>
+<p>Dans votre application, c'est pareil. Vos parties sont bien découpées. Mais quand un utilisateur fait quelque chose — s'inscrire à une réunion, emprunter un livre, payer pour un événement — ça déclenche <strong>une chaîne d'actions à travers plusieurs parties</strong>. Et si une étape de la chaîne échoue, tout le reste doit réagir. C'est là que les choses deviennent intéressantes.</p>
+<hr>
+<div class="step-header" id="m2-etape1"><span class="step-number">1</span><h2>Provoquer la catastrophe <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(90 min)</small></h2></div>
+<h3>Ce que vous allez faire</h3>
+<p>Ouvrez le terminal intégré de VSCode et lancez Claude Code :</p>
+<pre data-lang="bash"><code>claude</code></pre>
+<p>Votre projet du Module 1 est toujours là, avec le code et <code>plan.md</code>. Commencez par vérifier que le site fonctionne encore — lancez-le et ouvrez-le dans votre navigateur.</p>
+<p><strong>Une précision importante :</strong> dans ce module, on va parler de "paiements" et de "notifications par email". Ce sont des <strong>simulations</strong>. Un paiement, c'est juste le site qui vérifie que le membre a assez d'argent (fictif) et qui le soustrait. Un email, c'est juste un message qui s'affiche ou s'enregistre quelque part. On ne branche pas de vraie banque ni de vrai service d'email. Si Claude vous propose d'installer Stripe ou un service de mail, dites-lui de simuler.</p>
+<p>Une fois le site lancé, envoyez ces scénarios <strong>un par un</strong> à Claude Code. Pour chacun, demandez-lui de l'implémenter, puis <strong>relancez le site et vérifiez dans votre navigateur</strong> que ça marche.</p>
+<blockquote>
+<p><strong>Scénario 1 : L'inscription à une réunion payante</strong>
+"Un membre veut s'inscrire à une réunion qui coûte 5€. Il faut : vérifier qu'il est bien membre, vérifier qu'il reste des places, prendre le paiement, l'inscrire, et lui envoyer une confirmation. Implémente ça. Les paiements et les emails sont simulés."</p>
+</blockquote>
+<blockquote>
+<p><strong>Scénario 2 : L'annulation</strong>
+"Le membre de tout à l'heure veut annuler. Il faut : le désinscrire, le rembourser, libérer sa place, et lui envoyer une confirmation d'annulation. Implémente ça."</p>
+</blockquote>
+<blockquote>
+<p><strong>Scénario 3 : La réunion annulée par l'admin</strong>
+"L'admin annule une réunion. Il faut : rembourser TOUS les inscrits, les désinscrire, les prévenir, et mettre à jour les statistiques. Implémente ça."</p>
+</blockquote>
+<blockquote>
+<p><strong>Scénario 4 : Le prêt de livre problématique</strong>
+"Un membre emprunte un livre. Puis il est banni par l'admin. Que devient le prêt ? Le livre doit être rendu. Le propriétaire doit être prévenu. Implémente ça."</p>
+</blockquote>
+<blockquote>
+<p><strong>Scénario 5 : L'inscription simultanée</strong>
+"Il reste une seule place à une réunion. Deux membres cliquent sur 'S'inscrire' en même temps. Que se passe-t-il ? Implémente une solution."</p>
+</blockquote>
+<div class="callout callout-red">
+<div class="callout-title">🔴 Ce que vous devez surveiller</div>
+<p>Cette fois, les problèmes ne viennent pas de l'oubli de Claude. Le plan est là, les parties sont bien découpées. Les problèmes viennent de quelque chose de nouveau :</p>
+</div>
+<div class="callout callout-flag">
+<div class="callout-title">🚩 Claude traite chaque étape comme si elle allait toujours marcher.</div>
+<p>Pour le scénario 1, il va probablement écrire : "vérifier le membre, vérifier les places, prendre le paiement, inscrire, envoyer l'email" — en ligne droite, comme si rien ne pouvait mal tourner. Mais que se passe-t-il si le paiement échoue APRÈS avoir réservé la place ? La place est bloquée, le membre n'est pas inscrit, et personne ne sait pourquoi.</p>
+</div>
+<div class="callout callout-flag">
+<div class="callout-title">🚩 Les annulations sont un cauchemar.</div>
+<p>Pour les scénarios 2 et 3, observez comment Claude gère le cas où le remboursement échoue. Est-ce qu'il désinscrit quand même le membre ? Est-ce qu'il envoie l'email d'annulation alors que l'argent n'est pas rendu ? Souvent, il fait tout en parallèle sans se soucier de l'ordre.</p>
+</div>
+<div class="callout callout-flag">
+<div class="callout-title">🚩 Les effets en cascade ne sont pas gérés.</div>
+<p>Pour le scénario 4, Claude va probablement bannir le membre et gérer le prêt séparément, sans lien entre les deux. Le propriétaire du livre ne sera pas prévenu, ou sera prévenu deux fois, ou sera prévenu que le livre est rendu alors qu'il ne l'est pas encore.</p>
+</div>
+<div class="callout callout-flag">
+<div class="callout-title">🚩 Le scénario 5 n'a souvent aucune solution.</div>
+<p>Deux personnes, une place. Claude va probablement ignorer le problème ou proposer une solution naïve qui ne marche pas vraiment.</p>
+</div>
+<h3>Ce que vous devez noter dans votre carnet</h3>
+<blockquote class="notebook-prompt">
+<p>✍️ Pour chaque scénario, est-ce que Claude a mentionné ce qui pouvait mal tourner ? Ou est-ce qu'il a supposé que tout marcherait ?</p>
+</blockquote>
+<blockquote class="notebook-prompt">
+<p>✍️ Quand vous lui avez demandé "et si le paiement échoue ?", est-ce qu'il avait prévu le cas ?</p>
+</blockquote>
+<blockquote class="notebook-prompt">
+<p>✍️ Est-ce que les parties se "préviennent" entre elles quand quelque chose change ?</p>
+</blockquote>
+<hr>
+<div class="step-header" id="m2-etape2"><span class="step-number">2</span><h2>Comprendre le problème <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(15 min)</small></h2></div>
+<div class="spoiler">
+<button class="spoiler-toggle"><span class="spoiler-icon">▶</span>Lisez ceci APRÈS avoir fait l'étape 1</button>
+<div class="spoiler-content"><div class="spoiler-inner">
+<p>Dans le Module 1, le problème c'était l'organisation dans l'<strong>espace</strong> : quoi va où, qui fait quoi. On a résolu ça avec le plan.</p>
+<p>Maintenant, le problème c'est l'organisation dans le <strong>temps</strong> : dans quel ordre les choses se passent, et que faire quand une étape échoue.</p>
+<p>Voici une analogie du quotidien.</p>
+<p><strong>Commander un meuble en ligne, c'est une chaîne d'actions :</strong></p>
+<ol>
+<li>Vous payez → la boutique reçoit l'argent</li>
+<li>La boutique confirme → le stock est mis à jour</li>
+<li>L'entrepôt prépare → le colis est créé</li>
+<li>Le livreur livre → vous recevez le meuble</li>
+</ol>
+<p>Ça a l'air simple. Mais que se passe-t-il si le livreur ne vous trouve pas à l'étape 4 ?</p>
+<ul>
+<li>Le colis revient à l'entrepôt → le stock est remis à jour</li>
+<li>La boutique vous contacte → vous replanifiez</li>
+<li>Si vous annulez → le paiement est remboursé</li>
+</ul>
+<p>Chaque étape a une <strong>étape inverse</strong> au cas où ça rate. Et l'ordre compte : on ne rembourse pas avant d'avoir récupéré le colis.</p>
+<p>Les bonnes boutiques en ligne gèrent tout ça automatiquement. Les mauvaises vous font appeler le service client pendant 45 minutes parce que votre colis est "livré" dans leur système alors que vous ne l'avez jamais reçu.</p>
+<p><strong>Votre application du Module 1, c'est la mauvaise boutique en ligne.</strong> Les parties fonctionnent individuellement, mais personne n'a écrit ce qui se passe entre elles, dans quel ordre, et comment revenir en arrière si ça rate.</p>
+</div></div>
+</div>
+<hr>
+<div class="step-header" id="m2-etape3"><span class="step-number">3</span><h2>Écrire les parcours <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(45 min)</small></h2></div>
+<h3>Ce que vous allez faire</h3>
+<p>Quittez Claude Code (<code>/exit</code>), puis relancez-le pour repartir avec un regard frais :</p>
+<pre data-lang="bash"><code>claude</code></pre>
+<p>Vous allez ajouter des <strong>parcours</strong> à votre plan. Un parcours, c'est une action complète vue du point de vue de l'utilisateur, qui traverse plusieurs parties. Demandez à Claude Code :</p>
+<blockquote>
+<p>Lis plan.md. Je veux ajouter des "parcours" à la suite du plan existant. Un parcours décrit une action complète qui traverse plusieurs parties. Pour chaque parcours, je veux :</p>
+<ol>
+<li>Les étapes dans l'ordre (quelle partie fait quoi, à quel moment)</li>
+<li>Pour chaque étape : que se passe-t-il si elle échoue ?</li>
+<li>La règle de retour en arrière : comment on "défait" ce qui a été fait avant</li>
+</ol>
+<p>Écris ça en français simple directement dans plan.md, à la suite du plan existant. Commence par ce parcours : "Un membre s'inscrit à une réunion payante."</p>
+</blockquote>
+<h3>Ce que Claude va écrire dans plan.md</h3>
+<p>Quelque chose qui ressemble à ça :</p>
+<pre><code>PARCOURS : Inscription à une réunion payante
 
 Étape 1 → Comptes : vérifier que le membre est connecté
   Si ça rate : on s'arrête, on lui demande de se connecter
@@ -203,177 +155,122 @@
 Étape 6 → Notifications : envoyer l'email de confirmation
   Si ça rate : tant pis, l'inscription est quand même valide
   (une notification ratée ne remet pas en cause l'inscription)</code></pre>
-
-        <h3>Le moment important</h3>
-
-        <p>Regardez bien la dernière étape. L'email de confirmation qui échoue <strong>n'annule pas l'inscription</strong>. C'est une décision de design, pas une décision technique. Et c'est VOUS qui devez la prendre, pas Claude.</p>
-
-        <p>Toutes les étapes ne se valent pas. Certaines sont critiques (le paiement), d'autres sont importantes mais pas fatales (la notification). Savoir faire la différence, c'est ça le travail de l'architecte.</p>
-
-        <h3>Continuez avec les autres parcours</h3>
-
-        <p>Demandez à Claude Code d'ajouter dans <code>plan.md</code> les parcours pour :</p>
-
-        <ul>
-          <li>"Un membre annule son inscription"</li>
-          <li>"Un admin annule une réunion entière"</li>
-          <li>"Un membre est banni alors qu'il a un livre emprunté"</li>
-        </ul>
-
-        <p>Relisez <code>plan.md</code> dans VSCode après chaque ajout. Modifiez ce qui ne vous semble pas logique. C'est votre plan, pas celui de Claude.</p>
-
-        <hr>
-
-        <h2 id="m2-repartir">Repartir de zéro — proprement</h2>
-
-        <p>Le code actuel est celui de l'étape 1 — chaotique, cassé par les scénarios qu'on a empilés. On ne va pas essayer de le réparer. On va le jeter et repartir du code propre du Module 1.</p>
-
-        <p>Mais attention : vous venez d'écrire des parcours dans <code>plan.md</code>, et vous ne voulez pas les perdre. La solution : <strong>committer uniquement <code>plan.md</code></strong>, puis jeter le reste.</p>
-
-        <pre data-lang="bash"><code>git add plan.md
+<h3>Le moment important</h3>
+<p>Regardez bien la dernière étape. L'email de confirmation qui échoue <strong>n'annule pas l'inscription</strong>. C'est une décision de design, pas une décision technique. Et c'est VOUS qui devez la prendre, pas Claude.</p>
+<p>Toutes les étapes ne se valent pas. Certaines sont critiques (le paiement), d'autres sont importantes mais pas fatales (la notification). Savoir faire la différence, c'est ça le travail de l'architecte.</p>
+<h3>Continuez avec les autres parcours</h3>
+<p>Demandez à Claude Code d'ajouter dans <code>plan.md</code> les parcours pour :</p>
+<ul>
+<li>"Un membre annule son inscription"</li>
+<li>"Un admin annule une réunion entière"</li>
+<li>"Un membre est banni alors qu'il a un livre emprunté"</li>
+</ul>
+<p>Relisez <code>plan.md</code> dans VSCode après chaque ajout. Modifiez ce qui ne vous semble pas logique. C'est votre plan, pas celui de Claude.</p>
+<hr>
+<h2 id="m2-repartir">Repartir de zéro — proprement</h2>
+<p>Le code actuel est celui de l'étape 1 — chaotique, cassé par les scénarios qu'on a empilés. On ne va pas essayer de le réparer. On va le jeter et repartir du code propre du Module 1.</p>
+<p>Mais attention : vous venez d'écrire des parcours dans <code>plan.md</code>, et vous ne voulez pas les perdre. La solution : <strong>committer uniquement <code>plan.md</code></strong>, puis jeter le reste.</p>
+<pre data-lang="bash"><code>git add plan.md
 git commit -m "Module 2 : ajout des parcours dans plan.md"</code></pre>
-
-        <p>Remarquez la différence avec <code>git add .</code> : ici, on n'ajoute <strong>qu'un seul fichier</strong>. Le code cassé n'est pas inclus dans le commit.</p>
-
-        <p>Maintenant, jetez tout le code cassé :</p>
-
-        <pre data-lang="bash"><code>git checkout .</code></pre>
-
-        <p>Tous les fichiers de code reviennent à leur état du Module 1 — propre et fonctionnel. Mais <code>plan.md</code> garde ses parcours, parce qu'il a été commité juste avant. Vérifiez dans VSCode : le code est redevenu celui du Module 1, et <code>plan.md</code> contient bien les parcours.</p>
-
-        <hr>
-
-        <div class="step-header" id="m2-etape4">
-          <span class="step-number">4</span>
-          <h2>Reconstruire avec les parcours <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(60-90 min)</small></h2>
-        </div>
-
-        <h3>Ce que vous allez faire</h3>
-
-        <p>Quittez Claude Code et relancez-le :</p>
-
-        <pre data-lang="bash"><code>claude</code></pre>
-
-        <p>Votre <code>plan.md</code> contient maintenant les parties ET les parcours, et votre code est propre. Demandez à Claude Code de reconstruire en suivant le plan complet :</p>
-
-        <blockquote><p>Lis plan.md. Il contient le plan de mon application (les parties) et les parcours (les chaînes d'actions avec gestion d'erreur). Reconstruis l'application en suivant ce plan. Pour chaque parcours, respecte exactement l'ordre des étapes et les règles de retour en arrière décrites. Les paiements et emails sont simulés.</p></blockquote>
-
-        <p>Lancez le site, vérifiez dans le navigateur. Si une partie ne fonctionne pas, corrigez-la avant de passer à la suivante.</p>
-
-        <div class="callout callout-green">
-          <div class="callout-title">🟢 Ce que vous allez remarquer</div>
-          <ul>
-            <li>Claude gère maintenant les échecs <strong>à chaque étape</strong>, pas juste le cas où tout va bien</li>
-            <li>L'ordre est respecté : on ne confirme pas avant d'avoir payé</li>
-            <li>Les retours en arrière sont cohérents : si le paiement échoue, la place est libérée</li>
-            <li>Les notifications sont traitées comme "pas critiques" — un email raté ne casse plus rien</li>
-          </ul>
-        </div>
-
-        <h3>Le test acide</h3>
-
-        <p>Demandez à Claude Code :</p>
-
-        <blockquote><p>"Que se passe-t-il si le paiement est lent et met 30 secondes à répondre ? Est-ce que la place reste réservée pendant ce temps ? Pendant combien de temps ?"</p></blockquote>
-
-        <p>Si votre parcours est bien écrit, Claude pourra répondre. Si non, il va inventer — et c'est un signe que le parcours a besoin d'être complété.</p>
-
-        <h3>Ce que vous devez noter dans votre carnet</h3>
-
-        <blockquote class="notebook-prompt"><p>✍️ Est-ce que le site se lance et fonctionne après chaque parcours implémenté ?</p></blockquote>
-        <blockquote class="notebook-prompt"><p>✍️ Comparez avec l'étape 1 : est-ce que Claude gère mieux les cas d'erreur ?</p></blockquote>
-        <blockquote class="notebook-prompt"><p>✍️ Est-ce qu'il y a des cas que les parcours ne couvrent pas encore ?</p></blockquote>
-
-        <hr>
-
-        <div class="step-header" id="m2-etape5">
-          <span class="step-number">5</span>
-          <h2>Le scénario impossible <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(20 min)</small></h2>
-        </div>
-
-        <h3>Ce que vous allez faire</h3>
-
-        <p>Reprenez le scénario 5 de l'étape 1 :</p>
-
-        <blockquote><p>Il reste une place. Deux personnes cliquent en même temps. Que se passe-t-il ?</p></blockquote>
-
-        <p>Demandez à Claude Code de vous expliquer le problème <strong>avec une analogie du quotidien, pas du jargon technique</strong>.</p>
-
-        <div class="spoiler">
-          <button class="spoiler-toggle"><span class="spoiler-icon">▶</span>Lisez ceci APRÈS avoir lu la réponse de Claude</button>
-          <div class="spoiler-content">
-            <div class="spoiler-inner">
-
-        <p>L'analogie que Claude vous a probablement donnée ressemble à quelque chose comme : deux personnes qui veulent le même objet au même moment, avec un mécanisme de "mise de côté" le temps de finaliser.</p>
-
-        <p>C'est exactement ce que fait votre parcours : l'étape 3 <strong>réserve</strong> la place avant le paiement. Si le paiement échoue ou prend trop de temps, la réservation expire et la place redevient disponible.</p>
-
-            </div>
-          </div>
-        </div>
-
-        <h3>Pourquoi c'est important</h3>
-
-        <p>Ce problème — deux personnes qui veulent la même chose au même moment — existe dans presque toutes les applications. Votre parcours le résout naturellement, parce que vous avez séparé "réserver" et "confirmer" en deux étapes distinctes.</p>
-
-        <p>Si vous n'aviez pas de parcours, Claude aurait fait "vérifier qu'il reste des places" et "inscrire" en une seule étape. Et entre le moment où il vérifie et le moment où il inscrit, quelqu'un d'autre pourrait prendre la dernière place.</p>
-
-        <hr>
-
-        <div class="step-header" id="m2-etape6">
-          <span class="step-number">6</span>
-          <h2>Compléter le plan <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(30 min)</small></h2>
-        </div>
-
-        <h3>Ce que vous allez faire</h3>
-
-        <p>Votre plan a maintenant deux niveaux : les parties et les parcours. Il est temps d'écrire un parcours <strong>vous-même</strong>, sans l'aide de Claude.</p>
-
-        <p>Ouvrez <code>plan.md</code> dans VSCode et ajoutez un parcours pour une action que vos membres pourraient vouloir faire et qui touche à plusieurs parties. Par exemple :</p>
-
-        <ul>
-          <li>"Un membre change de chapitre local (déménagement)"</li>
-          <li>"Un membre propose un livre qui existe déjà dans un autre chapitre"</li>
-          <li>"L'admin fusionne deux chapitres"</li>
-        </ul>
-
-        <p>Écrivez les étapes et les cas d'échec <strong>à la main dans VSCode</strong>. Pas besoin que ce soit parfait — essayez juste de suivre le même format que les autres parcours.</p>
-
-        <p>Quand c'est fait, demandez à Claude Code :</p>
-
-        <blockquote><p>Lis plan.md. J'ai ajouté un nouveau parcours à la fin. Relis-le et dis-moi ce que j'ai oublié ou ce qui ne tient pas la route. Ne le réécris pas — dis-moi juste ce qui manque.</p></blockquote>
-
-        <h3>Le déclic</h3>
-
-        <p>Si vous arrivez à écrire un parcours qui tient la route avant même de demander à Claude, vous avez compris quelque chose de fondamental : <strong>vous ne décrivez pas du code, vous décrivez des règles de fonctionnement</strong>. C'est comme écrire le règlement intérieur d'un club — qui a le droit de faire quoi, dans quel ordre, et que faire quand ça dérape.</p>
-
-        <h3>Ce que vous devez noter dans votre carnet</h3>
-
-        <blockquote class="notebook-prompt"><p>✍️ Quel parcours avez-vous choisi ? Pourquoi ?</p></blockquote>
-        <blockquote class="notebook-prompt"><p>✍️ Qu'est-ce que Claude a trouvé que vous aviez oublié ?</p></blockquote>
-        <blockquote class="notebook-prompt"><p>✍️ Est-ce que c'était plus facile que vous ne le pensiez ?</p></blockquote>
-
-        <hr>
-
-        <h2 id="m2-bilan">Ce que vous avez appris</h2>
-
-        <h3>En une phrase</h3>
-
-        <p><strong>Découper en parties ne suffit pas. Il faut aussi décrire comment ces parties travaillent ensemble, dans quel ordre, et comment elles réagissent quand quelque chose tourne mal.</strong></p>
-
-        <h3>Les trois nouveaux réflexes</h3>
-
-        <ol start="4">
-          <li><strong>Décrivez les parcours, pas juste les parties.</strong> Un parcours = une action complète qui traverse plusieurs parties, étape par étape.</li>
-          <li><strong>Chaque étape doit prévoir son échec.</strong> Si ça peut rater, ça ratera. Écrivez ce qui se passe quand ça rate AVANT que ça rate.</li>
-          <li><strong>Toutes les étapes ne se valent pas.</strong> Un paiement raté, c'est grave. Un email raté, ce n'est pas la fin du monde. C'est vous qui décidez de cette différence, pas l'IA.</li>
-        </ol>
-
-        <h3>Votre plan mis à jour</h3>
-
-        <p>Votre <code>plan.md</code> contient maintenant :</p>
-
-        <pre><code>PARTIE : Comptes
+<p>Remarquez la différence avec <code>git add .</code> : ici, on n'ajoute <strong>qu'un seul fichier</strong>. Le code cassé n'est pas inclus dans le commit.</p>
+<p>Maintenant, jetez tout le code cassé :</p>
+<pre data-lang="bash"><code>git checkout .</code></pre>
+<p>Tous les fichiers de code reviennent à leur état du Module 1 — propre et fonctionnel. Mais <code>plan.md</code> garde ses parcours, parce qu'il a été commité juste avant. Vérifiez dans VSCode : le code est redevenu celui du Module 1, et <code>plan.md</code> contient bien les parcours.</p>
+<hr>
+<div class="step-header" id="m2-etape4"><span class="step-number">4</span><h2>Reconstruire avec les parcours <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(60-90 min)</small></h2></div>
+<h3>Ce que vous allez faire</h3>
+<p>Quittez Claude Code et relancez-le :</p>
+<pre data-lang="bash"><code>claude</code></pre>
+<p>Votre <code>plan.md</code> contient maintenant les parties ET les parcours, et votre code est propre. Demandez à Claude Code de reconstruire en suivant le plan complet :</p>
+<blockquote>
+<p>Lis plan.md. Il contient le plan de mon application (les parties) et les parcours (les chaînes d'actions avec gestion d'erreur). Reconstruis l'application en suivant ce plan. Pour chaque parcours, respecte exactement l'ordre des étapes et les règles de retour en arrière décrites. Les paiements et emails sont simulés.</p>
+</blockquote>
+<p>Lancez le site, vérifiez dans le navigateur. Si une partie ne fonctionne pas, corrigez-la avant de passer à la suivante.</p>
+<div class="callout callout-green">
+<div class="callout-title">🟢 Ce que vous allez remarquer</div>
+<ul>
+<li>Claude gère maintenant les échecs <strong>à chaque étape</strong>, pas juste le cas où tout va bien</li>
+<li>L'ordre est respecté : on ne confirme pas avant d'avoir payé</li>
+<li>Les retours en arrière sont cohérents : si le paiement échoue, la place est libérée</li>
+<li>Les notifications sont traitées comme "pas critiques" — un email raté ne casse plus rien</li>
+</ul>
+<h3>Le test acide</h3>
+<p>Demandez à Claude Code :</p>
+<blockquote>
+<p>"Que se passe-t-il si le paiement est lent et met 30 secondes à répondre ? Est-ce que la place reste réservée pendant ce temps ? Pendant combien de temps ?"</p>
+</blockquote>
+<p>Si votre parcours est bien écrit, Claude pourra répondre. Si non, il va inventer — et c'est un signe que le parcours a besoin d'être complété.</p>
+<h3>Ce que vous devez noter dans votre carnet</h3>
+<blockquote class="notebook-prompt">
+<p>✍️ Est-ce que le site se lance et fonctionne après chaque parcours implémenté ?
+✍️ Comparez avec l'étape 1 : est-ce que Claude gère mieux les cas d'erreur ?
+✍️ Est-ce qu'il y a des cas que les parcours ne couvrent pas encore ?</p>
+</blockquote>
+</div>
+<hr>
+<div class="step-header" id="m2-etape5"><span class="step-number">5</span><h2>Le scénario impossible <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(20 min)</small></h2></div>
+<h3>Ce que vous allez faire</h3>
+<p>Reprenez le scénario 5 de l'étape 1 :</p>
+<blockquote>
+<p>Il reste une place. Deux personnes cliquent en même temps. Que se passe-t-il ?</p>
+</blockquote>
+<p>Demandez à Claude Code de vous expliquer le problème <strong>avec une analogie du quotidien, pas du jargon technique</strong>.</p>
+<div class="spoiler">
+<button class="spoiler-toggle"><span class="spoiler-icon">▶</span>Lisez ceci APRÈS avoir lu la réponse de Claude</button>
+<div class="spoiler-content"><div class="spoiler-inner">
+<p>L'analogie que Claude vous a probablement donnée ressemble à quelque chose comme : deux personnes qui veulent le même objet au même moment, avec un mécanisme de "mise de côté" le temps de finaliser.</p>
+<p>C'est exactement ce que fait votre parcours : l'étape 3 <strong>réserve</strong> la place avant le paiement. Si le paiement échoue ou prend trop de temps, la réservation expire et la place redevient disponible.</p>
+<h3>Pourquoi c'est important</h3>
+<p>Ce problème — deux personnes qui veulent la même chose au même moment — existe dans presque toutes les applications. Votre parcours le résout naturellement, parce que vous avez séparé "réserver" et "confirmer" en deux étapes distinctes.</p>
+<p>Si vous n'aviez pas de parcours, Claude aurait fait "vérifier qu'il reste des places" et "inscrire" en une seule étape. Et entre le moment où il vérifie et le moment où il inscrit, quelqu'un d'autre pourrait prendre la dernière place.</p>
+</div></div>
+</div>
+<hr>
+<div class="step-header" id="m2-etape6"><span class="step-number">6</span><h2>Compléter le plan <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(30 min)</small></h2></div>
+<h3>Ce que vous allez faire</h3>
+<p>Votre plan a maintenant deux niveaux : les parties et les parcours. Il est temps d'écrire un parcours <strong>vous-même</strong>, sans l'aide de Claude.</p>
+<p>Ouvrez <code>plan.md</code> dans VSCode et ajoutez un parcours pour une action que vos membres pourraient vouloir faire et qui touche à plusieurs parties. Par exemple :</p>
+<ul>
+<li>"Un membre change de chapitre local (déménagement)"</li>
+<li>"Un membre propose un livre qui existe déjà dans un autre chapitre"</li>
+<li>"L'admin fusionne deux chapitres"</li>
+</ul>
+<p>Écrivez les étapes et les cas d'échec <strong>à la main dans VSCode</strong>. Pas besoin que ce soit parfait — essayez juste de suivre le même format que les autres parcours.</p>
+<p>Quand c'est fait, demandez à Claude Code :</p>
+<blockquote>
+<p>Lis plan.md. J'ai ajouté un nouveau parcours à la fin. Relis-le et dis-moi ce que j'ai oublié ou ce qui ne tient pas la route. Ne le réécris pas — dis-moi juste ce qui manque.</p>
+</blockquote>
+<h3>Le déclic</h3>
+<p>Si vous arrivez à écrire un parcours qui tient la route avant même de demander à Claude, vous avez compris quelque chose de fondamental : <strong>vous ne décrivez pas du code, vous décrivez des règles de fonctionnement</strong>. C'est comme écrire le règlement intérieur d'un club — qui a le droit de faire quoi, dans quel ordre, et que faire quand ça dérape.</p>
+<h3>Ce que vous devez noter dans votre carnet</h3>
+<blockquote class="notebook-prompt">
+<p>✍️ Quel parcours avez-vous choisi ? Pourquoi ?</p>
+</blockquote>
+<blockquote class="notebook-prompt">
+<p>✍️ Qu'est-ce que Claude a trouvé que vous aviez oublié ?</p>
+</blockquote>
+<blockquote class="notebook-prompt">
+<p>✍️ Est-ce que c'était plus facile que vous ne le pensiez ?</p>
+</blockquote>
+<hr>
+<h2 id="m2-bilan">Ce que vous avez appris</h2>
+<h3>En une phrase</h3>
+<p><strong>Découper en parties ne suffit pas. Il faut aussi décrire comment ces parties travaillent ensemble, dans quel ordre, et comment elles réagissent quand quelque chose tourne mal.</strong></p>
+<h3>Les trois nouveaux réflexes</h3>
+<ol start="4">
+<li>
+<p><strong>Décrivez les parcours, pas juste les parties.</strong> Un parcours = une action complète qui traverse plusieurs parties, étape par étape.</p>
+</li>
+<li>
+<p><strong>Chaque étape doit prévoir son échec.</strong> Si ça peut rater, ça ratera. Écrivez ce qui se passe quand ça rate AVANT que ça rate.</p>
+</li>
+<li>
+<p><strong>Toutes les étapes ne se valent pas.</strong> Un paiement raté, c'est grave. Un email raté, ce n'est pas la fin du monde. C'est vous qui décidez de cette différence, pas l'IA.</p>
+</li>
+</ol>
+<h3>Votre plan mis à jour</h3>
+<p>Votre <code>plan.md</code> contient maintenant :</p>
+<pre><code>PARTIE : Comptes
 → Fait : ...
 → Ne fait PAS : ...
 → A besoin de : ...
@@ -394,21 +291,14 @@ PARCOURS : Annulation
 → ...
 
 (etc.)</code></pre>
-
-        <p>C'est ce fichier que Claude Code consulte à chaque nouvelle session.</p>
-
-        <hr>
-
-        <h2 id="m2-sauvegarde">Avant de partir — sauvegardez</h2>
-
-        <pre data-lang="bash"><code>git add .
+<p>C'est ce fichier que Claude Code consulte à chaque nouvelle session.</p>
+<hr>
+<h2 id="m2-sauvegarde">Avant de partir — sauvegardez</h2>
+<pre data-lang="bash"><code>git add .
 git commit -m "Module 2 terminé : parcours et gestion d'erreurs"</code></pre>
-
-        <hr>
-
-        <h2 id="m2-suite">La suite</h2>
-
-        <p>Dans le Module 3, on va découvrir que quand un projet grandit vraiment, <code>plan.md</code> devient trop gros pour que Claude le digère d'un coup. On va apprendre à <strong>structurer l'information en niveaux</strong> pour donner à Claude exactement ce dont il a besoin — ni plus, ni moins. C'est le passage de "tout mettre dans un seul fichier" à "organiser l'information comme une carte à plusieurs zooms".</p>
+<hr>
+<h2 id="m2-suite">La suite</h2>
+<p>Dans le Module 3, on va découvrir que quand un projet grandit vraiment, <code>plan.md</code> devient trop gros pour que Claude le digère d'un coup. On va apprendre à <strong>structurer l'information en niveaux</strong> pour donner à Claude exactement ce dont il a besoin — ni plus, ni moins. C'est le passage de "tout mettre dans un seul fichier" à "organiser l'information comme une carte à plusieurs zooms".</p>
 
       </div>
     </main>

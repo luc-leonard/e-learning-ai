@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 6 — Les vrais mots, les vraies décisions</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
+</head>
+<body>
+  <div class="app">
+    <div id="sidebar-root"></div>
+    <main class="main-content">
+      <div class="module-content">
+
+<h1>Module 6 : Les vrais mots, les vraies décisions</h1>
+<p class="module-subtitle"><em>Donner un nom à ce que vous savez déjà — et apprendre à casser votre propre plan</em></p>
+<hr>
+<h2>Ce que vous savez déjà</h2>
+<p>Vous savez beaucoup plus que vous ne le croyez. Depuis cinq modules, vous pratiquez des techniques que les développeurs professionnels mettent des années à maîtriser. Vous ne connaissiez juste pas les mots.</p>
+<p>Ce module va changer ça. Et puis il va vous mettre face à un problème nouveau : <strong>que faire quand votre plan, celui que vous avez soigneusement construit, ne suffit plus ?</strong></p>
+<div class="module-meta">
+<div class="module-meta-item"><strong>Durée :</strong> 2-3 heures</div>
+<div class="module-meta-item"><strong>Ce qu'il vous faut :</strong> Votre projet complet (plan + code + tests), Claude Code, votre carnet</div>
+</div>
+<hr>
+<div class="step-header" id="m6-etape1"><span class="step-number">1</span><h2>Apprendre les vrais noms <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(30 min)</small></h2></div>
+<h3>Pourquoi c'est important</h3>
+<p>Imaginez que vous jouez de la guitare depuis un an. Vous savez placer vos doigts pour obtenir un son qui va bien après un autre. Mais vous ne connaissez pas le nom des accords. Le jour où quelqu'un vous dit "ça, c'est un La mineur", tout change. Pas parce que vous jouez mieux — mais parce que vous pouvez maintenant :</p>
+<ul>
+<li>Chercher "progressions avec La mineur" sur internet</li>
+<li>Lire une partition</li>
+<li>Parler avec d'autres musiciens</li>
+<li>Comprendre des tutoriels avancés</li>
+</ul>
+<p>C'est exactement pareil ici. Vous avez les compétences. Il vous manque le vocabulaire pour accéder au reste du monde.</p>
+<h3>Le glossaire</h3>
+<p>Lisez ce tableau lentement. Pour chaque ligne, repensez au moment où vous avez découvert le concept dans les modules précédents.</p>
+<table>
+<thead>
+<tr>
+<th>Ce que vous dites</th>
+<th>Le vrai nom</th>
+<th>Où vous l'avez appris</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"Partie"</td>
+<td><strong>Module</strong></td>
+<td>Module 1 — quand vous avez découpé le club de lecture en morceaux</td>
+</tr>
+<tr>
+<td>"Ce qu'elle ne fait PAS"</td>
+<td><strong>Responsabilité unique</strong> (ou "Single Responsibility")</td>
+<td>Module 1 — quand vous avez défini les limites de chaque partie</td>
+</tr>
+<tr>
+<td>"A besoin de"</td>
+<td><strong>Dépendance</strong></td>
+<td>Module 1 — quand une partie avait besoin d'une autre pour fonctionner</td>
+</tr>
+<tr>
+<td>"Trop entremêlé"</td>
+<td><strong>Couplage</strong></td>
+<td>Module 1 — le plat de nouilles, quand tout dépend de tout</td>
+</tr>
+<tr>
+<td>"Parcours"</td>
+<td><strong>Flux</strong> (ou "Flow")</td>
+<td>Module 2 — les chaînes d'actions qui traversent plusieurs modules</td>
+</tr>
+<tr>
+<td>"Retour en arrière quand ça rate"</td>
+<td><strong>Rollback</strong></td>
+<td>Module 2 — défaire ce qui a été fait quand une étape échoue</td>
+</tr>
+<tr>
+<td>"Deux personnes, une place"</td>
+<td><strong>Concurrence</strong></td>
+<td>Module 2 — le problème du croissant à la boulangerie</td>
+</tr>
+<tr>
+<td>"Réserver avant de confirmer"</td>
+<td><strong>Verrouillage</strong> (ou "Lock")</td>
+<td>Module 2 — mettre le croissant de côté pendant qu'on paie</td>
+</tr>
+<tr>
+<td>"Porte d'entrée"</td>
+<td><strong>Interface</strong></td>
+<td>Module 3 — ce qu'on peut demander à un module, vu de l'extérieur</td>
+</tr>
+<tr>
+<td>"L'intérieur qu'on ne montre pas"</td>
+<td><strong>Implémentation</strong></td>
+<td>Module 3 — le fonctionnement interne, caché derrière l'interface</td>
+</tr>
+<tr>
+<td>"Vue d'ensemble vs fiche détaillée"</td>
+<td><strong>Abstraction</strong></td>
+<td>Module 3 — montrer le bon niveau de détail au bon moment</td>
+</tr>
+<tr>
+<td>"Deux conversations en parallèle"</td>
+<td><strong>Découplage</strong></td>
+<td>Module 3 — des modules assez indépendants pour être travaillés séparément</td>
+</tr>
+<tr>
+<td>"Le nombre de places DOIT diminuer"</td>
+<td><strong>Invariant</strong></td>
+<td>Module 4 — une chose qui doit TOUJOURS être vraie, quoi qu'il arrive</td>
+</tr>
+<tr>
+<td>"Si je fais X, alors Y doit être vrai"</td>
+<td><strong>Test</strong> (ou "Assertion")</td>
+<td>Module 4 — une vérification précise avec un résultat oui/non</td>
+</tr>
+<tr>
+<td>"Cas bizarre"</td>
+<td><strong>Cas limite</strong> (ou "Edge case")</td>
+<td>Module 4 — les situations auxquelles personne ne pense</td>
+</tr>
+<tr>
+<td>"La conversation qui construit ≠ celle qui vérifie"</td>
+<td><strong>Séparation des préoccupations</strong> (ou "Separation of Concerns")</td>
+<td>Module 4 — ne pas être juge et partie</td>
+</tr>
+</tbody>
+</table>
+<h3>Ce que vous allez faire</h3>
+<p>Prenez votre plan (vue d'ensemble + fiches). Relisez-le et <strong>remplacez les mots simples par les vrais noms</strong>, là où c'est naturel. Pas partout — seulement là où ça rend les choses plus claires.</p>
+<p>Par exemple :</p>
+<p>Avant :</p>
+<pre><code>PARTIE : Prêts
+→ Fait : ...
+→ Ne fait PAS : ...
+→ Porte d'entrée : ...</code></pre>
+<p>Après :</p>
+<pre><code>MODULE : Prêts
+→ Responsabilité : ...
+→ Hors responsabilité : ...
+→ Interface : ...</code></pre>
+<p>Puis faites la même chose avec vos vérifications :</p>
+<p>Avant :</p>
+<pre><code>Après une inscription réussie :
+  ✓ Il reste 2 places (pas 3)</code></pre>
+<p>Après :</p>
+<pre><code>Invariant — inscription :
+  ✓ places_restantes == places_avant - 1</code></pre>
+<p>Vous n'êtes pas obligé de tout réécrire. Mais là où le vrai mot est plus précis, utilisez-le. Vous parlez maintenant le même langage que les développeurs professionnels.</p>
+<hr>
+<div class="step-header" id="m6-etape2"><span class="step-number">2</span><h2>Comprendre les invariants <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(20 min)</small></h2></div>
+<h3>Pourquoi les invariants méritent qu'on s'y attarde</h3>
+<p>De tous les mots que vous venez d'apprendre, <strong>invariant</strong> est le plus puissant. Voici pourquoi.</p>
+<p>Un invariant, c'est une règle qui ne doit <strong>jamais</strong> être violée, quoi qu'il arrive dans votre application. Pas "devrait être vraie". Pas "est vraie en général". <strong>Toujours vraie, dans tous les cas, sans exception.</strong></p>
+<p>Exemples d'invariants dans votre club de lecture :</p>
+<pre><code>INVARIANTS GLOBAUX
+
+1. Le nombre d'inscrits à une réunion ne dépasse jamais le nombre de places.
+   (Toujours. Même si 200 personnes cliquent en même temps.)
+
+2. Si un paiement est enregistré, une inscription correspondante existe.
+   (Pas d'argent pris sans inscription. Jamais.)
+
+3. Un livre emprunté a exactement un emprunteur.
+   (Pas zéro, pas deux. Un.)
+
+4. Un membre banni ne peut effectuer aucune action.
+   (Aucune. Pas "la plupart". Aucune.)
+
+5. La somme des remboursements ne dépasse jamais la somme des paiements.
+   (L'application ne crée pas d'argent à partir de rien.)</code></pre>
+<h3>Pourquoi c'est si puissant</h3>
+<p>Quand quelqu'un vous demande un changement — un nouveau feature, une modification — vous pouvez le passer au filtre des invariants :</p>
+<ul>
+<li>"Est-ce que ce changement pourrait violer un invariant ?"</li>
+<li>Si oui → danger. Il faut soit refuser le changement, soit repenser l'architecture.</li>
+<li>Si non → on peut y aller sereinement.</li>
+</ul>
+<p>Les invariants sont votre <strong>alarme incendie</strong>. Ils ne vous disent pas comment construire. Ils vous disent quand quelque chose de fondamental est menacé.</p>
+<h3>Ce que vous allez faire</h3>
+<p>Écrivez les invariants de votre club de lecture. Pas les vérifications détaillées (ça, c'est les tests des Modules 4-5). Les règles fondamentales qui ne doivent <strong>jamais</strong> être violées. Il y en a probablement entre 5 et 10. Pas plus — si vous en avez 30, vous confondez invariants et tests.</p>
+<p>Puis ajoutez-les à votre plan, tout en haut, avant même la vue d'ensemble :</p>
+<pre><code>INVARIANTS
+(ces règles ne sont JAMAIS violées, quoi qu'il arrive)
+1. ...
+2. ...
+
+VUE D'ENSEMBLE
+├── Module : Comptes — interface : ...
+├── ...</code></pre>
+<hr>
+<div class="step-header" id="m6-etape3"><span class="step-number">3</span><h2>Le changement qui casse tout <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(60 min)</small></h2></div>
+<h3>Ce que vous allez faire</h3>
+<p>Collez votre plan mis à jour (invariants + vue d'ensemble) dans une nouvelle conversation et demandez :</p>
+<blockquote>
+<p>Voici le plan de mon application avec ses invariants :
+[collez le plan]</p>
+<p>Nouvelle demande du club : les membres veulent pouvoir former des <strong>équipes inter-chapitres</strong> pour des défis de lecture. Une équipe regroupe des membres de différentes villes. L'équipe a un classement, des objectifs communs (lire 10 livres en 3 mois), et un chat d'équipe. Les membres d'une équipe peuvent s'emprunter des livres entre chapitres.</p>
+<p>Dis-moi :</p>
+<ol>
+<li>Dans quel module existant est-ce que ça rentre ?</li>
+<li>Est-ce que ça viole un de mes invariants ?</li>
+<li>Qu'est-ce que ça casse dans mon plan actuel ?</li>
+</ol>
+</blockquote>
+<div class="callout callout-red">
+<div class="callout-title">🔴 Ce qui va se passer</div>
+<p>Claude va vous dire la vérité, et elle n'est pas agréable :</p>
+<p><strong>Ça ne rentre nulle part proprement.</strong> Les équipes touchent à Comptes (les membres), à Chapitres (inter-villes), à Livres (objectifs de lecture), à Prêts (emprunts entre chapitres), et à un système de chat qui n'existait pas. C'est transversal — ça traverse toutes vos frontières soigneusement définies.</p>
+<p><strong>Ça menace vos invariants.</strong> "Un livre emprunté a exactement un emprunteur" — oui, mais si les prêts inter-chapitres ont des règles différentes des prêts locaux ? "Un membre banni ne peut effectuer aucune action" — banni de son chapitre, mais quid de l'équipe inter-chapitres ?</p>
+<p><strong>Votre plan craque.</strong> Pas parce qu'il est mauvais — il est excellent pour ce qu'il était conçu de faire. Mais la demande d'équipes inter-chapitres n'existait pas quand vous l'avez conçu. C'est une demande qui change les <strong>hypothèses de base</strong> du projet.</p>
+<h3>Le choix fondamental</h3>
+<p>Vous êtes face à une décision que les architectes professionnels prennent régulièrement. Il y a deux options :</p>
+<p><strong>Option A — Le scotch.</strong> Vous ajoutez un module "Équipes" et vous faites des exceptions partout. Le module Prêts accepte maintenant les prêts locaux ET les prêts inter-chapitres, avec des <code>if</code> partout. Le module Chapitres a des règles spéciales pour les membres qui sont dans une équipe. Ça marche. Mais chaque futur changement sera plus difficile, parce que chaque module a maintenant deux modes de fonctionnement.</p>
+<p><strong>Option B — La refonte.</strong> Vous repensez votre plan. Peut-être que la notion de "chapitre" n'est plus la bonne frontière. Peut-être qu'il faut séparer "groupe de personnes" (qui peut être un chapitre OU une équipe) de "zone géographique". C'est plus de travail maintenant, mais le plan sera solide pour les prochains changements.</p>
+<h3>Comment décider ?</h3>
+<p>C'est ici que les invariants vous aident. Posez-vous la question :</p>
+<p><strong>Est-ce que l'Option A oblige à modifier un invariant ?</strong></p>
+<p>Si oui → Option B. On ne touche pas aux invariants. Ils sont la constitution de votre projet. Si un changement exige de les réécrire, c'est que le plan doit changer, pas les invariants.</p>
+<p>Si non → Option A est acceptable. Vous pouvez ajouter du scotch si ça ne compromet pas les règles fondamentales.</p>
+<h3>Ce que vous allez faire</h3>
+<p>Demandez à Claude d'explorer les deux options :</p>
+<blockquote>
+<p>Explore les deux options.</p>
+<p>Option A : on ajoute un module Équipes sans toucher au reste. Montre-moi ce que ça donne dans le plan et quelles exceptions il faudra ajouter dans les modules existants.</p>
+<p>Option B : on repense le plan pour intégrer naturellement la notion d'équipes. Montre-moi le nouveau plan, les nouveaux modules, et comment les invariants sont préservés.</p>
+<p>Pour chaque option, dis-moi quels invariants sont menacés.</p>
+</blockquote>
+<h3>Ce que vous devez noter dans votre carnet</h3>
+<blockquote class="notebook-prompt">
+<p>✍️ Quelle option avez-vous choisie ? Pourquoi ?
+✍️ Combien de modules sont affectés par chaque option ?
+✍️ Vos invariants ont-ils survécu ? Si non, lesquels ont changé ?</p>
+</blockquote>
+</div>
+<hr>
+<div class="step-header" id="m6-etape4"><span class="step-number">4</span><h2>Faire la refonte <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(45 min)</small></h2></div>
+<h3>Si vous avez choisi l'Option B</h3>
+<p>C'est le moment le plus formateur du cours entier. Vous allez <strong>jeter une partie de votre plan</strong> et en réécrire un nouveau. Pas depuis zéro — vous gardez les leçons apprises — mais avec une structure différente.</p>
+<p>Demandez à Claude :</p>
+<blockquote>
+<p>Voici mon ancien plan :
+[l'ancien plan]</p>
+<p>Voici le nouveau plan qu'on a esquissé :
+[le plan de l'option B]</p>
+<p>Je veux :</p>
+<ol>
+<li>La nouvelle vue d'ensemble avec les interfaces de chaque module</li>
+<li>Les fiches détaillées des modules qui ont changé</li>
+<li>La liste des invariants — lesquels sont inchangés, lesquels sont nouveaux</li>
+<li>Les tests existants : lesquels sont encore valides, lesquels doivent être réécrits</li>
+</ol>
+</blockquote>
+<h3>Le moment important</h3>
+<p>Regardez le point 4. Vos tests des Modules 4-5 sont votre <strong>filet de sécurité</strong>. Certains vont encore passer — ce sont les parties du projet qui n'ont pas changé. D'autres vont échouer — ce sont les parties que vous devez reconstruire.</p>
+<p>Sans ces tests, une refonte est terrifiante. Avec eux, c'est gérable. Vous savez exactement ce qui marche encore et ce qui est cassé.</p>
+<p><strong>Les tests ne protègent pas que le code. Ils protègent la refonte.</strong></p>
+<h3>Si vous avez choisi l'Option A</h3>
+<p>C'est un choix valide. Parfois le scotch est la bonne réponse — quand la deadline est serrée, quand le changement est petit, quand le risque est faible.</p>
+<p>Mais notez dans votre carnet : quels compromis avez-vous fait ? Quels modules sont devenus plus complexes ? Où avez-vous ajouté des exceptions ?</p>
+<p>Ce sont des <strong>signaux d'alerte</strong> pour l'avenir. La prochaine fois qu'un changement demande encore des exceptions aux mêmes endroits, il sera temps de passer à l'Option B.</p>
+<hr>
+<div class="step-header" id="m6-etape5"><span class="step-number">5</span><h2>Le vocabulaire en action <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(20 min)</small></h2></div>
+<h3>Ce que vous allez faire</h3>
+<p>Ouvrez une nouvelle conversation avec Claude et ayez une conversation technique — en utilisant les vrais mots :</p>
+<blockquote>
+<p>Mon application a un problème de couplage entre le module Prêts et le module Chapitres. L'interface de Prêts suppose que tous les emprunts sont locaux, mais le nouveau flux d'équipes inter-chapitres viole cette hypothèse. J'ai deux options : ajouter un cas particulier dans l'implémentation de Prêts (plus de couplage) ou refactorer en séparant la notion de "groupe" de la notion de "localisation" (nouveau module, nouvelles interfaces). L'invariant "un livre emprunté a exactement un emprunteur" doit être préservé. Que recommandes-tu ?</p>
+</blockquote>
+<h3>Ce qui va se passer</h3>
+<p>Claude va vous répondre <strong>comme à un professionnel</strong>. Parce que vous parlez comme un professionnel. Les réponses seront plus précises, plus nuancées, plus utiles. Vous avez accès à un niveau de conversation que vous n'aviez pas avant — pas parce que Claude a changé, mais parce que vous avez les mots pour poser les bonnes questions.</p>
+<h3>Le cercle vertueux</h3>
+<p>Meilleur vocabulaire → meilleures questions → meilleures réponses → meilleur projet → meilleur vocabulaire.</p>
+<p>C'est le même cercle que pour n'importe quelle compétence. Un musicien qui connaît la théorie entend des choses qu'il n'entendait pas avant. Un architecte logiciel qui connaît le vocabulaire voit des structures qu'il ne voyait pas avant.</p>
+<hr>
+<h2 id="m6-bilan">Ce que vous avez appris</h2>
+<h3>En une phrase</h3>
+<p><strong>Les concepts que vous pratiquez depuis cinq modules ont des noms. Ces noms vous donnent accès à une communauté entière de connaissances. Et le plus puissant de ces concepts — l'invariant — est votre outil pour décider quand un plan doit évoluer ou être repensé.</strong></p>
+<h3>Les trois nouveaux réflexes</h3>
+<ol start="15">
+<li>
+<p><strong>Nommez les choses.</strong> Le vocabulaire technique n'est pas du jargon pour impressionner — c'est un outil de précision. "Couplage" dit plus que "trop lié". "Invariant" dit plus que "truc qui doit être vrai".</p>
+</li>
+<li>
+<p><strong>Écrivez vos invariants en premier.</strong> Avant la vue d'ensemble, avant les interfaces, avant le code. Ce sont les fondations. Tout le reste peut changer. Les invariants ne changent que quand le projet change de nature.</p>
+</li>
+<li>
+<p><strong>Sachez casser votre plan.</strong> Un bon architecte ne s'accroche pas à son plan quand il ne convient plus. Il sait reconnaître les signes (invariants menacés, exceptions qui s'accumulent, modules qui enflent) et il sait reconstruire en s'appuyant sur ses tests.</p>
+</li>
+</ol>
+<h3>La structure finale de votre projet</h3>
+<pre><code>INVARIANTS                          ← la constitution
+(règles qui ne sont JAMAIS violées)
+
+VUE D'ENSEMBLE                      ← la carte
+(modules + interfaces)
+
+FICHES DÉTAILLÉES                    ← le zoom
+(implémentation interne, une par module)
+
+FLUX                                 ← les parcours
+(actions multi-modules avec rollback)
+
+VÉRIFICATIONS                        ← les spécifications
+(en français : ce qui doit être vrai)
+
+TESTS AUTOMATIQUES                   ← le filet de sécurité
+(générés par Claude, lançables en une commande)</code></pre>
+<hr>
+<h2>Le vocabulaire complet</h2>
+<p>Gardez ce glossaire. C'est votre passerelle vers le monde du développement logiciel.</p>
+<table>
+<thead>
+<tr>
+<th>Terme</th>
+<th>Définition</th>
+<th>Analogie</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Module</strong></td>
+<td>Un morceau du système avec une responsabilité claire</td>
+<td>Un département dans une entreprise</td>
+</tr>
+<tr>
+<td><strong>Interface</strong></td>
+<td>Ce qu'on peut demander à un module, vu de l'extérieur</td>
+<td>Le guichet d'un service administratif</td>
+</tr>
+<tr>
+<td><strong>Implémentation</strong></td>
+<td>Comment un module fonctionne en interne</td>
+<td>Ce qui se passe derrière le guichet</td>
+</tr>
+<tr>
+<td><strong>Abstraction</strong></td>
+<td>Montrer le bon niveau de détail au bon moment</td>
+<td>Le zoom sur Google Maps</td>
+</tr>
+<tr>
+<td><strong>Dépendance</strong></td>
+<td>Quand un module a besoin d'un autre</td>
+<td>Un département qui sous-traite à un autre</td>
+</tr>
+<tr>
+<td><strong>Couplage</strong></td>
+<td>Quand des modules sont trop liés entre eux</td>
+<td>Des départements qui ne peuvent rien faire l'un sans l'autre</td>
+</tr>
+<tr>
+<td><strong>Découplage</strong></td>
+<td>Rendre des modules indépendants</td>
+<td>Des départements autonomes avec des contrats clairs</td>
+</tr>
+<tr>
+<td><strong>Responsabilité unique</strong></td>
+<td>Chaque module fait une seule chose bien</td>
+<td>"Je suis comptable, pas juriste"</td>
+</tr>
+<tr>
+<td><strong>Flux</strong></td>
+<td>Une action complète qui traverse plusieurs modules</td>
+<td>Le parcours d'un colis de l'achat à la livraison</td>
+</tr>
+<tr>
+<td><strong>Rollback</strong></td>
+<td>Défaire ce qui a été fait quand une étape échoue</td>
+<td>Rembourser quand la livraison échoue</td>
+</tr>
+<tr>
+<td><strong>Concurrence</strong></td>
+<td>Plusieurs choses qui arrivent en même temps</td>
+<td>Deux clients, un croissant</td>
+</tr>
+<tr>
+<td><strong>Verrouillage</strong></td>
+<td>Réserver une ressource le temps d'une opération</td>
+<td>Mettre le croissant de côté pendant qu'on paie</td>
+</tr>
+<tr>
+<td><strong>Invariant</strong></td>
+<td>Une règle toujours vraie, sans exception</td>
+<td>Les fondations d'une maison</td>
+</tr>
+<tr>
+<td><strong>Test</strong></td>
+<td>Une vérification précise avec un résultat oui/non</td>
+<td>Le contrôleur qui ouvre tous les robinets</td>
+</tr>
+<tr>
+<td><strong>Cas limite</strong></td>
+<td>Une situation à laquelle personne ne pense</td>
+<td>"Que se passe-t-il si quelqu'un s'emprunte son propre livre ?"</td>
+</tr>
+<tr>
+<td><strong>Refactoring</strong></td>
+<td>Réorganiser sans changer le comportement</td>
+<td>Rénover l'intérieur d'un mur sans toucher à la façade</td>
+</tr>
+<tr>
+<td><strong>Dette technique</strong></td>
+<td>Les compromis accumulés qui rendent le projet fragile</td>
+<td>Le scotch qui tient le meuble — ça marche, pour l'instant</td>
+</tr>
+<tr>
+<td><strong>Séparation des préoccupations</strong></td>
+<td>Chaque activité (construire, vérifier, planifier) est faite séparément</td>
+<td>Le juge n'est pas l'avocat</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="m6-suite">La suite</h2>
+<p>Vous avez terminé la Partie 1. Voici ce que vous savez faire :</p>
+<ol>
+<li><strong>Découper</strong> un projet en modules avec des responsabilités claires</li>
+<li><strong>Décrire</strong> comment les modules travaillent ensemble et gèrent les erreurs</li>
+<li><strong>Structurer</strong> l'information en niveaux pour communiquer efficacement avec l'IA</li>
+<li><strong>Vérifier</strong> que ce qui a été construit fonctionne réellement</li>
+<li><strong>Faire évoluer</strong> le plan quand les besoins changent, en s'appuyant sur les invariants et les tests</li>
+</ol>
+<p>Ce sont les compétences d'un architecte logiciel. Vous ne savez pas coder — et pour beaucoup de ce que vous ferez, vous n'en aurez pas besoin. Vous savez quelque chose de plus rare : <strong>penser en systèmes</strong>.</p>
+<p>Dans le Module 7, on va faire le point. Qu'est-ce que ces compétences vous permettent de faire — et où se situent leurs limites ? Faut-il aller plus loin et apprendre à lire le code, ou est-ce que ce que vous savez suffit ? C'est une vraie question, et la réponse dépend de vos objectifs.</p>
+
+      </div>
+    </main>
+    <button class="back-to-top" aria-label="Retour en haut">↑</button>
+  </div>
+  <script src="nav.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
