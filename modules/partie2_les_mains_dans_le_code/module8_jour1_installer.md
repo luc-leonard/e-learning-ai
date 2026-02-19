@@ -47,9 +47,11 @@ Suivez les instructions. Quand quelque chose ne marche pas — et ça arrivera �
 
 Une fois tout installé, demandez à Claude Code :
 
-> Crée un nouveau projet Phoenix appelé "mon_club". Puis lance le serveur pour que je voie la page d'accueil dans mon navigateur.
+> Crée un nouveau projet Phoenix appelé "mon_club" avec SQLite comme base de données. Puis lance le serveur pour que je voie la page d'accueil dans mon navigateur.
 
-Claude va exécuter quelque chose comme `mix phx.new mon_club` puis `mix phx.server`. À la fin, vous devriez voir une page dans votre navigateur à l'adresse `http://localhost:4000`.
+Claude va exécuter quelque chose comme `mix phx.new mon_club --database sqlite3` puis `mix phx.server`. À la fin, vous devriez voir une page dans votre navigateur à l'adresse `http://localhost:4000`.
+
+SQLite est la <dfn title="Un logiciel qui stocke et organise vos données — les livres, les membres, les réunions de votre club">base de données</dfn> de votre projet — c'est là que seront stockés vos livres, vos membres, vos réunions. On a choisi SQLite parce qu'il n'y a rien à installer séparément : tout est dans un seul fichier. Vous n'avez pas besoin d'en savoir plus pour l'instant.
 
 **C'est le même moment qu'au Module 1** — vous lancez une commande, et vous voyez votre projet dans le navigateur. Ça veut dire que tout est bien installé.
 
