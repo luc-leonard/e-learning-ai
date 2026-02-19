@@ -987,9 +987,9 @@ body {
   font-family: 'DM Sans', sans-serif;
   font-size: var(--fs-xs);
   font-weight: 500;
-  color: #6C7086;
-  background: rgba(255,255,255,0.07);
-  border: 1px solid rgba(255,255,255,0.1);
+  color: #9399B2;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.18);
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.15s ease;

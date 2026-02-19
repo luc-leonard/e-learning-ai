@@ -119,7 +119,7 @@ Allez sur [code.visualstudio.com](https://code.visualstudio.com) et télécharge
 ### Ouvrir votre dossier de projet
 
 Lancez VSCode, puis :
-1. Allez dans **Fichier → Ouvrir un dossier** (ou `Cmd + O` sur Mac, `Ctrl + O` sur Linux/Windows)
+1. Allez dans **Fichier → Ouvrir un dossier**
 2. Naviguez jusqu'au dossier `formation-ia` que vous avez créé à l'étape précédente
 3. Sélectionnez-le et cliquez **Ouvrir**
 
