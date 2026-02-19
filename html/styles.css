@@ -1039,3 +1039,10 @@ body {
   .main-content { margin-left: 0 !important; }
   .module-content { display: block !important; max-width: 100%; padding: 0; }
 }
+
+dfn[title] {
+  color: var(--primary, #3b82f6);
+  border-bottom: 1px dotted currentColor;
+  cursor: help;
+  font-style: normal;
+}
