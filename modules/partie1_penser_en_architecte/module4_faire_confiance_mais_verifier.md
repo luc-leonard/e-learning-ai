@@ -1,6 +1,6 @@
 # Module 4 : Faire confiance, mais vérifier
 
-## *Comment savoir si ce que l'IA a construit marche vraiment — sans lire le code*
+## *Apprendre à vérifier sur un petit projet — avant de vérifier le vrai*
 
 ---
 
@@ -10,8 +10,10 @@ Vous savez organiser un projet en parties (Module 1), décrire les parcours et g
 
 Mais depuis le début, vous faites quelque chose de risqué : **vous croyez Claude sur parole.** Il vous dit "c'est fait", et vous passez à la suite. Ce module va vous montrer pourquoi c'est un problème — et comment le résoudre.
 
-**Durée :** 4-5 heures
-**Ce qu'il vous faut :** Votre projet du club de lecture (avec le plan à deux niveaux), Claude Code, votre carnet
+On ne va pas travailler sur le club de lecture tout de suite. On va d'abord apprendre à vérifier sur **un petit projet séparé** — un terrain d'entraînement contrôlé. Ce sera plus rapide, plus clair, et vous aurez la satisfaction de voir le cycle complet fonctionner avant de l'appliquer à votre vrai projet (dans le Module 5).
+
+**Durée :** 2h30-3h30
+**Ce qu'il vous faut :** Votre terminal, VSCode, Claude Code, votre carnet
 
 ---
 
@@ -29,21 +31,132 @@ C'est exactement ce que vous allez apprendre à faire.
 
 ---
 
-## Étape 1 — Découvrir que ça ne marche pas (45 min)
+## Étape 1 — Construire un terrain d'entraînement (30 min)
 
 ### Ce que vous allez faire
 
-Reprenez votre projet du club de lecture. Tout a l'air de fonctionner — vous avez vos parties, vos parcours, Claude a tout implémenté.
+Vous allez créer un tout petit projet à côté de votre club de lecture : un **système de réservation de salles**. C'est volontairement simple — trois parties, un parcours, quelques pages.
 
-Quittez Claude Code (`/exit`) puis relancez une nouvelle session :
+Pourquoi ne pas utiliser le club de lecture directement ? Parce qu'il est gros. Si les tests plantent ou si Claude vérificateur produit un rapport de 50 erreurs, vous ne saurez pas si c'est vous qui faites mal ou si c'est le projet qui est trop complexe. Le mini-projet élimine ce doute.
+
+### Créer le dossier
+
+Dans le terminal de VSCode :
+
+```bash
+cd ~
+mkdir mini-projet
+cd mini-projet
+git init
+```
+
+Puis ouvrez ce dossier dans VSCode : **Fichier → Ouvrir un dossier** → sélectionnez `mini-projet`. Ouvrez le terminal intégré (`` Ctrl + ` ``).
+
+### Écrire le plan
+
+Créez un fichier `plan.md` dans VSCode et écrivez-y le plan suivant (ou copiez-le) :
+
+```
+PLAN — Système de réservation de salles
+
+Stack : Node.js + Express, SQLite, Pico.css (CDN)
+
+PARTIE : Salles
+→ Fait : gérer les salles (nom, capacité, créneaux disponibles)
+→ Ne fait PAS : gérer les réservations (c'est Réservations)
+
+PARTIE : Réservations
+→ Fait : réserver un créneau, annuler une réservation
+→ Ne fait PAS : gérer les salles, gérer les paiements
+→ A besoin de : Salles
+
+PARTIE : Paiement (simulé)
+→ Fait : encaisser et rembourser (en faux argent)
+→ Ne fait PAS : gérer les réservations
+
+PARCOURS : Réserver un créneau payant
+1. Vérifier que la salle existe et que le créneau est libre
+2. Réserver le créneau (temporairement)
+3. Prendre le paiement (simulé)
+   Si ça rate : libérer le créneau
+4. Confirmer la réservation
+   Si ça rate : rembourser + libérer le créneau
+
+PARCOURS : Annuler une réservation
+1. Vérifier que la réservation existe
+2. Rembourser le paiement
+   Si ça rate : on s'arrête, la réservation reste active
+3. Libérer le créneau
+4. Supprimer la réservation
+```
+
+Enregistrez, puis sauvegardez avec git :
+
+```bash
+git add plan.md
+git commit -m "Plan du mini-projet de réservation"
+```
+
+### Construire avec Claude
+
+Lancez Claude Code :
 
 ```bash
 claude
 ```
 
-C'est important : le vérificateur doit avoir un regard frais, sans le contexte de construction. Dites-lui :
+Demandez-lui :
 
-> Lis plan.md pour comprendre l'organisation du projet. Explore ensuite les fichiers du projet. Je veux que tu te comportes comme un utilisateur curieux et un peu malveillant — essaie de faire des choses qu'un vrai utilisateur pourrait faire, y compris des choses bizarres ou inattendues. Pour chaque test, dis-moi :
+> Lis plan.md. Construis cette application de réservation de salles en suivant le plan. Utilise la stack indiquée. Les paiements sont simulés (pas de vrai service de paiement). Crée quelques salles par défaut pour pouvoir tester.
+
+Lancez le site (`npm install` puis `npm start`), ouvrez-le dans votre navigateur, et vérifiez que ça fonctionne : vous pouvez voir les salles et réserver un créneau.
+
+Quittez Claude Code (`/exit`) et sauvegardez :
+
+```bash
+git add .
+git commit -m "Mini-projet construit"
+```
+
+---
+
+## Étape 2 — Tester vous-même d'abord (15 min)
+
+### Ce que vous allez faire
+
+Avant de demander quoi que ce soit à Claude, **testez vous-même dans le navigateur**. Jouez l'utilisateur curieux :
+
+- Réservez un créneau. Est-ce que le nombre de places diminue ?
+- Réservez le même créneau deux fois. Qu'est-ce qui se passe ?
+- Annulez. Est-ce que la place revient ?
+- Essayez de réserver un créneau dans le passé. Ça marche ?
+
+Ne cherchez pas à être exhaustif. Notez juste ce qui vous semble bizarre ou suspect.
+
+### Ce que vous devez noter dans votre carnet
+
+> ✍️ Listez 3-4 choses que vous avez essayées et le résultat.
+> ✍️ Y a-t-il quelque chose qui a marché alors que ça n'aurait pas dû ?
+
+### Pourquoi tester vous-même d'abord
+
+Votre test manuel attrape les **problèmes visibles** — l'interface, le comportement. Le Claude vérificateur de l'étape suivante attrapera les **problèmes invisibles** — la logique interne, les <dfn title="Situation rare ou extrême à laquelle personne ne pense, comme réserver 0 places ou s'inscrire deux fois">cas limites</dfn>. Les deux sont complémentaires. Ne sautez pas cette étape sous prétexte que Claude va tout vérifier.
+
+---
+
+## Étape 3 — Le vérificateur (30 min)
+
+### Ce que vous allez faire
+
+Lancez une **nouvelle session** de Claude Code :
+
+```bash
+claude
+```
+
+C'est important : le vérificateur doit avoir un **regard frais**, sans le contexte de construction. Dites-lui :
+
+> Lis plan.md. Explore ensuite les fichiers du projet. Comportes-toi comme un utilisateur curieux et un peu malveillant — essaie de faire des choses qu'un vrai utilisateur pourrait faire, y compris des choses bizarres. Pour chaque test, dis-moi :
 > 1. Ce que tu as essayé
 > 2. Ce qui aurait DÛ se passer (d'après plan.md)
 > 3. Ce qui se passe RÉELLEMENT dans le code
@@ -52,34 +165,38 @@ C'est important : le vérificateur doit avoir un regard frais, sans le contexte 
 
 Préparez-vous. Ça va piquer.
 
-**🚩 Des actions qui "marchent" mais ne font pas tout ce qu'elles devraient.**
-Claude va probablement trouver des cas comme : "J'inscris un membre à une réunion payante. Le paiement est enregistré. Mais le nombre de places disponibles n'a pas diminué." Ou : "J'annule une inscription. L'email de confirmation est envoyé. Mais le remboursement n'est jamais déclenché."
+**🚩 Des actions qui "marchent" mais ne font pas tout.**
+Par exemple : "Je réserve un créneau. Le paiement est enregistré. Mais le nombre de places disponibles n'a pas diminué." Ou : "J'annule. Le créneau est libéré. Mais le remboursement n'est pas fait."
 
 **🚩 Des cas que personne n'a prévus.**
-"Que se passe-t-il si un membre s'inscrit deux fois à la même réunion ?" — Rien ne l'empêche. "Que se passe-t-il si un membre emprunte son propre livre ?" — Ça marche. "Que se passe-t-il si un admin se bannit lui-même ?" — Oups.
+"Que se passe-t-il si je réserve le même créneau deux fois ?" — Rien ne m'en empêche. "Que se passe-t-il si j'annule une réservation qui n'existe pas ?" — Erreur cryptique.
 
-**🚩 Des parcours qui ne sont pas vraiment implémentés.**
-Vous aviez décrit un parcours complet avec gestion d'erreur dans le Module 2. Claude avait dit "c'est fait". Mais le "c'est fait" signifiait parfois "j'ai écrit le cas normal, pas les cas d'erreur". Le retour en arrière quand le paiement échoue ? Pas codé. L'expiration automatique d'une demande de prêt après 3 jours ? Pas codée.
+**🚩 Des parcours à moitié implémentés.**
+Vous aviez décrit "si le paiement rate, libérer le créneau" dans le plan. Claude constructeur avait dit "c'est fait". Mais le "c'est fait" signifiait parfois "j'ai écrit le cas normal, pas les cas d'erreur".
 
 ### Pourquoi ça arrive
 
-Ce n'est pas que Claude ment. C'est que Claude fait ce que vous lui demandez **au moment où vous le demandez**. Quand vous dites "implémente le parcours d'inscription à une réunion payante", il implémente le chemin principal. Les cas d'erreur, les cas bizarres, les vérifications — il les fait si vous insistez, mais il ne va pas spontanément tout couvrir.
+Ce n'est pas que Claude ment. C'est que Claude fait ce que vous lui demandez **au moment où vous le demandez**. Quand vous dites "implémente le parcours de réservation", il implémente le chemin principal. Les cas d'erreur, il les fait si vous insistez — mais il ne va pas spontanément tout couvrir.
 
-C'est exactement pareil avec un artisan humain. Si vous dites "installe une serrure sur la porte", il installe la serrure. Il ne va pas spontanément vérifier que la porte résiste aux coups de pied, que la serrure fonctionne par -20°C, et qu'on ne peut pas l'ouvrir avec une carte de crédit. Il faut le lui demander.
+C'est exactement pareil avec un artisan humain. Si vous dites "installe une serrure sur la porte", il installe la serrure. Il ne va pas spontanément vérifier que la porte résiste aux coups de pied. Il faut le lui demander.
+
+### Oui, vous faites confiance à un autre Claude
+
+Vous vous dites peut-être : "Mais le vérificateur aussi, c'est Claude. Je fais toujours confiance à une IA." C'est vrai — mais c'est un Claude **indépendant**, qui n'a pas construit le code et n'a aucun intérêt à dire que tout va bien. C'est la même raison pour laquelle un contrôleur de maison n'est jamais l'entrepreneur lui-même.
 
 ### Ce que vous devez noter dans votre carnet
 
 > ✍️ Combien de problèmes Claude-vérificateur a-t-il trouvés ?
-> ✍️ Lesquels vous surprennent le plus ?
-> ✍️ Lesquels sont graves (données perdues, argent mal géré) vs bénins (affichage bizarre) ?
+> ✍️ Lesquels aviez-vous déjà repérés vous-même à l'étape 2 ?
+> ✍️ Lesquels sont graves (argent mal géré, données incohérentes) vs bénins (affichage bizarre) ?
 
 ---
 
-## Étape 2 — Comprendre la différence (15 min)
+## Étape 4 — Comprendre la différence (10 min)
 
-### Lisez ceci APRÈS avoir fait l'étape 1
+### Lisez ceci APRÈS avoir fait les étapes 2 et 3
 
-Vous venez de faire quelque chose de fondamental : vous avez utilisé **un Claude différent** pour vérifier le travail du premier Claude. Et il a trouvé des problèmes.
+Vous venez de faire quelque chose de fondamental : vous avez utilisé un Claude différent pour vérifier le travail du premier Claude. Et il a trouvé des problèmes.
 
 Pourquoi un Claude "frais" trouve-t-il des erreurs que le Claude "constructeur" n'a pas vues ?
 
@@ -93,86 +210,85 @@ C'est pour ça que dans l'industrie, la personne qui construit n'est jamais la m
 
 ---
 
-## Étape 3 — Écrire des scénarios de vérification (45 min)
+## Étape 5 — Écrire des vérifications (30 min)
 
 ### L'idée clé
 
-Vos parcours du Module 2 décrivent ce qui **devrait** se passer. Un scénario de vérification, c'est la même chose retournée : "si je fais ça, alors ça doit être vrai ensuite."
+Vos parcours dans `plan.md` décrivent ce qui **devrait** se passer. Un scénario de vérification, c'est la même chose retournée : "si je fais ça, alors ça doit être vrai ensuite."
 
 Ce n'est pas du code. Ce sont des phrases en français.
 
 ### Ce que vous allez faire
 
-Ouvrez `plan.md` dans VSCode. Vous allez y ajouter une section `VÉRIFICATIONS` pour chaque parcours. Commencez par le faire vous-même avant de demander à Claude.
+C'est la première fois que vous écrivez vous-même un contenu structuré dans un fichier du projet. Ne vous inquiétez pas si le format n'est pas parfait — l'important, c'est le contenu.
 
-Prenez le parcours "Inscription à une réunion payante" :
+Ouvrez `plan.md` dans VSCode et ajoutez une section `VÉRIFICATIONS` à la fin. Commencez par le parcours "Réserver un créneau payant" :
 
 ```
-VÉRIFICATIONS : Inscription réunion payante
+VÉRIFICATIONS : Réservation d'un créneau payant
 
 Situation de départ :
-  - La réunion "Soirée polar" a 10 places, il en reste 3
-  - Le membre Marie est connectée, elle n'est pas inscrite
+  - La salle "Salle A" a 5 créneaux, il en reste 2
+  - L'utilisateur Alice veut réserver le créneau de 14h
 
-Après une inscription réussie :
-  ✓ Il reste 2 places (pas 3)
-  ✓ Marie apparaît dans la liste des inscrits
-  ✓ Un paiement de 5€ est enregistré au nom de Marie
-  ✓ Marie a reçu un email de confirmation
-  ✓ Les statistiques comptent un inscrit de plus
+Après une réservation réussie :
+  ✓ Il reste 1 créneau disponible (pas 2)
+  ✓ Alice apparaît dans les réservations
+  ✓ Un paiement est enregistré au nom d'Alice
+  ✓ Le créneau de 14h est marqué comme pris
 
-Après une inscription QUAND IL N'Y A PLUS DE PLACE :
-  ✓ Marie n'est PAS inscrite
-  ✓ Aucun paiement n'a été pris
-  ✓ Marie voit un message "complet"
-  ✓ Le nombre de places n'a pas changé (toujours 0)
+Quand le créneau est déjà pris :
+  ✓ La réservation est refusée
+  ✓ Aucun paiement n'est enregistré
+  ✓ Alice voit un message clair
 
-Après une inscription QUAND LE PAIEMENT ÉCHOUE :
-  ✓ Marie n'est PAS inscrite
-  ✓ Le nombre de places n'a PAS diminué
-  ✓ Aucun email n'est envoyé
-  ✓ Marie voit un message "paiement refusé"
+Quand le paiement échoue :
+  ✓ Alice n'a PAS de réservation
+  ✓ Le créneau n'a PAS été pris
+  ✓ Alice voit "paiement refusé"
 ```
 
 ### Vous remarquez quelque chose ?
 
-Chaque vérification est une **phrase qu'on peut vérifier par oui ou non**. "Il reste 2 places" — c'est vrai ou c'est faux. "Marie apparaît dans la liste" — oui ou non. Il n'y a pas d'ambiguïté.
+Chaque vérification est une **phrase qu'on peut vérifier par oui ou non**. "Il reste 1 créneau" — c'est vrai ou c'est faux. "Alice apparaît dans les réservations" — oui ou non. Il n'y a pas d'ambiguïté.
 
 C'est la force de cette approche : vous n'avez pas besoin de lire le code pour savoir si l'application marche. Vous avez besoin de **regarder le résultat et vérifier une liste**.
 
-### Continuez avec les cas bizarres
+### Ajoutez les cas bizarres
 
-Maintenant, ajoutez des vérifications pour les cas auxquels personne ne pense :
+Maintenant, ajoutez des vérifications pour les situations auxquelles personne ne pense :
 
 ```
 VÉRIFICATIONS : Cas limites
 
-Marie s'inscrit deux fois à la même réunion :
-  ✓ La deuxième inscription est refusée
+Alice réserve le même créneau deux fois :
+  ✓ La deuxième réservation est refusée
   ✓ Un seul paiement est enregistré
-  ✓ Le nombre de places n'a diminué qu'une fois
 
-Marie s'inscrit puis l'admin annule la réunion :
-  ✓ Marie est remboursée
-  ✓ Marie n'apparaît plus dans les inscrits
-  ✓ Marie a reçu un email d'annulation
-  ✓ Les places ne sont plus comptabilisées (la réunion n'existe plus)
+Alice annule sa réservation :
+  ✓ Le créneau redevient disponible
+  ✓ Alice est remboursée
+  ✓ La réservation n'apparaît plus
 
-L'admin essaie de s'inscrire à sa propre réunion gratuite :
-  ✓ Ça marche (ou ça ne marche pas — c'est VOUS qui décidez,
-    mais il faut que ce soit un choix, pas un accident)
+Alice annule une réservation qui n'existe pas :
+  ✓ Un message d'erreur clair s'affiche
+  ✓ Rien d'autre ne change
 ```
 
 ### Demandez à Claude de compléter
 
-Quand vous avez écrit vos vérifications, demandez à Claude d'en ajouter :
+Quand vous avez écrit vos vérifications, lancez Claude Code et demandez-lui :
 
-> Voici mes vérifications pour le parcours "Inscription réunion payante" :
-> [collez vos vérifications]
->
-> Quels cas ai-je oubliés ? Pense aux cas bizarres, aux cas limites, et aux cas où plusieurs choses arrivent en même temps.
+> Lis plan.md. J'ai ajouté des vérifications à la fin. Quels cas ai-je oubliés ? Pense aux cas bizarres, aux cas limites, et aux cas où deux choses arrivent en même temps. Ajoute-les à la suite de mes vérifications dans plan.md.
 
-Claude va vous proposer des cas auxquels vous n'avez pas pensé. Certains seront pertinents, d'autres excessifs. **C'est vous qui décidez lesquels garder.** Tous les cas ne méritent pas d'être vérifiés — il faut se concentrer sur ceux qui comptent vraiment.
+Claude va proposer des cas auxquels vous n'avez pas pensé. **C'est vous qui décidez lesquels garder** — tous les cas ne méritent pas d'être vérifiés.
+
+Quittez Claude Code (`/exit`) et sauvegardez :
+
+```bash
+git add plan.md
+git commit -m "Vérifications ajoutées au plan"
+```
 
 ### Ce que vous devez noter dans votre carnet
 
@@ -181,71 +297,67 @@ Claude va vous proposer des cas auxquels vous n'avez pas pensé. Certains seront
 
 ---
 
-## Étape 4 — Faire vérifier par Claude (45 min)
+## Étape 6 — Le cycle de correction (30 min)
 
-### Ce que vous allez faire
-
-Vous avez maintenant trois types de documents :
-1. La **vue d'ensemble** (Module 3) — ce que l'application fait
-2. Les **fiches détaillées** (Module 3) — comment chaque partie fonctionne
-3. Les **vérifications** (ce module) — comment prouver que ça marche
+### Le rapport de vérification
 
 Quittez Claude Code (`/exit`) puis relancez une nouvelle session (`claude`). Dites-lui :
 
-> Lis plan.md — il contient l'organisation du projet et les vérifications que j'ai ajoutées. Explore ensuite les fichiers du projet. Pour chaque vérification listée dans plan.md, dis-moi :
+> Lis plan.md. Pour chaque vérification listée, explore le code correspondant et dis-moi :
 > - ✅ PASSE : le code fait bien ce qui est décrit
 > - ❌ ÉCHOUE : le code ne fait pas ce qui est décrit (explique pourquoi)
 > - ⚠️ IMPOSSIBLE À VÉRIFIER : le code ne couvre pas ce cas du tout
 
-### Ce que vous allez obtenir
+Vous allez obtenir un rapport clair. Probablement un mélange des trois. C'est normal.
 
-Un rapport clair avec des ✅, ❌, et ⚠️. Probablement un mélange des trois. C'est normal.
+- **Les ✅** sont vos certitudes. Ça marche, un Claude indépendant l'a confirmé.
+- **Les ❌** sont vos priorités — on va les corriger.
+- **Les ⚠️** sont des trous. Des choses que personne n'a implémentées.
 
-### Ce que vous faites des résultats
+### Corriger les échecs
 
-**Les ❌ (échecs)** sont vos priorités. Avant de corriger, sauvegardez l'état actuel :
+Quittez (`/exit`), relancez Claude Code (`claude`) et dites-lui de corriger un échec précis :
 
-```bash
-git add .
-git commit -m "Avant corrections : X échecs sur Y vérifications"
-```
+> Lis plan.md. La vérification suivante échoue : "Quand le paiement échoue, le créneau n'a PAS été pris." Actuellement, le créneau est réservé avant le paiement mais jamais libéré si le paiement rate. Corrige ça en respectant le parcours décrit dans le plan.
 
-Puis quittez cette session (`/exit`), relancez Claude Code (`claude`) et dites-lui :
+### Vérifier l'ampleur des changements
 
-> Lis plan.md. La vérification suivante échoue : "Après une inscription quand le paiement échoue, le nombre de places ne doit PAS avoir diminué." Actuellement, la place est réservée avant le paiement mais jamais libérée si le paiement rate. Corrige ça en respectant les parcours décrits dans plan.md.
-
-**Les ⚠️ (impossibles à vérifier)** sont des trous. Des choses que personne n'a implémentées. Décidez si elles sont importantes, et si oui, demandez à Claude de les ajouter.
-
-**Les ✅ (succès)** sont vos certitudes. Vous SAVEZ que ces cas marchent, pas parce que Claude vous l'a dit, mais parce qu'un Claude indépendant l'a vérifié.
-
-### Le cycle
-
-Après correction, regardez ce que Claude Code a changé :
+Après correction, regardez ce que Claude a changé :
 
 ```bash
 git diff
 ```
 
-Cette commande vous montre toutes les modifications depuis votre dernier commit — les lignes ajoutées en vert, les lignes supprimées en rouge. Vous n'avez pas besoin de comprendre le code en détail, mais vous pouvez voir **l'ampleur** des changements. Une correction qui touche 3 lignes, c'est rassurant. Une correction qui réécrit 200 lignes pour un bug simple, c'est suspect.
+Cette commande est nouvelle. Elle vous montre toutes les modifications depuis votre dernier commit — les lignes ajoutées en vert, les lignes supprimées en rouge. Vous n'avez pas besoin de comprendre le code en détail, mais vous pouvez voir **l'ampleur** des changements :
 
-Sauvegardez la correction, puis relancez la vérification :
+- **3-10 lignes modifiées** pour corriger un bug → rassurant, c'est ciblé.
+- **200 lignes réécrites** pour un bug simple → suspect, Claude a probablement tout refait au lieu de corriger le minimum.
+
+Si l'ampleur vous semble disproportionnée, dites-le à Claude : "Tu as réécrit beaucoup de code pour un petit bug. Peux-tu corriger uniquement le problème, sans tout changer ?"
+
+### Sauvegarder et re-vérifier
 
 ```bash
 git add .
-git commit -m "Correction : [décrivez ce que vous avez corrigé]"
+git commit -m "Correction : libération du créneau quand le paiement échoue"
 ```
 
-**Refaites la vérification.** Quittez (`/exit`), relancez (`claude`), et répétez la même demande qu'au début de cette étape. Certains ❌ vont passer en ✅. Parfois, une correction crée un nouveau ❌ ailleurs. C'est normal — c'est exactement comme ça que fonctionne le développement professionnel.
+**Refaites la vérification.** Quittez (`/exit`), relancez (`claude`), et répétez la même demande de rapport. Certains ❌ vont passer en ✅. Parfois, une correction crée un nouveau ❌ ailleurs. C'est normal — c'est exactement comme ça que fonctionne le développement professionnel.
 
 Le cycle complet est : **construire → committer → vérifier → corriger → committer → vérifier à nouveau.** Git garde la trace de chaque étape. Si une correction empire les choses, `git checkout .` vous ramène au dernier commit propre.
 
+### Ce que vous devez noter dans votre carnet
+
+> ✍️ Combien de ✅, ❌ et ⚠️ dans le premier rapport ?
+> ✍️ Après correction, est-ce que de nouveaux ❌ sont apparus ?
+
 ---
 
-## Étape 5 — Faire écrire les tests à Claude (30 min)
+## Étape 7 — Les tests automatiques (30 min)
 
 ### Le problème du cycle manuel
 
-Le cycle de l'étape 4 fonctionne, mais il est fatigant. À chaque correction, il faut renvoyer tout le code à un Claude vérificateur, attendre son rapport, comparer avec le précédent... Et si vous changez quelque chose dans deux semaines, il faut tout refaire.
+Le cycle de l'étape 6 fonctionne, mais il est fatigant. À chaque correction, il faut relancer un Claude vérificateur, attendre son rapport, comparer avec le précédent... Et si vous changez quelque chose dans deux semaines, il faut tout refaire.
 
 Repensez au contrôleur de la maison. S'il devait revenir vérifier chaque robinet à la main après chaque modification, il passerait sa vie chez vous. Ce qu'il fait en réalité, c'est installer des **capteurs** : un détecteur de fuite sur chaque tuyau, un testeur sur chaque circuit. Après ça, les capteurs surveillent en permanence. Si quelque chose casse, l'alarme se déclenche.
 
@@ -253,7 +365,7 @@ Vous allez faire la même chose : transformer vos vérifications en français en
 
 ### Ce que vous allez faire
 
-Demandez à Claude Code :
+Lancez Claude Code (`claude`) et demandez-lui :
 
 > Lis plan.md. Transforme chaque vérification en un test automatique. Chaque ✓ doit devenir un test qui passe ou échoue. Je veux pouvoir lancer tous les tests avec une seule commande.
 
@@ -263,29 +375,29 @@ Claude Code va créer des fichiers de tests dans votre projet. Vous n'avez pas b
 
 Claude Code vous donnera une commande pour les exécuter (très probablement `npm test`). Lancez-la. Vous allez voir quelque chose comme :
 
-> 🚩 Si les tests ne se lancent pas ou si vous voyez des erreurs incompréhensibles, dites à Claude Code exactement ce que vous voyez. Si après deux tentatives ça ne marche pas, passez à la suite : les tests automatiques sont un filet de sécurité précieux, mais leur mise en place peut déraper pour des raisons techniques indépendantes de votre compréhension. Vous en aurez à nouveau l'occasion dans la partie 2 de la formation.
-
 ```
-✓ Inscription réussie : il reste 2 places
-✓ Inscription réussie : Marie apparaît dans les inscrits
-✓ Inscription réussie : paiement enregistré
-✗ Inscription quand complet : Marie est quand même inscrite
-✗ Paiement échoué : la place n'est pas libérée
+✓ Réservation réussie : il reste 1 créneau
+✓ Réservation réussie : Alice apparaît dans les réservations
+✓ Réservation réussie : paiement enregistré
+✗ Double réservation : Alice peut réserver deux fois
+✗ Paiement échoué : le créneau n'est pas libéré
 
-12 tests, 9 passed, 3 failed
+8 tests, 6 passed, 2 failed
 ```
 
 Vert = ça marche. Rouge = c'est cassé. Pas de rapport à interpréter. Juste des faits.
 
+> 🚩 **Si les tests ne se lancent pas** ou si vous voyez des erreurs incompréhensibles, dites à Claude Code exactement ce que vous voyez. Si après deux tentatives ça ne marche toujours pas, ne restez pas bloqué. Ce n'est pas vous qui avez échoué — la mise en place de tests automatiques est l'une des tâches les plus capricieuses en développement, même pour les professionnels. Vous aurez à nouveau l'occasion de pratiquer ça dans le Module 5 et dans la partie 2. Le cycle manuel de l'étape 6 reste valide et suffisant.
+
 ### Le nouveau cycle
 
-Le cycle devient beaucoup plus court :
+Si les tests marchent, le cycle devient beaucoup plus court :
 
 ```
 1. Demander une modification à Claude Code
-2. Lancer les tests (une commande)
+2. Lancer les tests (npm test)
 3. Tout est vert → git add + git commit
-4. Du rouge apparaît → demander à Claude Code de corriger
+4. Du rouge → demander à Claude de corriger
 5. Relancer les tests
 6. Répéter jusqu'à tout vert
 ```
@@ -295,8 +407,8 @@ Essayez : demandez à Claude Code de corriger les tests qui échouent, relancez 
 ### Pourquoi c'est un changement fondamental
 
 - **C'est instantané.** Une commande, quelques secondes, vous savez où vous en êtes.
-- **C'est répétable.** Après chaque modification, relancez la même commande. Pas besoin de réexpliquer quoi que ce soit.
-- **Ça attrape les régressions.** Si Claude corrige le bug du paiement mais casse l'inscription, les tests vous le disent immédiatement — même si vous n'y pensiez pas.
+- **C'est répétable.** Après chaque modification, relancez la même commande.
+- **Ça attrape les <dfn title="Quand une correction casse quelque chose qui marchait avant">régressions</dfn>.** Si Claude corrige un bug mais en crée un autre, les tests vous le disent immédiatement.
 - **Ça survit au temps.** Dans deux semaines, quand vous aurez oublié les détails, les tests s'en souviennent pour vous.
 
 ```bash
@@ -312,49 +424,29 @@ git commit -m "Tests automatiques ajoutés et passants"
 
 **Construire et vérifier sont deux activités différentes, faites par deux conversations différentes, avec deux états d'esprit différents.**
 
-### Les quatre nouveaux réflexes
+### Les trois nouveaux réflexes
 
-10. **Ne faites pas confiance, vérifiez.** Ce qui a l'air de marcher ne marche pas forcément. Seule une vérification précise vous donne une certitude.
+10. **Ne faites pas confiance, vérifiez.** Ce qui a l'air de marcher ne marche pas forcément. Seule une vérification précise — une phrase qu'on peut répondre par oui ou non — vous donne une certitude.
 
 11. **Séparez le constructeur du vérificateur.** La conversation qui construit ne vérifie pas son propre travail. Utilisez une conversation séparée avec un regard frais.
 
-12. **Posez des questions précises, pas des questions vagues.** "Est-ce que ça marche ?" → mauvais. "Est-ce que le nombre de places diminue de 1 après une inscription réussie ?" → bon.
-
-13. **Faites écrire les tests par Claude, pas juste le code.** Vos vérifications en français deviennent des tests automatiques. Une commande, quelques secondes, zéro ambiguïté. C'est votre filet de sécurité permanent.
-
-### La structure complète de votre projet
-
-```
-plan.md
-├── Vue d'ensemble : parties et portes d'entrée (Module 1 + 3)
-├── Fiches détaillées : une par partie (Module 3)
-├── Parcours : actions complètes avec gestion d'erreur (Module 2)
-└── Vérifications : ce qui doit être vrai après chaque action   ← nouveau
-    ├── Cas normaux
-    ├── Cas d'erreur
-    └── Cas limites
-
-Tests automatiques (fichiers séparés)                           ← nouveau
-├── Générés par Claude à partir des vérifications dans plan.md
-├── Lançables en une commande (npm test)
-└── Le filet de sécurité permanent du projet
-```
+12. **Transformez vos vérifications en tests automatiques.** Vos phrases en français deviennent des capteurs permanents. Une commande, quelques secondes, zéro ambiguïté.
 
 ---
 
 ## Avant de partir — sauvegardez
 
+Votre mini-projet est complet. C'est un petit système, mais il est **vérifié**. Vous savez exactement ce qui marche et ce qui ne marche pas — pas parce que Claude vous l'a dit, mais parce que vous l'avez prouvé.
+
 ```bash
 git add .
-git commit -m "Module 4 terminé : vérifications et cycle de correction"
+git commit -m "Module 4 terminé : mini-projet vérifié avec tests"
 ```
-
-Tapez `git log --oneline` pour voir tout votre historique. Vous devriez avoir une série de commits qui racontent l'histoire de votre apprentissage — du premier chaos jusqu'à un projet vérifié.
 
 ---
 
 ## La suite
 
-Vous avez maintenant un vrai système : des parties organisées, des parcours définis, une structure d'information en niveaux, et des vérifications pour vous assurer que tout tient. C'est un vrai projet logiciel, piloté par vous, construit par l'IA.
+Vous savez maintenant vérifier. Mais vous l'avez fait sur un petit projet contrôlé — trois parties, un parcours, quelques vérifications.
 
-Dans le Module 5, on va aborder la dernière grande question : **votre projet va évoluer dans le temps.** Des parties vont être remplacées. Des portes d'entrée vont changer. De nouvelles demandes vont apparaître qui ne rentrent dans aucune partie existante. Comment faire évoluer un projet sans tout casser ? Comment savoir quand il faut réorganiser le plan lui-même ?
+Dans le Module 5, vous allez **appliquer ces compétences à votre vrai projet** — le club de lecture. C'est plus gros, plus imprévisible, et probablement plus cassé que vous ne le pensez. Mais vous savez maintenant exactement quoi faire.

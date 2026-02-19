@@ -1,4 +1,4 @@
-# Module 8 : Le monolithe qui enfle
+# Module 9 : Le monolithe qui enfle
 
 ## *Quand vos modules bien découpés recommencent à s'étouffer entre eux*
 
@@ -11,7 +11,7 @@ Votre club de lecture est découpé en contextes Phoenix propres. Comptes, Livre
 Et pourtant, quelque chose commence à gratter.
 
 **Durée :** Une semaine (1-2 heures par jour)
-**Ce qu'il vous faut :** Votre projet du Module 7, un compte Claude, votre carnet
+**Ce qu'il vous faut :** Votre projet du Module 8, un compte Claude, votre carnet
 
 ---
 
@@ -70,7 +70,7 @@ Réponse : presque tous.
 
 ### Le mot pour ça
 
-Vous connaissez déjà le mot : c'est du **couplage**. Mais un couplage d'un nouveau type. Au Module 1, le couplage était à l'intérieur du code — tout dans le même fichier. Au Module 7, vous l'avez résolu en découpant. Maintenant, le couplage est **entre** les modules. Vous avez des boîtes bien rangées, mais elles sont toutes liées par des fils.
+Vous connaissez déjà le mot : c'est du **couplage**. Mais un couplage d'un nouveau type. Au Module 1, le couplage était à l'intérieur du code — tout dans le même fichier. Au Module 8, vous l'avez résolu en découpant. Maintenant, le couplage est **entre** les modules. Vous avez des boîtes bien rangées, mais elles sont toutes liées par des fils.
 
 ### Ce que vous devez noter dans votre carnet
 
@@ -270,7 +270,7 @@ Comptez les flèches directes. Beaucoup moins qu'avant. Et surtout : les context
 
 ### Ce qui va se passer
 
-Vos tests du Module 4/7 vont casser. Pas parce que le code est faux, mais parce que le **timing** a changé.
+Vos tests des Modules 4-5/8 vont casser. Pas parce que le code est faux, mais parce que le **timing** a changé.
 
 Avant (appel direct) :
 ```
@@ -367,7 +367,7 @@ Demandez à Claude :
 
 ### Ce que vous avez fait cette semaine
 
-Vous avez résolu le **deuxième niveau de couplage**. Le premier (tout dans un fichier) a été résolu au Module 7 en découpant. Le deuxième (les modules qui s'appellent trop) a été résolu cette semaine en passant des appels directs aux événements.
+Vous avez résolu le **deuxième niveau de couplage**. Le premier (tout dans un fichier) a été résolu au Module 8 en découpant. Le deuxième (les modules qui s'appellent trop) a été résolu cette semaine en passant des appels directs aux événements.
 
 ### Le nouveau schéma de votre application
 
@@ -429,4 +429,4 @@ CODE
 
 Vos modules sont découpés et communiquent par événements. Mais les modules eux-mêmes — comment sont-ils organisés en interne ? Pour l'instant, chaque contexte est un sac de fonctions et de tables de base de données. Quand le contexte Réunions grossit (événements récurrents, sous-événements, listes d'attente, covoiturage...), l'intérieur du contexte redevient un bazar.
 
-Le Module 9 va vous apprendre à structurer l'intérieur d'un module en s'appuyant sur **les mots que vos utilisateurs emploient** — pas les mots de la technique. C'est la porte d'entrée du Domain-Driven Design.
+Le Module 10 va vous apprendre à structurer l'intérieur d'un module en s'appuyant sur **les mots que vos utilisateurs emploient** — pas les mots de la technique. C'est la porte d'entrée du Domain-Driven Design.

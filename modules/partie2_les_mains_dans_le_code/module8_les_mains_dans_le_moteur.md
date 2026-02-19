@@ -1,4 +1,4 @@
-# Module 7 : Les mains dans le moteur
+# Module 8 : Les mains dans le moteur
 
 ## *Apprendre à lire et toucher le code — sans devenir développeur*
 

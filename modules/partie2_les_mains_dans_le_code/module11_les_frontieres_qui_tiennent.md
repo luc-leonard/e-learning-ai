@@ -1,4 +1,4 @@
-# Module 10 : Les frontières qui tiennent
+# Module 11 : Les frontières qui tiennent
 
 ## *Quand vos agrégats deviennent des êtres vivants qui protègent leurs propres règles*
 
@@ -13,7 +13,7 @@ C'est la différence entre un garde-fou sur une falaise et un panneau "attention
 Ce module va transformer vos agrégats en garde-fous.
 
 **Durée :** Une semaine (1-2 heures par jour)
-**Ce qu'il vous faut :** Votre projet du Module 9, un compte Claude, votre carnet
+**Ce qu'il vous faut :** Votre projet du Module 10, un compte Claude, votre carnet
 
 ---
 
@@ -379,7 +379,7 @@ C'est le principe du restaurant poussé à l'extrême. Un serveur trébuche → 
 
 ### Ce que vous allez faire
 
-Au Module 8, vous avez mis en place PubSub pour que les modules communiquent par événements. Maintenant, les agrégats sont des processus vivants. Les deux doivent travailler ensemble.
+Au Module 9, vous avez mis en place PubSub pour que les modules communiquent par événements. Maintenant, les agrégats sont des processus vivants. Les deux doivent travailler ensemble.
 
 Quand le processus de la Soirée Polar inscrit Marie, il doit publier un événement. Quand le Listener de Paiements reçoit l'événement, il doit créer le paiement.
 
@@ -444,7 +444,7 @@ Vous avez transformé vos agrégats de **données passives** (stockées dans une
 
 ### Le changement de paradigme
 
-| Avant (Modules 7-9) | Maintenant (Module 10) |
+| Avant (Modules 8-10) | Maintenant (Module 11) |
 |---|---|
 | L'agrégat est un schéma de base de données | L'agrégat est un **processus vivant** |
 | Les invariants sont vérifiés dans le code | Les invariants sont **garantis par construction** |
@@ -493,4 +493,4 @@ MonClub.Application
 
 Votre application a des agrégats vivants, des événements de domaine, des superviseurs. Elle est solide. Mais elle a une limitation : tout est dans un seul serveur. Un seul ordinateur qui fait tout.
 
-Le Module 11 va vous amener au dernier niveau : que se passe-t-il quand vous avez besoin de plusieurs serveurs ? Comment les processus communiquent entre machines ? Comment les événements traversent le réseau ? Elixir a été conçu pour ça depuis le début — c'est le moment de le découvrir.
+Le Module 12 va vous amener au dernier niveau : que se passe-t-il quand vous avez besoin de plusieurs serveurs ? Comment les processus communiquent entre machines ? Comment les événements traversent le réseau ? Elixir a été conçu pour ça depuis le début — c'est le moment de le découvrir.

@@ -54,7 +54,7 @@ Claude Code va créer des fichiers dans votre dossier. Vous les verrez apparaît
 
 ### Lancer le site
 
-Claude Code va probablement vous dire qu'il faut **installer les dépendances** puis **lancer le site**. Il va peut-être exécuter ces commandes lui-même, ou vous donner les commandes à taper.
+Claude Code va probablement vous dire qu'il faut **installer les <dfn title="Les outils supplémentaires dont le projet a besoin pour fonctionner — comme des ingrédients qu'il faut acheter avant de cuisiner">dépendances</dfn>** puis **lancer le site**. Il va peut-être exécuter ces commandes lui-même, ou vous donner les commandes à taper.
 
 Si Claude Code vous donne des commandes à exécuter, **tapez-les vous-même** dans le terminal. C'est important : même si vous ne comprenez pas tout, vous devez savoir que lancer un site, c'est une commande dans le terminal. Quelque chose comme :
 

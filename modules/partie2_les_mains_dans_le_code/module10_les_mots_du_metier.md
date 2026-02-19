@@ -1,4 +1,4 @@
-# Module 9 : Les mots du métier
+# Module 10 : Les mots du métier
 
 ## *Quand le code parle comme un développeur alors qu'il devrait parler comme vos utilisateurs*
 
@@ -11,7 +11,7 @@ Vos modules sont découpés. Ils communiquent par événements. L'extérieur est
 Ce module va changer votre façon de penser. Pas votre code — votre façon de penser.
 
 **Durée :** Une semaine (1-2 heures par jour)
-**Ce qu'il vous faut :** Votre projet du Module 8, un compte Claude, votre carnet
+**Ce qu'il vous faut :** Votre projet du Module 9, un compte Claude, votre carnet
 
 ---
 
@@ -547,4 +547,4 @@ C'est propre. C'est lisible. Et surtout — c'est compréhensible par quelqu'un 
 
 Votre code parle le langage du métier. Vos modules sont découpés par domaine. Vos agrégats protègent vos invariants. Mais il y a un dernier problème : quand le projet grandit, certains agrégats deviennent énormes. La séance gère les inscriptions, la liste d'attente, l'annulation, les statistiques...
 
-Le Module 10 va vous apprendre à faire en sorte que les invariants soient **protégés dans le code lui-même**, pas juste dans vos tests. Et les outils d'Elixir — les processus et les arbres de supervision — vont rendre ça étonnamment naturel.
+Le Module 11 va vous apprendre à faire en sorte que les invariants soient **protégés dans le code lui-même**, pas juste dans vos tests. Et les outils d'Elixir — les processus et les arbres de supervision — vont rendre ça étonnamment naturel.

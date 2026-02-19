@@ -1,4 +1,4 @@
-# Module 5 : Les vrais mots, les vraies décisions
+# Module 6 : Les vrais mots, les vraies décisions
 
 ## *Donner un nom à ce que vous savez déjà — et apprendre à casser votre propre plan*
 
@@ -6,12 +6,12 @@
 
 ## Ce que vous savez déjà
 
-Vous savez beaucoup plus que vous ne le croyez. Depuis quatre modules, vous pratiquez des techniques que les développeurs professionnels mettent des années à maîtriser. Vous ne connaissiez juste pas les mots.
+Vous savez beaucoup plus que vous ne le croyez. Depuis cinq modules, vous pratiquez des techniques que les développeurs professionnels mettent des années à maîtriser. Vous ne connaissiez juste pas les mots.
 
 Ce module va changer ça. Et puis il va vous mettre face à un problème nouveau : **que faire quand votre plan, celui que vous avez soigneusement construit, ne suffit plus ?**
 
 **Durée :** 2-3 heures
-**Ce qu'il vous faut :** Votre projet complet (plan + code + tests), un compte Claude, votre carnet
+**Ce qu'il vous faut :** Votre projet complet (plan + code + tests), Claude Code, votre carnet
 
 ---
 
@@ -132,7 +132,7 @@ Les invariants sont votre **alarme incendie**. Ils ne vous disent pas comment co
 
 ### Ce que vous allez faire
 
-Écrivez les invariants de votre club de lecture. Pas les vérifications détaillées (ça, c'est les tests du Module 4). Les règles fondamentales qui ne doivent **jamais** être violées. Il y en a probablement entre 5 et 10. Pas plus — si vous en avez 30, vous confondez invariants et tests.
+Écrivez les invariants de votre club de lecture. Pas les vérifications détaillées (ça, c'est les tests des Modules 4-5). Les règles fondamentales qui ne doivent **jamais** être violées. Il y en a probablement entre 5 et 10. Pas plus — si vous en avez 30, vous confondez invariants et tests.
 
 Puis ajoutez-les à votre plan, tout en haut, avant même la vue d'ensemble :
 
@@ -235,7 +235,7 @@ Demandez à Claude :
 
 ### Le moment important
 
-Regardez le point 4. Vos tests du Module 4 sont votre **filet de sécurité**. Certains vont encore passer — ce sont les parties du projet qui n'ont pas changé. D'autres vont échouer — ce sont les parties que vous devez reconstruire.
+Regardez le point 4. Vos tests des Modules 4-5 sont votre **filet de sécurité**. Certains vont encore passer — ce sont les parties du projet qui n'ont pas changé. D'autres vont échouer — ce sont les parties que vous devez reconstruire.
 
 Sans ces tests, une refonte est terrifiante. Avec eux, c'est gérable. Vous savez exactement ce qui marche encore et ce qui est cassé.
 
@@ -275,15 +275,15 @@ C'est le même cercle que pour n'importe quelle compétence. Un musicien qui con
 
 ### En une phrase
 
-**Les concepts que vous pratiquez depuis quatre modules ont des noms. Ces noms vous donnent accès à une communauté entière de connaissances. Et le plus puissant de ces concepts — l'invariant — est votre outil pour décider quand un plan doit évoluer ou être repensé.**
+**Les concepts que vous pratiquez depuis cinq modules ont des noms. Ces noms vous donnent accès à une communauté entière de connaissances. Et le plus puissant de ces concepts — l'invariant — est votre outil pour décider quand un plan doit évoluer ou être repensé.**
 
-### Les trois derniers réflexes
+### Les trois nouveaux réflexes
 
-14. **Nommez les choses.** Le vocabulaire technique n'est pas du jargon pour impressionner — c'est un outil de précision. "Couplage" dit plus que "trop lié". "Invariant" dit plus que "truc qui doit être vrai".
+15. **Nommez les choses.** Le vocabulaire technique n'est pas du jargon pour impressionner — c'est un outil de précision. "Couplage" dit plus que "trop lié". "Invariant" dit plus que "truc qui doit être vrai".
 
-15. **Écrivez vos invariants en premier.** Avant la vue d'ensemble, avant les interfaces, avant le code. Ce sont les fondations. Tout le reste peut changer. Les invariants ne changent que quand le projet change de nature.
+16. **Écrivez vos invariants en premier.** Avant la vue d'ensemble, avant les interfaces, avant le code. Ce sont les fondations. Tout le reste peut changer. Les invariants ne changent que quand le projet change de nature.
 
-16. **Sachez casser votre plan.** Un bon architecte ne s'accroche pas à son plan quand il ne convient plus. Il sait reconnaître les signes (invariants menacés, exceptions qui s'accumulent, modules qui enflent) et il sait reconstruire en s'appuyant sur ses tests.
+17. **Sachez casser votre plan.** Un bon architecte ne s'accroche pas à son plan quand il ne convient plus. Il sait reconnaître les signes (invariants menacés, exceptions qui s'accumulent, modules qui enflent) et il sait reconstruire en s'appuyant sur ses tests.
 
 ### La structure finale de votre projet
 
@@ -348,4 +348,4 @@ Vous avez terminé la Partie 1. Voici ce que vous savez faire :
 
 Ce sont les compétences d'un architecte logiciel. Vous ne savez pas coder — et pour beaucoup de ce que vous ferez, vous n'en aurez pas besoin. Vous savez quelque chose de plus rare : **penser en systèmes**.
 
-Dans le Module 6, on va faire le point. Qu'est-ce que ces compétences vous permettent de faire — et où se situent leurs limites ? Faut-il aller plus loin et apprendre à lire le code, ou est-ce que ce que vous savez suffit ? C'est une vraie question, et la réponse dépend de vos objectifs.
+Dans le Module 7, on va faire le point. Qu'est-ce que ces compétences vous permettent de faire — et où se situent leurs limites ? Faut-il aller plus loin et apprendre à lire le code, ou est-ce que ce que vous savez suffit ? C'est une vraie question, et la réponse dépend de vos objectifs.

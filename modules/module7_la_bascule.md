@@ -1,4 +1,4 @@
-# Module 6 : La bascule
+# Module 7 : La bascule
 
 ## *Ce que vous pouvez faire sans code — et ce que vous ne pouvez pas*
 
@@ -6,13 +6,13 @@
 
 ## Faisons le point
 
-Vous avez parcouru cinq modules. Voici ce que vous savez faire :
+Vous avez parcouru six modules. Voici ce que vous savez faire :
 
 - **Découper** un projet en modules avec des responsabilités claires (Module 1)
 - **Décrire** comment ces modules travaillent ensemble et gèrent les erreurs (Module 2)
 - **Structurer** l'information en niveaux pour communiquer efficacement avec l'IA (Module 3)
-- **Vérifier** que ce qui a été construit fonctionne réellement (Module 4)
-- **Nommer** les concepts avec le vocabulaire professionnel (Module 5)
+- **Vérifier** que ce qui a été construit fonctionne réellement (Modules 4-5)
+- **Nommer** les concepts avec le vocabulaire professionnel (Module 6)
 
 Ce sont des compétences d'architecte logiciel. De vraies compétences, utiles, que beaucoup de développeurs professionnels n'ont pas.
 
@@ -23,7 +23,7 @@ Ce sont des compétences d'architecte logiciel. De vraies compétences, utiles, 
 
 ## Ce qu'on vous a dit, et ce qu'on aurait dû dire
 
-Dans les cinq premiers modules, on vous a dit : "Vous n'avez pas besoin de comprendre le code." C'était vrai. Et ça le reste pour beaucoup de situations.
+Dans les six premiers modules, on vous a dit : "Vous n'avez pas besoin de comprendre le code." C'était vrai. Et ça le reste pour beaucoup de situations.
 
 Mais on aurait dû ajouter : "... pour l'instant."
 
@@ -43,7 +43,7 @@ Mais sans toucher au code, vous ne pouvez pas :
 ❌ Comprendre pourquoi Claude a fait un choix plutôt qu'un autre
 ❌ Savoir si une réponse de Claude est excellente ou catastrophique quand elle *a l'air* bonne dans les deux cas
 
-Au Module 4, vous avez utilisé "un autre Claude" pour vérifier le travail du premier. C'est mieux que rien. Mais c'est comme demander à un jumeau de corriger les devoirs de son frère — ils ont les mêmes angles morts. La seule façon de vraiment vérifier, c'est de pouvoir *lire* ce qui a été écrit.
+Aux Modules 4-5, vous avez utilisé "un autre Claude" pour vérifier le travail du premier. C'est mieux que rien. Mais c'est comme demander à un jumeau de corriger les devoirs de son frère — ils ont les mêmes angles morts. La seule façon de vraiment vérifier, c'est de pouvoir *lire* ce qui a été écrit.
 
 ---
 
@@ -61,7 +61,7 @@ C'est ça qu'on va apprendre dans la deuxième partie : **lire un mur**. Pas le 
 
 La deuxième partie est différente de la première à plusieurs égards. Soyons transparents.
 
-**Le rythme change.** Les cinq premiers modules prenaient 2-3 heures chacun. Les modules suivants prennent une semaine chacun, à raison de 1-2 heures par jour. C'est normal — on passe de la réflexion pure à la manipulation d'outils concrets, ce qui prend plus de temps.
+**Le rythme change.** Les six premiers modules prenaient 2-3 heures chacun. Les modules suivants prennent une semaine chacun, à raison de 1-2 heures par jour. C'est normal — on passe de la réflexion pure à la manipulation d'outils concrets, ce qui prend plus de temps.
 
 **Vous allez installer des choses.** Un langage de programmation (Elixir), un framework web (Phoenix), un éditeur de code. L'installation va mal se passer. Il y aura des messages d'erreur. C'est normal et attendu — chaque développeur professionnel a vécu exactement la même frustration.
 
@@ -124,4 +124,4 @@ Si la réponse à ces trois questions vous convient, tournez la page.
 
 ## La suite
 
-Le Module 7 va vous mettre les mains dans le moteur. Vous allez installer Elixir, lire vos premières lignes de code, et découvrir que la structure du code ressemble étrangement à la structure de votre plan. Ce n'est pas un hasard.
+Le Module 8 va vous mettre les mains dans le moteur. Vous allez installer Elixir, lire vos premières lignes de code, et découvrir que la structure du code ressemble étrangement à la structure de votre plan. Ce n'est pas un hasard.
