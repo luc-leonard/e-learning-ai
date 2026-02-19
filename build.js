@@ -11,20 +11,39 @@ const MarkdownIt = require('markdown-it');
 const ROOT = path.resolve(__dirname);
 const HTML_DIR = path.join(ROOT, 'html');
 
+const NAV_SECTIONS = [
+  'Penser en architecte',
+  'Les mains dans le code',
+];
+
 const MODULE_MAP = [
-  { md: 'modules/partie1_penser_en_architecte/module0_avant_de_commencer.md', out: 'module0.html', id: 'module0', prefix: 'm0', number: '0' },
-  { md: 'modules/partie1_penser_en_architecte/module1_le_mur_du_contexte.md', out: 'module1.html', id: 'module1', prefix: 'm1', number: '1' },
-  { md: 'modules/partie1_penser_en_architecte/module2_le_passage_du_temoin.md', out: 'module2.html', id: 'module2', prefix: 'm2', number: '2' },
-  { md: 'modules/partie1_penser_en_architecte/projet1_votre_premier_plan.md', out: 'projet1.html', id: 'projet1', prefix: 'p1', number: 'P1', numberStyle: 'background:var(--accent-primary);color:white;font-size:0.65rem;' },
-  { md: 'modules/partie1_penser_en_architecte/module3_la_carte_et_le_territoire.md', out: 'module3.html', id: 'module3', prefix: 'm3', number: '3' },
-  { md: 'modules/partie1_penser_en_architecte/module4_faire_confiance_mais_verifier.md', out: 'module4.html', id: 'module4', prefix: 'm4', number: '4' },
-  { md: 'modules/partie1_penser_en_architecte/module5_verifier_pour_de_vrai.md', out: 'module5.html', id: 'module5', prefix: 'm5', number: '5' },
-  { md: 'modules/partie1_penser_en_architecte/module6_les_vrais_mots.md', out: 'module6.html', id: 'module6', prefix: 'm6', number: '6' },
-  { md: 'modules/module7_la_bascule.md', out: 'module7.html', id: 'module7', prefix: 'm7', number: '7' },
-  { md: 'modules/partie2_les_mains_dans_le_code/module8_les_mains_dans_le_moteur.md', out: 'module8.html', id: 'module8', prefix: 'm8', number: '8' },
-  { md: 'modules/partie2_les_mains_dans_le_code/module9_le_monolithe_qui_enfle.md', out: 'module9.html', id: 'module9', prefix: 'm9', number: '9' },
-  { md: 'modules/partie2_les_mains_dans_le_code/module10_les_mots_du_metier.md', out: 'module10.html', id: 'module10', prefix: 'm10', number: '10' },
-  { md: 'modules/partie2_les_mains_dans_le_code/module11_les_frontieres_qui_tiennent.md', out: 'module11.html', id: 'module11', prefix: 'm11', number: '11' },
+  { md: 'modules/partie1_penser_en_architecte/module0_avant_de_commencer.md', out: 'module0.html', id: 'module0', prefix: 'm0', number: '0', navSection: 0 },
+  { md: 'modules/partie1_penser_en_architecte/module1_le_mur_du_contexte.md', out: 'module1.html', id: 'module1', prefix: 'm1', number: '1', navSection: 0 },
+  { md: 'modules/partie1_penser_en_architecte/module2_le_passage_du_temoin.md', out: 'module2.html', id: 'module2', prefix: 'm2', number: '2', navSection: 0 },
+  { md: 'modules/partie1_penser_en_architecte/projet1_votre_premier_plan.md', out: 'projet1.html', id: 'projet1', prefix: 'p1', number: 'P1', numberStyle: 'background:var(--accent-primary);color:white;font-size:0.65rem;', navSection: 0 },
+  { md: 'modules/partie1_penser_en_architecte/module3_la_carte_et_le_territoire.md', out: 'module3.html', id: 'module3', prefix: 'm3', number: '3', navSection: 0 },
+  { md: 'modules/partie1_penser_en_architecte/module4_faire_confiance_mais_verifier.md', out: 'module4.html', id: 'module4', prefix: 'm4', number: '4', navSection: 0 },
+  { md: 'modules/partie1_penser_en_architecte/module5_verifier_pour_de_vrai.md', out: 'module5.html', id: 'module5', prefix: 'm5', number: '5', navSection: 0 },
+  { md: 'modules/partie1_penser_en_architecte/module6_les_vrais_mots.md', out: 'module6.html', id: 'module6', prefix: 'm6', number: '6', navSection: 0 },
+  { md: 'modules/module7_la_bascule.md', out: 'module7.html', id: 'module7', prefix: 'm7', number: '7', navSection: 1 },
+  { md: 'modules/partie2_les_mains_dans_le_code/module8_jour1_installer.md', out: 'module8.html', id: 'module8', prefix: 'm8j1', number: '8', navSection: 1, section: 'Lire la partition', childTitle: 'Installer votre atelier' },
+  { md: 'modules/partie2_les_mains_dans_le_code/module8_jour2_reconnaitre_fonction.md', out: 'module8-jour2.html', id: 'm8j2', prefix: 'm8j2', number: 'J2', parent: 'module8', section: 'Lire la partition' },
+  { md: 'modules/partie2_les_mains_dans_le_code/module8_jour3_ok_error.md', out: 'module8-jour3.html', id: 'm8j3', prefix: 'm8j3', number: 'J3', parent: 'module8', section: 'Lire la partition' },
+  { md: 'modules/partie2_les_mains_dans_le_code/module8_jour4_module_pipe.md', out: 'module8-jour4.html', id: 'm8j4', prefix: 'm8j4', number: 'J4', parent: 'module8', section: 'Lire la partition' },
+  { md: 'modules/partie2_les_mains_dans_le_code/module8_jour5_construire.md', out: 'module8-jour5.html', id: 'm8j5', prefix: 'm8j5', number: 'J5', parent: 'module8', section: 'Jouer la partition' },
+  { md: 'modules/partie2_les_mains_dans_le_code/module8_jour6_verifier.md', out: 'module8-jour6.html', id: 'm8j6', prefix: 'm8j6', number: 'J6', parent: 'module8', section: 'Jouer la partition' },
+  { md: 'modules/partie2_les_mains_dans_le_code/module8_jour7_monolithe.md', out: 'module8-jour7.html', id: 'm8j7', prefix: 'm8j7', number: 'J7', parent: 'module8', section: 'Jouer la partition' },
+  { md: 'modules/partie2_les_mains_dans_le_code/module8_jour8_declic.md', out: 'module8-jour8.html', id: 'm8j8', prefix: 'm8j8', number: 'J8', parent: 'module8', section: 'Jouer la partition' },
+  { md: 'modules/partie2_les_mains_dans_le_code/module8_jour9_bilan.md', out: 'module8-jour9.html', id: 'm8j9', prefix: 'm8j9', number: 'J9', parent: 'module8', section: 'Jouer la partition' },
+  { md: 'modules/partie2_les_mains_dans_le_code/module9_jour1_faire_grandir.md', out: 'module9.html', id: 'module9', prefix: 'm9j1', number: '9', navSection: 1, section: 'Comprendre le problème', childTitle: 'Faire grandir le projet' },
+  { md: 'modules/partie2_les_mains_dans_le_code/module9_jour2_les_fils.md', out: 'module9-jour2.html', id: 'm9j2', prefix: 'm9j2', number: 'J2', parent: 'module9', section: 'Comprendre le problème' },
+  { md: 'modules/partie2_les_mains_dans_le_code/module9_jour3_la_casse.md', out: 'module9-jour3.html', id: 'm9j3', prefix: 'm9j3', number: 'J3', parent: 'module9', section: 'Comprendre le problème' },
+  { md: 'modules/partie2_les_mains_dans_le_code/module9_jour4_annoncer.md', out: 'module9-jour4.html', id: 'm9j4', prefix: 'm9j4', number: 'J4', parent: 'module9', section: 'Résoudre le problème' },
+  { md: 'modules/partie2_les_mains_dans_le_code/module9_jour5_pubsub.md', out: 'module9-jour5.html', id: 'm9j5', prefix: 'm9j5', number: 'J5', parent: 'module9', section: 'Résoudre le problème' },
+  { md: 'modules/partie2_les_mains_dans_le_code/module9_jour6_transformer.md', out: 'module9-jour6.html', id: 'm9j6', prefix: 'm9j6', number: 'J6', parent: 'module9', section: 'Résoudre le problème' },
+  { md: 'modules/partie2_les_mains_dans_le_code/module9_jour7_bilan.md', out: 'module9-jour7.html', id: 'm9j7', prefix: 'm9j7', number: 'J7', parent: 'module9', section: 'Résoudre le problème' },
+  { md: 'modules/partie2_les_mains_dans_le_code/module10_les_mots_du_metier.md', out: 'module10.html', id: 'module10', prefix: 'm10', number: '10', navSection: 1 },
+  { md: 'modules/partie2_les_mains_dans_le_code/module11_les_frontieres_qui_tiennent.md', out: 'module11.html', id: 'module11', prefix: 'm11', number: '11', navSection: 1 },
 ];
 
 // h2 headings that get an ID and optionally appear in nav steps
@@ -400,6 +419,13 @@ function extractNavTitle(h1Text, config) {
 }
 
 function generateNavJs(results) {
+  // Build the NAV_SECTIONS array
+  let sectionsArray = 'const NAV_SECTIONS = [\n';
+  NAV_SECTIONS.forEach((label, idx) => {
+    sectionsArray += `  '${label.replace(/'/g, "\\'")}'${idx < NAV_SECTIONS.length - 1 ? ',' : ''}\n`;
+  });
+  sectionsArray += '];\n\n';
+
   // Build the MODULES array
   let modulesArray = 'const MODULES = [\n';
   results.forEach((mod, idx) => {
@@ -409,6 +435,18 @@ function generateNavJs(results) {
     modulesArray += `    number: '${mod.number}',\n`;
     if (mod.numberStyle) {
       modulesArray += `    numberStyle: '${mod.numberStyle}',\n`;
+    }
+    if (mod.parent) {
+      modulesArray += `    parent: '${mod.parent}',\n`;
+    }
+    if (mod.section) {
+      modulesArray += `    section: '${mod.section.replace(/'/g, "\\'")}',\n`;
+    }
+    if (mod.childTitle) {
+      modulesArray += `    childTitle: '${mod.childTitle.replace(/'/g, "\\'")}',\n`;
+    }
+    if (mod.navSection !== undefined) {
+      modulesArray += `    navSection: ${mod.navSection},\n`;
     }
     modulesArray += `    title: '${mod.navTitle.replace(/'/g, "\\'")}',\n`;
     modulesArray += '    steps: [\n';
@@ -453,6 +491,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const navJs = '// ===== Shared Navigation Component =====\n'
     + '// Auto-generated by build.js — do not edit manually\n\n'
+    + sectionsArray
     + modulesArray
     + '\n\n'
     + sidebarCode.trimStart();

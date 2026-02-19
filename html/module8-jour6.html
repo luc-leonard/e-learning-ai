@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jour 6 — Vérifier dans le code</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
+</head>
+<body>
+  <div class="app">
+    <div id="sidebar-root"></div>
+    <main class="main-content">
+      <div class="module-content">
+
+<h1>Jour 6 : Vérifier dans le code</h1>
+<p class="module-subtitle"><em>Module 8 — Les mains dans le moteur</em></p>
+<hr>
+<h3>Avant de commencer : une analogie</h3>
+<p>Au Module 4, vous avez appris que <strong>celui qui construit ne devrait pas être celui qui vérifie</strong>. Vous aviez ouvert une nouvelle session Claude pour vérifier le travail d'une session précédente — le cycle constructeur/vérificateur.</p>
+<p>On va refaire exactement ça, mais cette fois vous pouvez vérifier <strong>dans le code</strong>, pas juste dans un rapport.</p>
+<div class="module-meta">
+<div class="module-meta-item"><strong>Durée :</strong> 1h-1h30</div>
+<div class="module-meta-item"><strong>Ce qu'il vous faut :</strong> Votre dossier `mon_club` ouvert dans VSCode, Claude Code, votre carnet</div>
+</div>
+<hr>
+<h3>Ce que vous allez faire</h3>
+<p>Quittez Claude Code (<code>/exit</code>), puis relancez une nouvelle session :</p>
+<pre data-lang="bash"><code>claude</code></pre>
+<p>Demandez :</p>
+<blockquote>
+<p>Lis le code de mon club de lecture. Pour chaque fonction qui peut échouer, dis-moi :</p>
+<ol>
+<li>Quand est-ce qu'elle renvoie <code>{:ok, ...}</code> ?</li>
+<li>Quand est-ce qu'elle renvoie <code>{:error, ...}</code> ?</li>
+<li>Est-ce que le code qui appelle cette fonction gère les deux cas ?</li>
+</ol>
+<p>Si tu trouves des cas d'erreur non gérés, liste-les.</p>
+</blockquote>
+<h3>Ce que vous allez découvrir</h3>
+<p>Probablement que plusieurs fonctions <strong>ne gèrent pas le cas d'erreur</strong>. Claude a écrit le chemin normal, mais le <code>{:error, ...}</code> n'est traité nulle part. Vous retrouvez exactement le problème du Module 4 : le constructeur est optimiste, le vérificateur trouve les trous.</p>
+<h3>Corriger</h3>
+<p>Choisissez 1 ou 2 cas d'erreur non gérés et demandez à Claude de les corriger. Par exemple :</p>
+<blockquote>
+<p>La fonction <code>voter(membre_id, livre_id)</code> peut échouer si le livre n'existe pas, mais le LiveView qui l'appelle ne gère pas ce cas. Corrige ça pour afficher un message d'erreur à l'utilisateur.</p>
+</blockquote>
+<h3>Vérifier l'ampleur des changements</h3>
+<p>Avant de sauvegarder, regardez ce que Claude a modifié :</p>
+<pre data-lang="bash"><code>git diff</code></pre>
+<p>Vous avez appris cette commande au Module 4. Elle vous montre exactement ce qui a changé — les lignes ajoutées (en vert, préfixées par <code>+</code>) et les lignes supprimées (en rouge, préfixées par <code>-</code>). Est-ce que les changements sont localisés, ou est-ce que Claude a touché à plein de fichiers ?</p>
+<h3>Ce que vous devez noter dans votre carnet</h3>
+<blockquote class="notebook-prompt">
+<p>✍️ Combien de cas d'erreur non gérés Claude a-t-il trouvés ?</p>
+</blockquote>
+<blockquote class="notebook-prompt">
+<p>✍️ Les corrections étaient-elles localisées (un seul fichier) ou dispersées (plusieurs fichiers) ?</p>
+</blockquote>
+<blockquote class="notebook-prompt">
+<p>✍️ Retrouvez-vous le vocabulaire du Module 4 ? (invariant violé, cas limite, chemin d'erreur)</p>
+</blockquote>
+<h3>Avant de partir — sauvegardez</h3>
+<pre data-lang="bash"><code>git add .
+git commit -m "Jour 6 : vérification et correction des erreurs"</code></pre>
+
+      </div>
+    </main>
+    <button class="back-to-top" aria-label="Retour en haut">↑</button>
+  </div>
+  <script src="nav.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

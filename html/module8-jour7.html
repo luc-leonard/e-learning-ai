@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jour 7 — Le monolithe qui enfle</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
+</head>
+<body>
+  <div class="app">
+    <div id="sidebar-root"></div>
+    <main class="main-content">
+      <div class="module-content">
+
+<h1>Jour 7 : Le monolithe qui enfle</h1>
+<p class="module-subtitle"><em>Module 8 — Les mains dans le moteur</em></p>
+<hr>
+<h3>Avant de commencer : une analogie</h3>
+<p>Souvenez-vous du Module 1, Étape 2. Vous aviez demandé à Claude d'ajouter des fonctionnalités, une par une. Au bout de quelques demandes, ça commençait à partir en vrille — le "plat de nouilles". Tout était emmêlé.</p>
+<p>On va reproduire cette expérience. Mais cette fois, vous allez la <strong>voir</strong> dans le code, pas juste la sentir.</p>
+<div class="module-meta">
+<div class="module-meta-item"><strong>Durée :</strong> 1h30-2h</div>
+<div class="module-meta-item"><strong>Ce qu'il vous faut :</strong> Votre dossier `mon_club` ouvert dans VSCode, Claude Code, votre carnet</div>
+</div>
+<hr>
+<h3>Ce que vous allez faire</h3>
+<p>Restez dans la même session Claude Code (ou relancez-en une). Demandez d'ajouter <strong>deux fonctionnalités</strong> au club de lecture. Tout reste dans le même contexte — ne réorganisez rien.</p>
+<p><strong>Demande 1 :</strong></p>
+<blockquote>
+<p>Ajoute un système de comptes. Les membres ont un nom et un email. Il faut s'inscrire pour pouvoir voter ou proposer un livre. Garde tout dans le même contexte.</p>
+</blockquote>
+<p>Attendez que Claude ait fini, vérifiez dans le navigateur que ça marche.</p>
+<p><strong>Demande 2 :</strong></p>
+<blockquote>
+<p>Ajoute des réunions. Une réunion a un titre, une date, un lieu et un nombre de places. Les membres peuvent s'inscrire à une réunion. Garde tout dans le même contexte.</p>
+</blockquote>
+<p>Vérifiez à nouveau dans le navigateur.</p>
+<h3>L'exercice clé</h3>
+<p>Maintenant, demandez à Claude Code :</p>
+<blockquote>
+<p>Montre-moi le sommaire de toutes les fonctions du contexte principal, groupées par thème. Combien de thèmes différents cohabitent dans le même contexte ?</p>
+</blockquote>
+<div class="callout callout-red">
+<div class="callout-title">🔴 Ce que vous devez voir</div>
+<p>La réponse va vous sauter aux yeux. Dans un seul contexte, vous avez maintenant des fonctions pour :</p>
+<ul>
+<li>les livres (ajouter, lister, supprimer)</li>
+<li>les votes (voter, compter)</li>
+<li>les comptes (s'inscrire, se connecter)</li>
+<li>les réunions (créer, lister, inscrire un membre)</li>
+</ul>
+<p>Quatre thèmes dans le même sac. Le fichier qui contenait 5 fonctions en contient maintenant 15 ou 20.</p>
+<p><strong>C'est le plat de nouilles du Module 1.</strong> Mais cette fois, vous le <strong>voyez</strong> dans le code — pas juste dans vos impressions. Vous pouvez compter les fonctions, nommer les thèmes, pointer les mélanges. Vous avez les mots et les yeux pour décrire ce qui ne va pas.</p>
+<h3>Ce que vous devez noter dans votre carnet</h3>
+<blockquote class="notebook-prompt">
+<p>✍️ Combien de fonctions dans votre contexte unique ?
+✍️ Combien de thèmes différents y cohabitent ?
+✍️ Si vous deviez expliquer ce code à quelqu'un, par où commenceriez-vous ? (Si la réponse est "je ne sais pas", c'est un signal.)</p>
+</blockquote>
+<h3>Avant de partir — sauvegardez</h3>
+<pre data-lang="bash"><code>git add .
+git commit -m "Jour 7 : monolithe avec comptes et réunions"</code></pre>
+</div>
+
+      </div>
+    </main>
+    <button class="back-to-top" aria-label="Retour en haut">↑</button>
+  </div>
+  <script src="nav.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

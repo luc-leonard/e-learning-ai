@@ -21,8 +21,22 @@ modules/
 │   └── module6_les_vrais_mots.md
 ├── module7_la_bascule.md            # Module de transition entre les deux parties
 └── partie2_les_mains_dans_le_code/  # Modules 8-11 : code Elixir/Phoenix
-    ├── module8_les_mains_dans_le_moteur.md
-    ├── module9_le_monolithe_qui_enfle.md
+    ├── module8_jour1_installer.md       # M8 découpé en 9 pages (une par jour)
+    ├── module8_jour2_reconnaitre_fonction.md
+    ├── module8_jour3_ok_error.md
+    ├── module8_jour4_module_pipe.md
+    ├── module8_jour5_construire.md
+    ├── module8_jour6_verifier.md
+    ├── module8_jour7_monolithe.md
+    ├── module8_jour8_declic.md
+    ├── module8_jour9_bilan.md
+    ├── module9_jour1_faire_grandir.md   # M9 découpé en 7 pages (une par jour)
+    ├── module9_jour2_les_fils.md
+    ├── module9_jour3_la_casse.md
+    ├── module9_jour4_annoncer.md
+    ├── module9_jour5_pubsub.md
+    ├── module9_jour6_transformer.md
+    ├── module9_jour7_bilan.md
     ├── module10_les_mots_du_metier.md
     └── module11_les_frontieres_qui_tiennent.md
 ```
@@ -150,4 +164,6 @@ dfn[title] {
   - M5 : ajouter une étape de test manuel du site avant les vérifications écrites ; clarifier `[copiez la vérification exacte]` pour les non-programmeurs ; ajouter un signal de clôture à l'étape 6 (facultatif)
 - **Module 6** (ex-M5, les vrais mots) : réflexes renumérotés (15-17), références mises à jour — le workflow Claude Code n'est pas encore adapté (références à "collez le plan", "un compte Claude")
 - **Module 7** (ex-M6, la bascule) : références mises à jour
-- **Modules 8-11** (ex-M7-10) : renommés, titres et références internes mis à jour — non révisés pour le workflow Claude Code, utilisent les anciennes conventions
+- **Module 8** : réécrit (9 jours au lieu de 7, rythme progressif un concept par jour, workflow Claude Code adapté). Jours 2-4 = lecture pure (def, ok/error, defmodule+pipe), Jour 5 = construction naïve, Jours 6-8 = vérification + monolithe + déclic plan=code, Jour 9 = bilan
+- **Module 9** : réécrit (7 jours, un concept par jour, workflow Claude Code adapté). J1-J3 = comprendre le problème (faire grandir, voir les fils, provoquer la casse), J4-J7 = résoudre (concept événements, PubSub, transformation, bilan). GenServer traité comme "plomberie" — pas expliqué. Tests async retirés (trop avancé). Contextes utilisés = ceux que l'étudiant a réellement (Comptes, Livres, Réunions).
+- **Modules 10-11** (ex-M9-10) : renommés, titres et références internes mis à jour — non révisés pour le workflow Claude Code, utilisent les anciennes conventions

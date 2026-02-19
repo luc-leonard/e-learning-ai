@@ -61,7 +61,7 @@ C'est ça qu'on va apprendre dans la deuxième partie : **lire un mur**. Pas le 
 
 La deuxième partie est différente de la première à plusieurs égards. Soyons transparents.
 
-**Le rythme change.** Les six premiers modules prenaient 2-3 heures chacun. Les modules suivants prennent une semaine chacun, à raison de 1-2 heures par jour. C'est normal — on passe de la réflexion pure à la manipulation d'outils concrets, ce qui prend plus de temps.
+**Le rythme change.** Les six premiers modules prenaient 2-3 heures chacun. Les modules suivants prennent une à deux semaines chacun, à raison de 1-2 heures par jour. C'est normal — on passe de la réflexion pure à la manipulation d'outils concrets, ce qui prend plus de temps.
 
 **Vous allez installer des choses.** Un langage de programmation (Elixir), un framework web (Phoenix), un éditeur de code. L'installation va mal se passer. Il y aura des messages d'erreur. C'est normal et attendu — chaque développeur professionnel a vécu exactement la même frustration.
 

@@ -17,42 +17,41 @@
 <p class="module-subtitle"><em>Apprendre à lire et toucher le code — sans devenir développeur</em></p>
 <hr>
 <h2>Ce qui change à partir de maintenant</h2>
-<p>Pendant les cinq premiers modules, vous n'avez jamais eu besoin de comprendre le code. Claude construisait, vous organisiez.</p>
+<p>Pendant les six premiers modules, vous n'avez jamais eu besoin de comprendre le code. Claude construisait, vous organisiez.</p>
 <p>Ça a marché. Mais vous avez atteint une limite : vous ne pouvez pas vérifier ce que vous ne comprenez pas, et vous ne pouvez pas guider ce que vous ne voyez pas. C'est comme diriger un orchestre sans savoir lire une partition — vous entendez si ça sonne bien, mais vous ne pouvez pas dire au violoniste de jouer un Si bémol au lieu d'un Si.</p>
 <p>Ce module va vous apprendre à <strong>lire une partition</strong>. Pas à jouer de tous les instruments — juste assez pour comprendre ce qui se passe et dire à Claude ce que vous voulez avec précision.</p>
 <div class="module-meta">
-<div class="module-meta-item"><strong>Durée :</strong> Une semaine (1-2 heures par jour)</div>
-<div class="module-meta-item"><strong>Ce qu'il vous faut :</strong> Un ordinateur, un compte Claude, votre carnet</div>
+<div class="module-meta-item"><strong>Durée :</strong> 10 jours (1h-2h par jour)</div>
+<div class="module-meta-item"><strong>Ce qu'il vous faut :</strong> Un ordinateur, Claude Code, votre carnet</div>
 </div>
-<p><strong>Ce que vous allez installer :</strong> Elixir, Phoenix (Claude va vous guider)</p>
 <hr>
-<div class="step-header" id="m8-jour1"><span class="step-number">1</span><h2>Installer et découvrir</h2></div>
-<h3>Pourquoi Elixir ?</h3>
-<p>Il existe des centaines de langages de programmation. On va utiliser Elixir, et voici pourquoi :</p>
-<p><strong>Ça se lit comme de l'anglais.</strong> Regardez :</p>
-<pre data-lang="elixir"><code>def inscrire(membre, reunion) do
-  if reunion.places_restantes &gt; 0 do
-    {:ok, "Inscription réussie"}
-  else
-    {:error, "Plus de places"}
-  end
-end</code></pre>
-<p>Même sans connaître Elixir, vous comprenez ce que ça fait. C'est une fonction qui inscrit un membre à une réunion. S'il reste des places, ça marche. Sinon, erreur.</p>
-<p><strong>Ça vous force à penser clairement.</strong> En Elixir, les données ne changent jamais une fois créées. Si vous voulez modifier quelque chose, vous créez une nouvelle version. Ça a l'air contraignant, mais ça élimine une catégorie entière de bugs — ceux où une partie du code modifie des données qu'une autre partie était en train d'utiliser.</p>
-<p><strong>Ça montre le résultat immédiatement.</strong> Avec Phoenix LiveView, ce que vous construisez s'affiche dans votre navigateur et se met à jour en temps réel. Pas besoin de recharger la page. Vous changez le code, vous voyez le résultat.</p>
-<p><strong>Il y a peu d'outils, mais ils sont excellents.</strong> Au lieu de choisir parmi 400 bibliothèques pour faire la même chose, Elixir a un petit nombre d'outils bien faits et qui fonctionnent ensemble. Moins de choix = moins de confusion.</p>
+<div class="step-header" id="m8j1-jour1"><span class="step-number">1</span><h2>Installer votre nouvel atelier <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(1h30-2h)</small></h2></div>
+<h3>Avant de commencer : une analogie</h3>
+<p>Vous vous souvenez du Module 0 ? Vous aviez installé un terminal, VSCode, git, et Claude Code. C'était votre atelier de menuiserie de base — un établi, des outils, un système de rangement.</p>
+<p>Aujourd'hui, c'est la même chose. Vous ajoutez un <strong>nouvel outil spécialisé</strong> dans votre atelier : un langage de programmation (Elixir) et un <dfn title="Un ensemble d'outils pré-construits qui fournit une structure pour développer des applications web">framework</dfn> web (Phoenix). C'est comme ajouter un tour à bois dans votre atelier de menuiserie — un outil puissant dont vous allez apprendre le fonctionnement progressivement.</p>
 <h3>Ce que vous allez faire</h3>
-<p>Ouvrez Claude et demandez-lui de vous guider pas à pas :</p>
+<p>Ouvrez le terminal intégré de VSCode (<code>Ctrl + `</code>). Lancez Claude Code :</p>
+<pre data-lang="bash"><code>claude</code></pre>
+<p>Envoyez-lui ce message :</p>
 <blockquote>
-<p>Je suis débutant absolu en programmation. Je veux installer Elixir et Phoenix LiveView sur mon ordinateur. Guide-moi étape par étape, en m'expliquant ce que fait chaque commande avant que je la tape. Mon système d'exploitation est [Windows/Mac/Linux].</p>
+<p>Je suis débutant absolu en programmation. Je veux installer Elixir et Phoenix LiveView sur mon ordinateur pour un projet de club de lecture.</p>
+<p>Mon système d'exploitation est [Windows/Mac/Linux].</p>
+<p>Guide-moi étape par étape. Installe d'abord asdf (un gestionnaire de versions), puis Erlang, puis Elixir, puis Phoenix. Explique-moi ce que fait chaque commande avant que je la tape.</p>
 </blockquote>
-<p>Suivez les instructions. Quand quelque chose ne marche pas — et ça arrivera — dites à Claude exactement ce que vous voyez à l'écran. Copiez-collez les messages d'erreur.</p>
-<p>À la fin de la journée, vous devriez avoir :</p>
-<ul>
-<li>Elixir installé</li>
-<li>Un projet Phoenix créé</li>
-<li>Une page qui s'affiche dans votre navigateur quand vous lancez le serveur</li>
-</ul>
+<p>Suivez les instructions. Quand quelque chose ne marche pas — et ça arrivera — dites à Claude Code exactement ce que vous voyez à l'écran. Copiez-collez les messages d'erreur.</p>
+<h3>Créer le projet</h3>
+<p>Une fois tout installé, demandez à Claude Code :</p>
+<blockquote>
+<p>Crée un nouveau projet Phoenix appelé "mon_club". Puis lance le serveur pour que je voie la page d'accueil dans mon navigateur.</p>
+</blockquote>
+<p>Claude va exécuter quelque chose comme <code>mix phx.new mon_club</code> puis <code>mix phx.server</code>. À la fin, vous devriez voir une page dans votre navigateur à l'adresse <code>http://localhost:4000</code>.</p>
+<p><strong>C'est le même moment qu'au Module 1</strong> — vous lancez une commande, et vous voyez votre projet dans le navigateur. Ça veut dire que tout est bien installé.</p>
+<h3>Sauvegarder</h3>
+<p>Quittez Claude Code (<code>/exit</code>), puis dans le terminal :</p>
+<pre data-lang="bash"><code>cd mon_club
+git init
+git add .
+git commit -m "Projet Phoenix initial"</code></pre>
 <h3>Ce que vous devez noter dans votre carnet</h3>
 <blockquote class="notebook-prompt">
 <p>✍️ Est-ce que l'installation s'est bien passée ? Combien de problèmes avez-vous rencontrés ?</p>
@@ -61,278 +60,8 @@ end</code></pre>
 <p>✍️ Qu'est-ce que vous voyez dans votre navigateur ?</p>
 </blockquote>
 <blockquote class="notebook-prompt">
-<p>✍️ Combien de fichiers le projet contient-il ? (Regardez, ne vous inquiétez pas de les comprendre tous.)</p>
+<p>✍️ Combien de fichiers le projet contient-il ? (Regardez dans le panneau gauche de VSCode, ne vous inquiétez pas de les comprendre tous.)</p>
 </blockquote>
-<hr>
-<div class="step-header" id="m8-jour2"><span class="step-number">2</span><h2>Lire le code</h2></div>
-<h3>Ce que vous allez apprendre</h3>
-<p>Aujourd'hui, pas de construction. Juste de la lecture. Vous allez apprendre à lire du code Elixir comme on apprend à lire une langue étrangère — en commençant par les mots courants.</p>
-<h3>Les 10 choses à reconnaître</h3>
-<p>Demandez à Claude :</p>
-<blockquote>
-<p>Je viens d'installer un projet Phoenix. Avant de construire quoi que ce soit, je veux apprendre à LIRE le code Elixir. Montre-moi les 10 structures les plus courantes dans un projet Phoenix, avec un exemple de chaque et une explication en français simple. Pas de théorie — juste "quand tu vois ÇA, ça veut dire ÇA".</p>
-</blockquote>
-<p>Claude va vous montrer des choses comme :</p>
-<p><strong>1. La fonction</strong></p>
-<pre data-lang="elixir"><code>def dire_bonjour(nom) do
-  "Bonjour #{nom} !"
-end</code></pre>
-<p>Quand vous voyez <code>def</code>, c'est une fonction. Elle a un nom, elle reçoit quelque chose, elle renvoie quelque chose.</p>
-<p><strong>2. Le pipe</strong></p>
-<pre data-lang="elixir"><code>"  bonjour  "
-|&gt; String.trim()
-|&gt; String.capitalize()</code></pre>
-<p>Le <code>|&gt;</code> (pipe) se lit "puis". Prends le texte "  bonjour  ", <strong>puis</strong> enlève les espaces, <strong>puis</strong> mets une majuscule. C'est comme une chaîne de montage — chaque étape prend le résultat de la précédente.</p>
-<p><strong>3. Le pattern matching</strong></p>
-<pre data-lang="elixir"><code>case inscrire(marie, reunion) do
-  {:ok, message} -&gt; afficher_succes(message)
-  {:error, raison} -&gt; afficher_erreur(raison)
-end</code></pre>
-<p>Le <code>case</code> regarde le résultat et fait quelque chose de différent selon la forme. Si c'est <code>{:ok, ...}</code>, on fait une chose. Si c'est <code>{:error, ...}</code>, on fait autre chose. Vous reconnaissez vos parcours du Module 2 ? Chemin normal, chemin d'erreur.</p>
-<p><strong>4. Le module</strong></p>
-<pre data-lang="elixir"><code>defmodule MonClub.Reunions do
-  def creer(params) do
-    # ...
-  end
-
-  def annuler(reunion_id) do
-    # ...
-  end
-end</code></pre>
-<p>Un <code>defmodule</code>, c'est exactement une <strong>partie</strong> de votre plan du Module 1. Elle a un nom, elle contient des fonctions (les actions qu'elle sait faire). <code>MonClub.Reunions</code> → c'est le module Réunions de votre club.</p>
-<h3>L'exercice de lecture</h3>
-<p>Ouvrez les fichiers de votre projet Phoenix. Demandez à Claude :</p>
-<blockquote>
-<p>Voici le contenu du fichier [nom du fichier]. Explique-moi ce qu'il fait ligne par ligne, en français. Ne me dis pas comment le modifier — juste ce qu'il fait.</p>
-</blockquote>
-<p>Faites ça avec 3 ou 4 fichiers. L'objectif n'est pas de tout comprendre — c'est de commencer à <strong>reconnaître des formes</strong>. Comme quand vous arrivez dans un pays étranger : après deux jours vous ne parlez pas la langue, mais vous reconnaissez les panneaux de sortie et le mot "toilettes".</p>
-<h3>Ce que vous devez noter dans votre carnet</h3>
-<blockquote class="notebook-prompt">
-<p>✍️ Quelles structures reconnaissez-vous déjà ? (def, pipe, case, defmodule)</p>
-</blockquote>
-<blockquote class="notebook-prompt">
-<p>✍️ Qu'est-ce qui reste mystérieux ?</p>
-</blockquote>
-<blockquote class="notebook-prompt">
-<p>✍️ Est-ce que vous voyez le lien entre la structure du code et votre plan du Module 1 ?</p>
-</blockquote>
-<hr>
-<div class="step-header" id="m8-jour3"><span class="step-number">3</span><h2>Construire naïvement</h2></div>
-<h3>Ce que vous allez faire</h3>
-<p>On reprend le club de lecture. Mais cette fois, vous allez le construire en Elixir/Phoenix, <strong>de la manière la plus simple et la plus naïve possible</strong>. Tout dans le même endroit. Pas de plan sophistiqué. On fait exactement ce qu'on avait fait au Module 1 — sauf que cette fois vous pouvez lire ce que Claude produit.</p>
-<p>Demandez à Claude :</p>
-<blockquote>
-<p>Je veux construire un club de lecture avec Phoenix LiveView. Pour l'instant, je veux juste :</p>
-<ul>
-<li>Une page qui liste les livres</li>
-<li>Un formulaire pour ajouter un livre</li>
-<li>La possibilité de voter pour un livre</li>
-</ul>
-<p>Fais ça de la manière la plus simple possible. Tout peut être dans le même fichier ou le même contexte. Ne t'occupe pas de l'architecture — je veux que ça marche, c'est tout.</p>
-<p>Montre-moi le code et explique chaque partie.</p>
-</blockquote>
-<h3>Ce que vous allez observer</h3>
-<p>Claude va probablement tout mettre dans un seul "contexte" Phoenix. Tous les livres, les votes, les membres — tout au même endroit. Et ça va marcher parfaitement.</p>
-<p>Vous allez aussi remarquer quelque chose de nouveau : <strong>vous comprenez une partie du code</strong>. Pas tout. Mais les <code>def</code>, les <code>case</code>, les pipes — vous les reconnaissez. Vous n'êtes plus aveugle.</p>
-<h3>L'exercice important</h3>
-<p>Après que Claude a écrit le code, demandez-lui :</p>
-<blockquote>
-<p>Montre-moi la liste de toutes les fonctions que tu as créées, avec pour chacune : son nom, ce qu'elle reçoit, et ce qu'elle renvoie. Comme un sommaire.</p>
-</blockquote>
-<p>Ce "sommaire", c'est l'<strong>interface</strong> de votre code. Vous reconnaissez ? C'est exactement la "porte d'entrée" du Module 3. Sauf que cette fois, c'est dans le code.</p>
-<h3>Ce que vous devez noter dans votre carnet</h3>
-<blockquote class="notebook-prompt">
-<p>✍️ Combien de fonctions Claude a-t-il créées ?</p>
-</blockquote>
-<blockquote class="notebook-prompt">
-<p>✍️ Est-ce que vous comprenez ce que chacune fait juste en lisant son nom et ses paramètres ?</p>
-</blockquote>
-<blockquote class="notebook-prompt">
-<p>✍️ Est-ce que tout est dans le même fichier/contexte ?</p>
-</blockquote>
-<hr>
-<div class="step-header" id="m8-jour4"><span class="step-number">4</span><h2>Lire les résultats dans le code</h2></div>
-<h3>Ce que vous allez apprendre</h3>
-<p>Hier vous avez construit. Aujourd'hui vous allez apprendre à <strong>lire ce que le code fait réellement</strong> — pas ce que Claude dit qu'il fait.</p>
-<h3>Le {:ok, ...} et {:error, ...}</h3>
-<p>En Elixir, quand une fonction fait quelque chose, elle le dit clairement :</p>
-<pre data-lang="elixir"><code># Ça a marché
-{:ok, livre}
-
-# Ça n'a pas marché
-{:error, raison}</code></pre>
-<p>Ce sont vos ✅ et ❌ du Module 4, directement dans le code. Chaque fonction qui peut échouer le dit explicitement.</p>
-<h3>Ce que vous allez faire</h3>
-<p>Demandez à Claude :</p>
-<blockquote>
-<p>Dans le code de mon club de lecture, montre-moi toutes les fonctions qui peuvent échouer. Pour chacune, montre-moi :</p>
-<ol>
-<li>Quand est-ce qu'elle renvoie {:ok, ...} ?</li>
-<li>Quand est-ce qu'elle renvoie {:error, ...} ?</li>
-<li>Est-ce que l'appelant (le code qui utilise cette fonction) gère les deux cas ?</li>
-</ol>
-</blockquote>
-<h3>Ce que vous allez découvrir</h3>
-<p>Probablement que plusieurs fonctions <strong>ne gèrent pas le cas d'erreur</strong>. Claude a écrit le chemin normal, mais le <code>{:error, ...}</code> n'est traité nulle part. Vous allez retrouver exactement le problème du Module 4 — sauf que cette fois vous pouvez le <strong>voir</strong> dans le code, pas juste le deviner.</p>
-<h3>La correction</h3>
-<p>Pour chaque cas d'erreur non géré, demandez à Claude de le corriger :</p>
-<blockquote>
-<p>La fonction <code>voter(membre_id, livre_id)</code> peut renvoyer <code>{:error, "Déjà voté"}</code> mais le LiveView qui l'appelle ne gère pas ce cas. Le membre ne voit rien quand il essaie de voter deux fois. Corrige ça pour afficher un message d'erreur.</p>
-</blockquote>
-<p>Vous êtes en train de faire exactement ce que vous faisiez au Module 4 — mais cette fois dans le code lui-même, pas dans un rapport.</p>
-<hr>
-<div class="step-header" id="m8-jour5"><span class="step-number">5</span><h2>Ajouter des fonctionnalités <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(la friction commence)</small></h2></div>
-<h3>Ce que vous allez faire</h3>
-<p>Votre club de lecture a des livres et des votes. Maintenant, ajoutez ces fonctionnalités, une par une. <strong>Tout reste dans le même contexte</strong> — ne réorganisez rien.</p>
-<blockquote>
-<p>"Ajoute un système de comptes. Les membres ont un nom et un email."</p>
-</blockquote>
-<blockquote>
-<p>"Ajoute des critiques : un membre peut écrire un avis sur un livre."</p>
-</blockquote>
-<blockquote>
-<p>"Ajoute des réunions avec une date, un lieu, et un nombre de places."</p>
-</blockquote>
-<blockquote>
-<p>"Ajoute l'inscription aux réunions."</p>
-</blockquote>
-<blockquote>
-<p>"Ajoute des catégories de livres."</p>
-</blockquote>
-<div class="callout callout-red">
-<div class="callout-title">🔴 Ce que vous devez surveiller</div>
-<p>Vous connaissez cette sensation. Vous l'avez vécue au Module 1. Mais cette fois, vous pouvez la <strong>voir dans le code</strong> :</p>
-</div>
-<div class="callout callout-flag">
-<div class="callout-title">🚩 Le contexte unique grossit de manière incontrôlable.</div>
-<p>Le fichier qui contenait 5 fonctions en contient maintenant 25 ou 30. Trouver quelque chose dedans prend du temps.</p>
-</div>
-<div class="callout callout-flag">
-<div class="callout-title">🚩 Les fonctions commencent à faire trop de choses.</div>
-<p>La fonction <code>inscrire_reunion</code> gère à la fois la vérification du membre, la vérification des places, l'inscription, et l'envoi de notification. Elle fait le travail de quatre parties de votre ancien plan.</p>
-</div>
-<div class="callout callout-flag">
-<div class="callout-title">🚩 Les données s'entremêlent.</div>
-<p>Les tables de la base de données commencent à se référencer dans tous les sens. Un livre connaît ses votes, ses critiques, ses catégories, ses emprunts. Tout est lié à tout.</p>
-</div>
-<div class="callout callout-flag">
-<div class="callout-title">🚩 Vous reconnaissez les symptômes du Module 1.</div>
-<p>Mais cette fois, ce n'est pas Claude qui oublie — c'est le code lui-même qui est mal organisé. Le problème n'est plus dans la conversation. Il est dans la structure du code.</p>
-</div>
-<h3>L'exercice clé</h3>
-<p>Demandez à Claude :</p>
-<blockquote>
-<p>Montre-moi le "sommaire" de toutes les fonctions du contexte, groupées par thème. Combien de thèmes différents cohabitent dans le même contexte ?</p>
-</blockquote>
-<p>La réponse va vous sauter aux yeux : des fonctions sur les livres, les votes, les membres, les réunions, les inscriptions, les critiques — tout dans le même sac. C'est le plat de nouilles du Module 1, mais en vrai.</p>
-<h3>Ce que vous devez noter dans votre carnet</h3>
-<blockquote class="notebook-prompt">
-<p>✍️ Combien de fonctions dans votre contexte unique ?</p>
-</blockquote>
-<blockquote class="notebook-prompt">
-<p>✍️ Combien de "thèmes" différents y cohabitent ?</p>
-</blockquote>
-<blockquote class="notebook-prompt">
-<p>✍️ Quelle fonction vous semble la plus confuse (celle qui fait trop de choses) ?</p>
-</blockquote>
-<blockquote class="notebook-prompt">
-<p>✍️ Si vous deviez expliquer ce code à quelqu'un, par où commenceriez-vous ? (Si la réponse est "je ne sais pas", c'est un signal.)</p>
-</blockquote>
-<hr>
-<div class="step-header" id="m8-jour6"><span class="step-number">6</span><h2>Découper <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(le Module 1, en vrai)</small></h2></div>
-<h3>Ce que vous allez faire</h3>
-<p>Vous allez refaire le Module 1 — mais dans le code cette fois. Découper le contexte unique en plusieurs contextes Phoenix, chacun avec une responsabilité claire.</p>
-<p>D'abord, relisez votre plan du Module 1. Puis demandez à Claude :</p>
-<blockquote>
-<p>Voici mon plan d'architecture :
-[collez la vue d'ensemble avec les modules et interfaces]</p>
-<p>Voici le code actuel de mon application, qui est entièrement dans un seul contexte :
-[collez le code]</p>
-<p>Je veux séparer ce code en contextes Phoenix qui correspondent à mon plan. Chaque contexte doit correspondre à un module de mon plan. Les interfaces de mon plan doivent devenir les fonctions publiques de chaque contexte.</p>
-<p>Fais la séparation et montre-moi le résultat.</p>
-</blockquote>
-<h3>Ce que vous allez voir</h3>
-<p>Le code va se réorganiser en quelque chose comme :</p>
-<pre><code>lib/mon_club/
-  comptes/          ← le module Comptes
-    comptes.ex      ← l'interface (fonctions publiques)
-  livres/           ← le module Livres
-    livres.ex
-  reunions/         ← le module Réunions
-    reunions.ex
-  critiques/        ← le module Critiques
-    critiques.ex</code></pre>
-<p>Chaque fichier est un <strong>module</strong> au sens d'Elixir ET au sens de votre plan. Les fonctions publiques de chaque fichier sont les <strong>interfaces</strong>. Le code interne est l'<strong>implémentation</strong>.</p>
-<p><strong>Votre plan et votre code disent la même chose.</strong> C'est le moment déclic de ce module.</p>
-<h3>La vérification</h3>
-<p>Demandez à Claude :</p>
-<blockquote>
-<p>Montre-moi les fonctions publiques de chaque contexte. Est-ce que ça correspond aux interfaces de mon plan ?</p>
-</blockquote>
-<p>S'il y a des différences, c'est soit que le plan a besoin d'être mis à jour, soit que le code n'a pas bien été découpé. Les deux sources de vérité — le plan et le code — doivent être alignées.</p>
-<hr>
-<div class="step-header" id="m8-jour7"><span class="step-number">7</span><h2>Le bilan</h2></div>
-<h3>Ce que vous avez fait cette semaine</h3>
-<p>Vous avez traversé un seuil. Vous n'êtes plus uniquement un architecte qui donne des plans à l'IA — vous êtes quelqu'un qui peut <strong>lire le code, identifier les problèmes, et guider les corrections avec précision</strong>.</p>
-<h3>Les compétences acquises</h3>
-<table>
-<thead>
-<tr>
-<th>Compétence</th>
-<th>Ce que ça signifie</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Lire une fonction</strong></td>
-<td>Vous savez ce que <code>def</code>, les paramètres, et la valeur de retour signifient</td>
-</tr>
-<tr>
-<td><strong>Suivre un pipe</strong></td>
-<td>Vous comprenez <code>|&gt;</code> comme une chaîne d'étapes</td>
-</tr>
-<tr>
-<td><strong>Lire un pattern match</strong></td>
-<td>Vous savez que <code>{:ok, ...}</code> et <code>{:error, ...}</code> sont les deux chemins</td>
-</tr>
-<tr>
-<td><strong>Reconnaître un module</strong></td>
-<td>Vous voyez <code>defmodule</code> et vous pensez "partie de mon plan"</td>
-</tr>
-<tr>
-<td><strong>Lire un sommaire</strong></td>
-<td>Vous pouvez regarder les fonctions publiques d'un module et comprendre son interface</td>
-</tr>
-<tr>
-<td><strong>Voir le monolithe</strong></td>
-<td>Vous savez reconnaître quand tout est entassé au même endroit</td>
-</tr>
-</tbody>
-</table>
-<h3>Ce que vous ne savez PAS encore faire (et c'est normal)</h3>
-<ul>
-<li>Écrire du code Elixir de zéro (vous modifiez avec Claude)</li>
-<li>Comprendre tout ce que fait Phoenix en coulisses (les migrations, le routeur, les sockets)</li>
-<li>Optimiser les performances</li>
-<li>Gérer le déploiement</li>
-</ul>
-<p>Rien de ça n'est nécessaire pour la suite. Ce qui est nécessaire, c'est ce que vous savez faire : <strong>lire, comprendre la structure, et guider Claude avec précision</strong>.</p>
-<h3>La structure de votre projet</h3>
-<pre><code>INVARIANTS
-VUE D'ENSEMBLE (modules + interfaces)
-FICHES DÉTAILLÉES
-FLUX
-TESTS
-
-CODE                               ← nouveau
-├── lib/mon_club/
-│   ├── comptes/comptes.ex         ← module = partie du plan
-│   ├── livres/livres.ex           ← fonctions publiques = interface
-│   ├── reunions/reunions.ex       ← code interne = implémentation
-│   └── ...</code></pre>
-<hr>
-<h2 id="m8-suite">La suite</h2>
-<p>Votre code est bien découpé. Ça marche. Mais la semaine prochaine, on va faire grossir le projet sérieusement — et vous allez découvrir que des contextes bien découpés ne suffisent pas. Quand le contexte "Réunions" a besoin de savoir des choses sur les "Comptes" et les "Paiements" et les "Notifications" en même temps, les dépendances se multiplient et le code redevient un plat de nouilles — mais cette fois entre les contextes, pas à l'intérieur. Le Module 8 vous apprendra à gérer ça.</p>
 
       </div>
     </main>

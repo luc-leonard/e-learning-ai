@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Module 9 — Le monolithe qui enfle</title>
+  <title>Jour 1 — Faire grandir le projet</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
 </head>
@@ -13,385 +13,47 @@
     <main class="main-content">
       <div class="module-content">
 
-<h1>Module 9 : Le monolithe qui enfle</h1>
-<p class="module-subtitle"><em>Quand vos modules bien découpés recommencent à s'étouffer entre eux</em></p>
+<h1>Jour 1 : Faire grandir le projet</h1>
+<p class="module-subtitle"><em>Module 9 — Le monolithe qui enfle</em></p>
 <hr>
-<h2>Ce que vous savez déjà</h2>
-<p>Votre club de lecture est découpé en contextes Phoenix propres. Comptes, Livres, Réunions, Critiques — chacun chez soi, chacun avec son interface. Les tests passent. Le plan et le code sont alignés.</p>
-<p>Et pourtant, quelque chose commence à gratter.</p>
+<h3>Avant de commencer</h3>
+<p>Au Jour 7 du Module 8, vous avez vu le monolithe — tout entassé dans un seul contexte. Au Jour 8, vous l'avez découpé en contextes séparés : Comptes, Livres, Réunions. Chacun chez soi, chacun avec sa porte d'entrée.</p>
+<p>Ça fonctionne. Mais votre club de lecture est un peu trop simple. Dans un vrai club, les parties ne vivent pas chacune dans leur bulle — elles ont besoin les unes des autres. C'est normal, et c'est ce qu'on va créer aujourd'hui.</p>
 <div class="module-meta">
-<div class="module-meta-item"><strong>Durée :</strong> Une semaine (1-2 heures par jour)</div>
-<div class="module-meta-item"><strong>Ce qu'il vous faut :</strong> Votre projet du Module 8, un compte Claude, votre carnet</div>
+<div class="module-meta-item"><strong>Durée :</strong> 1h30-2h</div>
+<div class="module-meta-item"><strong>Ce qu'il vous faut :</strong> Votre dossier `mon_club` ouvert dans VSCode, Claude Code, votre carnet</div>
 </div>
 <hr>
-<h2 id="m9-analogie">Avant de commencer : une analogie</h2>
-<p>Votre application, c'est un immeuble de bureaux. Chaque étage est un département (un contexte). Comptabilité au 2ème, Événements au 3ème, Communication au 4ème.</p>
-<p>Bien séparé. Propre. Chaque étage a sa porte.</p>
-<p>Sauf que dans la pratique, les employés passent leur temps dans l'ascenseur. Quelqu'un des Événements descend à la Comptabilité pour demander un paiement. La Comptabilité remonte aux Événements pour vérifier le prix. Les Événements montent à la Communication pour demander l'envoi d'un email. Aller-retour, aller-retour. Les étages sont séparés, mais les gens sont emmêlés.</p>
-<p>Un jour, la Comptabilité déménage ses bureaux et change sa porte d'entrée. Panique dans tout l'immeuble — tous les autres étages qui venaient frapper à l'ancienne porte sont perdus.</p>
-<p>Maintenant, imaginez un autre système : chaque département a un <strong>tableau d'affichage</strong> dans le hall. Quand les Événements inscrivent quelqu'un, ils n'appellent personne — ils affichent une note : "Marie s'est inscrite à la Soirée Polar". La Comptabilité voit la note et traite le paiement. La Communication voit la note et envoie l'email. Chaque département regarde le tableau et fait son travail. Personne n'appelle personne.</p>
-<p>Si la Comptabilité déménage ? Aucun impact. Elle regarde toujours le même tableau d'affichage, juste depuis un autre étage.</p>
-<hr>
-<div class="step-header" id="m9-jour1"><span class="step-number">1</span><h2>Voir les fils emmêlés <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(90 min)</small></h2></div>
 <h3>Ce que vous allez faire</h3>
-<p>Ouvrez votre projet et demandez à Claude de vous montrer la réalité :</p>
+<p>Quittez Claude Code (<code>/exit</code>) et relancez une nouvelle session :</p>
+<pre data-lang="bash"><code>claude</code></pre>
+<p>Vous allez demander à Claude Code d'ajouter deux fonctionnalités qui <strong>lient les contextes entre eux</strong>. Ce n'est pas un accident — c'est exactement ce qui arrive quand un projet grandit.</p>
+<p><strong>Demande 1 :</strong></p>
 <blockquote>
-<p>Voici le code de mon application :
-[collez le code, ou indiquez le chemin du projet]</p>
-<p>Pour chaque contexte (Comptes, Livres, Réunions, etc.), montre-moi :</p>
-<ol>
-<li>Quels autres contextes il appelle directement dans son code</li>
-<li>Quels autres contextes l'appellent directement</li>
-</ol>
-<p>Dessine ça comme un schéma simple avec des flèches : A → B signifie "A appelle B".</p>
+<p>Lis plan.md et le code du projet.</p>
+<p>Ajoute cette fonctionnalité : seuls les membres inscrits (contexte Comptes) peuvent voter pour un livre (contexte Livres). Avant d'enregistrer un vote, le code doit vérifier que le membre existe dans Comptes.</p>
+<p>Mets à jour plan.md pour refléter cette nouvelle règle.</p>
 </blockquote>
-<h3>Ce que vous allez voir</h3>
-<p>Quelque chose comme :</p>
-<pre><code>Réunions → Comptes       (pour vérifier le membre)
-Réunions → Paiements     (pour prendre le paiement)
-Réunions → Notifications (pour envoyer l'email)
-Prêts → Comptes          (pour vérifier le membre)
-Prêts → Livres           (pour vérifier la disponibilité)
-Prêts → Notifications    (pour prévenir le propriétaire)
-Critiques → Comptes      (pour identifier l'auteur)
-Critiques → Livres       (pour lier au bon livre)
-Statistiques → Réunions  (pour compter les inscrits)
-Statistiques → Livres    (pour compter les votes)
-Statistiques → Comptes   (pour le classement des membres)</code></pre>
-<p>Comptez les flèches. Probablement entre 10 et 20. Maintenant posez-vous la question : si vous changez l'interface de Comptes, combien de contextes cassent ?</p>
-<p>Réponse : presque tous.</p>
-<h3>Le mot pour ça</h3>
-<p>Vous connaissez déjà le mot : c'est du <strong>couplage</strong>. Mais un couplage d'un nouveau type. Au Module 1, le couplage était à l'intérieur du code — tout dans le même fichier. Au Module 8, vous l'avez résolu en découpant. Maintenant, le couplage est <strong>entre</strong> les modules. Vous avez des boîtes bien rangées, mais elles sont toutes liées par des fils.</p>
+<p>Attendez que Claude ait fini. Lancez le site (<code>mix phx.server</code>) et vérifiez dans le navigateur que ça marche.</p>
+<p><strong>Demande 2 :</strong></p>
+<blockquote>
+<p>Ajoute une deuxième fonctionnalité : quand quelqu'un s'inscrit à une réunion (contexte Réunions), le code doit vérifier que cette personne est un membre inscrit (contexte Comptes) et que les places ne sont pas pleines.</p>
+<p>Mets à jour plan.md.</p>
+</blockquote>
+<p>Vérifiez à nouveau dans le navigateur.</p>
+<h3>Ce qui vient de se passer</h3>
+<p>Regardez votre code. Le contexte Livres appelle maintenant le contexte Comptes pour vérifier qu'un membre existe. Le contexte Réunions fait la même chose. Vos contextes bien séparés se <strong>connaissent</strong> maintenant.</p>
+<p>C'est parfaitement logique — un club de lecture ne peut pas fonctionner si les réunions ne savent pas qui sont les membres. Mais ça crée quelque chose de nouveau : des <strong>liens entre les contextes</strong>.</p>
 <h3>Ce que vous devez noter dans votre carnet</h3>
 <blockquote class="notebook-prompt">
-<p>✍️ Combien de flèches dans votre schéma ?</p>
+<p>✍️ Quels contextes appellent d'autres contextes maintenant ?</p>
 </blockquote>
 <blockquote class="notebook-prompt">
-<p>✍️ Quel contexte est le plus appelé par les autres ? (Probablement Comptes)</p>
+<p>✍️ Est-ce que ça vous semble normal que Livres ait besoin de Comptes ?</p>
 </blockquote>
-<blockquote class="notebook-prompt">
-<p>✍️ Quel contexte appelle le plus d'autres contextes ? (Probablement Réunions)</p>
-</blockquote>
-<blockquote class="notebook-prompt">
-<p>✍️ Si vous changiez l'interface de Comptes, combien de contextes seraient affectés ?</p>
-</blockquote>
-<hr>
-<div class="step-header" id="m9-jour2"><span class="step-number">2</span><h2>Provoquer la douleur <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(90 min)</small></h2></div>
-<h3>Ce que vous allez faire</h3>
-<p>Vous allez modifier l'interface d'un contexte central et observer le carnage.</p>
-<p>Demandez à Claude :</p>
-<blockquote>
-<p>Je veux changer le contexte Comptes. Jusqu'ici, un membre était identifié par son <code>id</code> (un nombre). Je veux passer à un identifiant unique de type UUID (un texte comme "550e8400-e29b-41d4-a716-446655440000"). C'est plus robuste et plus sûr.</p>
-<p>Fais ce changement dans le contexte Comptes et montre-moi tout ce qui casse dans les autres contextes.</p>
-</blockquote>
-<div class="callout callout-red">
-<div class="callout-title">🔴 Ce qui va se passer</div>
-<p>L'apocalypse. Ou du moins, une mini-apocalypse très instructive.</p>
-<p><strong>Tous les contextes qui appellent Comptes directement vont casser.</strong> Réunions passe un <code>id</code> numérique à Comptes — ça ne marche plus. Prêts vérifie un membre par son <code>id</code> — ça ne marche plus. Critiques, Statistiques, tout le monde tombe.</p>
-<p>Et ce n'est pas fini. Les <strong>tests</strong> vont devenir rouges. Pas juste les tests de Comptes — les tests de Réunions, de Prêts, de tout ce qui touche à un membre. Un changement dans un contexte, des tests rouges partout.</p>
-<h3>La question</h3>
-<blockquote class="notebook-prompt">
-<p>✍️ Pourquoi un changement dans Comptes casse-t-il les Réunions ? Les Réunions ne gèrent pas les comptes — c'est le principe du Module 1.</p>
-</blockquote>
-<p>La réponse : parce que les Réunions <strong>appellent directement</strong> les Comptes. Elles connaissent le détail de comment les Comptes fonctionnent (les membres ont un <code>id</code> numérique). Ce détail est une <strong>implémentation</strong> — il n'aurait jamais dû franchir la frontière.</p>
-<p>C'est la leçon la plus subtile du cours : <strong>découper ne suffit pas si les modules se connaissent trop</strong>. La séparation physique (des fichiers différents) n'est pas une séparation réelle si les modules dépendent des détails internes des autres.</p>
-</div>
-<hr>
-<div class="step-header" id="m9-jour3"><span class="step-number">3</span><h2>Penser en événements <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(90 min)</small></h2></div>
-<h3>L'idée clé</h3>
-<p>Jusqu'ici, vos modules communiquent par des <strong>ordres</strong> :</p>
-<ul>
-<li>Réunions <strong>dit à</strong> Paiements : "Prends un paiement de 5€"</li>
-<li>Réunions <strong>dit à</strong> Notifications : "Envoie un email à Marie"</li>
-<li>Prêts <strong>dit à</strong> Livres : "Marque ce livre comme emprunté"</li>
-</ul>
-<p>C'est une communication par <strong>commandes</strong>. Le module qui parle doit connaître le module qui écoute. Il doit savoir quoi lui demander, comment, dans quel format.</p>
-<p>Il y a une autre façon de faire. Au lieu d'envoyer des ordres, un module <strong>annonce ce qui s'est passé</strong> :</p>
-<ul>
-<li>Réunions annonce : <em>"Marie s'est inscrite à la Soirée Polar"</em></li>
-<li>Qui veut réagir à ça ? C'est leur problème, pas celui des Réunions.</li>
-<li>Paiements entend l'annonce et prend le paiement.</li>
-<li>Notifications entend l'annonce et envoie l'email.</li>
-<li>Statistiques entend l'annonce et met à jour ses compteurs.</li>
-</ul>
-<p>Réunions ne sait pas que Paiements existe. Réunions ne sait pas que Notifications existe. Réunions fait son travail, annonce le résultat, et se tait.</p>
-<p><strong>C'est la différence entre "fais ça" et "ça s'est passé".</strong> Et cette différence change tout.</p>
-<h3>En Elixir</h3>
-<p>Phoenix a un outil intégré pour ça : <strong>PubSub</strong>. C'est le tableau d'affichage de l'analogie du début. Un module publie un message, les autres s'y abonnent.</p>
-<p>Demandez à Claude :</p>
-<blockquote>
-<p>Explique-moi Phoenix.PubSub avec un exemple simple. Montre-moi :</p>
-<ol>
-<li>Comment un module publie un événement ("quelque chose s'est passé")</li>
-<li>Comment un autre module s'abonne pour réagir</li>
-<li>Pourquoi le module qui publie n'a pas besoin de savoir qui écoute</li>
-</ol>
-<p>Utilise l'exemple de l'inscription à une réunion dans mon club de lecture.</p>
-</blockquote>
-<h3>Ce que Claude va vous montrer</h3>
-<p>Quelque chose comme :</p>
-<pre data-lang="elixir"><code># Dans le contexte Réunions — quand une inscription réussit :
-defmodule MonClub.Reunions do
-  def inscrire(membre_id, reunion_id) do
-    # ... fait l'inscription ...
-
-    # Annonce ce qui s'est passé
-    Phoenix.PubSub.broadcast(MonClub.PubSub, "reunions", 
-      {:membre_inscrit, %{membre_id: membre_id, reunion_id: reunion_id}}
-    )
-
-    {:ok, inscription}
-  end
-end</code></pre>
-<pre data-lang="elixir"><code># Dans le contexte Paiements — écoute les inscriptions :
-defmodule MonClub.Paiements.Listener do
-  use GenServer
-
-  def init(_) do
-    Phoenix.PubSub.subscribe(MonClub.PubSub, "reunions")
-    {:ok, %{}}
-  end
-
-  def handle_info({:membre_inscrit, %{membre_id: id, reunion_id: rid}}, state) do
-    # Réagit à l'événement
-    MonClub.Paiements.creer_paiement(id, rid)
-    {:noreply, state}
-  end
-end</code></pre>
-<h3>Ce que vous devez remarquer</h3>
-<p>Regardez bien le code de Réunions. Il ne contient <strong>aucune mention</strong> de Paiements. Aucune. Il ne sait pas que Paiements existe. Il dit juste "une inscription a eu lieu" et passe à autre chose.</p>
-<p>Maintenant regardez Paiements. Il écoute les événements de Réunions, mais Réunions ne le sait pas.</p>
-<p><strong>C'est le découplage total.</strong> Si demain vous ajoutez un module Statistiques qui veut aussi réagir aux inscriptions, vous n'avez qu'à l'abonner. Réunions ne change pas. Pas une ligne.</p>
-<p>Et le changement d'ID du Jour 2 ? Si Réunions annonce <code>{:membre_inscrit, %{membre_id: uuid}}</code> au lieu d'un nombre, seuls les modules qui écoutent cet événement doivent s'adapter — et ils s'adaptent chacun chez eux, pas dans le code de Réunions.</p>
-<hr>
-<div class="step-header" id="m9-jour4"><span class="step-number">4</span><h2>Transformer les appels en événements <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(2h)</small></h2></div>
-<h3>Ce que vous allez faire</h3>
-<p>Reprenez votre schéma de flèches du Jour 1. Vous allez transformer les appels directs en événements, un par un.</p>
-<p>D'abord, identifiez les événements. Demandez à Claude :</p>
-<blockquote>
-<p>Voici la liste des appels directs entre mes contextes :
-[collez le schéma de flèches]</p>
-<p>Pour chaque flèche, propose un événement qui pourrait la remplacer. Un événement décrit ce qui S'EST PASSÉ, pas ce qu'il faut faire. Format :</p>
-<ul>
-<li>Appel direct : Réunions → Paiements ("prends un paiement")</li>
-<li>Événement : {:membre_inscrit, %{membre_id: ..., reunion_id: ..., montant: ...}}</li>
-</ul>
-<p>Tous les appels ne doivent pas forcément devenir des événements. Dis-moi lesquels doivent rester des appels directs et pourquoi.</p>
-</blockquote>
-<h3>Le point subtil</h3>
-<p>Claude va (normalement) vous dire que <strong>certains appels doivent rester directs</strong>. Par exemple :</p>
-<ul>
-<li>Réunions doit <strong>vérifier</strong> que le membre existe avant de l'inscrire. C'est une question ("ce membre existe-t-il ?"), pas une annonce. Ça reste un appel direct à Comptes.</li>
-<li>Mais après l'inscription, <strong>annoncer</strong> que ça s'est passé → c'est un événement.</li>
-</ul>
-<p>La règle :</p>
-<ul>
-<li><strong>Question (j'ai besoin d'une réponse pour continuer)</strong> → appel direct</li>
-<li><strong>Annonce (quelque chose s'est passé, qui veut réagir ?)</strong> → événement</li>
-</ul>
-<h3>La transformation</h3>
-<p>Demandez à Claude de transformer votre code :</p>
-<blockquote>
-<p>Voici le code de mon contexte Réunions :
-[collez le code]</p>
-<p>Voici la liste des événements à publier :
-[collez la liste d'événements]</p>
-<p>Transforme les appels directs de notification, paiement, et statistiques en événements PubSub. Garde les appels directs pour les vérifications (est-ce que le membre existe, est-ce qu'il reste des places).</p>
-</blockquote>
-<h3>Le nouveau schéma</h3>
-<p>Après la transformation, redemandez le schéma de flèches. Il devrait ressembler à :</p>
-<pre><code>Appels directs (questions) :
-  Réunions → Comptes       (vérifier le membre)
-  Prêts → Comptes           (vérifier le membre)
-  Prêts → Livres            (vérifier la disponibilité)
-
-Événements (annonces) :
-  Réunions publie : {:membre_inscrit, ...}
-    ← Paiements écoute
-    ← Notifications écoute
-    ← Statistiques écoute
-
-  Réunions publie : {:reunion_annulee, ...}
-    ← Paiements écoute (pour rembourser)
-    ← Notifications écoute
-
-  Prêts publie : {:livre_emprunte, ...}
-    ← Notifications écoute
-    ← Statistiques écoute</code></pre>
-<p>Comptez les flèches directes. Beaucoup moins qu'avant. Et surtout : les contextes qui <strong>font des choses</strong> (Paiements, Notifications, Statistiques) ne sont plus appelés par personne. Ils écoutent. C'est eux qui décident de réagir, pas les autres qui leur donnent des ordres.</p>
-<hr>
-<div class="step-header" id="m9-jour5"><span class="step-number">5</span><h2>Les tests cassent <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(et c'est normal) (90 min)</small></h2></div>
-<h3>Ce qui va se passer</h3>
-<p>Vos tests des Modules 4-5/8 vont casser. Pas parce que le code est faux, mais parce que le <strong>timing</strong> a changé.</p>
-<p>Avant (appel direct) :</p>
-<pre><code>1. Réunions.inscrire(marie, soiree)
-2. → Paiements.creer_paiement(marie, soiree)    # immédiat
-3. → vérifier que le paiement existe              # ✅ il existe</code></pre>
-<p>Après (événement) :</p>
-<pre><code>1. Réunions.inscrire(marie, soiree)
-2. → publie {:membre_inscrit, ...}                # l'événement part
-3. → vérifier que le paiement existe              # ❌ pas encore !
-4. ... quelques millisecondes plus tard ...
-5. → Paiements reçoit l'événement et crée le paiement</code></pre>
-<p>Le test vérifie trop vite. Le paiement n'a pas encore été créé quand le test le cherche. C'est le problème du <strong>temps</strong> — quand les choses ne sont plus instantanées, il faut apprendre à attendre.</p>
-<h3>Ce que vous allez faire</h3>
-<p>Demandez à Claude :</p>
-<blockquote>
-<p>Mes tests cassent depuis que j'utilise PubSub. Le problème c'est que les événements sont traités de manière asynchrone — le test vérifie avant que le listener ait réagi. Comment gérer ça en Elixir ? Montre-moi comment adapter mes tests.</p>
-</blockquote>
-<h3>Ce que vous allez apprendre</h3>
-<p>Claude va vous montrer des techniques pour attendre que les événements soient traités avant de vérifier. En Elixir, c'est naturel — le langage est conçu pour gérer les processus asynchrones.</p>
-<p>Mais la leçon importante est ailleurs : <strong>quand vous changez la façon dont les modules communiquent, vous devez aussi changer la façon dont vous vérifiez.</strong> Les tests ne sont pas éternels. Ils évoluent avec l'architecture.</p>
-<h3>Repensez vos vérifications</h3>
-<p>Certaines de vos vérifications du Module 4 doivent être reformulées :</p>
-<p>Avant :</p>
-<pre><code>Après une inscription réussie :
-  ✓ Un paiement de 5€ est enregistré</code></pre>
-<p>Après :</p>
-<pre><code>Après une inscription réussie :
-  ✓ L'événement {:membre_inscrit, ...} a été publié
-  ✓ Dans les secondes qui suivent, un paiement de 5€ est enregistré</code></pre>
-<p>La vérification est en deux temps maintenant : est-ce que l'annonce a été faite ? Et ensuite, est-ce que quelqu'un a réagi correctement ?</p>
-<hr>
-<div class="step-header" id="m9-jour6"><span class="step-number">6</span><h2>Le vocabulaire du jour <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(60 min)</small></h2></div>
-<h3>Les nouveaux mots</h3>
-<p>Vous avez pratiqué de nouveaux concepts cette semaine. Voici leurs noms :</p>
-<table>
-<thead>
-<tr>
-<th>Ce que vous dites</th>
-<th>Le vrai nom</th>
-<th>Ce que ça signifie</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>"Annonce ce qui s'est passé"</td>
-<td><strong>Événement de domaine</strong> (Domain Event)</td>
-<td>Un fait qui s'est produit dans le système, exprimé au passé</td>
-</tr>
-<tr>
-<td>"Le tableau d'affichage"</td>
-<td><strong>PubSub</strong> (Publish/Subscribe)</td>
-<td>Un mécanisme où quelqu'un publie et d'autres s'abonnent</td>
-</tr>
-<tr>
-<td>"Écouter et réagir"</td>
-<td><strong>Listener</strong> (ou Handler)</td>
-<td>Un morceau de code qui attend un événement et réagit</td>
-</tr>
-<tr>
-<td>"Je pose une question"</td>
-<td><strong>Requête</strong> (Query)</td>
-<td>Un appel qui demande une information sans rien modifier</td>
-</tr>
-<tr>
-<td>"Je donne un ordre"</td>
-<td><strong>Commande</strong> (Command)</td>
-<td>Un appel qui demande de faire quelque chose</td>
-</tr>
-<tr>
-<td>"Je n'ai pas besoin de savoir qui écoute"</td>
-<td><strong>Découplage par événements</strong></td>
-<td>Les modules communiquent sans se connaître</td>
-</tr>
-<tr>
-<td>"Le test vérifie trop vite"</td>
-<td><strong>Asynchrone</strong></td>
-<td>Les choses ne se passent pas dans l'ordre immédiat</td>
-</tr>
-</tbody>
-</table>
-<h3>Un mot particulièrement important : Événement de domaine</h3>
-<p>"Événement de domaine" est un terme qui vient d'une approche appelée <strong>Domain-Driven Design</strong> (DDD) — la conception pilotée par le métier. Vous n'avez pas besoin de connaître tout le DDD pour l'instant, mais sachez ceci : ce que vous faites depuis le Module 1 — découper par responsabilité métier, définir des interfaces, communiquer par événements — c'est du DDD. Vous le pratiquez sans le savoir depuis le début.</p>
-<p>Les événements de domaine sont au cœur de cette approche. Un événement de domaine dit <strong>ce qui a changé dans le monde réel</strong>, pas ce qui a changé dans le code :</p>
-<ul>
-<li>❌ <code>{:database_row_inserted, ...}</code> — ça parle du code</li>
-<li>✅ <code>{:membre_inscrit, ...}</code> — ça parle du club de lecture</li>
-</ul>
-<p>La nuance est cruciale. Vos événements doivent avoir du sens pour <strong>quelqu'un qui ne connaît pas le code</strong> — le gérant du club de lecture comprendrait "Marie s'est inscrite à la Soirée Polar". Il ne comprendrait pas "une ligne a été insérée dans la table inscriptions avec le foreign key 42".</p>
-<h3>L'exercice</h3>
-<p>Relisez vos événements. Est-ce qu'ils parlent du club de lecture ou du code ?</p>
-<p>Demandez à Claude :</p>
-<blockquote>
-<p>Voici la liste de mes événements PubSub :
-[collez la liste]</p>
-<p>Pour chaque événement, dis-moi s'il est nommé en termes de "ce qui se passe dans le club de lecture" (bon) ou en termes de "ce qui se passe dans le code" (à renommer). Propose des meilleurs noms si nécessaire.</p>
-</blockquote>
-<hr>
-<div class="step-header" id="m9-jour7"><span class="step-number">7</span><h2>Le bilan</h2></div>
-<h3>Ce que vous avez fait cette semaine</h3>
-<p>Vous avez résolu le <strong>deuxième niveau de couplage</strong>. Le premier (tout dans un fichier) a été résolu au Module 8 en découpant. Le deuxième (les modules qui s'appellent trop) a été résolu cette semaine en passant des appels directs aux événements.</p>
-<h3>Le nouveau schéma de votre application</h3>
-<pre><code>Comptes ←── (questions directes)
-  ↑
-  Réunions ──→ publie des événements ──→ [tableau d'affichage]
-  Prêts ──→ publie des événements ──→    [tableau d'affichage]
-                                              ↓
-                                         Paiements écoute
-                                         Notifications écoute
-                                         Statistiques écoute</code></pre>
-<p>Les questions restent directes (j'ai besoin d'une réponse). Les annonces passent par le tableau d'affichage (je dis ce qui s'est passé, réagissez si ça vous concerne).</p>
-<h3>Les règles apprises</h3>
-<table>
-<thead>
-<tr>
-<th>Règle</th>
-<th>Explication</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Question → appel direct</strong></td>
-<td>"Ce membre existe-t-il ?" nécessite une réponse immédiate</td>
-</tr>
-<tr>
-<td><strong>Annonce → événement</strong></td>
-<td>"Un membre s'est inscrit" ne nécessite pas de réponse</td>
-</tr>
-<tr>
-<td><strong>Nommez les événements en langage métier</strong></td>
-<td><code>{:membre_inscrit}</code>, pas <code>{:row_inserted}</code></td>
-</tr>
-<tr>
-<td><strong>Les tests s'adaptent à l'architecture</strong></td>
-<td>Asynchrone = il faut savoir attendre</td>
-</tr>
-<tr>
-<td><strong>Moins de flèches = moins de casse</strong></td>
-<td>Chaque flèche directe est un risque de propagation de changement</td>
-</tr>
-</tbody>
-</table>
-<h3>La structure de votre projet</h3>
-<pre><code>INVARIANTS
-VUE D'ENSEMBLE (modules + interfaces)
-FICHES DÉTAILLÉES
-FLUX
-
-ÉVÉNEMENTS                           ← nouveau
-├── {:membre_inscrit, ...}
-├── {:reunion_annulee, ...}
-├── {:livre_emprunte, ...}
-├── {:livre_rendu, ...}
-└── ...
-
-TESTS (adaptés pour l'asynchrone)
-
-CODE
-├── lib/mon_club/
-│   ├── comptes/
-│   ├── reunions/
-│   ├── paiements/
-│   │   ├── paiements.ex
-│   │   └── listener.ex            ← écoute les événements
-│   ├── notifications/
-│   │   └── listener.ex
-│   └── ...</code></pre>
-<hr>
-<h2 id="m9-suite">La suite</h2>
-<p>Vos modules sont découpés et communiquent par événements. Mais les modules eux-mêmes — comment sont-ils organisés en interne ? Pour l'instant, chaque contexte est un sac de fonctions et de tables de base de données. Quand le contexte Réunions grossit (événements récurrents, sous-événements, listes d'attente, covoiturage...), l'intérieur du contexte redevient un bazar.</p>
-<p>Le Module 10 va vous apprendre à structurer l'intérieur d'un module en s'appuyant sur <strong>les mots que vos utilisateurs emploient</strong> — pas les mots de la technique. C'est la porte d'entrée du Domain-Driven Design.</p>
+<h3>Avant de partir — sauvegardez</h3>
+<pre data-lang="bash"><code>git add .
+git commit -m "Jour 1 M9 : ajout vote membres et inscription réunions"</code></pre>
 
       </div>
     </main>

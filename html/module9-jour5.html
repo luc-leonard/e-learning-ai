@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jour 5 — Le tableau d'affichage en Elixir</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
+</head>
+<body>
+  <div class="app">
+    <div id="sidebar-root"></div>
+    <main class="main-content">
+      <div class="module-content">
+
+<h1>Jour 5 : Le tableau d'affichage en Elixir</h1>
+<p class="module-subtitle"><em>Module 9 — Le monolithe qui enfle</em></p>
+<hr>
+<h3>Avant de commencer</h3>
+<p>Hier, vous avez compris le concept : certaines communications entre contextes sont des <strong>annonces</strong>, pas des <strong>questions</strong>. Vous avez écrit des événements en français. Aujourd'hui, vous allez voir à quoi ça ressemble dans le code.</p>
+<div class="module-meta">
+<div class="module-meta-item"><strong>Durée :</strong> 1h30-2h</div>
+<div class="module-meta-item"><strong>Ce qu'il vous faut :</strong> Votre dossier `mon_club` ouvert dans VSCode, Claude Code, votre carnet</div>
+</div>
+<hr>
+<h3>Ce que vous allez faire</h3>
+<p>Quittez Claude Code (<code>/exit</code>) et relancez une nouvelle session :</p>
+<pre data-lang="bash"><code>claude</code></pre>
+<p>Demandez à Claude Code de vous montrer un exemple :</p>
+<blockquote>
+<p>Lis le code de mon projet.</p>
+<p>Montre-moi un exemple simple de Phoenix.PubSub appliqué au club de lecture. Je veux voir :</p>
+<ol>
+<li>Un contexte qui publie un événement (par exemple, Réunions annonce qu'un membre s'est inscrit)</li>
+<li>Un module qui écoute cet événement et réagit (par exemple, il affiche un log ou met à jour quelque chose)</li>
+</ol>
+<p>Montre-moi le code mais ne modifie pas encore le projet. Je veux d'abord comprendre.</p>
+</blockquote>
+<h3>Ce que vous allez voir</h3>
+<p>Claude va vous montrer deux morceaux de code. Prenez le temps de les lire.</p>
+<p><strong>Le premier</strong> — la publication (dans le contexte Réunions) :</p>
+<p>Quelque part dans la fonction d'inscription, vous verrez une ligne comme :</p>
+<pre data-lang="elixir"><code>Phoenix.PubSub.broadcast(MonClub.PubSub, "reunions", {:membre_inscrit, %{membre_id: membre_id, reunion_id: reunion_id}})</code></pre>
+<p>C'est <strong>l'affichage sur le tableau</strong>. Réunions dit : "quelqu'un s'est inscrit" et donne les détails. Il ne sait pas qui va lire cette note. Il s'en fiche.</p>
+<p><strong>Le deuxième</strong> — l'écoute (un module Listener) :</p>
+<pre data-lang="elixir"><code>defmodule MonClub.Notifications.Listener do
+  use GenServer
+
+  def start_link(_) do
+    GenServer.start_link(__MODULE__, [])
+  end
+
+  def init(_) do
+    Phoenix.PubSub.subscribe(MonClub.PubSub, "reunions")
+    {:ok, %{}}
+  end
+
+  def handle_info({:membre_inscrit, %{membre_id: id, reunion_id: rid}}, state) do
+    # Réagir à l'événement — par exemple, envoyer une notification
+    IO.puts("Notification : le membre #{id} s'est inscrit à la réunion #{rid}")
+    {:noreply, state}
+  end
+end</code></pre>
+<p>C'est <strong>le département qui regarde le tableau</strong>. Il s'est abonné aux annonces de Réunions, et quand il en voit une qui l'intéresse, il réagit.</p>
+<h3>Ce qu'il faut comprendre (et ce qu'on peut ignorer)</h3>
+<p>Vous voyez <code>use GenServer</code>, <code>init</code>, <code>handle_info</code>, <code>{:noreply, state}</code>. Ça fait beaucoup de mots nouveaux. Voici ce que vous devez retenir :</p>
+<p><strong>Ce qui compte :</strong></p>
+<ul>
+<li><code>Phoenix.PubSub.broadcast(...)</code> → c'est l'annonce sur le tableau</li>
+<li><code>Phoenix.PubSub.subscribe(...)</code> → c'est "je regarde le tableau"</li>
+<li><code>{:membre_inscrit, ...}</code> → c'est le nom de l'événement (celui que vous avez écrit en français hier)</li>
+</ul>
+<p><strong>Ce qu'on peut ignorer :</strong></p>
+<ul>
+<li><code>use GenServer</code>, <code>start_link</code>, <code>init</code>, <code>{:noreply, state}</code> → c'est de la <dfn title="Du code technique nécessaire au fonctionnement mais qu'on n'a pas besoin de comprendre en détail">plomberie</dfn>. Claude a créé un module qui tourne en arrière-plan et réagit aux événements. Vous n'avez pas besoin de comprendre la mécanique interne — retenez juste qu'il écoute et réagit.</li>
+</ul>
+<p>C'est comme au Jour 1 du M8 quand vous voyiez <code>use</code>, <code>import</code>, <code>alias</code> dans le code : de la plomberie nécessaire, pas le sujet du jour.</p>
+<hr>
+<h3>L'exercice : retrouver vos événements</h3>
+<p>Reprenez les événements que vous avez écrits en français au Jour 4. Retrouvez-les dans le code que Claude vous a montré.</p>
+<p>Par exemple :</p>
+<ul>
+<li>Votre phrase : "Marie s'est inscrite à la Soirée Polar"</li>
+<li>Dans le code : <code>{:membre_inscrit, %{membre_id: ..., reunion_id: ...}}</code></li>
+</ul>
+<blockquote class="notebook-prompt">
+<p>✍️ Pour chaque événement français du Jour 4, écrivez à côté le nom Elixir correspondant. La traduction devrait être naturelle — si le nom en code ne ressemble pas à la phrase en français, c'est un signal d'alerte.</p>
+</blockquote>
+<h3>Ce que vous devez noter dans votre carnet</h3>
+<blockquote class="notebook-prompt">
+<p>✍️ Quelle ligne publie l'événement ? (Recopiez-la.)</p>
+</blockquote>
+<blockquote class="notebook-prompt">
+<p>✍️ Quelle ligne écoute l'événement ? (Recopiez-la.)</p>
+</blockquote>
+<blockquote class="notebook-prompt">
+<p>✍️ Est-ce que le contexte qui publie mentionne le module qui écoute ? (Non — et c'est le point crucial.)</p>
+</blockquote>
+
+      </div>
+    </main>
+    <button class="back-to-top" aria-label="Retour en haut">↑</button>
+  </div>
+  <script src="nav.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

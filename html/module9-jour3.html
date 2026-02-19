@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jour 3 — Provoquer la casse</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
+</head>
+<body>
+  <div class="app">
+    <div id="sidebar-root"></div>
+    <main class="main-content">
+      <div class="module-content">
+
+<h1>Jour 3 : Provoquer la casse</h1>
+<p class="module-subtitle"><em>Module 9 — Le monolithe qui enfle</em></p>
+<hr>
+<h3>Avant de commencer</h3>
+<p>Au Module 4, vous avez appris à "faire confiance mais vérifier". Aujourd'hui, vous allez vérifier que votre découpage tient vraiment — en le cassant volontairement.</p>
+<div class="module-meta">
+<div class="module-meta-item"><strong>Durée :</strong> 1h30</div>
+<div class="module-meta-item"><strong>Ce qu'il vous faut :</strong> Votre dossier `mon_club` ouvert dans VSCode, Claude Code, votre carnet</div>
+</div>
+<hr>
+<h3>Ce que vous allez faire</h3>
+<p>Quittez Claude Code (<code>/exit</code>) et relancez une nouvelle session :</p>
+<pre data-lang="bash"><code>claude</code></pre>
+<p>Demandez à Claude Code de faire un changement dans le contexte Comptes :</p>
+<blockquote>
+<p>Lis le code du contexte Comptes.</p>
+<p>Renomme la fonction qui récupère un membre (par exemple <code>get_membre</code> ou le nom équivalent) en <code>trouver_membre</code>. Ne modifie que le contexte Comptes — ne touche pas aux autres contextes.</p>
+</blockquote>
+<div class="callout callout-red">
+<div class="callout-title">🔴 Ce qui va se passer</div>
+<p>Les autres contextes vont casser. Livres appelle la fonction de Comptes pour vérifier qu'un membre existe — mais cette fonction vient de changer de nom. Réunions fait pareil. Résultat : des erreurs.</p>
+<p><strong>Ne corrigez pas.</strong> C'est le but de l'exercice.</p>
+<h3>L'enquête</h3>
+<p>Demandez à Claude Code :</p>
+<blockquote>
+<p>Sans rien corriger, montre-moi tous les endroits du code qui appellent l'ancienne fonction de Comptes. Combien de fichiers sont touchés ?</p>
+</blockquote>
+<h3>Ce que vous devez noter dans votre carnet</h3>
+<blockquote class="notebook-prompt">
+<p>✍️ Combien de fichiers sont cassés par ce seul changement de nom ?
+✍️ Est-ce que ces fichiers ont un rapport avec les comptes ? (Non — ils gèrent les livres et les réunions.)</p>
+</blockquote>
+<h3>Annuler la casse</h3>
+<p>Vous connaissez la commande depuis le Module 1 :</p>
+<pre data-lang="bash"><code>git checkout .</code></pre>
+<p>Tout revient à l'état du dernier commit. Le code remarche.</p>
+<h3>La leçon</h3>
+<p>Un seul changement dans un seul contexte a cassé les autres. Pourquoi ? Parce que les contextes <strong>se connaissent trop</strong>. Livres sait que Comptes a une fonction qui s'appelle d'une certaine façon. Réunions sait la même chose. Si Comptes change, ils tombent.</p>
+<p><strong>Découper ne suffit pas si les modules se connaissent trop.</strong> La séparation physique (des fichiers différents) n'est pas une séparation réelle si les modules dépendent des détails internes des autres.</p>
+<p>C'est le problème qu'on va résoudre dans les prochains jours.</p>
+</div>
+
+      </div>
+    </main>
+    <button class="back-to-top" aria-label="Retour en haut">↑</button>
+  </div>
+  <script src="nav.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

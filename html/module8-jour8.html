@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jour 8 — Le moment déclic — votre plan devient du code</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
+</head>
+<body>
+  <div class="app">
+    <div id="sidebar-root"></div>
+    <main class="main-content">
+      <div class="module-content">
+
+<h1>Jour 8 : Le moment déclic — votre plan devient du code</h1>
+<p class="module-subtitle"><em>Module 8 — Les mains dans le moteur</em></p>
+<hr>
+<h3>Avant de commencer</h3>
+<p>C'est le jour le plus important de ce module. Pas le plus technique — le plus <strong>révélateur</strong>.</p>
+<p>Depuis le Module 1, vous construisez un plan d'architecture. Vous avez découpé en parties, défini des interfaces, dessiné des parcours, nommé des concepts. Ce plan existe dans votre fichier <code>plan.md</code>.</p>
+<p>Aujourd'hui, vous allez voir ce plan <strong>prendre vie dans le code</strong>.</p>
+<div class="module-meta">
+<div class="module-meta-item"><strong>Durée :</strong> 1h30-2h</div>
+<div class="module-meta-item"><strong>Ce qu'il vous faut :</strong> Votre dossier `mon_club` ouvert dans VSCode, Claude Code, votre carnet</div>
+</div>
+<hr>
+<h3>Ce que vous allez faire</h3>
+<p>Quittez Claude Code (<code>/exit</code>) et relancez une nouvelle session :</p>
+<pre data-lang="bash"><code>claude</code></pre>
+<p>Envoyez ce message :</p>
+<blockquote>
+<p>Lis plan.md. Puis lis le code du contexte principal de mon club de lecture.</p>
+<p>Le contexte unique contient tout mélangé. Je veux le découper en contextes Phoenix séparés, un par partie de mon plan. Les interfaces de mon plan doivent devenir les fonctions publiques de chaque contexte.</p>
+<p>Fais la séparation et montre-moi le résultat.</p>
+</blockquote>
+<h3>Ce que vous allez voir</h3>
+<p>Le code va se réorganiser en quelque chose comme :</p>
+<pre><code>lib/mon_club/
+  comptes/          ← la partie Comptes de votre plan
+    comptes.ex      ← l'interface (fonctions publiques)
+  livres/           ← la partie Livres
+    livres.ex
+  reunions/         ← la partie Réunions
+    reunions.ex</code></pre>
+<p>Chaque dossier est une <strong>partie</strong> de votre plan. Chaque fichier principal (<code>.ex</code>) contient les <strong>fonctions publiques</strong> — la porte d'entrée dont vous parliez au Module 3.</p>
+<h3>La comparaison</h3>
+<p>Maintenant, faites la comparaison côte à côte. Ouvrez <code>plan.md</code> d'un côté (dans VSCode, clic droit sur le fichier → "Ouvrir sur le côté"). De l'autre côté, regardez la structure des fichiers.</p>
+<p>Demandez à Claude Code :</p>
+<blockquote>
+<p>Pour chaque contexte Phoenix que tu as créé, montre-moi ses fonctions publiques. Juste les noms et les paramètres, comme un sommaire.</p>
+</blockquote>
+<p>Comparez ce sommaire avec les interfaces de votre plan.</p>
+<h3>Le déclic</h3>
+<p>Regardez bien. Votre plan dit "La partie Livres sait : ajouter un livre, lister les livres, supprimer un livre". Le code dit <code>def ajouter(titre, auteur)</code>, <code>def lister()</code>, <code>def supprimer(id)</code>.</p>
+<p><strong>Votre plan et votre code disent la même chose.</strong> Ce n'est pas un hasard. C'est parce que votre plan est bon — et parce que bien architecturer un projet <em>avant</em> de coder, c'est exactement ce que font les professionnels. Vous le faites depuis le Module 1.</p>
+<p>Tout ce que vous avez appris — les parties, les interfaces, les portes d'entrée, les parcours avec chemins d'erreur, les invariants — ce ne sont pas des exercices scolaires. Ce sont les fondations sur lesquelles le code est construit. Le code n'est que votre plan <strong>traduit dans un langage que l'ordinateur comprend</strong>.</p>
+<h3>La vérification</h3>
+<p>Demandez à Claude Code :</p>
+<blockquote>
+<p>Est-ce que les fonctions publiques de chaque contexte correspondent aux interfaces de plan.md ? S'il y a des différences, lesquelles ?</p>
+</blockquote>
+<p>S'il y a des différences, c'est soit que le plan a besoin d'être mis à jour, soit que le code n'a pas bien été découpé. Les deux sources de vérité — le plan et le code — doivent être alignées.</p>
+<h3>Ce que vous devez noter dans votre carnet</h3>
+<blockquote class="notebook-prompt">
+<p>✍️ Est-ce que la structure du code ressemble à votre plan ?</p>
+</blockquote>
+<blockquote class="notebook-prompt">
+<p>✍️ Y avait-il des parties dans votre plan qui manquaient dans le code, ou l'inverse ?</p>
+</blockquote>
+<blockquote class="notebook-prompt">
+<p>✍️ Qu'est-ce que ça vous fait de voir votre plan "en vrai" dans le code ?</p>
+</blockquote>
+<h3>Avant de partir — sauvegardez</h3>
+<pre data-lang="bash"><code>git add .
+git commit -m "Jour 8 : découpage en contextes Phoenix alignés sur le plan"</code></pre>
+
+      </div>
+    </main>
+    <button class="back-to-top" aria-label="Retour en haut">↑</button>
+  </div>
+  <script src="nav.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

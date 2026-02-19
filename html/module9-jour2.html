@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jour 2 — Voir les fils emmêlés</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
+</head>
+<body>
+  <div class="app">
+    <div id="sidebar-root"></div>
+    <main class="main-content">
+      <div class="module-content">
+
+<h1>Jour 2 : Voir les fils emmêlés</h1>
+<p class="module-subtitle"><em>Module 9 — Le monolithe qui enfle</em></p>
+<hr>
+<h3>Avant de commencer</h3>
+<p>Au Module 3, vous avez dessiné la carte de votre projet — les parties, les interfaces, les liens. Aujourd'hui, vous allez dessiner une nouvelle carte. Pas celle du plan cette fois — celle du <strong>code réel</strong>.</p>
+<div class="module-meta">
+<div class="module-meta-item"><strong>Durée :</strong> 1h-1h30</div>
+<div class="module-meta-item"><strong>Ce qu'il vous faut :</strong> Votre dossier `mon_club` ouvert dans VSCode, Claude Code, votre carnet</div>
+</div>
+<hr>
+<h3>L'exercice : dessiner avant de regarder</h3>
+<p>Avant d'ouvrir Claude Code, prenez votre carnet. Vous avez trois contextes : Comptes, Livres, Réunions. Hier, vous avez ajouté des fonctionnalités qui les lient.</p>
+<p>Dessinez trois boîtes sur votre carnet. Tracez des flèches entre elles pour représenter les liens que vous imaginez. Une flèche de A vers B signifie "A a besoin de B dans son code".</p>
+<blockquote class="notebook-prompt">
+<p>✍️ Dessinez votre schéma de flèches avant de continuer.</p>
+</blockquote>
+<hr>
+<h3>Ce que vous allez faire</h3>
+<p>Quittez Claude Code (<code>/exit</code>) et relancez une nouvelle session :</p>
+<pre data-lang="bash"><code>claude</code></pre>
+<p>Demandez à Claude Code de vous montrer la réalité :</p>
+<blockquote>
+<p>Lis le code de mon projet.</p>
+<p>Pour chaque contexte (Comptes, Livres, Réunions), montre-moi quels autres contextes il appelle directement dans son code. Dessine ça avec des flèches : A → B signifie "A appelle B".</p>
+</blockquote>
+<h3>Ce que vous allez voir</h3>
+<p>Quelque chose comme :</p>
+<pre><code>Livres → Comptes       (pour vérifier que le membre existe avant un vote)
+Réunions → Comptes     (pour vérifier que le membre existe avant une inscription)</code></pre>
+<p>C'est peut-être exactement ce que vous aviez dessiné. Ou peut-être que Claude a trouvé des liens auxquels vous n'aviez pas pensé.</p>
+<h3>Comparez</h3>
+<p>Regardez votre dessin et le résultat de Claude. Les flèches sont-elles les mêmes ? Y a-t-il des surprises ?</p>
+<p>Maintenant, posez-vous cette question : <strong>si vous changez l'interface de Comptes, combien de contextes cassent ?</strong></p>
+<p>Réponse : probablement deux — Livres et Réunions. Avec seulement trois contextes, ça ne semble pas dramatique. Mais imaginez un projet avec 10 contextes, où chacun appelle 2 ou 3 autres. Le nombre de flèches explose.</p>
+<h3>Le mot pour ça</h3>
+<p>Vous connaissez déjà le mot : c'est du <strong>couplage</strong>. Au Module 8 Jour 7, le couplage était <em>à l'intérieur</em> d'un contexte — toutes les fonctions mélangées dans le même fichier. Vous l'avez résolu en découpant.</p>
+<p>Aujourd'hui, le couplage est <em>entre</em> les contextes. Vous avez des boîtes bien rangées, mais elles sont liées par des fils. C'est le <strong>couplage <dfn title="Entre les contextes, par opposition à l'intérieur d'un contexte">inter-contextes</dfn></strong>.</p>
+<h3>Ce que vous devez noter dans votre carnet</h3>
+<blockquote class="notebook-prompt">
+<p>✍️ Combien de flèches dans le schéma de Claude ?</p>
+</blockquote>
+<blockquote class="notebook-prompt">
+<p>✍️ Quel contexte est le plus appelé par les autres ?</p>
+</blockquote>
+<blockquote class="notebook-prompt">
+<p>✍️ Votre dessin correspondait-il au schéma réel ?</p>
+</blockquote>
+
+      </div>
+    </main>
+    <button class="back-to-top" aria-label="Retour en haut">↑</button>
+  </div>
+  <script src="nav.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

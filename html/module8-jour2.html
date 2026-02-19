@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jour 2 — Reconnaître une fonction</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
+</head>
+<body>
+  <div class="app">
+    <div id="sidebar-root"></div>
+    <main class="main-content">
+      <div class="module-content">
+
+<h1>Jour 2 : Reconnaître une fonction</h1>
+<p class="module-subtitle"><em>Module 8 — Les mains dans le moteur</em></p>
+<hr>
+<h3>Avant de commencer : une analogie</h3>
+<p>Au Module 1, vous avez découpé votre club de lecture en <strong>parties</strong>, et chaque partie avait des <strong>actions</strong> qu'elle savait faire. Par exemple, la partie "Livres" savait ajouter un livre, lister les livres, supprimer un livre.</p>
+<p>En Elixir, une action s'appelle une <strong>fonction</strong>. C'est un mot que vous connaissez déjà — dans les modules précédents, quand Claude vous montrait un "sommaire" de ce qu'il avait construit, il listait des fonctions. Vous n'aviez pas besoin de comprendre comment elles fonctionnaient. Aujourd'hui, vous allez apprendre à les <strong>reconnaître</strong> dans le code.</p>
+<div class="module-meta">
+<div class="module-meta-item"><strong>Durée :</strong> 1h-1h30</div>
+<div class="module-meta-item"><strong>Ce qu'il vous faut :</strong> Votre dossier `mon_club` ouvert dans VSCode, Claude Code, votre carnet</div>
+</div>
+<hr>
+<h3>Ce que vous allez faire</h3>
+<p>Ouvrez le terminal dans VSCode, vérifiez que vous êtes dans le dossier <code>mon_club</code> (<code>pwd</code>), puis lancez Claude Code :</p>
+<pre data-lang="bash"><code>claude</code></pre>
+<p>Envoyez ce message :</p>
+<blockquote>
+<p>Montre-moi 3 fonctions simples en Elixir qui pourraient exister dans un club de lecture. Par exemple : une pour ajouter un livre, une pour compter les votes, une pour vérifier si un membre existe. Pour chacune, ne me montre QUE la fonction (avec <code>def</code>), pas le module autour.</p>
+<p>Ne m'explique rien encore. Je veux d'abord essayer de deviner ce que chaque fonction fait.</p>
+</blockquote>
+<h3>L'exercice — deviner</h3>
+<p>Regardez chaque fonction. Essayez de deviner ce qu'elle fait <strong>avant</strong> de lire l'explication. Vous allez voir quelque chose comme :</p>
+<pre data-lang="elixir"><code>def ajouter_livre(titre, auteur) do
+  %{titre: titre, auteur: auteur, votes: 0}
+end</code></pre>
+<p>Même sans connaître Elixir, vous pouvez deviner : cette fonction prend un titre et un auteur, et crée un livre avec 0 votes. Le mot <code>def</code> signifie simplement "voici une fonction". C'est tout.</p>
+<p>Après avoir deviné, demandez à Claude Code :</p>
+<blockquote>
+<p>Maintenant explique-moi chacune des 3 fonctions. Dis-moi si j'avais raison dans mes devinettes.</p>
+</blockquote>
+<h3>L'exercice — écrire avant de lire</h3>
+<p>Maintenant, l'inverse. Dans votre carnet, décrivez en français une fonction qui pourrait exister dans un club de lecture. Par exemple : "une fonction qui prend un titre de livre et vérifie s'il existe déjà dans la liste". Écrivez son nom, ce qu'elle reçoit, ce qu'elle renvoie.</p>
+<p>Puis demandez à Claude Code :</p>
+<blockquote>
+<p>Écris en Elixir une fonction qui [votre description]. Montre-moi juste la fonction avec <code>def</code>.</p>
+</blockquote>
+<p>Comparez. Est-ce que Claude a choisi le même nom que vous ? Les mêmes paramètres ? C'est un exercice de traduction — vous écrivez en français, Elixir écrit la même chose dans sa langue.</p>
+<h3>Ce que vous devez noter dans votre carnet</h3>
+<blockquote class="notebook-prompt">
+<p>✍️ Combien de fonctions avez-vous deviné correctement ?</p>
+</blockquote>
+<blockquote class="notebook-prompt">
+<p>✍️ La structure <code>def nom(paramètres) do ... end</code> vous semble-t-elle lisible ?</p>
+</blockquote>
+<blockquote class="notebook-prompt">
+<p>✍️ Votre fonction décrite en français et la version Elixir de Claude se ressemblent-elles ?</p>
+</blockquote>
+
+      </div>
+    </main>
+    <button class="back-to-top" aria-label="Retour en haut">↑</button>
+  </div>
+  <script src="nav.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

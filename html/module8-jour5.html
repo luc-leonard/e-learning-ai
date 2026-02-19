@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jour 5 — Construire naïvement</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
+</head>
+<body>
+  <div class="app">
+    <div id="sidebar-root"></div>
+    <main class="main-content">
+      <div class="module-content">
+
+<h1>Jour 5 : Construire naïvement</h1>
+<p class="module-subtitle"><em>Module 8 — Les mains dans le moteur</em></p>
+<hr>
+<h3>Avant de commencer : une analogie</h3>
+<p>Vous vous souvenez du Module 1, Étape 1 ? Vous aviez demandé à Claude de construire un club de lecture simple, et ça avait très bien marché. Puis à l'Étape 2, vous aviez ajouté des choses, et ça avait commencé à partir en vrille.</p>
+<p>On va refaire exactement la même chose. Mais cette fois, vous avez trois jours de lecture d'Elixir derrière vous — vous n'êtes plus aveugle. Vous allez pouvoir <strong>lire</strong> ce que Claude produit.</p>
+<div class="module-meta">
+<div class="module-meta-item"><strong>Durée :</strong> 1h30-2h</div>
+<div class="module-meta-item"><strong>Ce qu'il vous faut :</strong> Votre dossier `mon_club` ouvert dans VSCode, Claude Code, votre carnet</div>
+</div>
+<hr>
+<h3>Ce que vous allez faire</h3>
+<p>Quittez Claude Code si vous y êtes (<code>/exit</code>), puis relancez une nouvelle session :</p>
+<pre data-lang="bash"><code>claude</code></pre>
+<p>Envoyez ce message :</p>
+<blockquote>
+<p>Je veux construire un club de lecture avec Phoenix LiveView. Pour l'instant, je veux juste :</p>
+<ul>
+<li>Une page qui liste les livres</li>
+<li>Un formulaire pour ajouter un livre</li>
+<li>La possibilité de voter pour un livre</li>
+</ul>
+<p>Fais ça de la manière la plus simple possible. Tout peut être dans le même contexte. Ne t'occupe pas de l'architecture — je veux que ça marche, c'est tout.</p>
+</blockquote>
+<h3>Lancer le site</h3>
+<p>Une fois que Claude a fini, lancez le site :</p>
+<pre data-lang="bash"><code>mix phx.server</code></pre>
+<p>Ouvrez votre navigateur à <code>http://localhost:4000</code>. Vous devriez voir votre club de lecture — des livres, un formulaire, des votes. Si ça ne marche pas, dites à Claude Code ce que vous voyez et laissez-le corriger.</p>
+<h3>L'exercice de lecture</h3>
+<p>Maintenant, le moment important. Demandez à Claude Code :</p>
+<blockquote>
+<p>Montre-moi la liste de toutes les fonctions que tu as créées, avec pour chacune : son nom, ce qu'elle reçoit, et ce qu'elle renvoie. Comme un sommaire.</p>
+</blockquote>
+<p>Lisez ce sommaire. <strong>Vous reconnaissez des choses.</strong> Les <code>def</code>, les <code>defmodule</code>, les <code>{:ok, ...}</code>, peut-être des <code>|&gt;</code> et des <code>case</code>. Vous n'êtes plus aveugle — vous êtes quelqu'un qui commence à lire une langue étrangère. Pas couramment, mais suffisamment pour reconnaître les panneaux de sortie.</p>
+<h3>Ce que vous devez noter dans votre carnet</h3>
+<blockquote class="notebook-prompt">
+<p>✍️ Combien de fonctions Claude a-t-il créées ?</p>
+</blockquote>
+<blockquote class="notebook-prompt">
+<p>✍️ Combien de structures reconnaissez-vous ? (<code>def</code>, <code>defmodule</code>, <code>case</code>, <code>|&gt;</code>, <code>{:ok}</code>, <code>{:error}</code>)</p>
+</blockquote>
+<blockquote class="notebook-prompt">
+<p>✍️ Est-ce que tout est dans le même fichier/contexte ?</p>
+</blockquote>
+<h3>Avant de partir — sauvegardez</h3>
+<pre data-lang="bash"><code>git add .
+git commit -m "Jour 5 : club de lecture naïf"</code></pre>
+
+      </div>
+    </main>
+    <button class="back-to-top" aria-label="Retour en haut">↑</button>
+  </div>
+  <script src="nav.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

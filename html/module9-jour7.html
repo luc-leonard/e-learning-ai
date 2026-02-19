@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jour 7 — Le bilan</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
+</head>
+<body>
+  <div class="app">
+    <div id="sidebar-root"></div>
+    <main class="main-content">
+      <div class="module-content">
+
+<h1>Jour 7 : Le bilan</h1>
+<p class="module-subtitle"><em>Module 9 — Le monolithe qui enfle</em></p>
+<hr>
+<h3>Ce que vous avez fait cette semaine</h3>
+<p>Vous avez résolu le <strong>deuxième niveau de couplage</strong>. Le premier (tout dans un fichier) a été résolu au Module 8 en découpant. Le deuxième (les modules qui s'appellent trop) a été résolu cette semaine en passant des appels directs aux événements.</p>
+<div class="module-meta">
+<div class="module-meta-item"><strong>Durée :</strong> 45min-1h</div>
+<div class="module-meta-item"><strong>Ce qu'il vous faut :</strong> Votre carnet</div>
+</div>
+<hr>
+<h3>Les compétences acquises</h3>
+<table>
+<thead>
+<tr>
+<th>Compétence</th>
+<th>Ce que ça signifie</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Voir le couplage inter-contextes</strong></td>
+<td>Vous savez dessiner les flèches entre contextes et compter les dépendances</td>
+</tr>
+<tr>
+<td><strong>Provoquer la casse</strong></td>
+<td>Vous savez tester si un découpage tient en modifiant une interface</td>
+</tr>
+<tr>
+<td><strong>Distinguer question et annonce</strong></td>
+<td>Vous savez classer chaque appel entre contextes</td>
+</tr>
+<tr>
+<td><strong>Lire un broadcast PubSub</strong></td>
+<td>Vous reconnaissez <code>Phoenix.PubSub.broadcast(...)</code> comme "afficher sur le tableau"</td>
+</tr>
+<tr>
+<td><strong>Lire un listener</strong></td>
+<td>Vous reconnaissez un module qui écoute des événements, même sans comprendre GenServer</td>
+</tr>
+<tr>
+<td><strong>Nommer un événement</strong></td>
+<td>Vous savez que <code>{:membre_inscrit}</code> est un bon nom et <code>{:row_inserted}</code> un mauvais nom</td>
+</tr>
+</tbody>
+</table>
+<h3>Ce que vous ne savez PAS encore faire (et c'est normal)</h3>
+<ul>
+<li>Écrire un listener de zéro sans Claude Code</li>
+<li>Gérer les cas d'erreur dans les événements asynchrones (que se passe-t-il si le listener plante ?)</li>
+<li>Tester l'asynchrone en détail (les tests de listeners sont un sujet avancé)</li>
+</ul>
+<p>Rien de ça n'est nécessaire pour la suite. Ce qui est nécessaire, c'est ce que vous savez faire : <strong>voir le couplage, le nommer, et guider Claude pour le réduire</strong>.</p>
+<h3>Le vocabulaire de la semaine</h3>
+<table>
+<thead>
+<tr>
+<th>Ce que vous dites</th>
+<th>Le vrai nom</th>
+<th>Ce que ça signifie</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"Annonce ce qui s'est passé"</td>
+<td><strong>Événement de domaine</strong> (Domain Event)</td>
+<td>Un fait qui s'est produit, exprimé au passé</td>
+</tr>
+<tr>
+<td>"Le tableau d'affichage"</td>
+<td><strong>PubSub</strong> (Publish/Subscribe)</td>
+<td>Un mécanisme où quelqu'un publie et d'autres s'abonnent</td>
+</tr>
+<tr>
+<td>"Écouter et réagir"</td>
+<td><strong>Listener</strong> (ou Handler)</td>
+<td>Un module qui attend un événement et réagit</td>
+</tr>
+<tr>
+<td>"Je pose une question"</td>
+<td><strong>Requête</strong> (Query)</td>
+<td>Un appel qui demande une information sans rien modifier</td>
+</tr>
+<tr>
+<td>"Je donne un ordre"</td>
+<td><strong>Commande</strong> (Command)</td>
+<td>Un appel qui demande de faire quelque chose</td>
+</tr>
+<tr>
+<td>"Je n'ai pas besoin de savoir qui écoute"</td>
+<td><strong>Découplage par événements</strong></td>
+<td>Les modules communiquent sans se connaître</td>
+</tr>
+</tbody>
+</table>
+<h3>Le point sur le nommage</h3>
+<p>Vos événements doivent parler du <strong>club de lecture</strong>, pas du code :</p>
+<ul>
+<li><code>{:membre_inscrit_reunion, ...}</code> → le gérant du club comprend</li>
+<li><code>{:row_inserted, ...}</code> → seul un développeur comprend</li>
+</ul>
+<p>Si un événement ne peut pas se traduire en une phrase que le gérant du club comprendrait, il est probablement mal nommé.</p>
+<h3>La structure de votre projet</h3>
+<pre><code>plan.md                              ← votre plan d'architecture
+  INVARIANTS
+  VUE D'ENSEMBLE (parties + interfaces)
+  FICHES DÉTAILLÉES
+  FLUX
+  ÉVÉNEMENTS                         ← nouveau !
+  TESTS
+
+CODE
+├── lib/mon_club/
+│   ├── comptes/comptes.ex
+│   ├── livres/livres.ex            ← publie des événements
+│   ├── reunions/reunions.ex        ← publie des événements
+│   └── notifications/              ← écoute des événements (si créé)
+│       └── listener.ex</code></pre>
+<h3>Avant de partir — sauvegardez</h3>
+<pre data-lang="bash"><code>git add .
+git commit -m "Module 9 terminé : couplage inter-contextes et événements PubSub"</code></pre>
+<hr>
+<h2 id="m9j7-suite">La suite</h2>
+<p>Vos modules sont découpés et communiquent par événements. L'extérieur est propre. Mais ouvrez le capot d'un contexte — disons Réunions — et regardez à l'intérieur. C'est un sac de fonctions, de tables de base de données, et de champs aux noms techniques. Le bazar a juste déménagé.</p>
+<p>Le Module 10 va changer votre façon de penser l'intérieur d'un contexte, en s'appuyant sur <strong>les mots que vos utilisateurs emploient</strong> — pas les mots de la technique.</p>
+
+      </div>
+    </main>
+    <button class="back-to-top" aria-label="Retour en haut">↑</button>
+  </div>
+  <script src="nav.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

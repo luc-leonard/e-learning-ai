@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jour 4 — Le module, son interface, et le pipe</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
+</head>
+<body>
+  <div class="app">
+    <div id="sidebar-root"></div>
+    <main class="main-content">
+      <div class="module-content">
+
+<h1>Jour 4 : Le module, son interface, et le pipe</h1>
+<p class="module-subtitle"><em>Module 8 — Les mains dans le moteur</em></p>
+<hr>
+<h3>Avant de commencer : une analogie</h3>
+<p>Au Module 1, vous aviez découpé votre club de lecture en <strong>parties</strong> : Livres, Membres, Réunions... Chaque partie avait une liste d'actions qu'elle savait faire — c'était son <strong>interface</strong>.</p>
+<p>Au Module 3, vous avez appris que chaque partie a une <strong>porte d'entrée</strong> : les fonctions qu'on peut appeler depuis l'extérieur. Et derrière cette porte, il y a l'<strong>implémentation</strong> — le détail de comment ça fonctionne.</p>
+<p>En Elixir, une "partie" s'appelle un <strong>module</strong> et s'écrit avec <code>defmodule</code>. Ses fonctions publiques sont sa porte d'entrée.</p>
+<div class="module-meta">
+<div class="module-meta-item"><strong>Durée :</strong> 1h-1h30</div>
+<div class="module-meta-item"><strong>Ce qu'il vous faut :</strong> Votre dossier `mon_club` ouvert dans VSCode, Claude Code, votre carnet</div>
+</div>
+<hr>
+<h3>Le module : votre plan en Elixir</h3>
+<p>Lancez Claude Code dans <code>mon_club</code> et envoyez :</p>
+<blockquote>
+<p>Montre-moi un module Elixir pour les Réunions d'un club de lecture. Utilise <code>defmodule</code> avec 3 fonctions simples : créer une réunion, lister les réunions, et inscrire un membre. Juste la structure — pas besoin d'implémentation détaillée.</p>
+</blockquote>
+<h3>Ce que vous allez voir</h3>
+<p>Quelque chose comme :</p>
+<pre data-lang="elixir"><code>defmodule MonClub.Reunions do
+  def creer(titre, date, lieu) do
+    # ...
+  end
+
+  def lister() do
+    # ...
+  end
+
+  def inscrire(membre_id, reunion_id) do
+    # ...
+  end
+end</code></pre>
+<p><code>defmodule MonClub.Reunions do ... end</code> — c'est une <strong>partie</strong> de votre plan. Le point dans <code>MonClub.Reunions</code> est juste une façon d'organiser : <code>MonClub</code> c'est le projet, <code>Reunions</code> c'est la partie. À l'intérieur, les fonctions <code>def</code> sont les <strong>actions</strong> que cette partie sait faire.</p>
+<p><strong>C'est votre plan du Module 1, écrit en Elixir.</strong></p>
+<h3>L'exercice — prédire le contenu d'un module</h3>
+<p>Prenez votre carnet. Choisissez une partie de votre plan du Module 1 — par exemple "Livres". Écrivez la liste des fonctions que ce module devrait contenir. Par exemple : ajouter un livre, lister tous les livres, trouver un livre par son titre, supprimer un livre.</p>
+<p>Puis demandez à Claude Code :</p>
+<blockquote>
+<p>Montre-moi un <code>defmodule MonClub.Livres</code> qui correspond à cette liste de fonctions : [votre liste]. Juste les signatures <code>def</code> avec les paramètres — pas besoin du code à l'intérieur.</p>
+</blockquote>
+<p>Comparez ce que Claude produit avec ce que vous aviez écrit. Les noms sont-ils les mêmes ? Les paramètres sont-ils ceux que vous imaginiez ?</p>
+<hr>
+<h3>Le pipe — lire une chaîne de montage</h3>
+<p>Il y a un dernier symbole que vous verrez partout en Elixir : <code>|&gt;</code>, qu'on prononce "pipe" (comme un tuyau). C'est un des concepts les plus importants du langage, et la bonne nouvelle c'est qu'il est très intuitif.</p>
+<p>Imaginez une chaîne de montage dans une usine. Une pièce arrive, passe par un premier poste qui la découpe, puis un deuxième qui la ponce, puis un troisième qui la peint. Chaque poste fait <strong>une seule chose</strong> et passe le résultat au suivant. Personne ne fait tout en même temps.</p>
+<p>En Elixir, <code>|&gt;</code> c'est le tapis roulant entre les postes. Il se lit "<strong>puis</strong>" :</p>
+<pre data-lang="elixir"><code>"  bonjour  "
+|&gt; String.trim()
+|&gt; String.capitalize()</code></pre>
+<p>Prends le texte "  bonjour  ", <strong>puis</strong> enlève les espaces, <strong>puis</strong> mets une majuscule. Résultat : "Bonjour".</p>
+<p>Voici un deuxième exemple, plus proche du club de lecture :</p>
+<pre data-lang="elixir"><code>livres
+|&gt; Enum.filter(fn livre -&gt; livre.votes &gt; 3 end)
+|&gt; Enum.sort_by(fn livre -&gt; livre.votes end)
+|&gt; Enum.take(5)</code></pre>
+<p>Même sans connaître Elixir, essayez de lire : prends la liste de livres, <strong>puis</strong> garde seulement ceux qui ont plus de 3 votes, <strong>puis</strong> trie-les par nombre de votes, <strong>puis</strong> prends les 5 premiers. C'est le "top 5 des livres les plus votés".</p>
+<p>Vous allez voir des pipes partout dans le code Phoenix. À chaque fois, le réflexe est le même : lisez de haut en bas, remplacez chaque <code>|&gt;</code> par "puis".</p>
+<h3>L'exercice — lire un pipe</h3>
+<p>Demandez à Claude Code :</p>
+<blockquote>
+<p>Montre-moi un <code>|&gt;</code> (pipe) de 3-4 étapes, en rapport avec un club de lecture. Ne me dis PAS ce que le résultat final est — je vais essayer de le deviner en lisant étape par étape.</p>
+</blockquote>
+<p>Lisez la chaîne de haut en bas. Remplacez chaque <code>|&gt;</code> par "puis". Écrivez en français dans votre carnet ce que chaque étape fait et quel est le résultat final. Puis demandez à Claude si vous aviez raison.</p>
+<h3>L'exercice — écrire un pipe en français</h3>
+<p>Cette fois, c'est vous qui écrivez. Dans votre carnet, décrivez une chaîne d'opérations pour le club de lecture, en utilisant "puis". Par exemple :</p>
+<blockquote>
+<p>Prends tous les membres, <strong>puis</strong> garde ceux qui sont inscrits à au moins une réunion, <strong>puis</strong> trie-les par nombre de réunions, <strong>puis</strong> prends les 3 premiers.</p>
+</blockquote>
+<p>Demandez à Claude Code :</p>
+<blockquote>
+<p>Traduis cette chaîne d'opérations en un pipe Elixir : [votre description en français]</p>
+</blockquote>
+<p>Comparez. Vous venez d'écrire du code — en français — et Claude l'a traduit. C'est exactement ce que vous ferez quand vous guiderez Claude pour construire votre projet.</p>
+<h3>Ce que vous devez noter dans votre carnet</h3>
+<blockquote class="notebook-prompt">
+<p>✍️ Votre liste de fonctions pour le module Livres correspondait-elle à ce que Claude a produit ?</p>
+</blockquote>
+<blockquote class="notebook-prompt">
+<p>✍️ Voyez-vous le lien entre <code>defmodule</code> et les "parties" de votre plan du Module 1 ?</p>
+</blockquote>
+<blockquote class="notebook-prompt">
+<p>✍️ Avez-vous réussi à deviner le résultat du pipe ? L'avez-vous lu de haut en bas avec "puis" ?</p>
+</blockquote>
+
+      </div>
+    </main>
+    <button class="back-to-top" aria-label="Retour en haut">↑</button>
+  </div>
+  <script src="nav.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

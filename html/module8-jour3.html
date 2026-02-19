@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jour 3 — Le code qui dit "ça a marché" ou "ça n'a pas marché"</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
+</head>
+<body>
+  <div class="app">
+    <div id="sidebar-root"></div>
+    <main class="main-content">
+      <div class="module-content">
+
+<h1>Jour 3 : Le code qui dit "ça a marché" ou "ça n'a pas marché"</h1>
+<p class="module-subtitle"><em>Module 8 — Les mains dans le moteur</em></p>
+<hr>
+<h3>Avant de commencer : une analogie</h3>
+<p>Au Module 2, vous avez dessiné des parcours. Chaque parcours avait un <strong>chemin normal</strong> (tout se passe bien) et un <strong>chemin d'erreur</strong> (quelque chose rate). Vous aviez écrit des choses comme : "Si le membre n'existe pas → erreur" ou "Si plus de places → erreur".</p>
+<p>En Elixir, ce concept existe directement dans le code. Quand une fonction fait quelque chose, elle le dit clairement :</p>
+<pre data-lang="elixir"><code># Ça a marché
+{:ok, livre}
+
+# Ça n'a pas marché
+{:error, "Plus de places"}</code></pre>
+<p>Ce sont vos chemins du Module 2, écrits dans le langage du code.</p>
+<div class="module-meta">
+<div class="module-meta-item"><strong>Durée :</strong> 1h-1h30</div>
+<div class="module-meta-item"><strong>Ce qu'il vous faut :</strong> Votre dossier `mon_club` ouvert dans VSCode, Claude Code, votre carnet</div>
+</div>
+<hr>
+<h3>Ce que vous allez faire</h3>
+<p>Lancez Claude Code dans le dossier <code>mon_club</code> et envoyez :</p>
+<blockquote>
+<p>Montre-moi une fonction Elixir qui peut réussir ou échouer. Par exemple, une fonction <code>inscrire_membre</code> qui renvoie <code>{:ok, membre}</code> si tout va bien, ou <code>{:error, raison}</code> si quelque chose ne va pas.</p>
+<p>Puis montre-moi comment le code qui APPELLE cette fonction gère les deux cas avec <code>case</code>.</p>
+</blockquote>
+<h3>Ce que vous allez voir</h3>
+<p>Claude va vous montrer quelque chose comme :</p>
+<pre data-lang="elixir"><code>def inscrire(email) do
+  if email_valide?(email) do
+    {:ok, %{email: email, inscrit_le: Date.utc_today()}}
+  else
+    {:error, "Email invalide"}
+  end
+end</code></pre>
+<p>Et le code qui l'utilise :</p>
+<pre data-lang="elixir"><code>case inscrire("marie@exemple.fr") do
+  {:ok, membre} -&gt; afficher_bienvenue(membre)
+  {:error, raison} -&gt; afficher_erreur(raison)
+end</code></pre>
+<p>Le <code>case</code> regarde le résultat et fait quelque chose de différent selon la forme. Si c'est <code>{:ok, ...}</code>, on fait une chose. Si c'est <code>{:error, ...}</code>, on fait autre chose.</p>
+<p><strong>Vous connaissez déjà ça.</strong> C'est exactement vos parcours du Module 2 — le chemin normal et le chemin d'erreur. Le code ne fait que les écrire dans un format précis.</p>
+<h3>L'exercice</h3>
+<p>Demandez à Claude Code :</p>
+<blockquote>
+<p>Montre-moi un deuxième exemple de fonction avec <code>{:ok, ...}</code> / <code>{:error, ...}</code> et un <code>case</code>, mais cette fois ne me montre PAS le <code>case</code>. Je vais essayer de l'écrire moi-même (en français, pas en code) : quel cas faut-il gérer, et que faire dans chaque cas ?</p>
+</blockquote>
+<p>Vous n'écrivez pas du vrai code — vous décrivez les chemins, exactement comme au Module 2. Puis demandez à Claude de vous montrer le vrai <code>case</code> et comparez.</p>
+<h3>Ce que vous devez noter dans votre carnet</h3>
+<blockquote class="notebook-prompt">
+<p>✍️ Est-ce que <code>{:ok, ...}</code> / <code>{:error, ...}</code> vous rappelle les chemins du Module 2 ?</p>
+</blockquote>
+<blockquote class="notebook-prompt">
+<p>✍️ Avez-vous réussi à deviner les deux cas à gérer ?</p>
+</blockquote>
+<blockquote class="notebook-prompt">
+<p>✍️ À quoi ça sert de gérer le cas <code>{:error, ...}</code> ? Que se passe-t-il si on ne le fait pas ?</p>
+</blockquote>
+
+      </div>
+    </main>
+    <button class="back-to-top" aria-label="Retour en haut">↑</button>
+  </div>
+  <script src="nav.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

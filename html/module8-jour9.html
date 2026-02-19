@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jour 9 — Le bilan</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
+</head>
+<body>
+  <div class="app">
+    <div id="sidebar-root"></div>
+    <main class="main-content">
+      <div class="module-content">
+
+<h1>Jour 9 : Le bilan</h1>
+<p class="module-subtitle"><em>Module 8 — Les mains dans le moteur</em></p>
+<hr>
+<h3>Ce que vous avez fait ces dix jours</h3>
+<p>Vous avez traversé un seuil. Vous n'êtes plus uniquement un architecte qui donne des plans à l'IA — vous êtes quelqu'un qui peut <strong>lire le code, identifier les problèmes, et guider les corrections avec précision</strong>.</p>
+<div class="module-meta">
+<div class="module-meta-item"><strong>Durée :</strong> 45min-1h</div>
+<div class="module-meta-item"><strong>Ce qu'il vous faut :</strong> Votre carnet</div>
+</div>
+<hr>
+<h3>Les compétences acquises</h3>
+<table>
+<thead>
+<tr>
+<th>Compétence</th>
+<th>Ce que ça signifie</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Lire une fonction</strong></td>
+<td>Vous voyez <code>def</code>, les paramètres, et la valeur de retour — vous comprenez ce que fait la fonction</td>
+</tr>
+<tr>
+<td><strong>Lire les chemins ok/error</strong></td>
+<td>Vous savez que <code>{:ok, ...}</code> et <code>{:error, ...}</code> sont les deux chemins d'un parcours</td>
+</tr>
+<tr>
+<td><strong>Reconnaître un module</strong></td>
+<td>Vous voyez <code>defmodule</code> et vous pensez "partie de mon plan"</td>
+</tr>
+<tr>
+<td><strong>Suivre un pipe</strong></td>
+<td>Vous comprenez <code>|&gt;</code> comme "puis" — une chaîne d'étapes</td>
+</tr>
+<tr>
+<td><strong>Lire un sommaire</strong></td>
+<td>Vous pouvez regarder les fonctions publiques d'un module et comprendre son interface</td>
+</tr>
+<tr>
+<td><strong>Voir le monolithe</strong></td>
+<td>Vous savez reconnaître quand tout est entassé au même endroit</td>
+</tr>
+<tr>
+<td><strong>Aligner plan et code</strong></td>
+<td>Vous savez vérifier que la structure du code correspond à votre plan d'architecture</td>
+</tr>
+</tbody>
+</table>
+<h3>Ce que vous ne savez PAS encore faire (et c'est normal)</h3>
+<ul>
+<li>Écrire du code Elixir de zéro (vous modifiez avec Claude Code)</li>
+<li>Comprendre tout ce que fait Phoenix en coulisses (les <dfn title="Des scripts qui modifient la structure de la base de données — ajouter une table, une colonne, etc.">migrations</dfn>, le routeur, les sockets)</li>
+<li>Optimiser les performances</li>
+<li>Gérer le déploiement</li>
+</ul>
+<p>Rien de ça n'est nécessaire pour la suite. Ce qui est nécessaire, c'est ce que vous savez faire : <strong>lire, comprendre la structure, et guider Claude avec précision</strong>.</p>
+<h3>La structure de votre projet</h3>
+<pre><code>plan.md                              ← votre plan d'architecture
+  INVARIANTS
+  VUE D'ENSEMBLE (parties + interfaces)
+  FICHES DÉTAILLÉES
+  FLUX
+  TESTS
+
+CODE                                 ← votre code, aligné sur le plan
+├── lib/mon_club/
+│   ├── comptes/comptes.ex          ← partie = defmodule
+│   ├── livres/livres.ex            ← fonctions publiques = interface
+│   ├── reunions/reunions.ex        ← code interne = implémentation
+│   └── ...</code></pre>
+<h3>Avant de partir — sauvegardez</h3>
+<pre data-lang="bash"><code>git add .
+git commit -m "Module 8 terminé : lecture de code et alignement plan/code"</code></pre>
+<hr>
+<h2 id="m8j9-suite">La suite</h2>
+<p>Votre code est bien découpé. Ça marche. Mais la semaine prochaine, on va faire grossir le projet sérieusement — et vous allez découvrir que des contextes bien découpés ne suffisent pas. Quand le contexte "Réunions" a besoin de savoir des choses sur les "Comptes" et les "Paiements" et les "Notifications" en même temps, les dépendances se multiplient et le code redevient un plat de nouilles — mais cette fois entre les contextes, pas à l'intérieur. Le Module 9 vous apprendra à gérer ça.</p>
+
+      </div>
+    </main>
+    <button class="back-to-top" aria-label="Retour en haut">↑</button>
+  </div>
+  <script src="nav.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

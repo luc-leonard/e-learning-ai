@@ -235,7 +235,7 @@ body {
 }
 
 .sidebar-module.open .sidebar-steps {
-  max-height: 600px;
+  max-height: 800px;
 }
 
 .sidebar-step {
@@ -259,6 +259,57 @@ body {
   color: var(--accent-gold);
   border-left-color: var(--accent-gold);
   background: rgba(251, 191, 36, 0.05);
+}
+
+/* Child pages (multi-page modules like M8) */
+.sidebar-group-label {
+  padding: 0.5rem 1.5rem 0.2rem 3rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-sidebar-dim);
+  opacity: 0.6;
+}
+
+.sidebar-child-page {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  padding: 0.45rem 1.5rem 0.45rem 3.5rem;
+  font-size: var(--fs-xs);
+  color: var(--text-sidebar-dim);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-decoration: none;
+  border-left: 3px solid transparent;
+  line-height: 1.4;
+}
+
+.sidebar-child-page:hover {
+  color: var(--text-sidebar);
+  background: var(--bg-sidebar-hover);
+}
+
+.sidebar-child-page.active {
+  color: var(--accent-gold);
+  border-left-color: var(--accent-gold);
+  background: rgba(251, 191, 36, 0.05);
+}
+
+.sidebar-day-number {
+  display: inline-block;
+  min-width: 1.6em;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--text-sidebar-dim);
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+
+.sidebar-child-page.active .sidebar-day-number {
+  color: var(--accent-gold);
+  opacity: 0.8;
 }
 
 /* Mobile toggle */

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jour 4 — Annoncer au lieu d'ordonner</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
+</head>
+<body>
+  <div class="app">
+    <div id="sidebar-root"></div>
+    <main class="main-content">
+      <div class="module-content">
+
+<h1>Jour 4 : Annoncer au lieu d'ordonner</h1>
+<p class="module-subtitle"><em>Module 9 — Le monolithe qui enfle</em></p>
+<hr>
+<h3>Avant de commencer : une analogie</h3>
+<p>Votre application, c'est un immeuble de bureaux. Chaque étage est un département (un contexte). Comptes au 1er, Livres au 2ème, Réunions au 3ème.</p>
+<p>Bien séparé. Propre. Chaque étage a sa porte.</p>
+<p>Sauf que dans la pratique, les employés passent leur temps dans l'ascenseur. Quelqu'un des Réunions descend aux Comptes pour demander "ce membre existe-t-il ?". Le département Livres descend aussi aux Comptes pour vérifier un votant. Aller-retour, aller-retour. Les étages sont séparés, mais les gens sont emmêlés.</p>
+<p>Un jour, les Comptes déménagent et changent leur porte d'entrée. Panique dans tout l'immeuble — c'est exactement ce qui s'est passé au Jour 3.</p>
+<p>Maintenant, imaginez un autre système : chaque département a un <strong>tableau d'affichage</strong> dans le hall. Quand les Réunions inscrivent quelqu'un, ils n'appellent personne — ils affichent une note : <em>"Marie s'est inscrite à la Soirée Polar"</em>. Si un autre département est intéressé, il regarde le tableau et fait son travail. Personne n'appelle personne directement.</p>
+<p>Si les Comptes déménagent ? Aucun impact sur les annonces. Le tableau d'affichage est toujours au même endroit.</p>
+<div class="module-meta">
+<div class="module-meta-item"><strong>Durée :</strong> 1h-1h30</div>
+<div class="module-meta-item"><strong>Ce qu'il vous faut :</strong> Votre carnet (pas besoin d'ordinateur pour la première partie)</div>
+</div>
+<hr>
+<h3>La règle</h3>
+<p>Il y a deux types de communication entre contextes :</p>
+<p><strong>La question</strong> — "J'ai besoin d'une réponse pour continuer."</p>
+<ul>
+<li>"Ce membre existe-t-il ?" → Oui, il faut une réponse immédiate. Pas d'inscription possible sans cette vérification.</li>
+<li>Ça reste un appel direct. Normal.</li>
+</ul>
+<p><strong>L'annonce</strong> — "Quelque chose s'est passé, réagissez si ça vous concerne."</p>
+<ul>
+<li>"Marie s'est inscrite à la Soirée Polar" → Réunions n'a pas besoin de réponse. L'inscription est faite. Si quelqu'un veut envoyer un email de confirmation ou mettre à jour des statistiques, c'est son affaire.</li>
+<li>Ça devrait être un <strong>événement</strong>, pas un appel direct.</li>
+</ul>
+<p>La différence : une question <strong>attend</strong> une réponse. Une annonce <strong>n'attend rien</strong>.</p>
+<hr>
+<h3>L'exercice : classer vos flèches</h3>
+<p>Reprenez le schéma de flèches du Jour 2 (celui que Claude vous a montré). Pour chaque flèche, décidez : est-ce une <strong>question</strong> ou une <strong>annonce</strong> ?</p>
+<p>Par exemple :</p>
+<table>
+<thead>
+<tr>
+<th>Flèche</th>
+<th>Question ou annonce ?</th>
+<th>Pourquoi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Livres → Comptes (vérifier le membre avant un vote)</td>
+<td><strong>Question</strong></td>
+<td>Livres a besoin de la réponse pour continuer</td>
+</tr>
+<tr>
+<td>Réunions → Comptes (vérifier le membre avant inscription)</td>
+<td><strong>Question</strong></td>
+<td>Réunions a besoin de la réponse pour continuer</td>
+</tr>
+</tbody>
+</table>
+<blockquote class="notebook-prompt">
+<p>✍️ Classez chaque flèche de votre schéma en "question" ou "annonce" dans votre carnet.</p>
+</blockquote>
+<p>Vous remarquerez peut-être que toutes vos flèches actuelles sont des questions. C'est normal — vous n'avez pas encore ajouté de fonctionnalités qui <em>annoncent</em> des choses. Mais pensez à ce qui se passerait si vous ajoutiez :</p>
+<ul>
+<li>Un email de confirmation après une inscription à une réunion → <strong>annonce</strong> ("quelqu'un s'est inscrit")</li>
+<li>Une mise à jour de statistiques quand un vote est enregistré → <strong>annonce</strong> ("un vote a eu lieu")</li>
+<li>Une notification quand un nouveau livre est proposé → <strong>annonce</strong> ("un livre a été proposé")</li>
+</ul>
+<hr>
+<h3>L'exercice : écrire les événements en français</h3>
+<p>Pour chaque annonce que vous avez identifiée (ou imaginée), écrivez l'événement <strong>en français</strong>. Pas en code — en français, comme une note sur le tableau d'affichage de l'immeuble.</p>
+<p>Exemples :</p>
+<ul>
+<li>"Marie s'est inscrite à la Soirée Polar"</li>
+<li>"Jean a voté pour Le Nom de la Rose"</li>
+<li>"Un nouveau livre a été proposé : Dune"</li>
+</ul>
+<blockquote class="notebook-prompt">
+<p>✍️ Écrivez vos événements en français dans votre carnet. Au moins 3.</p>
+</blockquote>
+<p>Ces phrases en français vont devenir du code au Jour 5. Mais aujourd'hui, pas de code — juste le concept.</p>
+<h3>Ce que vous devez retenir</h3>
+<p>La règle est simple :</p>
+<ul>
+<li><strong>Question</strong> (j'ai besoin d'une réponse) → appel direct. Ça reste comme avant.</li>
+<li><strong>Annonce</strong> (quelque chose s'est passé) → événement. Le tableau d'affichage.</li>
+</ul>
+<p>Demain, vous verrez à quoi ressemble ce tableau d'affichage en Elixir.</p>
+
+      </div>
+    </main>
+    <button class="back-to-top" aria-label="Retour en haut">↑</button>
+  </div>
+  <script src="nav.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
