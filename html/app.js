@@ -95,7 +95,7 @@ function copyAndFeedback(btn, text) {
 
 // ===== SCROLL SPY =====
 function initScrollSpy() {
-  const sections = document.querySelectorAll('[id^="m0-"], [id^="m1-"], [id^="m2-"], [id^="m3-"], [id^="p1-"]');
+  const sections = document.querySelectorAll('[id^="m0-"], [id^="m1-"], [id^="m2-"], [id^="m3-"], [id^="m4-"], [id^="m5-"], [id^="p1-"]');
   if (!sections.length) return;
 
   const observer = new IntersectionObserver(entries => {

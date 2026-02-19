@@ -84,6 +84,39 @@ const MODULES = [
       { id: 'm3-bilan', label: 'Ce que vous avez appris' },
     ]
   },
+  {
+    id: 'module4',
+    file: 'module4.html',
+    number: '4',
+    title: 'Faire confiance, mais vérifier',
+    steps: [
+      { id: 'm4-analogie', label: 'Analogie : le contrôleur' },
+      { id: 'm4-etape1', label: 'Étape 1 — Le terrain d\'entraînement' },
+      { id: 'm4-etape2', label: 'Étape 2 — Tester vous-même' },
+      { id: 'm4-etape3', label: 'Étape 3 — Le vérificateur' },
+      { id: 'm4-etape4', label: 'Étape 4 — Comprendre' },
+      { id: 'm4-etape5', label: 'Étape 5 — Écrire des vérifications' },
+      { id: 'm4-etape6', label: 'Étape 6 — Le cycle de correction' },
+      { id: 'm4-etape7', label: 'Étape 7 — Tests automatiques' },
+      { id: 'm4-bilan', label: 'Ce que vous avez appris' },
+    ]
+  },
+  {
+    id: 'module5',
+    file: 'module5.html',
+    number: '5',
+    title: 'Vérifier pour de vrai',
+    steps: [
+      { id: 'm5-analogie', label: 'Analogie : la conduite en ville' },
+      { id: 'm5-etape1', label: 'Étape 1 — Vérifications dans les fiches' },
+      { id: 'm5-etape2', label: 'Étape 2 — Le rapport' },
+      { id: 'm5-etape3', label: 'Étape 3 — Prioriser' },
+      { id: 'm5-etape4', label: 'Étape 4 — Le cycle de correction' },
+      { id: 'm5-etape5', label: 'Étape 5 — Tests automatiques' },
+      { id: 'm5-etape6', label: 'Étape 6 — Élargir' },
+      { id: 'm5-bilan', label: 'Ce que vous avez appris' },
+    ]
+  },
 ];
 
 function getCurrentModuleId() {

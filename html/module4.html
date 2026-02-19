@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 4 — Faire confiance, mais v&eacute;rifier</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
+</head>
+<body>
+  <div class="app">
+    <div id="sidebar-root"></div>
+    <main class="main-content">
+      <div class="module-content">
+
+        <h1>Module 4 : Faire confiance, mais v&eacute;rifier</h1>
+        <p class="module-subtitle"><em>Apprendre &agrave; v&eacute;rifier sur un petit projet &mdash; avant de v&eacute;rifier le vrai</em></p>
+
+        <hr>
+
+        <h2>Ce que vous savez d&eacute;j&agrave;</h2>
+
+        <p>Vous savez organiser un projet en parties (Module 1), d&eacute;crire les parcours et g&eacute;rer les erreurs (Module 2), et donner &agrave; Claude la bonne quantit&eacute; d'information (Module 3).</p>
+
+        <p>Mais depuis le d&eacute;but, vous faites quelque chose de risqu&eacute; : <strong>vous croyez Claude sur parole.</strong> Il vous dit "c'est fait", et vous passez &agrave; la suite. Ce module va vous montrer pourquoi c'est un probl&egrave;me &mdash; et comment le r&eacute;soudre.</p>
+
+        <p>On ne va pas travailler sur le club de lecture tout de suite. On va d'abord apprendre &agrave; v&eacute;rifier sur <strong>un petit projet s&eacute;par&eacute;</strong> &mdash; un terrain d'entra&icirc;nement contr&ocirc;l&eacute;. Ce sera plus rapide, plus clair, et vous aurez la satisfaction de voir le cycle complet fonctionner avant de l'appliquer &agrave; votre vrai projet (dans le Module 5).</p>
+
+        <div class="module-meta">
+          <p><strong>Dur&eacute;e :</strong> 2h30-3h30</p>
+          <p><strong>Ce qu'il vous faut :</strong> Votre terminal, VSCode, Claude Code, votre carnet</p>
+        </div>
+
+        <hr>
+
+        <h2 id="m4-analogie">Avant de commencer : une analogie</h2>
+
+        <p>Vous faites construire une maison. L'architecte vous montre les plans. L'entrepreneur vous dit "c'est termin&eacute;". Vous visitez : les murs sont droits, la peinture est belle, les prises fonctionnent. Tout a l'air parfait.</p>
+
+        <p>Mais est-ce que les fondations sont solides ? Est-ce que l'isolation est bien pos&eacute;e derri&egrave;re les murs ? Est-ce que la plomberie tiendra dans 5 ans ? Vous ne pouvez pas le voir &agrave; l'&oelig;il nu.</p>
+
+        <p>C'est pour &ccedil;a qu'il existe des <strong>contr&ocirc;leurs</strong> ind&eacute;pendants. Quelqu'un qui n'a pas construit la maison et qui vient v&eacute;rifier que tout est conforme. Pas en regardant si c'est joli &mdash; en testant : il ouvre tous les robinets en m&ecirc;me temps, il v&eacute;rifie la pression, il mesure l'isolation.</p>
+
+        <p>Le contr&ocirc;leur ne sait pas forc&eacute;ment construire une maison. Mais il sait <strong>quoi v&eacute;rifier et comment</strong>.</p>
+
+        <p>C'est exactement ce que vous allez apprendre &agrave; faire.</p>
+
+        <hr>
+
+        <!-- ÉTAPE 1 -->
+        <div class="step-header" id="m4-etape1"><span class="step-number">1</span><h2>&Eacute;tape 1 &mdash; Construire un terrain d'entra&icirc;nement <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(30 min)</small></h2></div>
+
+        <h3>Ce que vous allez faire</h3>
+
+        <p>Vous allez cr&eacute;er un tout petit projet &agrave; c&ocirc;t&eacute; de votre club de lecture : un <strong>syst&egrave;me de r&eacute;servation de salles</strong>. C'est volontairement simple &mdash; trois parties, un parcours, quelques pages.</p>
+
+        <p>Pourquoi ne pas utiliser le club de lecture directement ? Parce qu'il est gros. Si les tests plantent ou si Claude v&eacute;rificateur produit un rapport de 50 erreurs, vous ne saurez pas si c'est vous qui faites mal ou si c'est le projet qui est trop complexe. Le mini-projet &eacute;limine ce doute.</p>
+
+        <h3>Cr&eacute;er le dossier</h3>
+
+        <p>Dans le terminal de VSCode :</p>
+
+        <pre data-lang="bash"><code>cd ~
+mkdir mini-projet
+cd mini-projet
+git init</code></pre>
+
+        <p>Puis ouvrez ce dossier dans VSCode : <strong>Fichier &rarr; Ouvrir un dossier</strong> &rarr; s&eacute;lectionnez <code>mini-projet</code>. Ouvrez le terminal int&eacute;gr&eacute; (<code>Ctrl + `</code>).</p>
+
+        <h3>&Eacute;crire le plan</h3>
+
+        <p>Cr&eacute;ez un fichier <code>plan.md</code> dans VSCode et &eacute;crivez-y le plan suivant (ou copiez-le) :</p>
+
+        <pre><code>PLAN — Syst&egrave;me de r&eacute;servation de salles
+
+Stack : Node.js + Express, SQLite, Pico.css (CDN)
+
+PARTIE : Salles
+&rarr; Fait : g&eacute;rer les salles (nom, capacit&eacute;, cr&eacute;neaux disponibles)
+&rarr; Ne fait PAS : g&eacute;rer les r&eacute;servations (c'est R&eacute;servations)
+
+PARTIE : R&eacute;servations
+&rarr; Fait : r&eacute;server un cr&eacute;neau, annuler une r&eacute;servation
+&rarr; Ne fait PAS : g&eacute;rer les salles, g&eacute;rer les paiements
+&rarr; A besoin de : Salles
+
+PARTIE : Paiement (simul&eacute;)
+&rarr; Fait : encaisser et rembourser (en faux argent)
+&rarr; Ne fait PAS : g&eacute;rer les r&eacute;servations
+
+PARCOURS : R&eacute;server un cr&eacute;neau payant
+1. V&eacute;rifier que la salle existe et que le cr&eacute;neau est libre
+2. R&eacute;server le cr&eacute;neau (temporairement)
+3. Prendre le paiement (simul&eacute;)
+   Si &ccedil;a rate : lib&eacute;rer le cr&eacute;neau
+4. Confirmer la r&eacute;servation
+   Si &ccedil;a rate : rembourser + lib&eacute;rer le cr&eacute;neau
+
+PARCOURS : Annuler une r&eacute;servation
+1. V&eacute;rifier que la r&eacute;servation existe
+2. Rembourser le paiement
+   Si &ccedil;a rate : on s'arr&ecirc;te, la r&eacute;servation reste active
+3. Lib&eacute;rer le cr&eacute;neau
+4. Supprimer la r&eacute;servation</code></pre>
+
+        <p>Enregistrez, puis sauvegardez avec git :</p>
+
+        <pre data-lang="bash"><code>git add plan.md
+git commit -m "Plan du mini-projet de r&eacute;servation"</code></pre>
+
+        <h3>Construire avec Claude</h3>
+
+        <p>Lancez Claude Code :</p>
+
+        <pre data-lang="bash"><code>claude</code></pre>
+
+        <p>Demandez-lui :</p>
+
+        <blockquote><p>Lis plan.md. Construis cette application de r&eacute;servation de salles en suivant le plan. Utilise la stack indiqu&eacute;e. Les paiements sont simul&eacute;s (pas de vrai service de paiement). Cr&eacute;e quelques salles par d&eacute;faut pour pouvoir tester.</p></blockquote>
+
+        <p>Lancez le site (<code>npm install</code> puis <code>npm start</code>), ouvrez-le dans votre navigateur, et v&eacute;rifiez que &ccedil;a fonctionne : vous pouvez voir les salles et r&eacute;server un cr&eacute;neau.</p>
+
+        <p>Quittez Claude Code (<code>/exit</code>) et sauvegardez :</p>
+
+        <pre data-lang="bash"><code>git add .
+git commit -m "Mini-projet construit"</code></pre>
+
+        <hr>
+
+        <!-- ÉTAPE 2 -->
+        <div class="step-header" id="m4-etape2"><span class="step-number">2</span><h2>&Eacute;tape 2 &mdash; Tester vous-m&ecirc;me d'abord <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(15 min)</small></h2></div>
+
+        <h3>Ce que vous allez faire</h3>
+
+        <p>Avant de demander quoi que ce soit &agrave; Claude, <strong>testez vous-m&ecirc;me dans le navigateur</strong>. Jouez l'utilisateur curieux :</p>
+
+        <ul>
+          <li>R&eacute;servez un cr&eacute;neau. Est-ce que le nombre de places diminue ?</li>
+          <li>R&eacute;servez le m&ecirc;me cr&eacute;neau deux fois. Qu'est-ce qui se passe ?</li>
+          <li>Annulez. Est-ce que la place revient ?</li>
+          <li>Essayez de r&eacute;server un cr&eacute;neau dans le pass&eacute;. &Ccedil;a marche ?</li>
+        </ul>
+
+        <p>Ne cherchez pas &agrave; &ecirc;tre exhaustif. Notez juste ce qui vous semble bizarre ou suspect.</p>
+
+        <h3>Ce que vous devez noter dans votre carnet</h3>
+
+        <blockquote class="notebook-prompt"><p>&#9997;&#65039; Listez 3-4 choses que vous avez essay&eacute;es et le r&eacute;sultat.</p></blockquote>
+        <blockquote class="notebook-prompt"><p>&#9997;&#65039; Y a-t-il quelque chose qui a march&eacute; alors que &ccedil;a n'aurait pas d&ucirc; ?</p></blockquote>
+
+        <h3>Pourquoi tester vous-m&ecirc;me d'abord</h3>
+
+        <p>Votre test manuel attrape les <strong>probl&egrave;mes visibles</strong> &mdash; l'interface, le comportement. Le Claude v&eacute;rificateur de l'&eacute;tape suivante attrapera les <strong>probl&egrave;mes invisibles</strong> &mdash; la logique interne, les <dfn title="Situation rare ou extr&ecirc;me &agrave; laquelle personne ne pense, comme r&eacute;server 0 places ou s'inscrire deux fois">cas limites</dfn>. Les deux sont compl&eacute;mentaires. Ne sautez pas cette &eacute;tape sous pr&eacute;texte que Claude va tout v&eacute;rifier.</p>
+
+        <hr>
+
+        <!-- ÉTAPE 3 -->
+        <div class="step-header" id="m4-etape3"><span class="step-number">3</span><h2>&Eacute;tape 3 &mdash; Le v&eacute;rificateur <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(30 min)</small></h2></div>
+
+        <h3>Ce que vous allez faire</h3>
+
+        <p>Lancez une <strong>nouvelle session</strong> de Claude Code :</p>
+
+        <pre data-lang="bash"><code>claude</code></pre>
+
+        <p>C'est important : le v&eacute;rificateur doit avoir un <strong>regard frais</strong>, sans le contexte de construction. Dites-lui :</p>
+
+        <blockquote><p>Lis plan.md. Explore ensuite les fichiers du projet. Comportes-toi comme un utilisateur curieux et un peu malveillant &mdash; essaie de faire des choses qu'un vrai utilisateur pourrait faire, y compris des choses bizarres. Pour chaque test, dis-moi :</p>
+        <ol>
+          <li>Ce que tu as essay&eacute;</li>
+          <li>Ce qui aurait D&Ucirc; se passer (d'apr&egrave;s plan.md)</li>
+          <li>Ce qui se passe R&Eacute;ELLEMENT dans le code</li>
+        </ol></blockquote>
+
+        <h3>&#128308; Ce que vous allez d&eacute;couvrir</h3>
+
+        <p>Pr&eacute;parez-vous. &Ccedil;a va piquer.</p>
+
+        <div class="callout callout-flag"><p>&#128681; <strong>Des actions qui "marchent" mais ne font pas tout.</strong></p>
+        <p>Par exemple : "Je r&eacute;serve un cr&eacute;neau. Le paiement est enregistr&eacute;. Mais le nombre de places disponibles n'a pas diminu&eacute;." Ou : "J'annule. Le cr&eacute;neau est lib&eacute;r&eacute;. Mais le remboursement n'est pas fait."</p></div>
+
+        <div class="callout callout-flag"><p>&#128681; <strong>Des cas que personne n'a pr&eacute;vus.</strong></p>
+        <p>"Que se passe-t-il si je r&eacute;serve le m&ecirc;me cr&eacute;neau deux fois ?" &mdash; Rien ne m'en emp&ecirc;che. "Que se passe-t-il si j'annule une r&eacute;servation qui n'existe pas ?" &mdash; Erreur cryptique.</p></div>
+
+        <div class="callout callout-flag"><p>&#128681; <strong>Des parcours &agrave; moiti&eacute; impl&eacute;ment&eacute;s.</strong></p>
+        <p>Vous aviez d&eacute;crit "si le paiement rate, lib&eacute;rer le cr&eacute;neau" dans le plan. Claude constructeur avait dit "c'est fait". Mais le "c'est fait" signifiait parfois "j'ai &eacute;crit le cas normal, pas les cas d'erreur".</p></div>
+
+        <h3>Pourquoi &ccedil;a arrive</h3>
+
+        <p>Ce n'est pas que Claude ment. C'est que Claude fait ce que vous lui demandez <strong>au moment o&ugrave; vous le demandez</strong>. Quand vous dites "impl&eacute;mente le parcours de r&eacute;servation", il impl&eacute;mente le chemin principal. Les cas d'erreur, il les fait si vous insistez &mdash; mais il ne va pas spontan&eacute;ment tout couvrir.</p>
+
+        <p>C'est exactement pareil avec un artisan humain. Si vous dites "installe une serrure sur la porte", il installe la serrure. Il ne va pas spontan&eacute;ment v&eacute;rifier que la porte r&eacute;siste aux coups de pied. Il faut le lui demander.</p>
+
+        <h3>Oui, vous faites confiance &agrave; un autre Claude</h3>
+
+        <p>Vous vous dites peut-&ecirc;tre : "Mais le v&eacute;rificateur aussi, c'est Claude. Je fais toujours confiance &agrave; une IA." C'est vrai &mdash; mais c'est un Claude <strong>ind&eacute;pendant</strong>, qui n'a pas construit le code et n'a aucun int&eacute;r&ecirc;t &agrave; dire que tout va bien. C'est la m&ecirc;me raison pour laquelle un contr&ocirc;leur de maison n'est jamais l'entrepreneur lui-m&ecirc;me.</p>
+
+        <h3>Ce que vous devez noter dans votre carnet</h3>
+
+        <blockquote class="notebook-prompt"><p>&#9997;&#65039; Combien de probl&egrave;mes Claude-v&eacute;rificateur a-t-il trouv&eacute;s ?</p></blockquote>
+        <blockquote class="notebook-prompt"><p>&#9997;&#65039; Lesquels aviez-vous d&eacute;j&agrave; rep&eacute;r&eacute;s vous-m&ecirc;me &agrave; l'&eacute;tape 2 ?</p></blockquote>
+        <blockquote class="notebook-prompt"><p>&#9997;&#65039; Lesquels sont graves (argent mal g&eacute;r&eacute;, donn&eacute;es incoh&eacute;rentes) vs b&eacute;nins (affichage bizarre) ?</p></blockquote>
+
+        <hr>
+
+        <!-- ÉTAPE 4 -->
+        <div class="step-header" id="m4-etape4"><span class="step-number">4</span><h2>&Eacute;tape 4 &mdash; Comprendre la diff&eacute;rence <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(10 min)</small></h2></div>
+
+        <div class="spoiler">
+          <button class="spoiler-toggle"><span class="spoiler-icon">&#9654;</span>Lisez ceci APR&Egrave;S avoir fait les &eacute;tapes 2 et 3</button>
+          <div class="spoiler-content"><div class="spoiler-inner">
+
+        <p>Vous venez de faire quelque chose de fondamental : vous avez utilis&eacute; un Claude diff&eacute;rent pour v&eacute;rifier le travail du premier Claude. Et il a trouv&eacute; des probl&egrave;mes.</p>
+
+        <p>Pourquoi un Claude "frais" trouve-t-il des erreurs que le Claude "constructeur" n'a pas vues ?</p>
+
+        <p><strong>Parce que quand on construit, on pense &agrave; ce qui doit marcher. Quand on v&eacute;rifie, on pense &agrave; ce qui pourrait casser.</strong></p>
+
+        <p>Ce sont deux fa&ccedil;ons de penser oppos&eacute;es. Le constructeur est optimiste : "voil&agrave; comment &ccedil;a fonctionne". Le v&eacute;rificateur est pessimiste : "voil&agrave; comment &ccedil;a pourrait &eacute;chouer". Et il est tr&egrave;s difficile de faire les deux en m&ecirc;me temps &mdash; pour une IA comme pour un humain.</p>
+
+        <p>C'est pour &ccedil;a que dans l'industrie, la personne qui construit n'est jamais la m&ecirc;me que celle qui v&eacute;rifie. Pas parce que le constructeur est mauvais &mdash; mais parce qu'on ne peut pas &ecirc;tre juge et partie.</p>
+
+        <p><strong>R&egrave;gle fondamentale : la conversation qui construit et la conversation qui v&eacute;rifie doivent &ecirc;tre s&eacute;par&eacute;es.</strong></p>
+
+          </div></div>
+        </div>
+
+        <hr>
+
+        <!-- ÉTAPE 5 -->
+        <div class="step-header" id="m4-etape5"><span class="step-number">5</span><h2>&Eacute;tape 5 &mdash; &Eacute;crire des v&eacute;rifications <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(30 min)</small></h2></div>
+
+        <h3>L'id&eacute;e cl&eacute;</h3>
+
+        <p>Vos parcours dans <code>plan.md</code> d&eacute;crivent ce qui <strong>devrait</strong> se passer. Un sc&eacute;nario de v&eacute;rification, c'est la m&ecirc;me chose retourn&eacute;e : "si je fais &ccedil;a, alors &ccedil;a doit &ecirc;tre vrai ensuite."</p>
+
+        <p>Ce n'est pas du code. Ce sont des phrases en fran&ccedil;ais.</p>
+
+        <h3>Ce que vous allez faire</h3>
+
+        <p>C'est la premi&egrave;re fois que vous &eacute;crivez vous-m&ecirc;me un contenu structur&eacute; dans un fichier du projet. Ne vous inqui&eacute;tez pas si le format n'est pas parfait &mdash; l'important, c'est le contenu.</p>
+
+        <p>Ouvrez <code>plan.md</code> dans VSCode et ajoutez une section <code>V&Eacute;RIFICATIONS</code> &agrave; la fin. Commencez par le parcours "R&eacute;server un cr&eacute;neau payant" :</p>
+
+        <pre><code>V&Eacute;RIFICATIONS : R&eacute;servation d'un cr&eacute;neau payant
+
+Situation de d&eacute;part :
+  - La salle "Salle A" a 5 cr&eacute;neaux, il en reste 2
+  - L'utilisateur Alice veut r&eacute;server le cr&eacute;neau de 14h
+
+Apr&egrave;s une r&eacute;servation r&eacute;ussie :
+  ✓ Il reste 1 cr&eacute;neau disponible (pas 2)
+  ✓ Alice appara&icirc;t dans les r&eacute;servations
+  ✓ Un paiement est enregistr&eacute; au nom d'Alice
+  ✓ Le cr&eacute;neau de 14h est marqu&eacute; comme pris
+
+Quand le cr&eacute;neau est d&eacute;j&agrave; pris :
+  ✓ La r&eacute;servation est refus&eacute;e
+  ✓ Aucun paiement n'est enregistr&eacute;
+  ✓ Alice voit un message clair
+
+Quand le paiement &eacute;choue :
+  ✓ Alice n'a PAS de r&eacute;servation
+  ✓ Le cr&eacute;neau n'a PAS &eacute;t&eacute; pris
+  ✓ Alice voit "paiement refus&eacute;"</code></pre>
+
+        <h3>Vous remarquez quelque chose ?</h3>
+
+        <p>Chaque v&eacute;rification est une <strong>phrase qu'on peut v&eacute;rifier par oui ou non</strong>. "Il reste 1 cr&eacute;neau" &mdash; c'est vrai ou c'est faux. "Alice appara&icirc;t dans les r&eacute;servations" &mdash; oui ou non. Il n'y a pas d'ambigu&iuml;t&eacute;.</p>
+
+        <p>C'est la force de cette approche : vous n'avez pas besoin de lire le code pour savoir si l'application marche. Vous avez besoin de <strong>regarder le r&eacute;sultat et v&eacute;rifier une liste</strong>.</p>
+
+        <h3>Ajoutez les cas bizarres</h3>
+
+        <p>Maintenant, ajoutez des v&eacute;rifications pour les situations auxquelles personne ne pense :</p>
+
+        <pre><code>V&Eacute;RIFICATIONS : Cas limites
+
+Alice r&eacute;serve le m&ecirc;me cr&eacute;neau deux fois :
+  ✓ La deuxi&egrave;me r&eacute;servation est refus&eacute;e
+  ✓ Un seul paiement est enregistr&eacute;
+
+Alice annule sa r&eacute;servation :
+  ✓ Le cr&eacute;neau redevient disponible
+  ✓ Alice est rembours&eacute;e
+  ✓ La r&eacute;servation n'appara&icirc;t plus
+
+Alice annule une r&eacute;servation qui n'existe pas :
+  ✓ Un message d'erreur clair s'affiche
+  ✓ Rien d'autre ne change</code></pre>
+
+        <h3>Demandez &agrave; Claude de compl&eacute;ter</h3>
+
+        <p>Quand vous avez &eacute;crit vos v&eacute;rifications, lancez Claude Code et demandez-lui :</p>
+
+        <blockquote><p>Lis plan.md. J'ai ajout&eacute; des v&eacute;rifications &agrave; la fin. Quels cas ai-je oubli&eacute;s ? Pense aux cas bizarres, aux cas limites, et aux cas o&ugrave; deux choses arrivent en m&ecirc;me temps. Ajoute-les &agrave; la suite de mes v&eacute;rifications dans plan.md.</p></blockquote>
+
+        <p>Claude va proposer des cas auxquels vous n'avez pas pens&eacute;. <strong>C'est vous qui d&eacute;cidez lesquels garder</strong> &mdash; tous les cas ne m&eacute;ritent pas d'&ecirc;tre v&eacute;rifi&eacute;s.</p>
+
+        <p>Quittez Claude Code (<code>/exit</code>) et sauvegardez :</p>
+
+        <pre data-lang="bash"><code>git add plan.md
+git commit -m "V&eacute;rifications ajout&eacute;es au plan"</code></pre>
+
+        <h3>Ce que vous devez noter dans votre carnet</h3>
+
+        <blockquote class="notebook-prompt"><p>&#9997;&#65039; Quels cas limites avez-vous trouv&eacute;s vous-m&ecirc;me, avant Claude ?</p></blockquote>
+        <blockquote class="notebook-prompt"><p>&#9997;&#65039; Lesquels n'avaient pas de bonne r&eacute;ponse &eacute;vidente &mdash; o&ugrave; c'&eacute;tait VOUS qui deviez d&eacute;cider du comportement ?</p></blockquote>
+
+        <hr>
+
+        <!-- ÉTAPE 6 -->
+        <div class="step-header" id="m4-etape6"><span class="step-number">6</span><h2>&Eacute;tape 6 &mdash; Le cycle de correction <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(30 min)</small></h2></div>
+
+        <h3>Le rapport de v&eacute;rification</h3>
+
+        <p>Quittez Claude Code (<code>/exit</code>) puis relancez une nouvelle session (<code>claude</code>). Dites-lui :</p>
+
+        <blockquote><p>Lis plan.md. Pour chaque v&eacute;rification list&eacute;e, explore le code correspondant et dis-moi :</p>
+        <ul>
+          <li>&#9989; PASSE : le code fait bien ce qui est d&eacute;crit</li>
+          <li>&#10060; &Eacute;CHOUE : le code ne fait pas ce qui est d&eacute;crit (explique pourquoi)</li>
+          <li>&#9888;&#65039; IMPOSSIBLE &Agrave; V&Eacute;RIFIER : le code ne couvre pas ce cas du tout</li>
+        </ul></blockquote>
+
+        <p>Vous allez obtenir un rapport clair. Probablement un m&eacute;lange des trois. C'est normal.</p>
+
+        <ul>
+          <li><strong>Les &#9989;</strong> sont vos certitudes. &Ccedil;a marche, un Claude ind&eacute;pendant l'a confirm&eacute;.</li>
+          <li><strong>Les &#10060;</strong> sont vos priorit&eacute;s &mdash; on va les corriger.</li>
+          <li><strong>Les &#9888;&#65039;</strong> sont des trous. Des choses que personne n'a impl&eacute;ment&eacute;es.</li>
+        </ul>
+
+        <h3>Corriger les &eacute;checs</h3>
+
+        <p>Quittez (<code>/exit</code>), relancez Claude Code (<code>claude</code>) et dites-lui de corriger un &eacute;chec pr&eacute;cis :</p>
+
+        <blockquote><p>Lis plan.md. La v&eacute;rification suivante &eacute;choue : "Quand le paiement &eacute;choue, le cr&eacute;neau n'a PAS &eacute;t&eacute; pris." Actuellement, le cr&eacute;neau est r&eacute;serv&eacute; avant le paiement mais jamais lib&eacute;r&eacute; si le paiement rate. Corrige &ccedil;a en respectant le parcours d&eacute;crit dans le plan.</p></blockquote>
+
+        <h3>V&eacute;rifier l'ampleur des changements</h3>
+
+        <p>Apr&egrave;s correction, regardez ce que Claude a chang&eacute; :</p>
+
+        <pre data-lang="bash"><code>git diff</code></pre>
+
+        <p>Cette commande est nouvelle. Elle vous montre toutes les modifications depuis votre dernier commit &mdash; les lignes ajout&eacute;es en vert, les lignes supprim&eacute;es en rouge. Vous n'avez pas besoin de comprendre le code en d&eacute;tail, mais vous pouvez voir <strong>l'ampleur</strong> des changements :</p>
+
+        <ul>
+          <li><strong>3-10 lignes modifi&eacute;es</strong> pour corriger un bug &rarr; rassurant, c'est cibl&eacute;.</li>
+          <li><strong>200 lignes r&eacute;&eacute;crites</strong> pour un bug simple &rarr; suspect, Claude a probablement tout refait au lieu de corriger le minimum.</li>
+        </ul>
+
+        <p>Si l'ampleur vous semble disproportionn&eacute;e, dites-le &agrave; Claude : "Tu as r&eacute;&eacute;crit beaucoup de code pour un petit bug. Peux-tu corriger uniquement le probl&egrave;me, sans tout changer ?"</p>
+
+        <h3>Sauvegarder et re-v&eacute;rifier</h3>
+
+        <pre data-lang="bash"><code>git add .
+git commit -m "Correction : lib&eacute;ration du cr&eacute;neau quand le paiement &eacute;choue"</code></pre>
+
+        <p><strong>Refaites la v&eacute;rification.</strong> Quittez (<code>/exit</code>), relancez (<code>claude</code>), et r&eacute;p&eacute;tez la m&ecirc;me demande de rapport. Certains &#10060; vont passer en &#9989;. Parfois, une correction cr&eacute;e un nouveau &#10060; ailleurs. C'est normal &mdash; c'est exactement comme &ccedil;a que fonctionne le d&eacute;veloppement professionnel.</p>
+
+        <p>Le cycle complet est : <strong>construire &rarr; committer &rarr; v&eacute;rifier &rarr; corriger &rarr; committer &rarr; v&eacute;rifier &agrave; nouveau.</strong> Git garde la trace de chaque &eacute;tape. Si une correction empire les choses, <code>git checkout .</code> vous ram&egrave;ne au dernier commit propre.</p>
+
+        <h3>Ce que vous devez noter dans votre carnet</h3>
+
+        <blockquote class="notebook-prompt"><p>&#9997;&#65039; Combien de &#9989;, &#10060; et &#9888;&#65039; dans le premier rapport ?</p></blockquote>
+        <blockquote class="notebook-prompt"><p>&#9997;&#65039; Apr&egrave;s correction, est-ce que de nouveaux &#10060; sont apparus ?</p></blockquote>
+
+        <hr>
+
+        <!-- ÉTAPE 7 -->
+        <div class="step-header" id="m4-etape7"><span class="step-number">7</span><h2>&Eacute;tape 7 &mdash; Les tests automatiques <small style="font-weight:400;font-size:0.65em;color:var(--text-tertiary)">(30 min)</small></h2></div>
+
+        <h3>Le probl&egrave;me du cycle manuel</h3>
+
+        <p>Le cycle de l'&eacute;tape 6 fonctionne, mais il est fatigant. &Agrave; chaque correction, il faut relancer un Claude v&eacute;rificateur, attendre son rapport, comparer avec le pr&eacute;c&eacute;dent... Et si vous changez quelque chose dans deux semaines, il faut tout refaire.</p>
+
+        <p>Repensez au contr&ocirc;leur de la maison. S'il devait revenir v&eacute;rifier chaque robinet &agrave; la main apr&egrave;s chaque modification, il passerait sa vie chez vous. Ce qu'il fait en r&eacute;alit&eacute;, c'est installer des <strong>capteurs</strong> : un d&eacute;tecteur de fuite sur chaque tuyau, un testeur sur chaque circuit. Apr&egrave;s &ccedil;a, les capteurs surveillent en permanence. Si quelque chose casse, l'alarme se d&eacute;clenche.</p>
+
+        <p>Vous allez faire la m&ecirc;me chose : transformer vos v&eacute;rifications en fran&ccedil;ais en <strong>tests automatiques</strong> &mdash; du code que l'ordinateur ex&eacute;cute tout seul et qui vous dit ce qui marche et ce qui ne marche pas.</p>
+
+        <h3>Ce que vous allez faire</h3>
+
+        <p>Lancez Claude Code (<code>claude</code>) et demandez-lui :</p>
+
+        <blockquote><p>Lis plan.md. Transforme chaque v&eacute;rification en un test automatique. Chaque ✓ doit devenir un test qui passe ou &eacute;choue. Je veux pouvoir lancer tous les tests avec une seule commande.</p></blockquote>
+
+        <h3>Ce qui va se passer</h3>
+
+        <p>Claude Code va cr&eacute;er des fichiers de tests dans votre projet. Vous n'avez pas besoin de comprendre le code de ces tests. Ce qui compte, c'est ce qui se passe quand vous les lancez.</p>
+
+        <p>Claude Code vous donnera une commande pour les ex&eacute;cuter (tr&egrave;s probablement <code>npm test</code>). Lancez-la. Vous allez voir quelque chose comme :</p>
+
+        <pre><code>✓ R&eacute;servation r&eacute;ussie : il reste 1 cr&eacute;neau
+✓ R&eacute;servation r&eacute;ussie : Alice appara&icirc;t dans les r&eacute;servations
+✓ R&eacute;servation r&eacute;ussie : paiement enregistr&eacute;
+✗ Double r&eacute;servation : Alice peut r&eacute;server deux fois
+✗ Paiement &eacute;chou&eacute; : le cr&eacute;neau n'est pas lib&eacute;r&eacute;
+
+8 tests, 6 passed, 2 failed</code></pre>
+
+        <p>Vert = &ccedil;a marche. Rouge = c'est cass&eacute;. Pas de rapport &agrave; interpr&eacute;ter. Juste des faits.</p>
+
+        <div class="callout callout-flag"><p>&#128681; <strong>Si les tests ne se lancent pas</strong> ou si vous voyez des erreurs incompr&eacute;hensibles, dites &agrave; Claude Code exactement ce que vous voyez. Si apr&egrave;s deux tentatives &ccedil;a ne marche toujours pas, ne restez pas bloqu&eacute;. Ce n'est pas vous qui avez &eacute;chou&eacute; &mdash; la mise en place de tests automatiques est l'une des t&acirc;ches les plus capricieuses en d&eacute;veloppement, m&ecirc;me pour les professionnels. Vous aurez &agrave; nouveau l'occasion de pratiquer &ccedil;a dans le Module 5 et dans la partie 2. Le cycle manuel de l'&eacute;tape 6 reste valide et suffisant.</p></div>
+
+        <h3>Le nouveau cycle</h3>
+
+        <p>Si les tests marchent, le cycle devient beaucoup plus court :</p>
+
+        <pre><code>1. Demander une modification &agrave; Claude Code
+2. Lancer les tests (npm test)
+3. Tout est vert &rarr; git add + git commit
+4. Du rouge &rarr; demander &agrave; Claude de corriger
+5. Relancer les tests
+6. R&eacute;p&eacute;ter jusqu'&agrave; tout vert</code></pre>
+
+        <p>Essayez : demandez &agrave; Claude Code de corriger les tests qui &eacute;chouent, relancez les tests, et r&eacute;p&eacute;tez jusqu'&agrave; ce que tout passe.</p>
+
+        <h3>Pourquoi c'est un changement fondamental</h3>
+
+        <ul>
+          <li><strong>C'est instantan&eacute;.</strong> Une commande, quelques secondes, vous savez o&ugrave; vous en &ecirc;tes.</li>
+          <li><strong>C'est r&eacute;p&eacute;table.</strong> Apr&egrave;s chaque modification, relancez la m&ecirc;me commande.</li>
+          <li><strong>&Ccedil;a attrape les <dfn title="Quand une correction casse quelque chose qui marchait avant">r&eacute;gressions</dfn>.</strong> Si Claude corrige un bug mais en cr&eacute;e un autre, les tests vous le disent imm&eacute;diatement.</li>
+          <li><strong>&Ccedil;a survit au temps.</strong> Dans deux semaines, quand vous aurez oubli&eacute; les d&eacute;tails, les tests s'en souviennent pour vous.</li>
+        </ul>
+
+        <pre data-lang="bash"><code>git add .
+git commit -m "Tests automatiques ajout&eacute;s et passants"</code></pre>
+
+        <hr>
+
+        <!-- BILAN -->
+        <h2 id="m4-bilan">Ce que vous avez appris</h2>
+
+        <h3>En une phrase</h3>
+
+        <p><strong>Construire et v&eacute;rifier sont deux activit&eacute;s diff&eacute;rentes, faites par deux conversations diff&eacute;rentes, avec deux &eacute;tats d'esprit diff&eacute;rents.</strong></p>
+
+        <h3>Les trois nouveaux r&eacute;flexes</h3>
+
+        <ol start="10">
+          <li><strong>Ne faites pas confiance, v&eacute;rifiez.</strong> Ce qui a l'air de marcher ne marche pas forc&eacute;ment. Seule une v&eacute;rification pr&eacute;cise &mdash; une phrase qu'on peut r&eacute;pondre par oui ou non &mdash; vous donne une certitude.</li>
+          <li><strong>S&eacute;parez le constructeur du v&eacute;rificateur.</strong> La conversation qui construit ne v&eacute;rifie pas son propre travail. Utilisez une conversation s&eacute;par&eacute;e avec un regard frais.</li>
+          <li><strong>Transformez vos v&eacute;rifications en tests automatiques.</strong> Vos phrases en fran&ccedil;ais deviennent des capteurs permanents. Une commande, quelques secondes, z&eacute;ro ambigu&iuml;t&eacute;.</li>
+        </ol>
+
+        <hr>
+
+        <h2>Avant de partir &mdash; sauvegardez</h2>
+
+        <p>Votre mini-projet est complet. C'est un petit syst&egrave;me, mais il est <strong>v&eacute;rifi&eacute;</strong>. Vous savez exactement ce qui marche et ce qui ne marche pas &mdash; pas parce que Claude vous l'a dit, mais parce que vous l'avez prouv&eacute;.</p>
+
+        <pre data-lang="bash"><code>git add .
+git commit -m "Module 4 termin&eacute; : mini-projet v&eacute;rifi&eacute; avec tests"</code></pre>
+
+        <hr>
+
+        <h2>La suite</h2>
+
+        <p>Vous savez maintenant v&eacute;rifier. Mais vous l'avez fait sur un petit projet contr&ocirc;l&eacute; &mdash; trois parties, un parcours, quelques v&eacute;rifications.</p>
+
+        <p>Dans le Module 5, vous allez <strong>appliquer ces comp&eacute;tences &agrave; votre vrai projet</strong> &mdash; le club de lecture. C'est plus gros, plus impr&eacute;visible, et probablement plus cass&eacute; que vous ne le pensez. Mais vous savez maintenant exactement quoi faire.</p>
+
+      </div>
+    </main>
+    <button class="back-to-top" aria-label="Retour en haut">&uarr;</button>
+  </div>
+  <script src="nav.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
