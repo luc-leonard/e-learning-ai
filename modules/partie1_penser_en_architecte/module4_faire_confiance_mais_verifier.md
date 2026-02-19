@@ -99,7 +99,13 @@ git commit -m "Plan du mini-projet de réservation"
 
 ### Construire avec Claude
 
-Lancez Claude Code :
+Avant de lancer Claude Code, assurez-vous d'être dans le bon dossier. Dans le terminal de VSCode, tapez :
+
+```bash
+pwd
+```
+
+La dernière partie du chemin doit être `mini-projet`. Si ce n'est pas le cas, tapez `cd ~/mini-projet`. Puis lancez Claude Code :
 
 ```bash
 claude
@@ -316,9 +322,11 @@ Vous allez obtenir un rapport clair. Probablement un mélange des trois. C'est n
 
 ### Corriger les échecs
 
-Quittez (`/exit`), relancez Claude Code (`claude`) et dites-lui de corriger un échec précis :
+Quittez (`/exit`), relancez Claude Code (`claude`) et dites-lui de corriger un échec précis. Ce qui suit est un exemple — **remplacez la phrase entre guillemets par le ❌ exact de votre rapport**, et décrivez ce que vous avez compris du problème :
 
 > Lis plan.md. La vérification suivante échoue : "Quand le paiement échoue, le créneau n'a PAS été pris." Actuellement, le créneau est réservé avant le paiement mais jamais libéré si le paiement rate. Corrige ça en respectant le parcours décrit dans le plan.
+
+Plus vous êtes précis, plus Claude est efficace. Si vous ne comprenez pas pourquoi ça échoue, dites-le simplement : "Je ne sais pas pourquoi, mais le résultat ne correspond pas à la vérification."
 
 ### Vérifier l'ampleur des changements
 
@@ -373,7 +381,7 @@ Lancez Claude Code (`claude`) et demandez-lui :
 
 Claude Code va créer des fichiers de tests dans votre projet. Vous n'avez pas besoin de comprendre le code de ces tests. Ce qui compte, c'est ce qui se passe quand vous les lancez.
 
-Claude Code vous donnera une commande pour les exécuter (très probablement `npm test`). Lancez-la. Vous allez voir quelque chose comme :
+Quand Claude Code a terminé, il vous indiquera la commande exacte à taper pour lancer les tests. Tapez-la dans le terminal. Vous allez voir quelque chose comme :
 
 ```
 ✓ Réservation réussie : il reste 1 créneau

@@ -15,6 +15,7 @@ modules/
 │   ├── module1_le_mur_du_contexte.md
 │   ├── module2_le_passage_du_temoin.md
 │   ├── module3_la_carte_et_le_territoire.md
+│   ├── projet1_votre_premier_plan.md   # Mini-projet intermédiaire (après M3)
 │   ├── module4_faire_confiance_mais_verifier.md
 │   ├── module5_verifier_pour_de_vrai.md
 │   └── module6_les_vrais_mots.md
@@ -132,8 +133,9 @@ Règles :
 CSS à ajouter au LMS :
 ```css
 dfn[title] {
-  cursor: help;
+  color: var(--primary, #3b82f6);
   border-bottom: 1px dotted currentColor;
+  cursor: help;
   font-style: normal;
 }
 ```
@@ -142,7 +144,10 @@ dfn[title] {
 
 - **Modules 0, 1, 2** : révisés pour le workflow Claude Code, git progressif, temps réalistes
 - **Module 3** : partiellement mis à jour (git ajouté) — le workflow Claude Code n'est pas encore adapté (références à "collez le plan", "nouvelle conversation avec Claude")
-- **Modules 4, 5** : réécrits (M4 = mini-projet vérification, M5 = appliquer au club de lecture). Workflow Claude Code adapté.
+- **projet1_votre_premier_plan.md** : mini-projet intermédiaire entre M3 et M4 — statut inconnu, à vérifier
+- **Modules 4, 5** : réécrits (M4 = mini-projet vérification, M5 = appliquer au club de lecture). Workflow Claude Code adapté. Points à améliorer identifiés :
+  - M4 : confirmer le répertoire de travail avant `claude` ; clarifier que la demande exemple à Claude à l'étape 6 est à adapter (pas à copier mot pour mot) ; formuler la commande de tests de façon moins incertaine
+  - M5 : ajouter une étape de test manuel du site avant les vérifications écrites ; clarifier `[copiez la vérification exacte]` pour les non-programmeurs ; ajouter un signal de clôture à l'étape 6 (facultatif)
 - **Module 6** (ex-M5, les vrais mots) : réflexes renumérotés (15-17), références mises à jour — le workflow Claude Code n'est pas encore adapté (références à "collez le plan", "un compte Claude")
 - **Module 7** (ex-M6, la bascule) : références mises à jour
 - **Modules 8-11** (ex-M7-10) : renommés, titres et références internes mis à jour — non révisés pour le workflow Claude Code, utilisent les anciennes conventions

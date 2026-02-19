@@ -25,6 +25,16 @@ C'est pareil pour la vérification. Le mini-projet était le circuit. Le club de
 
 ---
 
+## Avant de commencer — testez le site (10 min)
+
+Avant d'écrire la moindre vérification, passez dix minutes à tester votre club de lecture comme un utilisateur ordinaire. C'est le même réflexe qu'à l'Étape 2 du Module 4 : votre regard d'utilisateur attrape ce que les vérifications écrites ne voient pas.
+
+Dans le terminal de VSCode, assurez-vous d'être dans `formation-ia/`, puis lancez le site avec la même commande qu'au Module 1 (`npm start` ou celle que Claude vous a donnée). Ouvrez l'adresse dans votre navigateur et essayez quelques actions : inscrivez-vous à une réunion, annulez, naviguez.
+
+> ✍️ Notez 2-3 choses qui vous semblent bizarres ou qui ne fonctionnent pas comme prévu.
+
+---
+
 ## Étape 1 — Écrire les vérifications dans les fiches (45 min)
 
 ### Ce que vous allez faire
@@ -172,7 +182,9 @@ git commit -m "Avant corrections : état actuel du club de lecture"
 
 Quittez (`/exit`), relancez Claude Code (`claude`), et demandez-lui de corriger un problème précis :
 
-> Lis plan.md et la fiche fiches/reunions.md. La vérification suivante échoue : "[copiez la vérification exacte]". Corrige ça en respectant les parcours décrits dans la fiche.
+Voici un exemple de demande — remplacez la partie entre guillemets par la phrase exacte de votre ❌, copiée telle quelle depuis le rapport :
+
+> Lis plan.md et la fiche fiches/reunions.md. La vérification suivante échoue : "Marie n'est PAS inscrite quand le paiement échoue". Corrige ça en respectant les parcours décrits dans la fiche.
 
 **Vérifier l'ampleur avec `git diff` :**
 
@@ -238,6 +250,8 @@ Si vous avez le temps et l'énergie, répétez le cycle pour une ou deux autres 
 6. Commettez après chaque correction
 
 Vous n'êtes pas obligé de couvrir toutes les fiches. Ce qui compte, c'est que les parties **critiques** (celles qui touchent à l'argent, aux données, aux inscriptions) aient des vérifications solides.
+
+**Quand s'arrêter ?** Quand les parties critiques n'ont plus de ❌ graves — argent mal géré, données incohérentes, parcours non implémenté. Vous n'avez pas besoin d'un rapport tout vert. Vous avez besoin d'un projet dont vous *connaissez* l'état.
 
 ---
 
